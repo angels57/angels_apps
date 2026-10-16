@@ -34,7 +34,6 @@ class SignRequestItem(models.Model):
         ],
         string="Status",
         default="pending",
-        tracking=True,
         readonly=True,
     )
     access_token = fields.Char(

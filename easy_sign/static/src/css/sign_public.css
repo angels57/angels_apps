@@ -631,6 +631,6 @@ html[dir="rtl"] .es-pdf-panel {
     }
 }
 
-.d-none {
+.es-hidden {
     display: none !important;
 }

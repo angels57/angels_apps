@@ -1,6 +1,7 @@
+/** @odoo-module ignore */
 /**
  * Easy Sign — Public Signing Page JavaScript
- * Self-hosted electronic signature for Odoo 18
+ * Self-hosted electronic signature for Odoo 19
  * Handles: canvas drawing, mouse events, touch events, sign/decline submission
  */
 (function () {
@@ -159,24 +160,36 @@
 
 
         function hideMessages() {
-            if (msgSuccess) { msgSuccess.classList.add('d-none'); }
-            if (msgError)   { msgError.classList.add('d-none'); }
-            if (msgDeclined){ msgDeclined.classList.add('d-none'); }
+            if (msgSuccess) { msgSuccess.classList.add('es-hidden'); }
+            if (msgError)   { msgError.classList.add('es-hidden'); }
+            if (msgDeclined){ msgDeclined.classList.add('es-hidden'); }
         }
 
         function showError(text) {
             hideMessages();
             if (msgError && msgErrorText) {
                 msgErrorText.textContent = text;
-                msgError.classList.remove('d-none');
+                msgError.classList.remove('es-hidden');
             }
+        }
+
+        /* Non-JSON answers (e.g. an expired CSRF session) become a readable error. */
+        function parseResponse(response) {
+            return response.json().then(function (data) {
+                return { status: response.status, data: data };
+            }, function () {
+                return {
+                    status: response.status,
+                    data: { success: false, error: 'Your session has expired. Please reload the page and try again.' },
+                };
+            });
         }
 
         function setSignButtonLoading(loading) {
             if (!btnSign) { return; }
             btnSign.disabled = loading;
-            if (btnSignText)    { btnSignText.classList.toggle('d-none', loading); }
-            if (btnSignSpinner) { btnSignSpinner.classList.toggle('d-none', !loading); }
+            if (btnSignText)    { btnSignText.classList.toggle('es-hidden', loading); }
+            if (btnSignSpinner) { btnSignSpinner.classList.toggle('es-hidden', !loading); }
         }
 
 
@@ -206,21 +219,18 @@
 
                 var formData = new FormData();
                 formData.append('signature', signatureDataURL);
+                formData.append('csrf_token', btnSign.getAttribute('data-csrf') || '');
 
                 fetch('/sign/submit/' + token, {
                     method: 'POST',
                     body: formData,
                 })
-                .then(function (response) {
-                    return response.json().then(function (data) {
-                        return { status: response.status, data: data };
-                    });
-                })
+                .then(parseResponse)
                 .then(function (result) {
                     setSignButtonLoading(false);
                     if (result.data && result.data.success) {
                         // Success — show message and disable further interaction
-                        if (msgSuccess) { msgSuccess.classList.remove('d-none'); }
+                        if (msgSuccess) { msgSuccess.classList.remove('es-hidden'); }
                         if (btnSign)    { btnSign.style.display = 'none'; }
                         if (btnClear)   { btnClear.disabled = true; }
                         if (btnShowDecline) { btnShowDecline.style.display = 'none'; }
@@ -248,7 +258,7 @@
 
         if (btnShowDecline) {
             btnShowDecline.addEventListener('click', function () {
-                if (declineForm) { declineForm.classList.remove('d-none'); }
+                if (declineForm) { declineForm.classList.remove('es-hidden'); }
                 btnShowDecline.style.display = 'none';
                 hideMessages();
             });
@@ -256,7 +266,7 @@
 
         if (btnCancelDecline) {
             btnCancelDecline.addEventListener('click', function () {
-                if (declineForm) { declineForm.classList.add('d-none'); }
+                if (declineForm) { declineForm.classList.add('es-hidden'); }
                 if (btnShowDecline) { btnShowDecline.style.display = ''; }
             });
         }
@@ -277,23 +287,20 @@
 
                 var formData = new FormData();
                 formData.append('reason', reason);
+                formData.append('csrf_token', btnConfirmDecline.getAttribute('data-csrf') || '');
 
                 fetch('/sign/decline/' + token, {
                     method: 'POST',
                     body: formData,
                 })
-                .then(function (response) {
-                    return response.json().then(function (data) {
-                        return { status: response.status, data: data };
-                    });
-                })
+                .then(parseResponse)
                 .then(function (result) {
                     btnConfirmDecline.disabled = false;
                     btnConfirmDecline.textContent = 'Confirm Decline';
 
                     if (result.data && result.data.success) {
-                        if (declineForm) { declineForm.classList.add('d-none'); }
-                        if (msgDeclined) { msgDeclined.classList.remove('d-none'); }
+                        if (declineForm) { declineForm.classList.add('es-hidden'); }
+                        if (msgDeclined) { msgDeclined.classList.remove('es-hidden'); }
                         if (btnSign)     { btnSign.style.display = 'none'; }
                         if (canvasWrap)  { canvasWrap.style.pointerEvents = 'none'; }
                         // Redirect to declined page

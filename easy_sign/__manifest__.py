@@ -1,9 +1,9 @@
 {
     "name": "Easy Sign - Electronic Signature",
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "summary": "Self-hosted electronic signature: send PDF documents for signing directly from Odoo",
     "description": """
-Easy Sign - Electronic Signature for Odoo 18
+Easy Sign - Electronic Signature for Odoo 19
 =============================================
 
 A complete self-hosted electronic signature solution that works 100% inside Odoo
@@ -29,14 +29,15 @@ Features:
     "data": [
         "security/ir.model.access.csv",
         "data/ir_sequence.xml",
-        "data/mail_template.xml",
         "templates/sign_page.xml",
         "views/sign_request_views.xml",
         "views/menus.xml",
     ],
     "assets": {
-        "web.assets_frontend": [
+        "easy_sign.assets_sign_page": [
             "easy_sign/static/src/css/sign_public.css",
+            "easy_sign/static/src/css/sign_page.css",
+            "easy_sign/static/src/js/sign_lang.js",
             "easy_sign/static/src/js/sign_public.js",
         ],
     },

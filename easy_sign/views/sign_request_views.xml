@@ -77,11 +77,13 @@
                     </div>
 
                     <div class="alert alert-success mb-3"
+                         role="status"
                          invisible="state != 'signed'">
                         <strong>All parties have signed this document.</strong>
                         The signed document is available for download.
                     </div>
                     <div class="alert alert-warning mb-3"
+                         role="status"
                          invisible="state != 'sent'">
                         <strong>Waiting for signatures:</strong>
                         <field name="signed_count" readonly="1"/> of
@@ -207,7 +209,7 @@
                 <filter string="My Requests"
                         name="filter_my"
                         domain="[('user_id', '=', uid)]"/>
-                <group expand="0" string="Group By">
+                <group name="group_by">
                     <filter string="State"
                             name="group_state"
                             context="{'group_by': 'state'}"/>

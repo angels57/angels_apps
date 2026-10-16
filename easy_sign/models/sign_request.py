@@ -1,8 +1,14 @@
 import io
 import base64
 import logging
+from urllib.parse import quote
+
+from markupsafe import escape
+
 from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools import html2plaintext
+from odoo.tools.pdf import PdfReader, PdfWriter
 
 _logger = logging.getLogger(__name__)
 
@@ -175,6 +181,13 @@ class SignRequest(models.Model):
         company = self.env.company
         doc_name = self.document_name or self.name or "Document"
         requester = self.user_id.name or company.name
+        # Every interpolated value is escaped: names and file names are user input.
+        e_doc_name = escape(doc_name)
+        e_ref = escape(self.name)
+        e_signer = escape(item.signer_name)
+        e_requester = escape(requester)
+        e_company = escape(company.name)
+        e_sign_url = escape(sign_url)
 
         expiry_block = ""
         if self.expiry_date:
@@ -185,8 +198,7 @@ class SignRequest(models.Model):
 
         message_block = ""
         if self.message:
-            import re
-            msg = re.sub(r'<[^>]+>', '', str(self.message)).strip()
+            msg = escape(html2plaintext(self.message).strip())
             message_block = f"""
         <div style="background:#fffbf0;border:1px solid #fde68a;padding:16px 20px;border-radius:10px;margin:0 0 24px 0;">
             <p style="margin:0 0 6px 0;font-size:11px;color:#92400e;font-weight:700;text-transform:uppercase;letter-spacing:.5px;">
@@ -201,28 +213,28 @@ class SignRequest(models.Model):
     <div style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);padding:40px 36px;text-align:center;">
         <div style="width:60px;height:60px;background:rgba(255,255,255,.15);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:28px;">&#9997;&#65039;</div>
         <h1 style="color:#ffffff;margin:0;font-size:22px;font-weight:700;">Document Signature Request</h1>
-        <p style="color:rgba(255,255,255,.65);margin:8px 0 0 0;font-size:13px;">{company.name}</p>
+        <p style="color:rgba(255,255,255,.65);margin:8px 0 0 0;font-size:13px;">{e_company}</p>
     </div>
 
     <div style="padding:40px 36px;">
         <p style="font-size:16px;color:#1e293b;margin:0 0 12px 0;">
-            Dear <strong>{item.signer_name}</strong>,
+            Dear <strong>{e_signer}</strong>,
         </p>
         <p style="font-size:14px;color:#64748b;line-height:1.7;margin:0 0 24px 0;">
-            <strong style="color:#1e293b;">{requester}</strong>
+            <strong style="color:#1e293b;">{e_requester}</strong>
             has requested your electronic signature on the following document:
         </p>
 
         <div style="background:#f0f4ff;border:1px solid #c7d7fe;border-left:4px solid #2563eb;padding:18px 22px;border-radius:0 10px 10px 0;margin:0 0 24px 0;">
-            <p style="margin:0;font-size:15px;color:#1e293b;font-weight:700;">&#128196; {doc_name}</p>
-            <p style="margin:8px 0 0 0;font-size:12px;color:#64748b;">Reference: <strong>{self.name}</strong></p>
+            <p style="margin:0;font-size:15px;color:#1e293b;font-weight:700;">&#128196; {e_doc_name}</p>
+            <p style="margin:8px 0 0 0;font-size:12px;color:#64748b;">Reference: <strong>{e_ref}</strong></p>
             {expiry_block}
         </div>
 
         {message_block}
 
         <div style="text-align:center;margin:32px 0 24px 0;">
-            <a href="{sign_url}"
+            <a href="{e_sign_url}"
                style="display:inline-block;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#ffffff;text-decoration:none;padding:16px 48px;border-radius:10px;font-size:16px;font-weight:700;box-shadow:0 6px 20px rgba(37,99,235,.35);">
                 &#9997;&#65039; Review &amp; Sign Document
             </a>
@@ -232,7 +244,7 @@ class SignRequest(models.Model):
             If the button does not work, copy this link:
         </p>
         <p style="font-size:11px;text-align:center;margin:0 0 30px 0;word-break:break-all;">
-            <a href="{sign_url}" style="color:#2563eb;">{sign_url}</a>
+            <a href="{e_sign_url}" style="color:#2563eb;">{e_sign_url}</a>
         </p>
 
         <div style="border-top:1px solid #f1f5f9;padding-top:20px;">
@@ -349,22 +361,6 @@ class SignRequest(models.Model):
         _logger.info("_create_signed_document called for %s", self.name)
 
         try:
-            from odoo.tools.pdf import PdfReader, PdfWriter
-        except Exception:
-            try:
-                from pypdf import PdfReader, PdfWriter
-            except ImportError:
-                try:
-                    from PyPDF2 import PdfReader, PdfWriter
-                except ImportError:
-                    _logger.warning("No PDF library available — saving original as signed document.")
-                    self.write({
-                        "signed_document": self.document,
-                        "signed_document_name": f"signed_{self.document_name or 'document.pdf'}",
-                    })
-                    return
-
-        try:
             pdf_bytes = base64.b64decode(self.document)
             reader = PdfReader(io.BytesIO(pdf_bytes))
             writer = PdfWriter()
@@ -387,10 +383,7 @@ class SignRequest(models.Model):
                 if overlay_bytes:
                     overlay_reader = PdfReader(io.BytesIO(overlay_bytes))
                     overlay_page = overlay_reader.pages[0]
-                    if hasattr(last_page, 'merge_page'):
-                        last_page.merge_page(overlay_page)
-                    elif hasattr(last_page, 'mergePage'):
-                        last_page.mergePage(overlay_page)
+                    last_page.merge_page(overlay_page)
                     _logger.info("Signature overlay merged into last page of %s", self.name)
                 else:
                     _logger.warning("No overlay generated — signatures will not appear in PDF")
@@ -398,7 +391,7 @@ class SignRequest(models.Model):
             writer.add_metadata({
                 "/Title": self.document_name or self.name,
                 "/Subject": f"Signed via Easy Sign - {self.name}",
-                "/Creator": "Easy Sign - Odoo 18",
+                "/Creator": "Easy Sign - Odoo 19",
             })
 
             output = io.BytesIO()
@@ -432,10 +425,10 @@ class SignRequest(models.Model):
             .get_param("web.base.url")
         )
         doc_url = (
-            f"{base_url}/web#model=sign.request&id={self.id}&view_type=form"
+            f"{base_url}/odoo/sign.request/{self.id}"
         )
         signers_html = "".join(
-            f"<li>{item.signer_name} &lt;{item.signer_email}&gt; — "
+            f"<li>{escape(item.signer_name)} &lt;{escape(item.signer_email)}&gt; — "
             f"Signed on {item.signed_date.strftime('%Y-%m-%d %H:%M') if item.signed_date else 'N/A'}</li>"
             for item in self.request_item_ids.filtered(lambda i: i.state == "signed")
         )
@@ -446,11 +439,11 @@ class SignRequest(models.Model):
   </div>
   <div style="background: #f9f9f9; padding: 32px; border-radius: 0 0 8px 8px;">
     <p>Great news! All signers have completed signing the document
-       <strong>"{self.document_name or self.name}"</strong>.</p>
+       <strong>"{escape(self.document_name or self.name)}"</strong>.</p>
     <p><strong>Signers:</strong></p>
     <ul>{signers_html}</ul>
     <div style="text-align: center; margin: 32px 0;">
-      <a href="{doc_url}" style="
+      <a href="{escape(doc_url)}" style="
         background: #27ae60;
         color: white;
         padding: 14px 36px;
@@ -485,9 +478,9 @@ class SignRequest(models.Model):
     <h2 style="color: #ffffff; margin: 0;">Signing Declined</h2>
   </div>
   <div style="background: #f9f9f9; padding: 32px; border-radius: 0 0 8px 8px;">
-    <p><strong>{item.signer_name}</strong> ({item.signer_email}) has declined to sign
-       the document <strong>"{self.document_name or self.name}"</strong>.</p>
-    {f'<p><strong>Reason:</strong> {item.declined_reason}</p>' if item.declined_reason else ''}
+    <p><strong>{escape(item.signer_name)}</strong> ({escape(item.signer_email)}) has declined to sign
+       the document <strong>"{escape(self.document_name or self.name)}"</strong>.</p>
+    {f'<p><strong>Reason:</strong> {escape(item.declined_reason)}</p>' if item.declined_reason else ''}
   </div>
 </div>
 """
@@ -512,6 +505,6 @@ class SignRequest(models.Model):
             raise UserError("The signed document is not yet available.")
         return {
             "type": "ir.actions.act_url",
-            "url": f"/web/content/sign.request/{self.id}/signed_document/{self.signed_document_name}?download=true",
+            "url": f"/web/content/sign.request/{self.id}/signed_document/{quote(self.signed_document_name or 'signed.pdf')}?download=true",
             "target": "self",
         }

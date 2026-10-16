@@ -30,7 +30,6 @@ class EasySignController(http.Controller):
         "/sign/view/<string:token>",
         type="http",
         auth="public",
-        website=True,
         sitemap=False,
     )
     def sign_view(self, token, **kwargs):
@@ -85,6 +84,7 @@ class EasySignController(http.Controller):
             "sign_request": sign_request,
             "token": token,
             "document_url": f"/sign/document/{token}",
+            "csrf_token": request.csrf_token(),
         })
 
 
@@ -97,19 +97,19 @@ class EasySignController(http.Controller):
     def sign_document(self, token, **kwargs):
         item = self._get_item_by_token(token)
         if not item or not item.request_id.document:
-            return request.not_found()
+            raise request.not_found()
 
         sign_request = item.request_id
 
         if sign_request.state == "cancelled" or item.state == "cancelled":
-            return request.not_found()
+            raise request.not_found()
         if self._is_expired(sign_request):
-            return request.not_found()
+            raise request.not_found()
 
         try:
             pdf_bytes = base64.b64decode(sign_request.document)
         except Exception:
-            return request.not_found()
+            raise request.not_found()
 
         filename = sign_request.document_name or "document.pdf"
         return request.make_response(
@@ -128,7 +128,7 @@ class EasySignController(http.Controller):
         type="http",
         auth="public",
         methods=["POST"],
-        csrf=False,
+        csrf=True,
         sitemap=False,
     )
     def sign_submit(self, token, **kwargs):
@@ -188,10 +188,10 @@ class EasySignController(http.Controller):
                 json.dumps({"success": True}),
                 headers=[("Content-Type", "application/json")],
             )
-        except Exception as e:
-            _logger.error("Error saving signature for token %s: %s", token, e)
+        except Exception:
+            _logger.exception("Error saving signature for sign.request.item %s", item.id)
             return request.make_response(
-                json.dumps({"success": False, "error": str(e)}),
+                json.dumps({"success": False, "error": "The signature could not be saved."}),
                 headers=[("Content-Type", "application/json")],
                 status=500,
             )
@@ -202,7 +202,7 @@ class EasySignController(http.Controller):
         type="http",
         auth="public",
         methods=["POST"],
-        csrf=False,
+        csrf=True,
         sitemap=False,
     )
     def sign_decline(self, token, **kwargs):
@@ -219,6 +219,13 @@ class EasySignController(http.Controller):
         if sign_request.state == "cancelled" or item.state == "cancelled":
             return request.make_response(
                 json.dumps({"success": False, "error": "Request is cancelled"}),
+                headers=[("Content-Type", "application/json")],
+                status=400,
+            )
+
+        if self._is_expired(sign_request):
+            return request.make_response(
+                json.dumps({"success": False, "error": "Request has expired"}),
                 headers=[("Content-Type", "application/json")],
                 status=400,
             )
@@ -242,10 +249,10 @@ class EasySignController(http.Controller):
                 json.dumps({"success": True}),
                 headers=[("Content-Type", "application/json")],
             )
-        except Exception as e:
-            _logger.error("Error declining for token %s: %s", token, e)
+        except Exception:
+            _logger.exception("Error declining sign.request.item %s", item.id)
             return request.make_response(
-                json.dumps({"success": False, "error": str(e)}),
+                json.dumps({"success": False, "error": "The document could not be declined."}),
                 headers=[("Content-Type", "application/json")],
                 status=500,
             )
