@@ -167,6 +167,6 @@ class TestRequestFlow(EasySignCase):
         with self.assertRaises(UserError):
             doc.name = "locked.pdf"
         copy_action = template.action_edit_copy()
-        copy = self.env["sign.template"].browse(copy_action["res_id"])
+        copy = self.env["sign.template"].browse(copy_action["context"]["active_id"])
         self.assertEqual(len(copy.item_ids), 1)
         copy.document_ids.name = "editable.pdf"

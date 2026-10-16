@@ -50,9 +50,6 @@ Adapted to Odoo 19 and maintained by Angels SAS.
     ],
     "assets": {
         "web.assets_backend": [
-            "easy_sign/static/src/backend/layout_editor.js",
-            "easy_sign/static/src/backend/layout_editor.xml",
-            "easy_sign/static/src/backend/layout_editor.css",
             "easy_sign/static/src/editor/*.js",
             "easy_sign/static/src/editor/*.xml",
             "easy_sign/static/src/editor/*.css",

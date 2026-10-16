@@ -3,7 +3,7 @@
 # 	* easy_sign
 #
 msgid ""
-msgstr "Project-Id-Version: Odoo Server 19.0-20261015\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2026-10-16 03:21+0000\nPO-Revision-Date: 2026-10-16 03:21+0000\nLast-Translator: \nLanguage-Team: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: \nPlural-Forms: \n"
+msgstr "Project-Id-Version: Odoo Server 19.0-20261015\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2026-10-16 08:31+0000\nPO-Revision-Date: 2026-10-16 08:31+0000\nLast-Translator: \nLanguage-Team: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: \nPlural-Forms: \n"
 
 #. module: easy_sign
 #. odoo-python
@@ -301,9 +301,9 @@ msgstr "أيقونة نوع النشاط"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
-msgid "Add a PDF document above to place the fields."
-msgstr "أضف مستند PDF أعلاه لوضع الحقول."
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Add"
+msgstr "إضافة"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_request
@@ -312,15 +312,15 @@ msgstr "أضف ملف PDF والموقّعين، ضع الحقول ثم اضغط
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
-msgid "Add a role above first."
-msgstr "أضف دوراً أعلاه أولاً."
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Add a signer to place fields."
+msgstr "أضف موقّعاً لوضع الحقول."
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
-msgid "Add a signer above first."
-msgstr "أضف موقّعاً أعلاه أولاً."
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Add a tag"
+msgstr "أضف وسماً"
 
 #. module: easy_sign
 #. odoo-python
@@ -351,7 +351,7 @@ msgstr "المحاذاة"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "All pages"
 msgstr "كل الصفحات"
 
@@ -400,7 +400,6 @@ msgstr "استخدم دائماً جهة الاتصال هذه للدور (مث�
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_search
 msgid "Archived"
 msgstr "مؤرشف"
@@ -436,6 +435,12 @@ msgstr "لا يمكن تعديل سجلات التدقيق."
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__linked_field
 msgid "Auto-complete"
 msgstr "إكمال تلقائي"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Automatic Zoom"
+msgstr "تكبير تلقائي"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__model_id
@@ -488,7 +493,7 @@ msgstr "ملغى: %s"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__center
 msgid "Center"
 msgstr "وسط"
@@ -512,7 +517,7 @@ msgstr "شهادة الإتمام"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__checkbox
 msgid "Checkbox"
 msgstr "مربع اختيار"
@@ -524,10 +529,16 @@ msgid "Choose a template or a PDF."
 msgstr "اختر قالباً أو ملف PDF."
 
 #. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "Choose at least one PDF file."
+msgstr "اختر ملف PDF واحداً على الأقل."
+
+#. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
-msgid "Click on the page where the field goes."
-msgstr "انقر على الصفحة حيث يوضع الحقل."
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "City"
+msgstr "المدينة"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__color
@@ -537,9 +548,17 @@ msgid "Color"
 msgstr "اللون"
 
 #. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__company_id
 msgid "Company"
 msgstr "الشركة"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "Company Name"
+msgstr "اسم الشركة"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__completed_date
@@ -557,11 +576,6 @@ msgid "Completed on (UTC)"
 msgstr "تاريخ الإتمام (UTC)"
 
 #. module: easy_sign
-#: model:ir.ui.menu,name:easy_sign.menu_sign_config
-msgid "Configuration"
-msgstr "الإعدادات"
-
-#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__partner_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__partner_id
 msgid "Contact"
@@ -576,6 +590,12 @@ msgstr "جهات الاتصال التي تتلقى المستند الموقّ�
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__cc_partner_ids
 msgid "Copy To"
 msgstr "نسخة إلى"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "Country"
+msgstr "الدولة"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_template
@@ -612,7 +632,7 @@ msgstr "تاريخ الإنشاء"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__date
 msgid "Date"
 msgstr "التاريخ"
@@ -638,13 +658,13 @@ msgid "Declined"
 msgstr "مرفوض"
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_properties_form
 msgid "Default message for the signers"
 msgstr "الرسالة الافتراضية للموقّعين"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Delete"
 msgstr "حذف"
 
@@ -655,6 +675,7 @@ msgstr "تجاهل"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_editor_mixin__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__display_name
@@ -668,8 +689,11 @@ msgid "Display Name"
 msgstr "اسم العرض"
 
 #. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__document_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__document_name
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_document_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Document"
 msgstr "الوثيقة"
@@ -706,6 +730,8 @@ msgid "Document signed with Easy Sign: %s"
 msgstr "مستند موقّع عبر Easy Sign: %s"
 
 #. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__document_ids
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__document_ids
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
@@ -748,6 +774,11 @@ msgid "Easy Sign"
 msgstr "التوقيع الإلكتروني"
 
 #. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_editor_mixin
+msgid "Easy Sign PDF Editor"
+msgstr "محرر PDF في Easy Sign"
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_layout
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Easy Sign ·"
@@ -770,7 +801,24 @@ msgid "Easy Sign: send reminders"
 msgstr "Easy Sign: إرسال التذكيرات"
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Edit"
+msgstr "تعديل"
+
+#. module: easy_sign
+#: model:ir.actions.client,name:easy_sign.action_sign_request_editor
+msgid "Edit Document"
+msgstr "تعديل المستند"
+
+#. module: easy_sign
+#: model:ir.actions.client,name:easy_sign.action_sign_template_editor
+msgid "Edit Template"
+msgstr "تعديل القالب"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Edit a Copy"
 msgstr "تعديل نسخة"
 
@@ -780,10 +828,10 @@ msgid "Electronic Signature Request"
 msgstr "طلب توقيع إلكتروني"
 
 #. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__signer_email
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signer_email
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
@@ -857,16 +905,8 @@ msgid "Extra files sent with the invitation email."
 msgstr "ملفات إضافية تُرسل مع بريد الدعوة."
 
 #. module: easy_sign
-#. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
-msgid "Field"
-msgstr "الحقل"
-
-#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__item_ids
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__item_ids
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
 msgid "Fields"
 msgstr "الحقول"
 
@@ -875,12 +915,6 @@ msgstr "الحقول"
 #: code:addons/easy_sign/models/sign_item.py:0
 msgid "Fields cannot be changed once the request has been sent."
 msgstr "لا يمكن تغيير الحقول بعد إرسال الطلب."
-
-#. module: easy_sign
-#: model:ir.model.fields,field_description:easy_sign.field_sign_request__item_count
-#: model:ir.model.fields,field_description:easy_sign.field_sign_template__item_count
-msgid "Fields placed"
-msgstr "الحقول الموضوعة"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__name
@@ -937,6 +971,7 @@ msgstr "مرحباً"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_editor_mixin__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__id
@@ -982,7 +1017,7 @@ msgstr "إذا كان محدداً، يوجد خطأ في إرسال بعض ال
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__initials
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__initials
 msgid "Initials"
@@ -1064,7 +1099,7 @@ msgstr "تاريخ آخر تحديث"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__left
 msgid "Left"
 msgstr "يسار"
@@ -1086,12 +1121,6 @@ msgid "Link:"
 msgstr "الرابط:"
 
 #. module: easy_sign
-#. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
-msgid "Load the document to place fields"
-msgstr "حمّل المستند لوضع الحقول"
-
-#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Loading document…"
 msgstr "جاري تحميل الوثيقة…"
@@ -1107,7 +1136,7 @@ msgid "Message Delivery error"
 msgstr "خطأ في إرسال الرسالة"
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_properties_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
 msgid "Message for the signers"
 msgstr "رسالة للموقّعين"
@@ -1119,7 +1148,23 @@ msgstr "الرسائل"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Move down"
+msgstr "نقل للأسفل"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Move up"
+msgstr "نقل للأعلى"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "Multiline"
+msgstr "متعدد الأسطر"
+
+#. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__textarea
 msgid "Multiline Text"
 msgstr "نص متعدد الأسطر"
@@ -1135,6 +1180,8 @@ msgid "My Requests"
 msgstr "طلباتي"
 
 #. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__signer_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signer_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__name
@@ -1142,11 +1189,6 @@ msgstr "طلباتي"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__name
 msgid "Name"
 msgstr "الاسم"
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
-msgid "New Request"
-msgstr "طلب جديد"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_date_deadline
@@ -1165,7 +1207,13 @@ msgstr "نوع النشاط القادم"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Next page"
+msgstr "الصفحة التالية"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "No auto-complete"
 msgstr "بدون إكمال تلقائي"
 
@@ -1205,6 +1253,12 @@ msgstr "عدد الرسائل التي تتطلب إجراءً"
 #: model:ir.model.fields,help:easy_sign.field_sign_request__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "عدد الرسائل التي بها خطأ في الإرسال"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "One option per line"
+msgstr "خيار واحد في كل سطر"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_item__options
@@ -1247,14 +1301,25 @@ msgid "Only these groups can use the template. Empty: every Easy Sign user."
 msgstr "هذه المجموعات فقط يمكنها استخدام القالب. فارغ: كل مستخدمي Easy Sign."
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Open Editor"
+msgstr "فتح المحرر"
+
+#. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Open a document from the list to edit it."
+msgstr "افتح مستنداً من القائمة لتعديله."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 msgid "Option 1"
 msgstr "الخيار 1"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 msgid "Option 2"
 msgstr "الخيار 2"
 
@@ -1264,6 +1329,8 @@ msgid "Optional: provide a reason..."
 msgstr "اختياري: اذكر السبب..."
 
 #. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__options
 msgid "Options"
 msgstr "الخيارات"
@@ -1302,7 +1369,6 @@ msgstr "تاريخ إرسال الرمز"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__file
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__file
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
 msgid "PDF"
 msgstr "PDF"
 
@@ -1324,7 +1390,6 @@ msgstr "عدد الصفحات"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
 msgid "Pages"
 msgstr "الصفحات"
 
@@ -1335,7 +1400,13 @@ msgstr "في الانتظار"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "Phone"
+msgstr "الهاتف"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__placeholder
 msgid "Placeholder"
 msgstr "نص توضيحي"
@@ -1365,7 +1436,7 @@ msgid "Please sign: %s"
 msgstr "يرجى التوقيع: %s"
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_properties_form
 msgid "Please sign: ..."
 msgstr "يرجى التوقيع: ..."
 
@@ -1386,14 +1457,29 @@ msgstr "بصمة السجل السابق"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Previous page"
+msgstr "الصفحة السابقة"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor_action.js:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_properties_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_properties_form
+msgid "Properties"
+msgstr "الخصائص"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__radio
 msgid "Radio"
 msgstr "اختيار فردي"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Read-only"
 msgstr "للقراءة فقط"
 
@@ -1450,6 +1536,19 @@ msgstr "تم إرسال تذكير"
 #: code:addons/easy_sign/models/sign_request_mail.py:0
 msgid "Reminder: %s"
 msgstr "تذكير: %s"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Remove"
+msgstr "إزالة"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Rename"
+msgstr "إعادة تسمية"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__request_id
@@ -1511,7 +1610,7 @@ msgstr "الطلبات"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__required
 msgid "Required"
 msgstr "مطلوب"
@@ -1543,24 +1642,21 @@ msgstr "مراجعة وتوقيع"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__right
 msgid "Right"
 msgstr "يمين"
 
 #. module: easy_sign
-#. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__role_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__role_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__role_id
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_role_form
 msgid "Role"
 msgstr "الدور"
 
 #. module: easy_sign
-#: model:ir.actions.act_window,name:easy_sign.action_sign_role
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__role_ids
-#: model:ir.ui.menu,name:easy_sign.menu_sign_roles
 msgid "Roles"
 msgstr "الأدوار"
 
@@ -1571,13 +1667,32 @@ msgstr "SHA-256"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Saved"
+msgstr "تم الحفظ"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Saving…"
+msgstr "جاري الحفظ…"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Search"
+msgstr "بحث"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__selection
 msgid "Selection"
 msgstr "قائمة اختيار"
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
 msgid "Send"
 msgstr "إرسال"
@@ -1606,7 +1721,13 @@ msgstr "التسلسل"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Sign Now"
+msgstr "وقّع الآن"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signature
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__signature
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
@@ -1751,13 +1872,22 @@ msgstr "موقّع: %s"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.xml:0
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__request_item_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__request_item_id
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_item_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Signer"
 msgstr "الموقّع"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "Signer %s"
+msgstr "الموقّع %s"
 
 #. module: easy_sign
 #. odoo-python
@@ -1787,6 +1917,8 @@ msgid "Signer replaced by %s"
 msgstr "تم استبدال الموقّع بـ %s"
 
 #. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__request_item_ids
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__signer_ids
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
@@ -1841,7 +1973,7 @@ msgstr "بعض الحقول لا تخص هذا الموقّع."
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__stamp
 msgid "Stamp"
 msgstr "ختم"
@@ -1860,25 +1992,42 @@ msgstr "الحالة بناءً على الأنشطة\nمتأخر: انتهى ا
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "Street"
+msgstr "الشارع"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__strike
 msgid "Strikethrough"
 msgstr "شطب"
 
 #. module: easy_sign
-#: model:ir.actions.act_window,name:easy_sign.action_sign_tag
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__tag_ids
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__tag_ids
-#: model:ir.ui.menu,name:easy_sign.menu_sign_tags
 msgid "Tags"
 msgstr "الوسوم"
 
 #. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Tags:"
+msgstr "الوسوم:"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "Tax ID"
+msgstr "الرقم الضريبي"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__template_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__template_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__template_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__template_id
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
 msgid "Template"
 msgstr "القالب"
 
@@ -1891,7 +2040,7 @@ msgstr "القوالب"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/backend/layout_editor.js:0
+#: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__text
 msgid "Text"
 msgstr "نص"
@@ -2039,6 +2188,12 @@ msgstr "هذا الرابط شخصي. لا تشاركه."
 
 #. module: easy_sign
 #. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "This request has been sent: documents and fields can no longer be changed."
+msgstr "تم إرسال هذا الطلب: لم يعد بالإمكان تغيير المستندات والحقول."
+
+#. module: easy_sign
+#. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "This signature request has been cancelled."
 msgstr "تم إلغاء طلب التوقيع هذا."
@@ -2074,14 +2229,21 @@ msgid "This template has already been used. Edit a copy instead."
 msgstr "تم استخدام هذا القالب مسبقاً. عدّل نسخة منه بدلاً من ذلك."
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
-msgid "This template has been used: documents and fields are locked. Use \"Edit a Copy\" to change them."
-msgstr "تم استخدام هذا القالب: المستندات والحقول مقفلة. استخدم \"تعديل نسخة\" لتغييرها."
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "This template has been used: documents and fields are locked. Edit a copy to change them."
+msgstr "تم استخدام هذا القالب: المستندات والحقول مقفلة. عدّل نسخة منه لتغييرها."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "This verification code belongs to a completed signature."
 msgstr "رمز التحقق هذا يخص توقيعاً مكتملاً."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Thumbnails"
+msgstr "الصور المصغّرة"
 
 #. module: easy_sign
 #. odoo-python
@@ -2119,6 +2281,12 @@ msgstr "UTC"
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "UTC ·"
 msgstr "UTC ·"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/list_upload.xml:0
+msgid "Upload PDF"
+msgstr "رفع PDF"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_template
@@ -2254,6 +2422,18 @@ msgstr "غير مسموح لك باستخدام هذا القالب."
 
 #. module: easy_sign
 #. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "You are not one of the signers. Add yourself as a signer first."
+msgstr "لست من الموقّعين. أضف نفسك كموقّع أولاً."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "You have already signed this document."
+msgstr "لقد وقّعت هذا المستند مسبقاً."
+
+#. module: easy_sign
+#. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "You will receive an email when it is your turn to sign."
 msgstr "ستتلقى بريداً عندما يحين دورك للتوقيع."
@@ -2290,6 +2470,24 @@ msgid "Your signing code: %s"
 msgstr "رمز التوقيع الخاص بك: %s"
 
 #. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "ZIP"
+msgstr "الرمز البريدي"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Zoom in"
+msgstr "تكبير"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Zoom out"
+msgstr "تصغير"
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
 msgid "asks you to sign"
 msgstr "يطلب منك توقيع"
@@ -2298,11 +2496,6 @@ msgstr "يطلب منك توقيع"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__city
 msgid "city"
 msgstr "المدينة"
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
-msgid "e.g. Employment Contract"
-msgstr "مثال: عقد عمل"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__email
@@ -2318,6 +2511,12 @@ msgstr "تم إلغاؤه. لا حاجة لأي إجراء."
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__name
 msgid "name"
 msgstr "الاسم"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "of"
+msgstr "من"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_city
@@ -2343,6 +2542,11 @@ msgstr "جهة الاتصال: البريد الإلكتروني"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_name
 msgid "partner_id.name"
 msgstr "جهة الاتصال: الاسم"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_parent_id_name
+msgid "partner_id.parent_id.name"
+msgstr "جهة الاتصال: الشركة"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_phone

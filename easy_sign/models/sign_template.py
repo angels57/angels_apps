@@ -13,7 +13,6 @@ class SignTemplate(models.Model):
     active = fields.Boolean(default=True)
     document_ids = fields.One2many("sign.document", "template_id", string="Documents", copy=False)
     item_ids = fields.One2many("sign.item", "template_id", string="Fields", copy=False)
-    item_count = fields.Integer(string="Fields placed", compute="_compute_item_count")
     role_ids = fields.Many2many("sign.role", string="Roles")
     tag_ids = fields.Many2many("sign.tag", string="Tags")
     model_id = fields.Many2one(
@@ -35,10 +34,6 @@ class SignTemplate(models.Model):
     request_ids = fields.One2many("sign.request", "template_id", string="Requests")
     request_count = fields.Integer(compute="_compute_request_count")
 
-    @api.depends("item_ids")
-    def _compute_item_count(self):
-        for tpl in self:
-            tpl.item_count = len(tpl.item_ids)
 
     @api.depends("request_ids")
     def _compute_request_count(self):

@@ -24,7 +24,6 @@ class SignRequest(models.Model):
     document_ids = fields.One2many("sign.document", "request_id", string="Documents", copy=True)
     document_name = fields.Char(string="Document", compute="_compute_document_name")
     item_ids = fields.One2many("sign.item", "request_id", string="Fields")
-    item_count = fields.Integer(string="Fields placed", compute="_compute_item_count")
     request_item_ids = fields.One2many("sign.request.item", "request_id", string="Signers")
     log_ids = fields.One2many("sign.log", "request_id", string="Audit Log")
     subject = fields.Char(string="Email Subject")
@@ -102,10 +101,6 @@ class SignRequest(models.Model):
         for rec in self:
             rec.document_name = ", ".join(rec.document_ids.mapped("name"))
 
-    @api.depends("item_ids")
-    def _compute_item_count(self):
-        for rec in self:
-            rec.item_count = len(rec.item_ids)
 
     @api.depends("request_item_ids.state")
     def _compute_signing_progress(self):
