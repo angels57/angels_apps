@@ -69,7 +69,7 @@ class SignRequestItem(models.Model):
 
     @api.depends("access_token")
     def _compute_sign_url(self):
-        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+        base_url = self.get_base_url()
         for item in self:
             if item.access_token:
                 item.sign_url = f"{base_url}/sign/view/{item.access_token}"
