@@ -13,3 +13,5 @@ access_sign_tag_user,sign.tag user,model_sign_tag,easy_sign.group_sign_user,1,1,
 access_sign_tag_manager,sign.tag manager,model_sign_tag,easy_sign.group_sign_manager,1,1,1,1
 access_sign_send_wizard_user,sign.send.wizard user,model_sign_send_wizard,easy_sign.group_sign_user,1,1,1,1
 access_sign_send_wizard_signer_user,sign.send.wizard.signer user,model_sign_send_wizard_signer,easy_sign.group_sign_user,1,1,1,1
+access_sign_item_type_user,sign.item.type user,model_sign_item_type,easy_sign.group_sign_user,1,0,0,0
+access_sign_item_type_manager,sign.item.type manager,model_sign_item_type,easy_sign.group_sign_manager,1,1,1,1

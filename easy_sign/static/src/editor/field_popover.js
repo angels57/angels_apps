@@ -10,7 +10,7 @@ export class FieldPopover extends Component {
 
     setup() {
         this.linked = Object.entries(LINKED_LABEL);
-        this.itemLabel = itemLabel;
+        this.itemLabel = (item) => itemLabel(item, this.state.data?.palette);
         this.state = useState(this.props.store.state);
     }
     get store() {

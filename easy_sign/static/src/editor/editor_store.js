@@ -2,7 +2,7 @@ import { reactive } from "@odoo/owl";
 
 const ITEM_FIELDS = [
     "document_id", "page", "pos_x", "pos_y", "width", "height", "type", "required", "readonly",
-    "placeholder", "options", "alignment", "linked_field",
+    "placeholder", "options", "alignment", "linked_field", "item_type_id",
 ];
 const m2oId = (value) => (Array.isArray(value) ? value[0] : value);
 
@@ -34,6 +34,7 @@ export class EditorStore {
         for (const item of data.items) {
             item.document_id = m2oId(item.document_id);
             item[this.partyField] = m2oId(item[this.partyField]);
+            item.item_type_id = m2oId(item.item_type_id);
         }
         Object.assign(this.state, {
             loaded: true,

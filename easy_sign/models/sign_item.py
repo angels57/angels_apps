@@ -39,6 +39,7 @@ class SignItem(models.Model):
     request_item_id = fields.Many2one("sign.request.item", string="Signer", ondelete="cascade")
     role_id = fields.Many2one("sign.role", string="Role", ondelete="cascade")
     type = fields.Selection(FIELD_TYPES, required=True, default="signature")
+    item_type_id = fields.Many2one("sign.item.type", string="Field Type", ondelete="set null")
     page = fields.Integer(required=True, default=1)
     pos_x = fields.Float(required=True, digits=(6, 5))
     pos_y = fields.Float(required=True, digits=(6, 5))

@@ -39,6 +39,7 @@ Adapted to Odoo 19 and maintained by Angels SAS.
         "security/rules.xml",
         "data/ir_sequence.xml",
         "data/ir_cron.xml",
+        "data/sign_item_type_data.xml",
         "data/mail_templates.xml",
         "report/certificate_report.xml",
         "templates/sign_page.xml",

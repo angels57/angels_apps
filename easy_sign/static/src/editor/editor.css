@@ -131,3 +131,4 @@
     font-family: "Z003", "URW Chancery L", "Apple Chancery", "Segoe Script", "Brush Script MT", cursive;
     font-style: italic; font-size: clamp(12px, 2.2vw, 30px); color: #1e3a8a; white-space: nowrap; overflow: hidden;
 }
+.o_es_tool_add { cursor: pointer; }

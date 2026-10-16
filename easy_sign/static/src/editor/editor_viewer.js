@@ -14,7 +14,7 @@ export class EditorViewer extends Component {
 
     setup() {
         this.root = useRef("pages");
-        this.itemLabel = itemLabel;
+        this.itemLabel = (item) => itemLabel(item, this.state.data?.palette);
         this.zooms = ZOOMS;
         this.pdf = new PdfCache();
         this.view = useState({

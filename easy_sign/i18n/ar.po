@@ -3,7 +3,7 @@
 # 	* easy_sign
 #
 msgid ""
-msgstr "Project-Id-Version: Odoo Server 19.0-20261015\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2026-10-16 08:31+0000\nPO-Revision-Date: 2026-10-16 08:31+0000\nLast-Translator: \nLanguage-Team: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: \nPlural-Forms: \n"
+msgstr "Project-Id-Version: Odoo Server 19.0-20261015\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2026-10-16 08:36+0000\nPO-Revision-Date: 2026-10-16 08:36+0000\nLast-Translator: \nLanguage-Team: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: \nPlural-Forms: \n"
 
 #. module: easy_sign
 #. odoo-python
@@ -274,6 +274,7 @@ msgid "Action Needed"
 msgstr "يحتاج إجراء"
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__active
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__active
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__active
 msgid "Active"
@@ -304,6 +305,12 @@ msgstr "أيقونة نوع النشاط"
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Add"
 msgstr "إضافة"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Add Field"
+msgstr "إضافة حقل"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_request
@@ -433,6 +440,7 @@ msgstr "لا يمكن تعديل سجلات التدقيق."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__linked_field
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field
 msgid "Auto-complete"
 msgstr "إكمال تلقائي"
 
@@ -519,6 +527,8 @@ msgstr "شهادة الإتمام"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__checkbox
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__checkbox
+#: model:sign.item.type,name:easy_sign.item_type_checkbox
 msgid "Checkbox"
 msgstr "مربع اختيار"
 
@@ -551,6 +561,7 @@ msgstr "اللون"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__company_id
+#: model:sign.item.type,name:easy_sign.item_type_company
 msgid "Company"
 msgstr "الشركة"
 
@@ -605,6 +616,7 @@ msgstr "أنشئ قالباً قابلاً لإعادة الاستخدام"
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__create_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__create_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__create_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__create_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__create_uid
@@ -619,6 +631,7 @@ msgstr "أُنشئ بواسطة"
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__create_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__create_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__create_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__create_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__create_date
@@ -634,6 +647,8 @@ msgstr "تاريخ الإنشاء"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__date
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__date
+#: model:sign.item.type,name:easy_sign.item_type_date
 msgid "Date"
 msgstr "التاريخ"
 
@@ -658,6 +673,16 @@ msgid "Declined"
 msgstr "مرفوض"
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__default_height
+msgid "Default Height"
+msgstr "الارتفاع الافتراضي"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__default_width
+msgid "Default Width"
+msgstr "العرض الافتراضي"
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_properties_form
 msgid "Default message for the signers"
 msgstr "الرسالة الافتراضية للموقّعين"
@@ -677,6 +702,7 @@ msgstr "تجاهل"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_editor_mixin__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__display_name
@@ -832,6 +858,7 @@ msgstr "طلب توقيع إلكتروني"
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__signer_email
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signer_email
+#: model:sign.item.type,name:easy_sign.item_type_email
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
@@ -905,6 +932,12 @@ msgid "Extra files sent with the invitation email."
 msgstr "ملفات إضافية تُرسل مع بريد الدعوة."
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__item_type_id
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+msgid "Field Type"
+msgstr "نوع الحقل"
+
+#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__item_ids
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__item_ids
 msgid "Fields"
@@ -943,6 +976,11 @@ msgid "Followers (Partners)"
 msgstr "المتابعون (الشركاء)"
 
 #. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__icon
+msgid "Font Awesome class, for example fa-user."
+msgstr "فئة Font Awesome، مثل fa-user."
+
+#. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
 msgstr "أيقونة Font Awesome مثل: fa-tasks"
@@ -973,6 +1011,7 @@ msgstr "مرحباً"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_editor_mixin__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__id
@@ -996,6 +1035,7 @@ msgid "IP Address"
 msgstr "عنوان IP"
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__icon
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_exception_icon
 msgid "Icon"
 msgstr "الأيقونة"
@@ -1020,6 +1060,8 @@ msgstr "إذا كان محدداً، يوجد خطأ في إرسال بعض ال
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__initials
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__initials
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__initials
+#: model:sign.item.type,name:easy_sign.item_type_initials
 msgid "Initials"
 msgstr "الأحرف الأولى"
 
@@ -1072,6 +1114,7 @@ msgstr "تاريخ آخر تذكير"
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__write_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__write_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__write_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__write_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__write_uid
@@ -1086,6 +1129,7 @@ msgstr "آخر تحديث بواسطة"
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__write_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__write_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__write_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__write_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__write_date
@@ -1161,11 +1205,13 @@ msgstr "نقل للأعلى"
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:sign.item.type,name:easy_sign.item_type_textarea
 msgid "Multiline"
 msgstr "متعدد الأسطر"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__textarea
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__textarea
 msgid "Multiline Text"
 msgstr "نص متعدد الأسطر"
 
@@ -1182,13 +1228,21 @@ msgstr "طلباتي"
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__signer_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signer_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__name
+#: model:sign.item.type,name:easy_sign.item_type_name
 msgid "Name"
 msgstr "الاسم"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "New Field"
+msgstr "حقل جديد"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_date_deadline
@@ -1401,6 +1455,7 @@ msgstr "في الانتظار"
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:sign.item.type,name:easy_sign.item_type_phone
 msgid "Phone"
 msgstr "الهاتف"
 
@@ -1408,6 +1463,7 @@ msgstr "الهاتف"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__placeholder
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__placeholder
 msgid "Placeholder"
 msgstr "نص توضيحي"
 
@@ -1474,6 +1530,8 @@ msgstr "الخصائص"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__radio
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__radio
+#: model:sign.item.type,name:easy_sign.item_type_radio
 msgid "Radio"
 msgstr "اختيار فردي"
 
@@ -1485,6 +1543,7 @@ msgstr "للقراءة فقط"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__readonly
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__readonly
 msgid "Readonly"
 msgstr "للقراءة فقط"
 
@@ -1612,6 +1671,7 @@ msgstr "الطلبات"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__required
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__required
 msgid "Required"
 msgstr "مطلوب"
 
@@ -1687,6 +1747,8 @@ msgstr "بحث"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__selection
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__selection
+#: model:sign.item.type,name:easy_sign.item_type_selection
 msgid "Selection"
 msgstr "قائمة اختيار"
 
@@ -1714,6 +1776,7 @@ msgstr "مُرسَل"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__sequence
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__sequence
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__sequence
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__sequence
 msgid "Sequence"
@@ -1730,6 +1793,8 @@ msgstr "وقّع الآن"
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signature
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__signature
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__signature
+#: model:sign.item.type,name:easy_sign.item_type_signature
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Signature"
 msgstr "التوقيع"
@@ -1748,6 +1813,11 @@ msgstr "مستند التوقيع (PDF)"
 #: model:ir.model,name:easy_sign.model_sign_item
 msgid "Signature Field Placed on a Document"
 msgstr "حقل توقيع موضوع على مستند"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_item_type
+msgid "Signature Field Type"
+msgstr "نوع حقل التوقيع"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signature_method
@@ -1975,6 +2045,8 @@ msgstr "بعض الحقول لا تخص هذا الموقّع."
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__stamp
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__stamp
+#: model:sign.item.type,name:easy_sign.item_type_stamp
 msgid "Stamp"
 msgstr "ختم"
 
@@ -2000,6 +2072,8 @@ msgstr "الشارع"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__strike
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__strike
+#: model:sign.item.type,name:easy_sign.item_type_strike
 msgid "Strikethrough"
 msgstr "شطب"
 
@@ -2042,6 +2116,8 @@ msgstr "القوالب"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__text
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__text
+#: model:sign.item.type,name:easy_sign.item_type_text
 msgid "Text"
 msgstr "نص"
 
@@ -2067,6 +2143,11 @@ msgstr "الرمز غير صحيح."
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
 msgid "The code is valid for 10 minutes. If you did not ask for it, ignore this email."
 msgstr "الرمز صالح لمدة 10 دقائق. إذا لم تطلبه، تجاهل هذا البريد."
+
+#. module: easy_sign
+#: model:ir.model.constraint,message:easy_sign.constraint_sign_item_type_size_check
+msgid "The default size is a fraction of the page (0-1)."
+msgstr "الحجم الافتراضي جزء من الصفحة (0-1)."
 
 #. module: easy_sign
 #. odoo-python
@@ -2259,6 +2340,7 @@ msgstr "محاولات كثيرة جداً. حاول مجدداً بعد بضع 
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__type
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__base_type
 msgid "Type"
 msgstr "النوع"
 
@@ -2494,11 +2576,13 @@ msgstr "يطلب منك توقيع"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__city
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__city
 msgid "city"
 msgstr "المدينة"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__email
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__email
 msgid "email"
 msgstr "البريد الإلكتروني"
 
@@ -2509,6 +2593,7 @@ msgstr "تم إلغاؤه. لا حاجة لأي إجراء."
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__name
 msgid "name"
 msgstr "الاسم"
 
@@ -2520,56 +2605,67 @@ msgstr "من"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_city
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_city
 msgid "partner_id.city"
 msgstr "جهة الاتصال: المدينة"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_company_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_company_name
 msgid "partner_id.company_name"
 msgstr "جهة الاتصال: اسم الشركة"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_country_id_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_country_id_name
 msgid "partner_id.country_id.name"
 msgstr "جهة الاتصال: الدولة"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_email
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_email
 msgid "partner_id.email"
 msgstr "جهة الاتصال: البريد الإلكتروني"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_name
 msgid "partner_id.name"
 msgstr "جهة الاتصال: الاسم"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_parent_id_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_parent_id_name
 msgid "partner_id.parent_id.name"
 msgstr "جهة الاتصال: الشركة"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_phone
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_phone
 msgid "partner_id.phone"
 msgstr "جهة الاتصال: الهاتف"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_street
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_street
 msgid "partner_id.street"
 msgstr "جهة الاتصال: الشارع"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_vat
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_vat
 msgid "partner_id.vat"
 msgstr "جهة الاتصال: الرقم الضريبي"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_zip
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_zip
 msgid "partner_id.zip"
 msgstr "جهة الاتصال: الرمز البريدي"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__phone
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__phone
 msgid "phone"
 msgstr "الهاتف"
 
@@ -2580,16 +2676,19 @@ msgstr "موقّع(ين)."
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__street
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__street
 msgid "street"
 msgstr "الشارع"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__vat
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__vat
 msgid "vat"
 msgstr "الرقم الضريبي"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__zip
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__zip
 msgid "zip"
 msgstr "الرمز البريدي"
 

@@ -89,9 +89,12 @@
                     </Dropdown>
                 </div>
                 <div t-if="state.party === party.id and !locked" t-attf-class="o_es_palette o_es_c{{party.color % 12}}">
-                    <button t-foreach="palette" t-as="entry" t-key="entry.key" type="button" class="o_es_tool"
+                    <button t-foreach="palette" t-as="entry" t-key="entry.id" type="button" class="o_es_tool"
                             t-on-pointerdown="(ev) => this.onPalettePointerDown(ev, entry)">
                         <i t-attf-class="fa {{entry.icon}}"/> <span t-out="entry.label"/>
+                    </button>
+                    <button t-if="state.data.is_manager" type="button" class="o_es_tool o_es_tool_add" t-on-click="onAddFieldType">
+                        <i class="fa fa-plus"/> <span>Add Field</span>
                     </button>
                 </div>
             </t>

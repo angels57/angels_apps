@@ -4,7 +4,7 @@ import { Dropdown } from "@web/core/dropdown/dropdown";
 import { useService } from "@web/core/utils/hooks";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { readPdfFiles } from "./list_upload";
-import { PALETTE, clamp, newItemVals } from "./palette";
+import { clamp, newItemVals } from "./palette";
 
 export class EditorPanel extends Component {
     static template = "easy_sign.EditorPanel";
@@ -13,7 +13,6 @@ export class EditorPanel extends Component {
 
     setup() {
         this.dialog = useService("dialog");
-        this.palette = PALETTE;
         this.fileInput = useRef("docInput");
         this.state = useState(this.props.store.state);
     }
@@ -23,6 +22,16 @@ export class EditorPanel extends Component {
     }
     get locked() {
         return this.state.data?.locked;
+    }
+    get palette() {
+        return this.state.data?.palette || [];
+    }
+    onAddFieldType() {
+        this.dialog.add(FormViewDialog, {
+            resModel: "sign.item.type",
+            title: _t("New Field"),
+            onRecordSaved: () => this.store.load(),
+        });
     }
     countOf(party) {
         return this.state.items.filter((item) => item[this.store.partyField] === party.id).length;

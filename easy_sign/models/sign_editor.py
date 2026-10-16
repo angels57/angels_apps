@@ -90,8 +90,9 @@ class SignEditorMixin(models.AbstractModel):
             "parties": [self._editor_party_vals(p) for p in self._editor_parties()],
             "items": items.read([
                 "document_id", "page", "pos_x", "pos_y", "width", "height", "type", "required", "readonly",
-                "placeholder", "options", "alignment", "linked_field", party_field,
+                "placeholder", "options", "alignment", "linked_field", "item_type_id", party_field,
             ]),
+            "palette": self.env["sign.item.type"]._editor_palette(),
             "party_field": party_field,
             "can_send": self._name == "sign.template" or self.state == "draft",
             "is_manager": self.env.user.has_group("easy_sign.group_sign_manager"),

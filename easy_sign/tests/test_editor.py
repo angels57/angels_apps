@@ -89,3 +89,17 @@ class TestEditor(EasySignCase):
         request.editor_remove_party(signer.id)
         self.assertFalse(request.request_item_ids)
         self.assertFalse(field.exists())
+
+    def test_palette_from_field_types(self):
+        request = self.env["sign.request"].browse(
+            self.env["sign.request"].create_from_upload(self._files("a.pdf"))["context"]["active_id"]
+        )
+        palette = request.get_editor_data()["palette"]
+        self.assertEqual(len(palette), 14)
+        company = next(e for e in palette if e["linked"] == "partner_id.parent_id.name")
+        self.assertEqual(company["type"], "text")
+        self.env["sign.item.type"].create({
+            "name": "Employee ID", "base_type": "text", "icon": "fa-id-card", "default_width": 0.2,
+        })
+        palette = request.get_editor_data()["palette"]
+        self.assertIn("Employee ID", [e["label"] for e in palette])

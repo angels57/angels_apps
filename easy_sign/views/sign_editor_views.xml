@@ -92,4 +92,27 @@
             </form>
         </field>
     </record>
+    <record id="view_sign_item_type_form" model="ir.ui.view">
+        <field name="name">sign.item.type.form</field>
+        <field name="model">sign.item.type</field>
+        <field name="arch" type="xml">
+            <form string="Field Type">
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="base_type"/>
+                        <field name="linked_field" invisible="base_type not in ('text', 'textarea')"/>
+                        <field name="icon"/>
+                    </group>
+                    <group>
+                        <field name="default_width"/>
+                        <field name="default_height"/>
+                        <field name="required"/>
+                        <field name="readonly" invisible="base_type not in ('text', 'textarea', 'date', 'selection')"/>
+                        <field name="placeholder" invisible="base_type not in ('text', 'textarea', 'date', 'selection')"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
 </odoo>
