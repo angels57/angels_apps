@@ -998,7 +998,7 @@ msgstr "يحتوي رسالة"
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__has_pending_signers
 msgid "Has Pending Signers"
-msgstr ""
+msgstr "يوجد موقّعون معلّقون"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__height
