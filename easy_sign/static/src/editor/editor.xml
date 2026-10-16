@@ -21,7 +21,7 @@
     <t t-name="easy_sign.EditorTopbar">
         <div class="o_es_topbar">
             <div class="o_es_actions">
-                <button t-if="data.can_send and !(data.locked and store.resModel === 'sign.request')" type="button"
+                <button t-if="data.can_send" type="button"
                         class="btn btn-primary" t-on-click="props.onSend">Send</button>
                 <button t-if="data.can_sign_now" type="button" class="btn btn-primary" t-on-click="props.onSignNow">Sign Now</button>
             </div>

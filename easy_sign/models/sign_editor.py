@@ -94,7 +94,7 @@ class SignEditorMixin(models.AbstractModel):
             ]),
             "palette": self.env["sign.item.type"]._editor_palette(),
             "party_field": party_field,
-            "can_send": self._name == "sign.template" or self.state == "draft",
+            "can_send": self._editor_can_send(),
             "is_manager": self.env.user.has_group("easy_sign.group_sign_manager"),
             "properties_view_id": self.env.ref(
                 "easy_sign.view_sign_template_properties_form" if self._name == "sign.template"
@@ -104,6 +104,9 @@ class SignEditorMixin(models.AbstractModel):
         }
 
     def _editor_can_sign_now(self):
+        return True
+
+    def _editor_can_send(self):
         return True
 
     def editor_set_name(self, name):
@@ -165,21 +168,32 @@ class SignRequest(models.Model):
         self.request_item_ids.filtered(lambda s: s.id == party_id).unlink()
         return True
 
+    def _editor_can_send(self):
+        return self.state in ("draft", "sent") and self.has_pending_signers
+
     def _editor_can_sign_now(self):
-        mine = self.request_item_ids.filtered(lambda s: s.partner_id == self.env.user.partner_id)
+        mine = self.request_item_ids.filtered(
+            lambda s: s.partner_id == self.env.user.partner_id and s.state in ("pending", "waiting", "sent", "viewed")
+        )
         return bool(mine) and self.state in ("draft", "sent")
 
     def action_sign_now(self):
-        """Send (when draft) and open the signing page of the current user."""
+        """Step 1 of 2: activate the request for the current user only and open their signing page.
+
+        Nobody else is invited: the other signers stay pending until 'Send' (step 2).
+        """
         self.ensure_one()
         mine = self.request_item_ids.filtered(lambda s: s.partner_id == self.env.user.partner_id)
         if not mine:
             raise UserError(_("You are not one of the signers. Add yourself as a signer first."))
-        if self.state == "draft":
-            self.action_send()
-        mine = mine.filtered(lambda s: s.state in ("sent", "viewed", "waiting"))[:1]
+        mine = mine.filtered(lambda s: s.state in ("pending", "waiting", "sent", "viewed"))[:1]
         if not mine:
             raise UserError(_("You have already signed this document."))
+        if self.state == "draft":
+            self._check_ready_to_send(mine)
+            self._activate()
+        if mine.state in ("pending", "waiting"):
+            mine.sudo().write({"state": "sent"})
         return {"type": "ir.actions.act_url", "url": mine.sudo().sign_url, "target": "self"}
 
     def action_send_from_editor(self):
@@ -245,7 +259,7 @@ class SignTemplate(models.Model):
         return True
 
     def action_sign_now(self):
-        """Create a request in which the current user signs the first free role, send it and sign."""
+        """Create a request in which the current user signs the first free role (others invited later)."""
         self.ensure_one()
         roles = self._editor_parties()
         free = roles.filtered(lambda r: not r.default_partner_id)[:1] or roles[:1]

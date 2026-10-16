@@ -65,13 +65,31 @@ class TestEditor(EasySignCase):
             "signer_name": self.env.user.name,
             "signer_email": self.env.user.email,
         })
+        other = self.env["sign.request.item"].browse(request.editor_add_party()["id"])
+        other.write({"signer_name": "Beto", "signer_email": False})
         self.assertTrue(request.get_editor_data()["can_sign_now"])
+        # Decision 2: two steps. Sign Now activates the request for me only...
         action = request.action_sign_now()
         self.assertEqual(action["type"], "ir.actions.act_url")
-        self.assertIn("/sign/view/", action["url"])
+        self.assertIn(signer.access_token, action["url"])
         self.assertEqual(request.state, "sent")
+        self.assertEqual((signer.state, other.state), ("sent", "pending"))
+        self.assertFalse(request.log_ids.filtered(lambda l: l.action == "sent" and l.request_item_id == other))
         with self.assertRaises(UserError):
             request.editor_add_party()
+        from .common import make_png
+        signer._sign(make_png(), "draw")
+        self.assertEqual(request.state, "sent")  # not complete: Beto has not been invited
+        self.assertTrue(request.get_editor_data()["can_send"])
+        # ... and Send (step 2) invites the others; they need an email.
+        with self.assertRaises(UserError):
+            request.action_send()
+        other.signer_email = "beto@example.test"  # still pending: editable without delegation
+        request.action_send()
+        self.assertEqual(other.state, "sent")
+        self.assertFalse(request.get_editor_data()["can_send"])
+        other._sign(make_png(), "draw")
+        self.assertEqual(request.state, "signed")
 
     def test_remove_party_and_contactless_autocomplete(self):
         request = self.env["sign.request"].browse(
@@ -139,3 +157,25 @@ class TestEditor(EasySignCase):
         self.assertEqual(item.value, "EMP-4521")
         pdf = PdfReader(io.BytesIO(base64.b64decode(request.signed_document)))
         self.assertIn("EMP-4521", pdf.pages[0].extract_text())
+
+    def test_prefilled_fields_editable_or_readonly(self):
+        """Decision 3: contact fields come pre-filled; each field is editable or read-only."""
+        from .common import make_png
+        partner = self.env["res.partner"].create({"name": "Carla", "email": "carla@example.test", "phone": "+57 300"})
+        request = self.env["sign.request"].browse(
+            self.env["sign.request"].create_from_upload(self._files("a.pdf"))["context"]["active_id"]
+        )
+        signer = self.env["sign.request.item"].browse(request.editor_add_party()["id"])
+        signer.write({"partner_id": partner.id, "signer_name": partner.name, "signer_email": partner.email})
+        base = {"request_id": request.id, "document_id": request.document_ids.id, "request_item_id": signer.id,
+                "type": "text", "page": 1, "pos_x": 0.1, "width": 0.3, "height": 0.03}
+        editable = self.env["sign.item"].create(dict(base, pos_y=0.1, linked_field="partner_id.name"))
+        locked = self.env["sign.item"].create(dict(base, pos_y=0.2, linked_field="partner_id.phone", readonly=True))
+        data = {d["id"]: d for d in (editable | locked)._public_data(signer)}
+        self.assertEqual(data[editable.id]["value"], "Carla")
+        self.assertEqual((data[editable.id]["readonly"], data[locked.id]["readonly"]), (False, True))
+        sig = self.env["sign.item"].create(dict(base, type="signature", pos_y=0.6, height=0.08))
+        request.action_send()
+        signer._sign(make_png(), "draw", values={editable.id: "Carla Gómez", locked.id: "tampered", sig.id: "1"})
+        self.assertEqual(editable.value, "Carla Gómez")  # corrected by the signer
+        self.assertEqual(locked.value, "+57 300")  # read-only: the contact value wins

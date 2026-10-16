@@ -94,13 +94,13 @@ class SignRequestItem(models.Model):
         replaced = self.browse()
         if not forced and {"signer_name", "signer_email", "partner_id"} & set(vals):
             for item in self:
-                if item.request_id.state == "draft":
-                    continue
+                if item.request_id.state == "draft" or item.state == "pending":
+                    continue  # not invited yet: free to change
                 if item.state not in ("waiting", "sent", "viewed") or not item.can_delegate:
                     raise UserError(_("Signer %s can no longer be changed.", item.signer_name))
                 replaced |= item
         config = {"sequence", "auth_method", "can_delegate", "role_id"}
-        if not forced and config & set(vals) and any(i.request_id.state != "draft" for i in self):
+        if not forced and config & set(vals) and any(i.request_id.state != "draft" and i.state != "pending" for i in self):
             raise UserError(_("Signers can only be reconfigured while the request is a draft."))
         res = super().write(vals)
         for item in replaced:

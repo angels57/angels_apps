@@ -27,6 +27,9 @@
             <form string="Signature Request" create="0">
                 <header>
                     <button name="action_open_editor" string="Open Editor" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_send" string="Send" type="object" class="btn-primary"
+                            invisible="state != 'sent' or not has_pending_signers"/>
+                    <field name="has_pending_signers" invisible="1"/>
                     <button name="action_download_signed" string="Download Signed" type="object" class="btn-primary" invisible="state != 'signed'"/>
                     <button name="action_download_certificate" string="Certificate" type="object" invisible="state != 'signed' or not certificate_pdf"/>
                     <button name="action_cancel" string="Cancel Request" type="object" invisible="state not in ('draft', 'sent')"

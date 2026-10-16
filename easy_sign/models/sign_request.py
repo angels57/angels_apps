@@ -88,6 +88,7 @@ class SignRequest(models.Model):
     completed_date = fields.Datetime(string="Completed On", readonly=True, copy=False)
     signers_count = fields.Integer(compute="_compute_signing_progress", store=True)
     signed_count = fields.Integer(compute="_compute_signing_progress", store=True)
+    has_pending_signers = fields.Boolean(compute="_compute_has_pending_signers")
 
     _verification_code_unique = models.Constraint(
         "UNIQUE (verification_code)", "The verification code must be unique.",
@@ -108,6 +109,11 @@ class SignRequest(models.Model):
             items = rec.request_item_ids.filtered(lambda i: i.state != "cancelled")
             rec.signers_count = len(items)
             rec.signed_count = len(items.filtered(lambda i: i.state == "signed"))
+
+    @api.depends("request_item_ids.state")
+    def _compute_has_pending_signers(self):
+        for rec in self:
+            rec.has_pending_signers = any(s.state == "pending" for s in rec.request_item_ids)
 
     @api.model
     def _selection_origin_ref(self):
@@ -145,30 +151,37 @@ class SignRequest(models.Model):
     # ------------------------------------------------------------------
     # Workflow
     # ------------------------------------------------------------------
-    def _check_ready_to_send(self):
+    def _check_ready_to_send(self, signers=None):
+        """``signers``: the signers about to be invited (all by default)."""
         self.ensure_one()
         if not self.document_ids:
             raise UserError(_("Add at least one PDF document."))
-        signers = self.request_item_ids
-        if not signers:
+        if not self.request_item_ids:
             raise UserError(_("Add at least one signer."))
+        signers = self.request_item_ids if signers is None else signers
         if any(not s.signer_email for s in signers):
             raise UserError(_("Every signer needs an email address."))
+        signers = self.request_item_ids
         orphans = self.item_ids.filtered(lambda f: f.request_item_id not in signers)
         if orphans:
             raise UserError(_("Some fields are not assigned to a signer of this request."))
 
+    def _activate(self):
+        """Freeze the documents: from now on the request can be signed."""
+        self.ensure_one()
+        self._lock_documents()
+        self.write({"state": "sent", "verification_code": self._new_verification_code()})
+
     def action_send(self):
+        """Invite the signers not invited yet (all of them for a draft)."""
         for rec in self:
-            if rec.state != "draft":
-                raise UserError(_("Only draft requests can be sent."))
-            rec._check_ready_to_send()
-            rec._lock_documents()
-            rec.write({
-                "state": "sent",
-                "verification_code": rec._new_verification_code(),
-            })
-            rec.request_item_ids.write({"state": "waiting"})
+            pending = rec.request_item_ids.filtered(lambda s: s.state == "pending")
+            if rec.state not in ("draft", "sent") or not pending:
+                raise UserError(_("There is nobody left to invite."))
+            rec._check_ready_to_send(pending)
+            if rec.state == "draft":
+                rec._activate()
+            pending.write({"state": "waiting"})
             rec._invite_next_signers()
             rec.message_post(body=_("Signature request sent."), message_type="notification")
         return True
@@ -287,7 +300,7 @@ class SignRequest(models.Model):
         expired = self.search([("state", "=", "sent"), ("expiry_date", "<", today)])
         for rec in expired:
             rec.state = "expired"
-            rec.request_item_ids.filtered(lambda s: s.state in ("waiting", "sent", "viewed")).write(
+            rec.request_item_ids.filtered(lambda s: s.state in ("pending", "waiting", "sent", "viewed")).write(
                 {"state": "cancelled"}
             )
             self.env["sign.log"].sudo().create({

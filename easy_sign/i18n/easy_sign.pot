@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-16 08:36+0000\n"
-"PO-Revision-Date: 2026-10-16 08:36+0000\n"
+"POT-Creation-Date: 2026-10-16 11:19+0000\n"
+"PO-Revision-Date: 2026-10-16 11:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1061,6 +1061,11 @@ msgid "Has Message"
 msgstr ""
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__has_pending_signers
+msgid "Has Pending Signers"
+msgstr ""
+
+#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__height
 msgid "Height"
 msgstr ""
@@ -1400,12 +1405,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Only draft or sent requests can be cancelled."
-msgstr ""
-
-#. module: easy_sign
-#. odoo-python
-#: code:addons/easy_sign/models/sign_request.py:0
-msgid "Only draft requests can be sent."
 msgstr ""
 
 #. module: easy_sign
@@ -1820,6 +1819,7 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
 msgid "Send"
 msgstr ""
@@ -2314,6 +2314,12 @@ msgstr ""
 #. module: easy_sign
 #: model:ir.model.constraint,message:easy_sign.constraint_sign_request_verification_code_unique
 msgid "The verification code must be unique."
+msgstr ""
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "There is nobody left to invite."
 msgstr ""
 
 #. module: easy_sign
