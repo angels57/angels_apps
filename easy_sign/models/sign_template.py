@@ -148,14 +148,7 @@ class SignTemplate(models.Model):
 
     def action_create_request(self):
         self.ensure_one()
-        request = self._prepare_request()
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "sign.request",
-            "res_id": request.id,
-            "view_mode": "form",
-            "target": "current",
-        }
+        return self._prepare_request()._editor_action()
 
     def action_edit_copy(self):
         self.ensure_one()
@@ -165,10 +158,4 @@ class SignTemplate(models.Model):
             doc_map[doc.id] = doc.copy({"template_id": new.id})
         for item in self.item_ids:
             item.copy({"template_id": new.id, "document_id": doc_map[item.document_id.id].id})
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "sign.template",
-            "res_id": new.id,
-            "view_mode": "form",
-            "target": "current",
-        }
+        return new._editor_action()

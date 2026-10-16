@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_sign_request_editor" model="ir.actions.client">
+        <field name="name">Edit Document</field>
+        <field name="tag">easy_sign_editor</field>
+        <field name="params" eval="{'res_model': 'sign.request'}"/>
+        <field name="path">sign-request-editor</field>
+    </record>
+    <record id="action_sign_template_editor" model="ir.actions.client">
+        <field name="name">Edit Template</field>
+        <field name="tag">easy_sign_editor</field>
+        <field name="params" eval="{'res_model': 'sign.template'}"/>
+        <field name="path">sign-template-editor</field>
+    </record>
+</odoo>

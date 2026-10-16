@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="easy_sign.ListView" t-inherit="web.ListView" t-inherit-mode="primary">
+        <xpath expr="//button[hasclass('o_list_button_add')]" position="replace">
+            <button t-if="activeActions.create and props.showButtons" type="button"
+                    class="btn btn-primary o_es_upload" data-hotkey="c" t-on-click="onClickUpload">Upload PDF</button>
+            <input type="file" class="d-none" t-ref="esUpload" accept="application/pdf" multiple="multiple"
+                   t-on-change="onUploadChange"/>
+        </xpath>
+    </t>
+</templates>

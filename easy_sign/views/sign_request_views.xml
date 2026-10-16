@@ -5,7 +5,7 @@
         <field name="name">sign.request.list</field>
         <field name="model">sign.request</field>
         <field name="arch" type="xml">
-            <list string="Signature Requests" decoration-muted="state in ('cancelled', 'expired')">
+            <list js_class="easy_sign_list" string="Signature Requests" decoration-muted="state in ('cancelled', 'expired')">
                 <field name="name"/>
                 <field name="document_name"/>
                 <field name="user_id" optional="show"/>

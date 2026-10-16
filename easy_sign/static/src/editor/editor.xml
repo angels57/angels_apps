@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="easy_sign.EditorAction">
+        <div class="o_action o_es_editor_action">
+            <div class="o_es_topbar">
+                <div class="o_es_titles">
+                    <div class="o_es_crumbs">
+                        <t t-foreach="breadcrumbs" t-as="crumb" t-key="crumb_index">
+                            <a href="#" t-on-click.prevent="() => crumb.onSelected()" t-out="crumb.name"/>
+                            <span class="o_es_sep">/</span>
+                        </t>
+                    </div>
+                    <div class="o_es_name" t-if="data" t-out="data.name"/>
+                </div>
+            </div>
+            <div t-if="!data" class="o_es_empty">Open a document from the list to edit it.</div>
+            <div t-else="" class="o_es_body">
+                <EditorPanel store="store"/>
+                <EditorViewer store="store"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="easy_sign.EditorPanel">
+        <aside class="o_es_panel">
+            <div class="o_es_section_head"><span>Documents</span></div>
+            <div t-foreach="state.documents" t-as="doc" t-key="doc.id" class="o_es_row">
+                <span class="o_es_row_name" t-out="doc.name"/>
+            </div>
+            <div class="o_es_section_head"><span>Signers</span></div>
+            <div t-foreach="state.parties" t-as="party" t-key="party.id"
+                 t-attf-class="o_es_row o_es_party o_es_c{{party.color % 12}} {{state.party === party.id ? 'active' : ''}}"
+                 t-on-click="() => this.selectParty(party)">
+                <span class="o_es_row_name" t-out="party.name"/>
+                <img t-if="party.avatar" class="o_es_avatar" t-att-src="party.avatar" alt=""/>
+                <span class="o_es_count" t-out="props.store.countOf(party)"/>
+            </div>
+        </aside>
+    </t>
+
+    <t t-name="easy_sign.EditorViewer">
+        <div class="o_es_viewer">
+            <div class="o_es_pages" t-ref="pages">
+                <t t-foreach="state.documents" t-as="doc" t-key="doc.id">
+                    <div t-foreach="pagesOf(doc)" t-as="page" t-key="page" class="o_es_page"
+                         t-att-data-doc="doc.id" t-att-data-page="page">
+                        <canvas t-att-data-doc="doc.id" t-att-data-page="page"/>
+                        <div t-foreach="store.itemsOf(doc.id, page)" t-as="item" t-key="item.id"
+                             t-attf-class="o_es_item o_es_c{{store.partyOf(item).color % 12}}"
+                             t-att-style="itemStyle(item)">
+                            <span class="o_es_item_label" t-out="item.type"/>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

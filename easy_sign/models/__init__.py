@@ -7,3 +7,4 @@ from . import sign_request_item
 from . import sign_item
 from . import sign_template
 from . import sign_log
+from . import sign_editor

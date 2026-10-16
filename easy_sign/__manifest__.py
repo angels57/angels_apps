@@ -44,6 +44,7 @@ Adapted to Odoo 19 and maintained by Angels SAS.
         "templates/sign_page.xml",
         "views/sign_request_views.xml",
         "views/sign_template_views.xml",
+        "views/sign_editor_actions.xml",
         "views/menus.xml",
     ],
     "assets": {
@@ -51,6 +52,9 @@ Adapted to Odoo 19 and maintained by Angels SAS.
             "easy_sign/static/src/backend/layout_editor.js",
             "easy_sign/static/src/backend/layout_editor.xml",
             "easy_sign/static/src/backend/layout_editor.css",
+            "easy_sign/static/src/editor/*.js",
+            "easy_sign/static/src/editor/*.xml",
+            "easy_sign/static/src/editor/*.css",
         ],
         "easy_sign.assets_sign_result": [
             "easy_sign/static/src/css/sign_public.css",
