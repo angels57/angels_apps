@@ -103,3 +103,39 @@ class TestEditor(EasySignCase):
         })
         palette = request.get_editor_data()["palette"]
         self.assertIn("Employee ID", [e["label"] for e in palette])
+
+    def test_custom_field_type_end_to_end(self):
+        """A field placed from a custom palette entry is saved, signed and printed on the PDF."""
+        import io
+        from odoo.tools.pdf import PdfReader
+        from .common import make_png
+        field_type = self.env["sign.item.type"].create({
+            "name": "Employee ID", "base_type": "text", "icon": "fa-id-card",
+            "default_width": 0.3, "default_height": 0.04, "placeholder": "EMP-000",
+        })
+        request = self.env["sign.request"].browse(
+            self.env["sign.request"].create_from_upload(self._files("a.pdf"))["context"]["active_id"]
+        )
+        signer = self.env["sign.request.item"].browse(request.editor_add_party()["id"])
+        signer.write({"signer_name": "Ana", "signer_email": "ana@example.test"})
+        entry = next(e for e in request.get_editor_data()["palette"] if e["id"] == field_type.id)
+        item = self.env["sign.item"].create({
+            "request_id": request.id, "document_id": request.document_ids.id, "request_item_id": signer.id,
+            "item_type_id": entry["id"], "type": entry["type"], "width": entry["size"][0],
+            "height": entry["size"][1], "required": entry["required"], "placeholder": entry["placeholder"],
+            "page": 1, "pos_x": 0.1, "pos_y": 0.2,
+        })
+        sig = self.env["sign.item"].create({
+            "request_id": request.id, "document_id": request.document_ids.id, "request_item_id": signer.id,
+            "type": "signature", "page": 1, "pos_x": 0.1, "pos_y": 0.6, "width": 0.3, "height": 0.08,
+        })
+        data_item = next(i for i in request.get_editor_data()["items"] if i["id"] == item.id)
+        self.assertEqual(data_item["item_type_id"][0], field_type.id)
+        public = item._public_data(signer)[0]
+        self.assertEqual(public["placeholder"], "EMP-000")
+        request.action_send()
+        signer._sign(make_png(), "draw", values={item.id: "EMP-4521", sig.id: "1"})
+        self.assertEqual(request.state, "signed")
+        self.assertEqual(item.value, "EMP-4521")
+        pdf = PdfReader(io.BytesIO(base64.b64decode(request.signed_document)))
+        self.assertIn("EMP-4521", pdf.pages[0].extract_text())
