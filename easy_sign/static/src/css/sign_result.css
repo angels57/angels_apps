@@ -68,6 +68,7 @@
 @media (max-width: 992px) {
     .es-main-row {
         flex-direction: column;
+        flex-wrap: nowrap;  /* with wrap, a tall column spills into a second one off screen */
     }
 
     .es-pdf-panel {
