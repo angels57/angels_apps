@@ -20,10 +20,14 @@ Features:
 * Expiry date support
 * Decline with reason support
 * Mobile responsive signing page
+
+Credits:
+--------
+Based on the original Easy Sign module by Ahmed Kamal (LGPL-3).
+Adapted to Odoo 19 and maintained by Angels SAS.
     """,
     "category": "Tools/Sign",
-    "author": "Ahmed Kamal",
-    "website": "https://www.linkedin.com/in/ahmed-kamal-97569316b/",
+    "author": "Angels SAS",
     "license": "LGPL-3",
     "depends": ["mail", "web"],
     "data": [
