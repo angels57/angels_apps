@@ -45,6 +45,7 @@ Adapted to Odoo 19 and maintained by Angels SAS.
         "views/sign_request_views.xml",
         "views/sign_template_views.xml",
         "views/sign_editor_actions.xml",
+        "views/sign_editor_views.xml",
         "views/menus.xml",
     ],
     "assets": {

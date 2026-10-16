@@ -48,3 +48,38 @@
 .o_es_c9 { --es-color: #ef4444; }
 .o_es_c10 { --es-color: #84cc16; }
 .o_es_c11 { --es-color: #eab308; }
+.o_es_saved { margin-left: 8px; color: #94a3b8; font-size: 14px; }
+.o_es_locked { padding: 8px 16px; background: #fff7ed; color: #9a3412; border-bottom: 1px solid #fed7aa; }
+.o_es_add { font-weight: 600; color: #017e84; }
+.o_es_kebab { border: 0; background: transparent; color: #64748b; padding: 2px 6px; }
+.o_es_hint { padding: 12px 8px; color: #64748b; font-size: 13px; }
+.o_es_palette { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px; border-bottom: 1px solid #e2e8f0; }
+.o_es_tool {
+    display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 0; border-radius: 4px;
+    background: color-mix(in srgb, var(--es-color) 16%, #fff); color: #1e293b; cursor: grab;
+    text-align: left; touch-action: none; user-select: none;
+}
+.o_es_tool:hover { background: color-mix(in srgb, var(--es-color) 28%, #fff); }
+.o_es_tool .fa { width: 16px; text-align: center; }
+.o_es_ghost {
+    position: fixed; z-index: 2000; pointer-events: none; padding: 4px 10px; border-radius: 3px;
+    border: 1.5px solid var(--es-color); background: color-mix(in srgb, var(--es-color) 25%, #fff); font-size: 12px;
+}
+.o_es_item { cursor: move; touch-action: none; }
+.o_es_item.optional { border-style: dashed; }
+.o_es_item.selected { box-shadow: 0 0 0 2px #1e293b; z-index: 2; }
+.o_es_resize {
+    position: absolute; right: 0; bottom: 0; width: 0; height: 0; cursor: nwse-resize;
+    border-style: solid; border-width: 0 0 9px 9px; border-color: transparent transparent #1e293b transparent;
+}
+.o_es_guide { position: absolute; pointer-events: none; z-index: 3; }
+.o_es_guide_x { top: 0; bottom: 0; border-left: 1px dashed #f59e0b; }
+.o_es_guide_y { left: 0; right: 0; border-top: 1px dashed #f59e0b; }
+.o_es_popover_anchor { position: absolute; z-index: 5; line-height: 1.4; margin-top: 6px; }
+.o_es_popover {
+    width: 240px; display: flex; flex-direction: column; gap: 6px; padding: 10px; background: #fff;
+    border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 6px 20px rgba(0, 0, 0, .15); font-size: 13px;
+}
+.o_es_popover_title { font-weight: 700; }
+.o_es_check { display: flex; gap: 6px; align-items: center; margin: 0; }
+.o_es_popover_actions { display: flex; gap: 6px; }

@@ -10,7 +10,7 @@ The code is sent with Odoo SMS (IAP): it consumes Odoo SMS credits.
     "author": "Angels SAS",
     "license": "LGPL-3",
     "depends": ["easy_sign", "sms"],
-    "data": ["views/sign_request_views.xml"],
+    "data": ["views/sign_request_views.xml", "views/sign_editor_views.xml"],
     "installable": True,
     "auto_install": False,
 }

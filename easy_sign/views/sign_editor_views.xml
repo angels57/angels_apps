@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Small forms opened from the editor (signer, role, document). -->
+    <record id="view_sign_request_item_form" model="ir.ui.view">
+        <field name="name">sign.request.item.form</field>
+        <field name="model">sign.request.item</field>
+        <field name="arch" type="xml">
+            <form string="Signer">
+                <group>
+                    <field name="partner_id"/>
+                    <field name="signer_name"/>
+                    <field name="signer_email" required="1"/>
+                    <field name="auth_method"/>
+                    <field name="can_delegate"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sign_role_form" model="ir.ui.view">
+        <field name="name">sign.role.form</field>
+        <field name="model">sign.role</field>
+        <field name="arch" type="xml">
+            <form string="Role">
+                <group>
+                    <field name="name"/>
+                    <field name="default_partner_id"/>
+                    <field name="auth_method"/>
+                    <field name="can_delegate"/>
+                    <field name="color" widget="color_picker"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sign_document_form" model="ir.ui.view">
+        <field name="name">sign.document.form</field>
+        <field name="model">sign.document</field>
+        <field name="arch" type="xml">
+            <form string="Document">
+                <group><field name="name"/></group>
+            </form>
+        </field>
+    </record>
+</odoo>

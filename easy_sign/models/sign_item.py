@@ -22,8 +22,10 @@ MAX_TEXT = 2000
 LINKABLE_FIELDS = {
     "partner_id.name", "partner_id.email", "partner_id.phone", "partner_id.vat",
     "partner_id.street", "partner_id.city", "partner_id.zip", "partner_id.country_id.name",
-    "partner_id.company_name", "name", "email", "phone", "vat", "street", "city", "zip",
+    "partner_id.company_name", "partner_id.parent_id.name", "name", "email", "phone", "vat", "street", "city", "zip",
 }
+# Without a contact, these values come from the signer itself.
+SIGNER_FALLBACK = {"partner_id.name": "signer_name", "partner_id.email": "signer_email"}
 
 
 class SignItem(models.Model):
@@ -98,8 +100,11 @@ class SignItem(models.Model):
     def _autocomplete_value(self, signer):
         """Value suggested to ``signer`` for this field (linked contact data)."""
         self.ensure_one()
-        if not self.linked_field or self.linked_field not in LINKABLE_FIELDS or not signer.partner_id:
+        if not self.linked_field or self.linked_field not in LINKABLE_FIELDS:
             return self.value or ""
+        if not signer.partner_id:
+            fallback = SIGNER_FALLBACK.get(self.linked_field)
+            return (signer[fallback] or "") if fallback else (self.value or "")
         path = self.linked_field.removeprefix("partner_id.")
         value = signer.partner_id.sudo().mapped(path)
         value = value[0] if value else ""

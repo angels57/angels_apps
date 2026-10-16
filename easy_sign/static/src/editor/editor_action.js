@@ -1,4 +1,4 @@
-import { Component, onWillStart, onWillUnmount } from "@odoo/owl";
+import { Component, onWillStart, onWillUnmount, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { loadPDFJSAssets } from "@web/core/utils/pdfjs";
@@ -18,6 +18,7 @@ export class SignEditorAction extends Component {
         this.resModel = this.props.action.params?.res_model || "sign.request";
         this.resId = this.props.action.context?.active_id;
         this.store = new EditorStore(this.orm, this.resModel, this.resId);
+        this.state = useState(this.store.state);
         onWillStart(async () => {
             await loadPDFJSAssets();
             if (this.resId) {
@@ -31,7 +32,7 @@ export class SignEditorAction extends Component {
         return (this.env.config?.breadcrumbs || []).slice(0, -1);
     }
     get data() {
-        return this.store.state.data;
+        return this.state.data;
     }
 }
 
