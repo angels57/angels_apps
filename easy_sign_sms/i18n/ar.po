@@ -1,0 +1,48 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* easy_sign_sms
+#
+msgid ""
+msgstr "Project-Id-Version: Odoo Server 19.0-20261015\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2026-10-16 03:21+0000\nPO-Revision-Date: 2026-10-16 03:21+0000\nLast-Translator: \nLanguage-Team: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: \nPlural-Forms: \n"
+
+#. module: easy_sign_sms
+#. odoo-python
+#: code:addons/easy_sign_sms/models/sign_request_item.py:0
+msgid "%(code)s is your Easy Sign code for %(doc)s. Valid 10 minutes."
+msgstr "%(code)s هو رمز Easy Sign الخاص بك لـ %(doc)s. صالح لمدة 10 دقائق."
+
+#. module: easy_sign_sms
+#: model:ir.model.fields,field_description:easy_sign_sms.field_sign_request_item__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: easy_sign_sms
+#: model:ir.model.fields.selection,name:easy_sign_sms.selection__sign_request_item__auth_method__sms_otp
+msgid "Email link + SMS code"
+msgstr "رابط بالبريد + رمز SMS"
+
+#. module: easy_sign_sms
+#: model:ir.model.fields,field_description:easy_sign_sms.field_sign_request_item__id
+msgid "ID"
+msgstr "المعرّف"
+
+#. module: easy_sign_sms
+#: model:ir.model.fields,field_description:easy_sign_sms.field_sign_request_item__signer_phone
+msgid "Mobile"
+msgstr "الجوال"
+
+#. module: easy_sign_sms
+#. odoo-python
+#: code:addons/easy_sign_sms/models/sign_request_item.py:0
+msgid "No mobile number is set for this signer."
+msgstr "لا يوجد رقم جوال لهذا الموقّع."
+
+#. module: easy_sign_sms
+#: model:ir.model,name:easy_sign_sms.model_sign_request_item
+msgid "Signature Request Signer"
+msgstr "موقّع طلب التوقيع"
+
+#. module: easy_sign_sms
+#: model:ir.model.fields,field_description:easy_sign_sms.field_sign_request_item__auth_method
+msgid "Verification"
+msgstr "التحقق"
