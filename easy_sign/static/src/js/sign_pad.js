@@ -18,11 +18,11 @@
         this.status = root.querySelector('.es-pad-status');
         this.text = root.querySelector('.es-pad-text');
         this.file = root.querySelector('.es-pad-file');
-        this.mode = 'draw';
+        this.mode = 'type';
         this.filled = false;
         this.drawing = false;
         this._bind();
-        this.clear();
+        this.setMode('type', true);
     }
 
     Pad.prototype._bind = function () {
@@ -90,7 +90,7 @@
         this._setFilled(false);
     };
 
-    Pad.prototype.setMode = function (mode) {
+    Pad.prototype.setMode = function (mode, silent) {
         this.mode = mode;
         this.root.querySelectorAll('.es-pad-tab').forEach(function (tab) {
             tab.classList.toggle('active', tab.getAttribute('data-mode') === mode);
@@ -100,11 +100,24 @@
         this.canvas.style.cursor = mode === 'draw' ? 'crosshair' : 'default';
         this.clear();
         if (mode === 'type') {
-            this.text.focus();
+            if (!silent) { this.text.focus(); }
             this._drawText();
-        } else if (mode === 'upload') {
+        } else if (mode === 'upload' && !silent) {
             this.file.click();
         }
+    };
+
+    /** Show an image adopted earlier (used to undo a cancelled edit). */
+    Pad.prototype.load = function (dataURL) {
+        var self = this;
+        if (!dataURL) { this.clear(); return; }
+        var img = new Image();
+        img.onload = function () {
+            self._reset();
+            self.ctx.drawImage(img, 0, 0, self.canvas.width, self.canvas.height);
+            self._setFilled(true);
+        };
+        img.src = dataURL;
     };
 
     Pad.prototype._drawText = function () {

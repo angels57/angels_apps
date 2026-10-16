@@ -65,6 +65,7 @@ Adapted to Odoo 19 and maintained by Angels SAS.
         ],
         "easy_sign.assets_sign_page": [
             ("include", "easy_sign.assets_sign_result"),
+            "easy_sign/static/src/css/sign_document.css",
             "easy_sign/static/src/js/sign_pad.js",
             "easy_sign/static/src/js/sign_pdf.js",
             "easy_sign/static/src/js/sign_public.js",

@@ -8,39 +8,9 @@
     margin-top: 0;
 }
 
-.es-body button, .es-body textarea {
+/* :where() keeps this at zero specificity so button classes set their own size. */
+:where(.es-body) button, :where(.es-body) textarea {
     font: inherit;
-}
-
-/* ---------- Two-column layout ---------- */
-.es-pdf-panel {
-    flex: 0 0 58.3333%;
-    max-width: 58.3333%;
-}
-
-.es-sign-panel {
-    flex: 0 0 41.6667%;
-    max-width: 41.6667%;
-}
-
-/* Desktop: the row fills the screen and each column scrolls on its own, so a
-   tall sign panel never leaves a blank area under the document. */
-@media (min-width: 993px) {
-    .es-main-row {
-        flex: none;
-        height: calc(100vh - 60px - 44px);
-        flex-wrap: nowrap;
-    }
-    .es-pdf-panel, .es-sign-panel {
-        min-height: 0;
-    }
-}
-
-@media (max-width: 992px) {
-    .es-pdf-panel, .es-sign-panel {
-        flex-basis: auto;  /* the row is a column here: size each panel by its content */
-        max-width: 100%;
-    }
 }
 
 /* ---------- Form controls ---------- */
@@ -53,10 +23,6 @@
     border: 1px solid #d1d5db;
     border-radius: 6px;
     outline: none;
-}
-
-.es-decline-actions {
-    margin-top: 8px;
 }
 
 .es-msg p {
@@ -114,17 +80,6 @@ html[dir="rtl"] .es-spinner {
     transition: all 0.2s;
 }
 
-.es-navbar .es-lang-btn {
-    border: 1.5px solid rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-}
-
-.es-navbar .es-lang-btn:hover {
-    background: rgba(255, 255, 255, 0.22);
-    border-color: rgba(255, 255, 255, 0.6);
-}
-
 .es-lang-flag {
     font-size: 16px;
 }
@@ -164,29 +119,16 @@ html[dir="rtl"] textarea {
     font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
 }
 
-html[dir="rtl"] .es-sign-panel,
-html[dir="rtl"] .es-canvas-hint,
-html[dir="rtl"] .es-decline-form h6 {
+html[dir="rtl"] .es-canvas-hint {
     text-align: right;
 }
 
-html[dir="rtl"] .es-navbar,
-html[dir="rtl"] .es-navbar-brand,
-html[dir="rtl"] .es-panel-header,
-html[dir="rtl"] .es-panel-title,
-html[dir="rtl"] .es-signer-info,
 html[dir="rtl"] .es-canvas-controls,
-html[dir="rtl"] .es-decline-actions,
 html[dir="rtl"] .es-msg {
     flex-direction: row-reverse;
 }
 
-html[dir="rtl"] .es-footer {
-    direction: rtl;
-}
-
 /* ---------- Footer ---------- */
-.es-footer strong,
 .es-result-footer strong {
     margin-inline-start: 4px;
 }
