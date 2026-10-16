@@ -1,329 +1,146 @@
 /** @odoo-module ignore */
 /**
- * Easy Sign — Public Signing Page JavaScript
- * Self-hosted electronic signature for Odoo 19
- * Handles: canvas drawing, mouse events, touch events, sign/decline submission
+ * Easy Sign — public signing page: wires the pads, the document fields, the
+ * optional one-time code and the sign / decline requests.
  */
 (function () {
     'use strict';
 
+    function byId(id) { return document.getElementById(id); }
+    function show(node, visible) { if (node) { node.classList.toggle('es-hidden', !visible); } }
+
+    function post(url, data) {
+        var form = new FormData();
+        Object.keys(data).forEach(function (key) { form.append(key, data[key]); });
+        return fetch(url, { method: 'POST', body: form, credentials: 'same-origin' }).then(function (response) {
+            return response.json().then(function (json) { return json; }, function () {
+                return { success: false, error: 'Your session has expired. Please reload the page and try again.' };
+            });
+        });
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
-
-        /* ---- Element references ---- */
-        var canvas          = document.getElementById('signatureCanvas');
-        var canvasWrap      = canvas && canvas.parentElement;
-        var canvasHint      = document.querySelector('.es-canvas-hint');
-        var canvasStatus    = document.getElementById('canvasStatus');
-        var btnClear        = document.getElementById('btnClear');
-        var btnSign         = document.getElementById('btnSign');
-        var btnSignText     = document.getElementById('btnSignText');
-        var btnSignSpinner  = document.getElementById('btnSignSpinner');
-        var btnShowDecline  = document.getElementById('btnShowDecline');
-        var declineForm     = document.getElementById('declineForm');
-        var declineReason   = document.getElementById('declineReason');
-        var btnCancelDecline   = document.getElementById('btnCancelDecline');
-        var btnConfirmDecline  = document.getElementById('btnConfirmDecline');
-        var msgSuccess      = document.getElementById('msgSuccess');
-        var msgError        = document.getElementById('msgError');
-        var msgErrorText    = document.getElementById('msgErrorText');
-        var msgDeclined     = document.getElementById('msgDeclined');
-
-        if (!canvas) {
-            return;
-        }
-
-        /* ---- Canvas context setup ---- */
-        var ctx = canvas.getContext('2d');
-        var isDrawing   = false;
-        var hasSigned   = false;
-        var lastX       = 0;
-        var lastY       = 0;
-
-        function initCanvas() {
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = '#1a1a2e';
-            ctx.lineWidth   = 2.5;
-            ctx.lineCap     = 'round';
-            ctx.lineJoin    = 'round';
-        }
-
-        initCanvas();
-
-
-        function getCanvasCoords(event) {
-            var rect = canvas.getBoundingClientRect();
-            var scaleX = canvas.width  / rect.width;
-            var scaleY = canvas.height / rect.height;
-            var clientX, clientY;
-            if (event.touches && event.touches.length > 0) {
-                clientX = event.touches[0].clientX;
-                clientY = event.touches[0].clientY;
-            } else {
-                clientX = event.clientX;
-                clientY = event.clientY;
-            }
-            return {
-                x: (clientX - rect.left) * scaleX,
-                y: (clientY - rect.top)  * scaleY,
-            };
-        }
-
-        function startDraw(x, y) {
-            isDrawing = true;
-            lastX = x;
-            lastY = y;
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            if (canvasWrap) {
-                canvasWrap.classList.add('es-canvas-active');
-            }
-        }
-
-        function draw(x, y) {
-            if (!isDrawing) { return; }
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            lastX = x;
-            lastY = y;
-            if (!hasSigned) {
-                hasSigned = true;
-                if (canvasHint) { canvasHint.classList.add('hidden'); }
-                if (canvasStatus) { canvasStatus.textContent = 'Signature captured'; }
-            }
-        }
-
-        function endDraw() {
-            isDrawing = false;
-            ctx.closePath();
-            if (canvasWrap) {
-                canvasWrap.classList.remove('es-canvas-active');
-            }
-        }
-
-
-        canvas.addEventListener('mousedown', function (e) {
-            e.preventDefault();
-            var coords = getCanvasCoords(e);
-            startDraw(coords.x, coords.y);
-        });
-
-        canvas.addEventListener('mousemove', function (e) {
-            e.preventDefault();
-            if (!isDrawing) { return; }
-            var coords = getCanvasCoords(e);
-            draw(coords.x, coords.y);
-        });
-
-        canvas.addEventListener('mouseup', function (e) {
-            e.preventDefault();
-            endDraw();
-        });
-
-        canvas.addEventListener('mouseleave', function (e) {
-            if (isDrawing) { endDraw(); }
-        });
-
-
-        canvas.addEventListener('touchstart', function (e) {
-            e.preventDefault();
-            var coords = getCanvasCoords(e);
-            startDraw(coords.x, coords.y);
-        }, { passive: false });
-
-        canvas.addEventListener('touchmove', function (e) {
-            e.preventDefault();
-            var coords = getCanvasCoords(e);
-            draw(coords.x, coords.y);
-        }, { passive: false });
-
-        canvas.addEventListener('touchend', function (e) {
-            e.preventDefault();
-            endDraw();
-        }, { passive: false });
-
-        canvas.addEventListener('touchcancel', function (e) {
-            endDraw();
-        });
-
-
-        if (btnClear) {
-            btnClear.addEventListener('click', function () {
-                initCanvas();
-                hasSigned = false;
-                if (canvasHint)   { canvasHint.classList.remove('hidden'); }
-                if (canvasStatus) { canvasStatus.textContent = ''; }
-                hideMessages();
-            });
-        }
-
-
-        function hideMessages() {
-            if (msgSuccess) { msgSuccess.classList.add('es-hidden'); }
-            if (msgError)   { msgError.classList.add('es-hidden'); }
-            if (msgDeclined){ msgDeclined.classList.add('es-hidden'); }
-        }
+        var btnSign = byId('btnSign');
+        var pagesNode = byId('esPages');
+        if (!btnSign || !pagesNode) { return; }
+        var token = btnSign.getAttribute('data-token');
+        var csrf = btnSign.getAttribute('data-csrf');
+        var needsOtp = btnSign.getAttribute('data-otp') === '1';
+        var otpBox = byId('esOtp');
+        var otpInput = byId('esOtpInput');
+        var msgError = byId('msgError');
+        var progress = byId('esProgress');
+        var progressText = byId('esProgressText');
+        var otpRequested = false;
 
         function showError(text) {
-            hideMessages();
-            if (msgError && msgErrorText) {
-                msgErrorText.textContent = text;
-                msgError.classList.remove('es-hidden');
-            }
+            show(byId('msgSuccess'), false);
+            byId('msgErrorText').textContent = text;
+            show(msgError, true);
+            msgError.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        /* Non-JSON answers (e.g. an expired CSRF session) become a readable error. */
-        function parseResponse(response) {
-            return response.json().then(function (data) {
-                return { status: response.status, data: data };
-            }, function () {
-                return {
-                    status: response.status,
-                    data: { success: false, error: 'Your session has expired. Please reload the page and try again.' },
-                };
-            });
+        var pads = {};
+        var fields;
+        function refresh() {
+            if (!fields) { return; }
+            fields.setImages(pads.signature ? pads.signature.dataURL() : '', pads.initials ? pads.initials.dataURL() : '');
         }
+        function updateProgress() {
+            if (!fields || !fields.fields.length) { return; }
+            var missing = fields.missing().length;
+            show(progress, missing > 0);
+            progressText.textContent = missing + (missing === 1 ? ' required field left' : ' required fields left');
+        }
+        document.querySelectorAll('[data-pad]').forEach(function (node) {
+            pads[node.getAttribute('data-pad')] = new window.EasySign.Pad(node, refresh);
+        });
+        fields = new window.EasySign.Fields(pagesNode, updateProgress);
+        fields.render().catch(function () {
+            pagesNode.textContent = 'The document could not be displayed. Reload the page to try again.';
+        });
+        byId('btnNextField').addEventListener('click', function () { fields.focusNextMissing(); });
 
-        function setSignButtonLoading(loading) {
-            if (!btnSign) { return; }
+        function setLoading(loading) {
             btnSign.disabled = loading;
-            if (btnSignText)    { btnSignText.classList.toggle('es-hidden', loading); }
-            if (btnSignSpinner) { btnSignSpinner.classList.toggle('es-hidden', !loading); }
+            show(byId('btnSignText'), !loading);
+            show(byId('btnSignSpinner'), loading);
         }
 
-
-        if (btnSign) {
-            btnSign.addEventListener('click', function () {
-                if (!hasSigned) {
-                    showError('Please draw your signature in the box before submitting.');
-                    if (canvasWrap) {
-                        canvasWrap.style.borderColor = '#e74c3c';
-                        setTimeout(function () {
-                            canvasWrap.style.borderColor = '';
-                        }, 2000);
-                    }
-                    return;
-                }
-
-                var token = btnSign.getAttribute('data-token');
-                if (!token) {
-                    showError('Missing token. Please reload the page.');
-                    return;
-                }
-
-                var signatureDataURL = canvas.toDataURL('image/png');
-
-                setSignButtonLoading(true);
-                hideMessages();
-
-                var formData = new FormData();
-                formData.append('signature', signatureDataURL);
-                formData.append('csrf_token', btnSign.getAttribute('data-csrf') || '');
-
-                fetch('/sign/submit/' + token, {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(parseResponse)
-                .then(function (result) {
-                    setSignButtonLoading(false);
-                    if (result.data && result.data.success) {
-                        // Success — show message and disable further interaction
-                        if (msgSuccess) { msgSuccess.classList.remove('es-hidden'); }
-                        if (btnSign)    { btnSign.style.display = 'none'; }
-                        if (btnClear)   { btnClear.disabled = true; }
-                        if (btnShowDecline) { btnShowDecline.style.display = 'none'; }
-                        if (canvasWrap) { canvasWrap.style.pointerEvents = 'none'; }
-                        if (canvasStatus) { canvasStatus.textContent = ''; }
-                        // Redirect to success page after 2 seconds
-                        setTimeout(function () {
-                            window.location.href = '/sign/view/' + token;
-                        }, 2000);
-                    } else {
-                        showError(
-                            (result.data && result.data.error)
-                                ? result.data.error
-                                : 'An unexpected error occurred. Please try again.'
-                        );
-                    }
-                })
-                .catch(function (err) {
-                    setSignButtonLoading(false);
-                    showError('Network error: ' + err.message + '. Please check your connection and try again.');
-                });
+        function requestOtp() {
+            return post('/sign/otp/' + token, { csrf_token: csrf }).then(function (result) {
+                if (!result.success) { showError(result.error); return; }
+                otpRequested = true;
+                show(otpBox, true);
+                otpInput.focus();
             });
         }
 
-
-        if (btnShowDecline) {
-            btnShowDecline.addEventListener('click', function () {
-                if (declineForm) { declineForm.classList.remove('es-hidden'); }
-                btnShowDecline.style.display = 'none';
-                hideMessages();
+        btnSign.addEventListener('click', function () {
+            show(msgError, false);
+            if (pads.signature && !pads.signature.filled) {
+                showError('Please add your signature.');
+                return;
+            }
+            if (fields.focusNextMissing()) {
+                showError('Please complete the highlighted required fields.');
+                return;
+            }
+            if (needsOtp && !otpRequested) { requestOtp(); return; }
+            if (needsOtp && !/^\d{6}$/.test((otpInput.value || '').trim())) {
+                showError('Enter the 6-digit code we sent you.');
+                otpInput.focus();
+                return;
+            }
+            setLoading(true);
+            post('/sign/submit/' + token, {
+                csrf_token: csrf,
+                signature: pads.signature ? pads.signature.dataURL() : '',
+                signature_method: pads.signature ? pads.signature.mode : 'draw',
+                initials: pads.initials ? pads.initials.dataURL() : '',
+                values: JSON.stringify(fields.values()),
+                otp: needsOtp ? otpInput.value.trim() : '',
+            }).then(function (result) {
+                setLoading(false);
+                if (!result.success) { showError(result.error || 'An unexpected error occurred.'); return; }
+                show(byId('msgSuccess'), true);
+                btnSign.style.display = 'none';
+                show(byId('btnShowDecline'), false);
+                setTimeout(function () { window.location.href = '/sign/view/' + token; }, 1200);
+            }).catch(function () {
+                setLoading(false);
+                showError('Network error. Please check your connection and try again.');
             });
-        }
+        });
 
-        if (btnCancelDecline) {
-            btnCancelDecline.addEventListener('click', function () {
-                if (declineForm) { declineForm.classList.add('es-hidden'); }
-                if (btnShowDecline) { btnShowDecline.style.display = ''; }
+        byId('btnOtpResend').addEventListener('click', requestOtp);
+
+        var declineForm = byId('declineForm');
+        byId('btnShowDecline').addEventListener('click', function () {
+            show(declineForm, true);
+            show(byId('btnShowDecline'), false);
+        });
+        byId('btnCancelDecline').addEventListener('click', function () {
+            show(declineForm, false);
+            show(byId('btnShowDecline'), true);
+        });
+        byId('btnConfirmDecline').addEventListener('click', function () {
+            var button = byId('btnConfirmDecline');
+            button.disabled = true;
+            post('/sign/decline/' + token, {
+                csrf_token: button.getAttribute('data-csrf'),
+                reason: (byId('declineReason').value || '').trim(),
+            }).then(function (result) {
+                button.disabled = false;
+                if (!result.success) { showError(result.error || 'Failed to decline. Please try again.'); return; }
+                show(declineForm, false);
+                show(byId('msgDeclined'), true);
+                btnSign.style.display = 'none';
+                setTimeout(function () { window.location.href = '/sign/view/' + token; }, 1200);
+            }).catch(function () {
+                button.disabled = false;
+                showError('Network error. Please check your connection and try again.');
             });
-        }
-
-        if (btnConfirmDecline) {
-            btnConfirmDecline.addEventListener('click', function () {
-                var token  = btnConfirmDecline.getAttribute('data-token');
-                var reason = declineReason ? declineReason.value.trim() : '';
-
-                if (!token) {
-                    showError('Missing token. Please reload the page.');
-                    return;
-                }
-
-                btnConfirmDecline.disabled = true;
-                btnConfirmDecline.textContent = 'Declining…';
-                hideMessages();
-
-                var formData = new FormData();
-                formData.append('reason', reason);
-                formData.append('csrf_token', btnConfirmDecline.getAttribute('data-csrf') || '');
-
-                fetch('/sign/decline/' + token, {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(parseResponse)
-                .then(function (result) {
-                    btnConfirmDecline.disabled = false;
-                    btnConfirmDecline.textContent = 'Confirm Decline';
-
-                    if (result.data && result.data.success) {
-                        if (declineForm) { declineForm.classList.add('es-hidden'); }
-                        if (msgDeclined) { msgDeclined.classList.remove('es-hidden'); }
-                        if (btnSign)     { btnSign.style.display = 'none'; }
-                        if (canvasWrap)  { canvasWrap.style.pointerEvents = 'none'; }
-                        // Redirect to declined page
-                        setTimeout(function () {
-                            window.location.href = '/sign/view/' + token;
-                        }, 2000);
-                    } else {
-                        showError(
-                            (result.data && result.data.error)
-                                ? result.data.error
-                                : 'Failed to decline. Please try again.'
-                        );
-                        btnConfirmDecline.disabled = false;
-                    }
-                })
-                .catch(function (err) {
-                    btnConfirmDecline.disabled = false;
-                    btnConfirmDecline.textContent = 'Confirm Decline';
-                    showError('Network error: ' + err.message);
-                });
-            });
-        }
-
+        });
     });
-
 })();

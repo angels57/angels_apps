@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="easy_sign.SignLayoutEditor">
+        <div class="o_es_editor" t-ref="root">
+            <div t-if="!state.docs.length" class="o_es_empty">
+                <t t-if="hasPendingDocs">
+                    <button type="button" class="btn btn-primary" t-on-click="onLoadDocs">Load the document to place fields</button>
+                </t>
+                <t t-else="">Add a PDF document above to place the fields.</t>
+            </div>
+            <div t-else="" class="o_es_layout">
+                <aside class="o_es_tools" t-if="!locked">
+                    <div class="o_es_tools_title" t-if="isTemplate">Role</div>
+                    <div class="o_es_tools_title" t-else="">Signer</div>
+                    <div t-if="!parties.length" class="o_es_hint">
+                        <t t-if="isTemplate">Add a role above first.</t>
+                        <t t-else="">Add a signer above first.</t>
+                    </div>
+                    <button t-foreach="parties" t-as="party" t-key="party.id or party_index" type="button"
+                            t-attf-class="o_es_party o_es_c{{party.color % 12}} {{state.party === party.id ? 'active' : ''}}"
+                            t-on-click="() => this.selectParty(party)">
+                        <span class="o_es_dot"/><t t-out="party.name"/>
+                    </button>
+                    <div class="o_es_tools_title">Field</div>
+                    <div class="o_es_types">
+                        <button t-foreach="types" t-as="type" t-key="type[0]" type="button"
+                                t-attf-class="o_es_type {{state.tool === type[0] ? 'active' : ''}}"
+                                t-on-click="() => this.selectTool(type[0])" t-out="type[1]"/>
+                    </div>
+                    <div class="o_es_hint" t-if="state.tool">Click on the page where the field goes.</div>
+
+                    <div class="o_es_props" t-if="selected">
+                        <div class="o_es_tools_title" t-out="typeLabel[selected.type]"/>
+                        <label class="o_es_check">
+                            <input type="checkbox" t-att-checked="selected.required"
+                                   t-on-change="(ev) => this.updateSelected({ required: ev.target.checked })"/> Required
+                        </label>
+                        <label class="o_es_check" t-if="['text', 'textarea', 'date', 'selection'].includes(selected.type)">
+                            <input type="checkbox" t-att-checked="selected.readonly"
+                                   t-on-change="(ev) => this.updateSelected({ readonly: ev.target.checked })"/> Read-only
+                        </label>
+                        <input t-if="['text', 'textarea', 'date', 'selection'].includes(selected.type)" type="text"
+                               class="o_input" placeholder="Placeholder" t-att-value="selected.placeholder or ''"
+                               t-on-change="(ev) => this.updateSelected({ placeholder: ev.target.value })"/>
+                        <textarea t-if="['radio', 'selection'].includes(selected.type)" class="o_input" rows="3"
+                                  t-on-change="(ev) => this.updateSelected({ options: ev.target.value })"
+                                  t-out="selected.options or ''"/>
+                        <select t-if="['text', 'textarea', 'date', 'selection'].includes(selected.type)" class="o_input"
+                                t-on-change="(ev) => this.updateSelected({ alignment: ev.target.value })">
+                            <option value="left" t-att-selected="selected.alignment === 'left'">Left</option>
+                            <option value="center" t-att-selected="selected.alignment === 'center'">Center</option>
+                            <option value="right" t-att-selected="selected.alignment === 'right'">Right</option>
+                        </select>
+                        <select t-if="isTemplate and ['text', 'textarea'].includes(selected.type)" class="o_input"
+                                t-on-change="(ev) => this.updateSelected({ linked_field: ev.target.value or false })">
+                            <option value="">No auto-complete</option>
+                            <option t-foreach="linkable" t-as="path" t-key="path" t-att-value="path"
+                                    t-att-selected="selected.linked_field === path" t-out="path"/>
+                        </select>
+                        <div class="o_es_actions">
+                            <button type="button" class="btn btn-secondary btn-sm" t-on-click="copyToAllPages">All pages</button>
+                            <button type="button" class="btn btn-danger btn-sm" t-on-click="deleteSelected">Delete</button>
+                        </div>
+                    </div>
+                </aside>
+                <div class="o_es_pages">
+                    <t t-foreach="state.docs" t-as="doc" t-key="doc.id">
+                        <div class="o_es_doc_title" t-out="doc.name"/>
+                        <div t-foreach="pagesOf(doc)" t-as="page" t-key="page"
+                             t-attf-class="o_es_page {{state.tool ? 'o_es_placing' : ''}}"
+                             t-on-click="(ev) => this.onPageClick(ev, doc, page)">
+                            <canvas t-att-data-doc="doc.id" t-att-data-page="page"/>
+                            <div t-foreach="itemsOf(doc, page)" t-as="item" t-key="item.id"
+                                 t-attf-class="o_es_item o_es_c{{partyOf(item).color % 12}} {{state.selectedId === item.id ? 'selected' : ''}} {{item.required ? 'required' : ''}}"
+                                 t-att-style="itemStyle(item)"
+                                 t-on-pointerdown="(ev) => this.startDrag(ev, item, 'move')"
+                                 t-on-click.stop="() => {}">
+                                <span class="o_es_item_label"><t t-out="typeLabel[item.type]"/> · <t t-out="partyOf(item).name"/></span>
+                                <span t-if="!locked" class="o_es_resize" t-on-pointerdown.stop="(ev) => this.startDrag(ev, item, 'resize')"/>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

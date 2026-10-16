@@ -1,0 +1,74 @@
+/* Easy Sign — PDF pages, field overlays, pad tabs and one-time code. */
+
+.es-pages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background: #e8ecf0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: calc(100vh - 60px - 44px - 52px);
+}
+
+.es-pages-loading, .es-pages-title { color: #475569; font-size: 13px; font-weight: 600; }
+
+.es-page { position: relative; background: #fff; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12); line-height: 0; }
+.es-page canvas { display: block; width: 100%; height: auto; }
+
+.es-field {
+    position: absolute;
+    border: 1.5px dashed #94a3b8;
+    background: rgba(37, 99, 235, 0.06);
+    border-radius: 3px;
+    line-height: 1.2;
+    display: flex;
+}
+.es-field.es-required { border: 1.5px solid #2563eb; background: rgba(37, 99, 235, 0.12); }
+.es-field.es-flash { box-shadow: 0 0 0 3px #f59e0b; }
+.es-field input[type="text"], .es-field input[type="date"], .es-field textarea, .es-field select {
+    width: 100%; height: 100%; border: 0; background: transparent; padding: 0 3px;
+    font: inherit; font-size: 12px; color: #0f172a; resize: none;
+}
+.es-field input[type="checkbox"] { margin: auto; width: 80%; height: 80%; }
+.es-field-strike.es-checked::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 2px solid #dc2626;
+}
+.es-field-radio { display: flex; flex-direction: column; justify-content: space-around; font-size: 11px; padding: 2px; }
+.es-field-image {
+    width: 100%; height: 100%; border: 0; cursor: pointer; font-size: 11px; font-weight: 700;
+    color: #1d4ed8; background: transparent center / contain no-repeat;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.es-progress {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 10px 14px; border-radius: 8px; background: #fffbeb; border: 1px solid #fde68a;
+    font-size: 13px; color: #92400e;
+}
+.es-btn-next {
+    border: 0; background: #f59e0b; color: #fff; border-radius: 6px; padding: 6px 10px;
+    font-weight: 700; cursor: pointer;
+}
+
+.es-pad { display: flex; flex-direction: column; gap: 8px; }
+.es-pad-small .es-canvas-wrap { max-width: 260px; }
+.es-pad-tabs { display: flex; gap: 6px; }
+.es-pad-tab {
+    flex: 1; padding: 6px; border-radius: 6px; border: 1px solid #d0d5e8; background: #fff;
+    cursor: pointer; font-size: 13px; color: #334155;
+}
+.es-pad-tab.active { border-color: #1a1a2e; background: #1a1a2e; color: #fff; }
+.es-pad-text { font-size: 15px; }
+
+.es-otp { display: flex; flex-direction: column; gap: 8px; }
+.es-otp-input { font-size: 24px; letter-spacing: 8px; text-align: center; }
+
+.es-privacy { font-size: 11px; color: #94a3b8; margin: 0; }
+
+.es-verify-form { display: flex; flex-direction: column; gap: 8px; text-align: left; margin: 12px 0; }
+.es-result-verify .es-result-title { color: #1e293b; }
+
+@media (max-width: 992px) {
+    .es-pages { max-height: none; }
+}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_certificate" model="ir.actions.report">
+        <field name="name">Certificate of Completion</field>
+        <field name="model">sign.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">easy_sign.report_certificate</field>
+        <field name="report_file">easy_sign.report_certificate</field>
+        <field name="print_report_name">'%s - certificate' % object.name</field>
+        <field name="binding_model_id" ref="model_sign_request"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids" eval="[(4, ref('easy_sign.group_sign_user'))]"/>
+    </record>
+
+    <template id="report_certificate">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page" style="font-family:'DejaVu Sans',Arial,sans-serif;font-size:10px;color:#1e293b;">
+                        <h2 style="margin:0 0 4px 0;">Certificate of Completion</h2>
+                        <div style="color:#64748b;margin-bottom:14px;">Easy Sign · <t t-out="o.company_id.name"/></div>
+
+                        <table style="width:100%;border-collapse:collapse;margin-bottom:14px;">
+                            <tr><td style="width:30%;padding:3px 0;color:#64748b;">Reference</td><td t-out="o.name"/></tr>
+                            <tr><td style="padding:3px 0;color:#64748b;">Documents</td><td t-out="o.document_name"/></tr>
+                            <tr><td style="padding:3px 0;color:#64748b;">Requested by</td>
+                                <td><t t-out="o.user_id.name"/> &lt;<t t-out="o.user_id.email"/>&gt;</td></tr>
+                            <tr><td style="padding:3px 0;color:#64748b;">Completed on (UTC)</td><td t-out="o.completed_date"/></tr>
+                            <tr><td style="padding:3px 0;color:#64748b;">Verification code</td><td><strong t-out="o.verification_code"/></td></tr>
+                            <tr><td style="padding:3px 0;color:#64748b;">Original document hash (SHA-256)</td>
+                                <td style="font-family:monospace;word-break:break-all;" t-out="o.document_hash"/></tr>
+                        </table>
+
+                        <h4 style="margin:10px 0 6px 0;">Signers</h4>
+                        <table style="width:100%;border-collapse:collapse;">
+                            <thead>
+                                <tr style="background:#f1f5f9;">
+                                    <th style="text-align:left;padding:4px;">Signer</th>
+                                    <th style="text-align:left;padding:4px;">Verification</th>
+                                    <th style="text-align:left;padding:4px;">Signed (UTC) / IP / Browser</th>
+                                    <th style="text-align:left;padding:4px;">Signature</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.request_item_ids.filtered(lambda s: s.state == 'signed')" t-as="s" style="border-bottom:1px solid #e2e8f0;">
+                                    <td style="padding:4px;vertical-align:top;">
+                                        <strong t-out="s.signer_name"/><br/><t t-out="s.signer_email"/>
+                                        <div style="font-family:monospace;font-size:7px;color:#64748b;word-break:break-all;" t-out="s.signer_hash"/>
+                                    </td>
+                                    <td style="padding:4px;vertical-align:top;">
+                                        <span t-field="s.auth_method"/><br/><span t-field="s.signature_method"/>
+                                    </td>
+                                    <td style="padding:4px;vertical-align:top;">
+                                        <t t-out="s.signed_date"/><br/><t t-out="s.ip_address"/><br/>
+                                        <span style="font-size:7px;color:#64748b;" t-out="s.user_agent"/>
+                                    </td>
+                                    <td style="padding:4px;vertical-align:top;">
+                                        <img t-if="s.signature" t-att-src="image_data_uri(s.signature)" style="max-width:120px;max-height:45px;"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 style="margin:14px 0 6px 0;">Events</h4>
+                        <table style="width:100%;border-collapse:collapse;font-size:8.5px;">
+                            <thead>
+                                <tr style="background:#f1f5f9;">
+                                    <th style="text-align:left;padding:3px;">Date (UTC)</th>
+                                    <th style="text-align:left;padding:3px;">Event</th>
+                                    <th style="text-align:left;padding:3px;">Signer</th>
+                                    <th style="text-align:left;padding:3px;">IP</th>
+                                    <th style="text-align:left;padding:3px;">Event hash</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.log_ids.sorted('id')" t-as="log" style="border-bottom:1px solid #f1f5f9;">
+                                    <td style="padding:3px;" t-out="log.date"/>
+                                    <td style="padding:3px;"><span t-field="log.action"/></td>
+                                    <td style="padding:3px;" t-out="log.signer_email or ''"/>
+                                    <td style="padding:3px;" t-out="log.ip_address or ''"/>
+                                    <td style="padding:3px;font-family:monospace;" t-out="(log.log_hash or '')[:16]"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="margin-top:14px;color:#64748b;">
+                            Each event hash chains to the previous one. Check the signed file at
+                            <t t-out="o.get_base_url()"/>/sign/verify with the verification code.
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

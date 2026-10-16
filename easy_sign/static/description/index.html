@@ -41,12 +41,14 @@
                 and stores the final document in Odoo.
             </p>
             <ul>
-                <li>Upload PDF documents and define signers</li>
-                <li>Automatic email invitations with secure unique links</li>
-                <li>Draw signatures on canvas (mouse &amp; touch)</li>
-                <li>Signatures embedded directly into the PDF</li>
-                <li>Full audit trail: IP, timestamp, signer details</li>
-                <li>Expiry dates &amp; decline with reason</li>
+                <li>Place signature, initials, text, date, checkbox, radio, selection, strikethrough and stamp fields on the PDF</li>
+                <li>Several PDFs per request and reusable templates with roles</li>
+                <li>Signing order, automatic reminders, validity date and copy to contacts</li>
+                <li>Signers draw, type or upload their signature &mdash; no Odoo account needed</li>
+                <li>Optional one-time code by email (or SMS with the bridge module)</li>
+                <li>Certificate of completion with SHA-256 hashes and a chained audit trail</li>
+                <li>Public page to verify that a signed PDF was not modified</li>
+                <li>"Request Signature" action on the records of the models you choose</li>
             </ul>
         </div>
     </div>
@@ -230,6 +232,7 @@
                 <li>Odoo 19 Community or Enterprise</li>
                 <li>Python packages: <code>reportlab</code>, <code>Pillow</code></li>
                 <li>Depends on built-in modules: <code>mail</code>, <code>web</code></li>
+                <li>Optional: <code>easy_sign_sms</code> (Odoo SMS credits), <code>easy_sign_certificate</code> (company .p12/.pfx)</li>
             </ul>
         </div>
         <div class="oe_span6">
