@@ -106,10 +106,7 @@ class EasySignController(http.Controller):
         if self._is_expired(sign_request):
             raise request.not_found()
 
-        try:
-            pdf_bytes = base64.b64decode(sign_request.document)
-        except Exception:
-            raise request.not_found()
+        pdf_bytes = sign_request.document.content
 
         filename = sign_request.document_name or "document.pdf"
         return request.make_response(

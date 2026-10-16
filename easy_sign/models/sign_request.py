@@ -1,5 +1,4 @@
 import io
-import base64
 import logging
 from urllib.parse import quote
 
@@ -8,6 +7,7 @@ from markupsafe import escape
 from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import html2plaintext
+from odoo.tools.binary import BinaryBytes
 from odoo.tools.pdf import PdfReader, PdfWriter
 
 _logger = logging.getLogger(__name__)
@@ -318,7 +318,7 @@ class SignRequest(models.Model):
 
             for idx, item in enumerate(signed_items):
                 try:
-                    sig_bytes = base64.b64decode(item.signature)
+                    sig_bytes = item.signature.content
                     img = Image.open(io.BytesIO(sig_bytes))
 
                     if img.mode in ('RGBA', 'LA'):
@@ -361,7 +361,7 @@ class SignRequest(models.Model):
         _logger.info("_create_signed_document called for %s", self.name)
 
         try:
-            pdf_bytes = base64.b64decode(self.document)
+            pdf_bytes = self.document.content
             reader = PdfReader(io.BytesIO(pdf_bytes))
             writer = PdfWriter()
 
@@ -400,7 +400,7 @@ class SignRequest(models.Model):
             _logger.info("Signed PDF size: %d bytes", len(signed_bytes))
 
             self.write({
-                "signed_document": base64.b64encode(signed_bytes),
+                "signed_document": BinaryBytes(signed_bytes),
                 "signed_document_name": f"signed_{self.document_name or 'document.pdf'}",
             })
 

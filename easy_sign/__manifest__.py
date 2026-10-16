@@ -31,7 +31,7 @@ Adapted to Odoo 20 and maintained by Angels SAS.
     "license": "LGPL-3",
     "depends": ["mail", "web"],
     "data": [
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "data/ir_sequence.xml",
         "templates/sign_page.xml",
         "views/sign_request_views.xml",
