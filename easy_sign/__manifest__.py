@@ -1,9 +1,9 @@
 {
     "name": "Easy Sign - Electronic Signature",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "summary": "Self-hosted electronic signature: send PDF documents for signing directly from Odoo",
     "description": """
-Easy Sign - Electronic Signature for Odoo 19
+Easy Sign - Electronic Signature for Odoo 20
 =============================================
 
 A complete self-hosted electronic signature solution that works 100% inside Odoo
@@ -24,7 +24,7 @@ Features:
 Credits:
 --------
 Based on the original Easy Sign module by Ahmed Kamal (LGPL-3).
-Adapted to Odoo 19 and maintained by Angels SAS.
+Adapted to Odoo 20 and maintained by Angels SAS.
     """,
     "category": "Tools/Sign",
     "author": "Angels SAS",

@@ -391,7 +391,7 @@ class SignRequest(models.Model):
             writer.add_metadata({
                 "/Title": self.document_name or self.name,
                 "/Subject": f"Signed via Easy Sign - {self.name}",
-                "/Creator": "Easy Sign - Odoo 19",
+                "/Creator": "Easy Sign - Odoo 20",
             })
 
             output = io.BytesIO()

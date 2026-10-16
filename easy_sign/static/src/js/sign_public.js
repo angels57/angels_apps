@@ -1,7 +1,7 @@
 /** @odoo-module ignore */
 /**
  * Easy Sign — Public Signing Page JavaScript
- * Self-hosted electronic signature for Odoo 19
+ * Self-hosted electronic signature for Odoo 20
  * Handles: canvas drawing, mouse events, touch events, sign/decline submission
  */
 (function () {
