@@ -176,7 +176,7 @@ class SignRequest(models.Model):
 
     def _send_invitation(self, item):
         """Send the signing invitation email — built directly in Python (no Jinja2 template)."""
-        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+        base_url = self.get_base_url()
         sign_url = f"{base_url}/sign/view/{item.access_token}"
         company = self.env.company
         doc_name = self.document_name or self.name or "Document"
@@ -419,11 +419,7 @@ class SignRequest(models.Model):
         requester = self.user_id
         if not requester or not requester.email:
             return
-        base_url = (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("web.base.url")
-        )
+        base_url = self.get_base_url()
         doc_url = (
             f"{base_url}/odoo/sign.request/{self.id}"
         )
