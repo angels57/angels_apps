@@ -38,17 +38,17 @@ msgstr "%s ليس ملف PDF."
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "&gt;"
-msgstr ""
+msgstr "&gt;"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "&lt;"
-msgstr ""
+msgstr "&lt;"
 
 #. module: easy_sign
 #: model:ir.actions.report,print_report_name:easy_sign.action_report_certificate
 msgid "'%s - certificate' % object.name"
-msgstr ""
+msgstr "'%s - شهادة' % object.name"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_declined
@@ -183,29 +183,29 @@ msgstr "<span class=\"es-icon\">📄</span>\n                        <span class
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "<span class=\"es-lang-flag\">🌐</span>\n                <span id=\"esLangLabel\">عربي</span>"
-msgstr ""
+msgstr "<span class=\"es-lang-flag\">🌐</span>\n                <span id=\"esLangLabel\">عربي</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "<span class=\"es-logo-icon\">✎</span>\n            <span class=\"es-logo-text\">Easy Sign</span>"
-msgstr ""
+msgstr "<span class=\"es-logo-icon\">✎</span>\n            <span class=\"es-logo-text\">Easy Sign</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "<span class=\"es-msg-icon\">⚠</span>"
-msgstr ""
+msgstr "<span class=\"es-msg-icon\">⚠</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "<span class=\"es-msg-icon\">✔</span>"
-msgstr ""
+msgstr "<span class=\"es-msg-icon\">✔</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "<span class=\"es-msg-icon\">✕</span>"
-msgstr ""
+msgstr "<span class=\"es-msg-icon\">✕</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
@@ -2297,7 +2297,7 @@ msgstr "يطلب منك توقيع"
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__city
 msgid "city"
-msgstr ""
+msgstr "المدينة"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_form
@@ -2307,7 +2307,7 @@ msgstr "مثال: عقد عمل"
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__email
 msgid "email"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
@@ -2317,57 +2317,57 @@ msgstr "تم إلغاؤه. لا حاجة لأي إجراء."
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__name
 msgid "name"
-msgstr ""
+msgstr "الاسم"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_city
 msgid "partner_id.city"
-msgstr ""
+msgstr "جهة الاتصال: المدينة"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_company_name
 msgid "partner_id.company_name"
-msgstr ""
+msgstr "جهة الاتصال: اسم الشركة"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_country_id_name
 msgid "partner_id.country_id.name"
-msgstr ""
+msgstr "جهة الاتصال: الدولة"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_email
 msgid "partner_id.email"
-msgstr ""
+msgstr "جهة الاتصال: البريد الإلكتروني"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_name
 msgid "partner_id.name"
-msgstr ""
+msgstr "جهة الاتصال: الاسم"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_phone
 msgid "partner_id.phone"
-msgstr ""
+msgstr "جهة الاتصال: الهاتف"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_street
 msgid "partner_id.street"
-msgstr ""
+msgstr "جهة الاتصال: الشارع"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_vat
 msgid "partner_id.vat"
-msgstr ""
+msgstr "جهة الاتصال: الرقم الضريبي"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_zip
 msgid "partner_id.zip"
-msgstr ""
+msgstr "جهة الاتصال: الرمز البريدي"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__phone
 msgid "phone"
-msgstr ""
+msgstr "الهاتف"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
@@ -2377,17 +2377,17 @@ msgstr "موقّع(ين)."
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__street
 msgid "street"
-msgstr ""
+msgstr "الشارع"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__vat
 msgid "vat"
-msgstr ""
+msgstr "الرقم الضريبي"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__zip
 msgid "zip"
-msgstr ""
+msgstr "الرمز البريدي"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
@@ -2400,4 +2400,4 @@ msgstr "↺ <span class=\"es-i18n\" data-en=\"Clear\" data-ar=\"مسح\">مسح<
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "🌐 <span id=\"esLangLabel\">عربي</span>"
-msgstr ""
+msgstr "🌐 <span id=\"esLangLabel\">عربي</span>"

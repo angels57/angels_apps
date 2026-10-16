@@ -8,9 +8,9 @@ from odoo.tests.common import TransactionCase
 from odoo.tools.pdf import NameObject, NumberObject, PdfReader, PdfWriter
 
 
-def make_pdf(pages=2, rotate=0):
+def make_pdf(pages=2, rotate=0, pagesize=None):
     buffer = io.BytesIO()
-    pdf = canvas.Canvas(buffer)
+    pdf = canvas.Canvas(buffer, pagesize=pagesize) if pagesize else canvas.Canvas(buffer)
     for number in range(pages):
         pdf.drawString(72, 750, f"Page {number + 1}")
         pdf.showPage()
