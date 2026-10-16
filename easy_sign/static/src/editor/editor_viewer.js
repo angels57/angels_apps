@@ -1,8 +1,11 @@
 import { Component, onMounted, onPatched, onWillUnmount, useRef, useState } from "@odoo/owl";
 import { FieldPopover } from "./field_popover";
 import { clamp, itemLabel } from "./palette";
+import { PdfCache } from "./pdf_cache";
 
 const SNAP = 0.006;
+const ZOOMS = [0.5, 0.75, 1, 1.25, 1.5, 2];
+const PT_TO_PX = 96 / 72;
 
 export class EditorViewer extends Component {
     static template = "easy_sign.EditorViewer";
@@ -12,17 +15,29 @@ export class EditorViewer extends Component {
     setup() {
         this.root = useRef("pages");
         this.itemLabel = itemLabel;
-        this.view = useState({ guides: [] });
+        this.zooms = ZOOMS;
+        this.pdf = new PdfCache();
+        this.view = useState({
+            guides: [], zoom: "auto", pageIndex: 0, thumbs: false,
+            query: "", results: [], resultIndex: -1, sizes: {}, flash: "", width: 900,
+        });
         this.state = useState(this.props.store.state);
-        this.renderedKey = "";
         this.clipboard = null;
         this.onKeyDown = this.onKeyDown.bind(this);
+        this.observer = new IntersectionObserver((entries) => this.onVisible(entries), { rootMargin: "400px" });
+        this.resizer = new ResizeObserver(() => this.onResize());
         onMounted(() => {
-            this.renderPages();
             window.addEventListener("keydown", this.onKeyDown);
+            this.resizer.observe(this.root.el);
+            this.onResize();
+            this.loadSizes();
         });
-        onPatched(() => this.renderPages());
-        onWillUnmount(() => window.removeEventListener("keydown", this.onKeyDown));
+        onPatched(() => this.observePages());
+        onWillUnmount(() => {
+            window.removeEventListener("keydown", this.onKeyDown);
+            this.observer.disconnect();
+            this.resizer.disconnect();
+        });
     }
 
     get store() {
@@ -37,6 +52,9 @@ export class EditorViewer extends Component {
     pagesOf(doc) {
         return Array.from({ length: doc.page_count || 0 }, (_v, index) => index + 1);
     }
+    get allPages() {
+        return this.state.documents.flatMap((doc) => this.pagesOf(doc).map((page) => ({ doc, page })));
+    }
     itemStyle(item) {
         return `left:${item.pos_x * 100}%;top:${item.pos_y * 100}%;width:${item.width * 100}%;height:${item.height * 100}%;`;
     }
@@ -47,26 +65,134 @@ export class EditorViewer extends Component {
         return guide.axis === "x" ? `left:${guide.pos * 100}%;` : `top:${guide.pos * 100}%;`;
     }
 
-    async renderPages() {
-        const key = this.state.documents.map((d) => d.id).join(",");
-        if (key === this.renderedKey || !globalThis.pdfjsLib || !this.root.el) {
+    // ------------------------------------------------------------------
+    // Page size, zoom and lazy rendering
+    // ------------------------------------------------------------------
+    async loadSizes() {
+        const sizes = {};
+        for (const doc of this.state.documents) {
+            (await this.pdf.sizes(doc)).forEach((size, index) => (sizes[`${doc.id}-${index + 1}`] = size));
+        }
+        this.view.sizes = sizes;
+    }
+    pageWidth(doc, page) {
+        const size = this.view.sizes[`${doc.id}-${page}`] || { w: 595, h: 842 };
+        return this.view.zoom === "auto" ? this.view.width : size.w * this.view.zoom * PT_TO_PX;
+    }
+    pageStyle(doc, page) {
+        const size = this.view.sizes[`${doc.id}-${page}`] || { w: 595, h: 842 };
+        return `width:${this.pageWidth(doc, page)}px;aspect-ratio:${size.w} / ${size.h};`;
+    }
+    onResize() {
+        if (this.root.el) {
+            this.view.width = Math.max(320, Math.min(this.root.el.clientWidth - 48, 1100));
+        }
+    }
+    zoomLabel(zoom) {
+        return `${Math.round(zoom * 100)}%`;
+    }
+    setZoom(zoom) {
+        this.view.zoom = zoom;
+    }
+    zoomStep(delta) {
+        const current = this.view.zoom === "auto" ? this.view.width / (595 * PT_TO_PX) : this.view.zoom;
+        const next = ZOOMS.find((z) => (delta > 0 ? z > current + 0.01 : false)) ||
+            [...ZOOMS].reverse().find((z) => (delta < 0 ? z < current - 0.01 : false));
+        if (next) {
+            this.view.zoom = next;
+        }
+    }
+    observePages() {
+        if (!this.root.el) {
             return;
         }
-        this.renderedKey = key;
-        for (const doc of this.state.documents) {
-            const pdf = await globalThis.pdfjsLib.getDocument({ url: doc.url }).promise;
-            for (let number = 1; number <= pdf.numPages; number++) {
-                const canvas = this.root.el.querySelector(`canvas[data-doc="${doc.id}"][data-page="${number}"]`);
-                if (!canvas) {
-                    continue;
-                }
-                const page = await pdf.getPage(number);
-                const base = page.getViewport({ scale: 1 });
-                const viewport = page.getViewport({ scale: (1000 / base.width) * (window.devicePixelRatio || 1) });
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+        for (const el of this.root.el.querySelectorAll(".o_es_page")) {
+            this.observer.observe(el);
+            if (el.dataset.visible === "1") {
+                this.renderPage(el);
             }
+        }
+    }
+    onVisible(entries) {
+        for (const entry of entries) {
+            entry.target.dataset.visible = entry.isIntersecting ? "1" : "0";
+            if (entry.isIntersecting) {
+                this.renderPage(entry.target);
+            }
+        }
+    }
+    async renderPage(el) {
+        const width = Math.round(el.clientWidth);
+        if (!width || el.dataset.rendered === String(width)) {
+            return;
+        }
+        el.dataset.rendered = String(width);
+        const doc = this.state.documents.find((d) => d.id === Number(el.dataset.doc));
+        if (doc) {
+            await this.pdf.render(doc, Number(el.dataset.page), el.querySelector("canvas"), width);
+        }
+    }
+    async renderThumb(canvas) {
+        if (canvas && !canvas.dataset.rendered) {
+            canvas.dataset.rendered = "1";
+            const doc = this.state.documents.find((d) => d.id === Number(canvas.dataset.doc));
+            await this.pdf.render(doc, Number(canvas.dataset.page), canvas, 110);
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Page navigation, thumbnails and search
+    // ------------------------------------------------------------------
+    onScroll() {
+        const top = this.root.el.getBoundingClientRect().top + 40;
+        const pages = [...this.root.el.querySelectorAll(".o_es_page")];
+        const index = pages.findIndex((el) => el.getBoundingClientRect().bottom > top);
+        if (index >= 0 && index !== this.view.pageIndex) {
+            this.view.pageIndex = index;
+        }
+    }
+    goToPage(index) {
+        const pages = this.root.el.querySelectorAll(".o_es_page");
+        const target = pages[clamp(index, 0, pages.length - 1)];
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            this.view.pageIndex = clamp(index, 0, pages.length - 1);
+        }
+    }
+    onPageInput(ev) {
+        this.goToPage(Number(ev.target.value) - 1);
+    }
+    toggleThumbs() {
+        this.view.thumbs = !this.view.thumbs;
+        if (this.view.thumbs) {
+            setTimeout(() => document.querySelectorAll(".o_es_thumb canvas").forEach((c) => this.renderThumb(c)));
+        }
+    }
+    async onSearch(ev) {
+        if (ev.key !== "Enter") {
+            return;
+        }
+        const query = ev.target.value.trim().toLowerCase();
+        if (query !== this.view.query) {
+            this.view.query = query;
+            this.view.results = [];
+            this.view.resultIndex = -1;
+            if (query) {
+                const pages = this.allPages;
+                for (let index = 0; index < pages.length; index++) {
+                    if ((await this.pdf.pageText(pages[index].doc, pages[index].page)).includes(query)) {
+                        this.view.results.push(index);
+                    }
+                }
+            }
+        }
+        if (this.view.results.length) {
+            this.view.resultIndex = (this.view.resultIndex + 1) % this.view.results.length;
+            const index = this.view.results[this.view.resultIndex];
+            this.goToPage(index);
+            const { doc, page } = this.allPages[index];
+            this.view.flash = `${doc.id}-${page}`;
+            setTimeout(() => (this.view.flash = ""), 1500);
         }
     }
 

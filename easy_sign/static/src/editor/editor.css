@@ -83,3 +83,51 @@
 .o_es_popover_title { font-weight: 700; }
 .o_es_check { display: flex; gap: 6px; align-items: center; margin: 0; }
 .o_es_popover_actions { display: flex; gap: 6px; }
+.o_es_actions { display: flex; gap: 6px; }
+.o_es_titles { flex: 1; }
+.o_es_name { display: flex; align-items: center; gap: 6px; }
+.o_es_name_input { border: 0; border-bottom: 1px dashed transparent; font-weight: 600; font-size: 15px; min-width: 240px; }
+.o_es_name_input:hover, .o_es_name_input:focus { border-bottom-color: #94a3b8; outline: none; }
+.o_es_icon_btn { border: 0; background: transparent; color: #475569; padding: 0 4px; }
+.o_es_tags { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.o_es_tags_label { color: #475569; }
+.o_es_tag { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+.o_es_tag .fa { cursor: pointer; opacity: .7; }
+.o_es_tag_add { position: relative; }
+.o_es_tag_add input { border: 0; border-bottom: 1px solid #cbd5e1; font-size: 13px; width: 120px; }
+.o_es_tag_menu {
+    position: absolute; top: 100%; left: 0; z-index: 10; min-width: 160px; display: flex; flex-direction: column;
+    background: #fff; border: 1px solid #cbd5e1; border-radius: 4px; box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+}
+.o_es_tag_menu button { border: 0; background: transparent; text-align: left; padding: 6px 10px; }
+.o_es_tag_menu button:hover { background: #f1f5f9; }
+.o_es_toolbar {
+    display: flex; align-items: center; justify-content: center; gap: 18px; padding: 6px 12px;
+    background: #fff; border-bottom: 1px solid #e2e8f0; position: relative;
+}
+.o_es_toolbar_group { display: flex; align-items: center; gap: 6px; }
+.o_es_tbtn { border: 0; background: transparent; color: #475569; padding: 4px 6px; border-radius: 4px; }
+.o_es_tbtn:hover, .o_es_tbtn.active { background: #f1f5f9; }
+.o_es_thumbs_btn { position: absolute; right: 12px; }
+.o_es_page_input { width: 48px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; }
+.o_es_of { color: #64748b; font-size: 13px; }
+.o_es_zoom { border: 1px solid #cbd5e1; border-radius: 4px; padding: 2px 6px; }
+.o_es_search { border: 0; border-bottom: 1px solid #cbd5e1; width: 140px; }
+.o_es_search_icon { color: #64748b; }
+.o_es_viewer_body { flex: 1; display: flex; min-height: 0; }
+.o_es_pages { align-items: flex-start; }
+.o_es_page { max-width: none; flex: 0 0 auto; margin: 0 auto; }
+.o_es_page canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.o_es_page.o_es_flash { box-shadow: 0 0 0 3px #f59e0b; }
+.o_es_thumbs {
+    flex: 0 0 150px; overflow-y: auto; background: #fff; border-left: 1px solid #e2e8f0; padding: 8px;
+    display: flex; flex-direction: column; gap: 8px; align-items: center;
+}
+.o_es_thumb { border: 2px solid transparent; background: transparent; padding: 2px; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; }
+.o_es_thumb.active { border-color: #017e84; }
+.o_es_thumb canvas { width: 110px; height: auto; box-shadow: 0 1px 3px rgba(0, 0, 0, .2); background: #fff; }
+.o_es_item_script {
+    display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 0 6px;
+    font-family: "Z003", "URW Chancery L", "Apple Chancery", "Segoe Script", "Brush Script MT", cursive;
+    font-style: italic; font-size: clamp(12px, 2.2vw, 30px); color: #1e3a8a; white-space: nowrap; overflow: hidden;
+}

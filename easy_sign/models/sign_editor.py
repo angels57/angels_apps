@@ -95,7 +95,21 @@ class SignEditorMixin(models.AbstractModel):
             "party_field": party_field,
             "can_send": self._name == "sign.template" or self.state == "draft",
             "is_manager": self.env.user.has_group("easy_sign.group_sign_manager"),
+            "properties_view_id": self.env.ref(
+                "easy_sign.view_sign_template_properties_form" if self._name == "sign.template"
+                else "easy_sign.view_sign_request_properties_form"
+            ).id,
+            "can_sign_now": self._editor_can_sign_now(),
         }
+
+    def _editor_can_sign_now(self):
+        return True
+
+    def editor_set_name(self, name):
+        self.ensure_one()
+        if self._name == "sign.template" and name:
+            self.name = name
+        return self.display_name
 
     def editor_add_party(self):
         self.ensure_one()
@@ -149,6 +163,10 @@ class SignRequest(models.Model):
         self._editor_check_editable()
         self.request_item_ids.filtered(lambda s: s.id == party_id).unlink()
         return True
+
+    def _editor_can_sign_now(self):
+        mine = self.request_item_ids.filtered(lambda s: s.partner_id == self.env.user.partner_id)
+        return bool(mine) and self.state in ("draft", "sent")
 
     def action_sign_now(self):
         """Send (when draft) and open the signing page of the current user."""

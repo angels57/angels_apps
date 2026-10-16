@@ -42,4 +42,54 @@
             </form>
         </field>
     </record>
+    <!-- Properties (gear in the editor). -->
+    <record id="view_sign_request_properties_form" model="ir.ui.view">
+        <field name="name">sign.request.properties.form</field>
+        <field name="model">sign.request</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <form string="Properties">
+                <group>
+                    <group>
+                        <field name="expiry_date"/>
+                        <field name="reminder_days"/>
+                        <field name="signing_order"/>
+                        <field name="user_id"/>
+                    </group>
+                    <group>
+                        <field name="cc_partner_ids" widget="many2many_tags"/>
+                        <field name="redirect_url" widget="url"/>
+                        <field name="subject" placeholder="Please sign: ..."/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                </group>
+                <field name="message" placeholder="Message for the signers"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_sign_template_properties_form" model="ir.ui.view">
+        <field name="name">sign.template.properties.form</field>
+        <field name="model">sign.template</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <form string="Properties">
+                <group>
+                    <group>
+                        <field name="model_id" options="{'no_create': True}"/>
+                        <field name="validity_days"/>
+                        <field name="reminder_days"/>
+                        <field name="signing_order"/>
+                    </group>
+                    <group>
+                        <field name="redirect_url" widget="url"/>
+                        <field name="group_ids" widget="many2many_tags"/>
+                        <field name="user_id"/>
+                        <field name="default_subject"/>
+                    </group>
+                </group>
+                <field name="default_message" placeholder="Default message for the signers"/>
+            </form>
+        </field>
+    </record>
 </odoo>
