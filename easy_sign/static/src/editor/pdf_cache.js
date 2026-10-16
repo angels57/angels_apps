@@ -22,13 +22,38 @@ export class PdfCache {
         return sizes;
     }
 
+    /** Render a page; the latest request on a canvas wins and cancels the previous one (pdf.js forbids overlaps). */
     async render(doc, number, canvas, cssWidth) {
+        const generation = (canvas._esGeneration || 0) + 1;
+        canvas._esGeneration = generation;
         const page = await (await this.get(doc)).getPage(number);
+        if (canvas._esGeneration !== generation) {
+            return;
+        }
+        if (canvas._esTask) {
+            canvas._esTask.cancel();
+            await canvas._esTask.promise.catch(() => {});
+            if (canvas._esGeneration !== generation) {
+                return;
+            }
+        }
         const base = page.getViewport({ scale: 1 });
         const viewport = page.getViewport({ scale: (cssWidth / base.width) * (window.devicePixelRatio || 1) });
         canvas.width = viewport.width;
         canvas.height = viewport.height;
-        await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+        const task = page.render({ canvasContext: canvas.getContext("2d"), viewport });
+        canvas._esTask = task;
+        try {
+            await task.promise;
+        } catch (error) {
+            if (error?.name !== "RenderingCancelledException") {
+                throw error;
+            }
+        } finally {
+            if (canvas._esTask === task) {
+                canvas._esTask = null;
+            }
+        }
     }
 
     async pageText(doc, number) {
