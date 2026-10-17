@@ -172,6 +172,7 @@
         // ------------------------------------------------------------------
         function ribbonLabel(field) {
             if (!started) { return t('start'); }
+            if (field.tip) { return field.tip; }
             return field.type === 'signature' || field.type === 'initials' ? t('sign') : t('fill');
         }
         function placeRibbon() {

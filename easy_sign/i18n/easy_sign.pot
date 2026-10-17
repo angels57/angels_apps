@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-16 11:19+0000\n"
-"PO-Revision-Date: 2026-10-16 11:19+0000\n"
+"POT-Creation-Date: 2026-10-17 00:28+0000\n"
+"PO-Revision-Date: 2026-10-17 00:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -83,9 +83,31 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-badge es-badge-pending\">\n"
-"                <span class=\"es-i18n\" data-en=\"Signature Required\" data-ar=\"يلزم التوقيع\">Signature Required</span>\n"
-"            </span>"
+"<br/><span class=\"es-i18n\" data-en=\"Valid until\" data-ar=\"صالح "
+"حتى\">Valid until</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<select id=\"esZoom\" class=\"es-zoom\" aria-label=\"Zoom\">\n"
+"                <option value=\"auto\" class=\"es-i18n\" data-en=\"Automatic Zoom\" data-ar=\"تكبير تلقائي\">Automatic Zoom</option>\n"
+"                <option value=\"0.5\">50%</option>\n"
+"                <option value=\"0.75\">75%</option>\n"
+"                <option value=\"1\">100%</option>\n"
+"                <option value=\"1.25\">125%</option>\n"
+"                <option value=\"1.5\">150%</option>\n"
+"                <option value=\"2\">200%</option>\n"
+"            </select>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-actionbar-secured\">\n"
+"            <span class=\"es-i18n\" data-en=\"Secured by\" data-ar=\"مؤمّن بواسطة\">Secured by</span> <strong>Easy Sign</strong>\n"
+"        </span>\n"
+"        <span id=\"esProgressText\" class=\"es-progress-text\"/>"
 msgstr ""
 
 #. module: easy_sign
@@ -98,20 +120,49 @@ msgid ""
 msgstr ""
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "<span class=\"es-i18n\" data-en=\"Auto\" data-ar=\"تلقائي\">Auto</span>"
+msgstr ""
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "<span class=\"es-i18n\" data-en=\"Cancel\" data-ar=\"إلغاء\">Cancel</span>"
 msgstr ""
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "<span class=\"es-i18n\" data-en=\"Clear\" data-ar=\"مسح\">Clear</span>"
+msgstr ""
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Confirm Decline\" data-ar=\"تأكيد "
-"الرفض\">Confirm Decline</span>"
+"<span class=\"es-i18n\" data-en=\"Click to start\" data-ar=\"انقر "
+"للبدء\">Click to start</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Confirm and Sign\" data-ar=\"تأكيد "
+"وتوقيع\">Confirm and Sign</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 msgid "<span class=\"es-i18n\" data-en=\"Continue\" data-ar=\"متابعة\">Continue</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Decline to sign\" data-ar=\"رفض "
+"التوقيع\">Decline to sign</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "<span class=\"es-i18n\" data-en=\"Decline\" data-ar=\"رفض\">Decline</span>"
 msgstr ""
 
 #. module: easy_sign
@@ -122,27 +173,40 @@ msgid ""
 msgstr ""
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "<span class=\"es-i18n\" data-en=\"Download\" data-ar=\"تنزيل\">Download</span>"
+msgstr ""
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
 msgid "<span class=\"es-i18n\" data-en=\"Draw\" data-ar=\"ارسم\">Draw</span>"
 msgstr ""
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid ""
-"<span class=\"es-i18n\" data-en=\"I decline to sign this document\" data-"
-"ar=\"أرفض التوقيع على هذه الوثيقة\">I decline to sign this document</span>"
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "<span class=\"es-i18n\" data-en=\"Frame\" data-ar=\"إطار\">Frame</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "<span class=\"es-i18n\" data-en=\"Load\" data-ar=\"تحميل\">Load</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid ""
-"<span class=\"es-i18n\" data-en=\"Next field\" data-ar=\"الحقل التالي\">Next"
-" field</span> ↓"
+msgid "<span class=\"es-i18n\" data-en=\"Options\" data-ar=\"خيارات\">Options</span> ▾"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
 msgid "<span class=\"es-i18n\" data-en=\"Reason:\" data-ar=\"السبب:\">Reason:</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Requested by\" data-ar=\"طلب "
+"من\">Requested by</span>"
 msgstr ""
 
 #. module: easy_sign
@@ -155,15 +219,20 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Secured by\" data-ar=\"مؤمّن بواسطة\">Secured by</span>\n"
-"        <strong>Easy Sign</strong>"
+"<span class=\"es-i18n\" data-en=\"Send a new code\" data-ar=\"إرسال رمز "
+"جديد\">Send a new code</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Send a new code\" data-ar=\"إرسال رمز "
-"جديد\">Send a new code</span>"
+"<span class=\"es-i18n\" data-en=\"Sign all\" data-ar=\"توقيع الكل\">Sign "
+"all</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "<span class=\"es-i18n\" data-en=\"Sign\" data-ar=\"توقيع\">Sign</span>"
 msgstr ""
 
 #. module: easy_sign
@@ -186,16 +255,6 @@ msgid ""
 "<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been "
 "recorded.\" data-ar=\"شكراً. تم تسجيل توقيعك.\">Thank you. Your signature "
 "has been recorded.</span>"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Type\" data-ar=\"اكتب\">Type</span>"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Upload\" data-ar=\"ارفع صورة\">Upload</span>"
 msgstr ""
 
 #. module: easy_sign
@@ -222,68 +281,63 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-icon\">📄</span>\n"
-"                        <span class=\"es-i18n\" data-en=\"Document to Sign\" data-ar=\"الوثيقة المطلوب توقيعها\">Document to Sign</span>"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid ""
 "<span class=\"es-lang-flag\">🌐</span>\n"
 "                <span id=\"esLangLabel\">عربي</span>"
 msgstr ""
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid ""
-"<span class=\"es-logo-icon\">✎</span>\n"
-"            <span class=\"es-logo-text\">Easy Sign</span>"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "<span class=\"es-msg-icon\">⚠</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-msg-icon\">⚠</span>\n"
+"            <span id=\"msgErrorText\"/>"
+msgstr ""
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "<span class=\"es-msg-icon\">✔</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-msg-icon\">✕</span>"
+msgid ""
+"<span class=\"es-msg-icon\">✔</span>\n"
+"            <strong class=\"es-i18n\" data-en=\"Signed successfully!\" data-ar=\"تم التوقيع بنجاح!\">Signed successfully!</strong>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-msg-icon\">✕</span>\n"
+"            <strong class=\"es-i18n\" data-en=\"Signing declined\" data-ar=\"تم رفض التوقيع\">Signing declined</strong>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-page-total\"><span class=\"es-i18n\" data-en=\"of\" data-"
+"ar=\"من\">of</span> <span id=\"esPageCount\">1</span></span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-signer-state\">✎ <span class=\"es-i18n\" data-"
+"en=\"Signing\" data-ar=\"قيد التوقيع\">Signing</span></span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span id=\"btnSignText\">✓ <span class=\"es-i18n\" data-en=\"Sign Document\" data-ar=\"توقيع الوثيقة\">Sign Document</span></span>\n"
-"                        <span id=\"btnSignSpinner\" class=\"es-hidden\">\n"
-"                            <span class=\"es-spinner\" role=\"status\"/>\n"
-"                            <span class=\"es-i18n\" data-en=\"Submitting...\" data-ar=\"جاري الإرسال...\">Submitting...</span>\n"
-"                        </span>"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<strong class=\"es-i18n\" data-en=\"Error\" data-ar=\"خطأ\">Error</strong>"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid ""
-"<strong class=\"es-i18n\" data-en=\"Signed successfully!\" data-ar=\"تم "
-"التوقيع بنجاح!\">Signed successfully!</strong>"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid ""
-"<strong class=\"es-i18n\" data-en=\"Signing declined\" data-ar=\"تم رفض "
-"التوقيع\">Signing declined</strong>"
+"            <span id=\"btnSignSpinner\" class=\"es-hidden\">\n"
+"                <span class=\"es-spinner\" role=\"status\"/>\n"
+"                <span class=\"es-i18n\" data-en=\"Submitting...\" data-ar=\"جاري الإرسال...\">Submitting...</span>\n"
+"            </span>"
 msgstr ""
 
 #. module: easy_sign
@@ -306,6 +360,11 @@ msgstr ""
 msgid ""
 "<strong>The file does not match the signed document. It may have been "
 "modified.</strong>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "A <span class=\"es-caret\">▾</span>"
 msgstr ""
 
 #. module: easy_sign
@@ -414,6 +473,7 @@ msgstr ""
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__alignment
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__alignment
 msgid "Alignment"
 msgstr ""
 
@@ -471,10 +531,10 @@ msgid ""
 msgstr ""
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_search
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
 msgid "Archived"
 msgstr ""
 
@@ -507,7 +567,6 @@ msgstr ""
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__linked_field
-#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field
 msgid "Auto-complete"
 msgstr ""
 
@@ -531,6 +590,15 @@ msgstr ""
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__user_agent
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__user_agent
 msgid "Browser"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"By clicking Sign, I agree that the chosen signature/initials will be a valid"
+" electronic representation of my hand-written signature/initials for all "
+"purposes when it is used on documents, including legally binding contracts. "
+"My IP address, browser and the time of each action are recorded as evidence."
 msgstr ""
 
 #. module: easy_sign
@@ -570,6 +638,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__center
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__alignment__center
 msgid "Center"
 msgstr ""
 
@@ -614,7 +683,14 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_city
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_city
 msgid "City"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_dialog
+msgid "Close"
 msgstr ""
 
 #. module: easy_sign
@@ -628,6 +704,8 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__company_id
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_parent_id_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_parent_id_name
 #: model:sign.item.type,name:easy_sign.item_type_company
 msgid "Company"
 msgstr ""
@@ -635,6 +713,8 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_company_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_company_name
 msgid "Company Name"
 msgstr ""
 
@@ -654,10 +734,15 @@ msgid "Completed on (UTC)"
 msgstr ""
 
 #. module: easy_sign
-#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__partner_id
-#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__partner_id
+#: model:ir.ui.menu,name:easy_sign.menu_sign_configuration
+msgid "Configuration"
+msgstr ""
+
+#. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_item_type.py:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__partner_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__partner_id
 msgid "Contact"
 msgstr ""
 
@@ -674,7 +759,14 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_country_id_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_country_id_name
 msgid "Country"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
+msgid "Create a field type"
 msgstr ""
 
 #. module: easy_sign
@@ -754,6 +846,16 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_properties_form
 msgid "Default message for the signers"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+msgid "Default values"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__field_size
+msgid "Default width of a new field of this type."
 msgstr ""
 
 #. module: easy_sign
@@ -918,6 +1020,11 @@ msgid "Edit a Copy"
 msgstr ""
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+msgid "Editor"
+msgstr ""
+
+#. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_request
 msgid "Electronic Signature Request"
 msgstr ""
@@ -927,6 +1034,8 @@ msgstr ""
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__signer_email
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signer_email
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_email
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_email
 #: model:sign.item.type,name:easy_sign.item_type_email
 msgid "Email"
 msgstr ""
@@ -1001,9 +1110,31 @@ msgid "Extra files sent with the invitation email."
 msgstr ""
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field
+msgid "Field"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
+msgid "Field Name"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__field_size
+msgid "Field Size"
+msgstr ""
+
+#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__item_type_id
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
 msgid "Field Type"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
+msgid "Field types make up the palette of the document editor."
 msgstr ""
 
 #. module: easy_sign
@@ -1043,6 +1174,11 @@ msgstr ""
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_partner_ids
 msgid "Followers (Partners)"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "Font"
 msgstr ""
 
 #. module: easy_sign
@@ -1182,6 +1318,11 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "Language"
+msgstr ""
+
+#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__last_reminder_date
 msgid "Last Reminder Date"
 msgstr ""
@@ -1220,6 +1361,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__left
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__alignment__left
 msgid "Left"
 msgstr ""
 
@@ -1240,8 +1382,28 @@ msgid "Link:"
 msgstr ""
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field_name
+msgid "Linked Field"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_model
+msgid "Linked to"
+msgstr ""
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Loading document…"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__long
+msgid "Long Text"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__required
+msgid "Mandatory"
 msgstr ""
 
 #. module: easy_sign
@@ -1309,6 +1471,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_name
 #: model:sign.item.type,name:easy_sign.item_type_name
 msgid "Name"
 msgstr ""
@@ -1337,6 +1501,7 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Next page"
 msgstr ""
 
@@ -1497,6 +1662,7 @@ msgstr ""
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__page
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Page"
 msgstr ""
 
@@ -1524,6 +1690,8 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_phone
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_phone
 #: model:sign.item.type,name:easy_sign.item_type_phone
 msgid "Phone"
 msgstr ""
@@ -1583,6 +1751,7 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Previous page"
 msgstr ""
 
@@ -1605,6 +1774,11 @@ msgid "Radio"
 msgstr ""
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__readonly
+msgid "Read Only"
+msgstr ""
+
+#. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Read-only"
@@ -1612,13 +1786,7 @@ msgstr ""
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__readonly
-#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__readonly
 msgid "Readonly"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "Reason for Declining"
 msgstr ""
 
 #. module: easy_sign
@@ -1631,6 +1799,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__name
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Reference"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__regular
+msgid "Regular Text"
 msgstr ""
 
 #. module: easy_sign
@@ -1726,7 +1899,6 @@ msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Requested by"
 msgstr ""
 
@@ -1740,7 +1912,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__required
-#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__required
 msgid "Required"
 msgstr ""
 
@@ -1773,6 +1944,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__right
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__alignment__right
 msgid "Right"
 msgstr ""
 
@@ -1853,6 +2025,11 @@ msgid "Sequence"
 msgstr ""
 
 #. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__short
+msgid "Short Text"
+msgstr ""
+
+#. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Sign Now"
@@ -1887,6 +2064,13 @@ msgstr ""
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_item_type
 msgid "Signature Field Type"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.actions.act_window,name:easy_sign.action_sign_item_type
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
+msgid "Signature Fields"
 msgstr ""
 
 #. module: easy_sign
@@ -2140,6 +2324,8 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_street
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_street
 msgid "Street"
 msgstr ""
 
@@ -2167,6 +2353,8 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_vat
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_vat
 msgid "Tax ID"
 msgstr ""
 
@@ -2194,6 +2382,13 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__text
 #: model:sign.item.type,name:easy_sign.item_type_text
 msgid "Text"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__tip
+msgid ""
+"Text of the guide ribbon on the signing page, for example 'Fill in'. Empty: "
+"automatic."
 msgstr ""
 
 #. module: easy_sign
@@ -2280,6 +2475,12 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
 msgid "The request to sign"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"The request will be cancelled for everyone. You can tell the sender why."
 msgstr ""
 
 #. module: easy_sign
@@ -2413,6 +2614,11 @@ msgid "Thumbnails"
 msgstr ""
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__tip
+msgid "Tip"
+msgstr ""
+
+#. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "Too many attempts. Request a new code."
@@ -2449,6 +2655,11 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "UTC ·"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__update_field
+msgid "Update Field"
 msgstr ""
 
 #. module: easy_sign
@@ -2512,13 +2723,17 @@ msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Valid until"
 msgstr ""
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__value
 msgid "Value"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__linked_field
+msgid "Value of the signer's contact that fills this field."
 msgstr ""
 
 #. module: easy_sign
@@ -2584,6 +2799,11 @@ msgid "Wizard"
 msgstr ""
 
 #. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__update_field
+msgid "Write the value entered by the signer back to their contact."
+msgstr ""
+
+#. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_template.py:0
 msgid "You are not allowed to use this template."
@@ -2608,28 +2828,6 @@ msgid "You will receive an email when it is your turn to sign."
 msgstr ""
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid ""
-"Your IP address, browser and the time of each action are recorded as "
-"evidence of the signature."
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "Your Initials"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "Your Signature"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "Your name"
-msgstr ""
-
-#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
 msgid "Your signing code"
 msgstr ""
@@ -2643,18 +2841,22 @@ msgstr ""
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_zip
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_zip
 msgid "ZIP"
 msgstr ""
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Zoom in"
 msgstr ""
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Zoom out"
 msgstr ""
 
@@ -2667,6 +2869,11 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__city
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__city
 msgid "city"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+msgid "e.g. Phone"
 msgstr ""
 
 #. module: easy_sign
@@ -2690,66 +2897,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "of"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_city
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_city
-msgid "partner_id.city"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_company_name
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_company_name
-msgid "partner_id.company_name"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_country_id_name
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_country_id_name
-msgid "partner_id.country_id.name"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_email
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_email
-msgid "partner_id.email"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_name
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_name
-msgid "partner_id.name"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_parent_id_name
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_parent_id_name
-msgid "partner_id.parent_id.name"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_phone
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_phone
-msgid "partner_id.phone"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_street
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_street
-msgid "partner_id.street"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_vat
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_vat
-msgid "partner_id.vat"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_zip
-#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_zip
-msgid "partner_id.zip"
 msgstr ""
 
 #. module: easy_sign
@@ -2782,8 +2929,10 @@ msgid "zip"
 msgstr ""
 
 #. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "↺ <span class=\"es-i18n\" data-en=\"Clear\" data-ar=\"مسح\">Clear</span>"
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"· <span class=\"es-i18n\" data-en=\"Valid until\" data-ar=\"صالح حتى\">Valid"
+" until</span>"
 msgstr ""
 
 #. module: easy_sign
@@ -2792,43 +2941,4 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "🌐 <span id=\"esLangLabel\">عربي</span>"
-msgstr ""
-
-
-#. module: easy_sign
-#: model:ir.ui.menu,name:easy_sign.menu_sign_configuration
-msgid "Configuration"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.actions.act_window,name:easy_sign.action_sign_item_type
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
-msgid "Signature Fields"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_model
-msgid "Linked to"
-msgstr ""
-
-#. module: easy_sign
-#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field_name
-msgid "Linked Field"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
-#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
-msgid "Field Name"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
-msgid "Create a field type"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
-msgid "Field types make up the palette of the document editor."
 msgstr ""

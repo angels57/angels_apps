@@ -179,3 +179,31 @@ class TestEditor(EasySignCase):
         signer._sign(make_png(), "draw", values={editable.id: "Carla Gómez", locked.id: "tampered", sig.id: "1"})
         self.assertEqual(editable.value, "Carla Gómez")  # corrected by the signer
         self.assertEqual(locked.value, "+57 300")  # read-only: the contact value wins
+
+    def test_field_type_defaults_tip_and_update_field(self):
+        """Field type form: size preset, tip on the signing page, Update Field writes to the contact."""
+        from .common import make_png
+        field_type = self.env["sign.item.type"].create({
+            "name": "Mobile", "base_type": "text", "linked_field": "partner_id.phone",
+            "tip": "Your number", "alignment": "center", "field_size": "long", "update_field": True,
+        })
+        self.assertEqual(field_type.default_width, 0.4)
+        self.assertEqual((field_type.linked_model, field_type.linked_field_name), ("Contact", "phone"))
+        partner = self.env["res.partner"].create({"name": "Leo", "email": "leo@example.test", "phone": "111"})
+        request = self.env["sign.request"].browse(
+            self.env["sign.request"].create_from_upload(self._files("a.pdf"))["context"]["active_id"]
+        )
+        entry = next(e for e in request.get_editor_data()["palette"] if e["id"] == field_type.id)
+        self.assertEqual(entry["alignment"], "center")
+        signer = self.env["sign.request.item"].browse(request.editor_add_party()["id"])
+        signer.write({"partner_id": partner.id, "signer_name": partner.name, "signer_email": partner.email})
+        base = {"request_id": request.id, "document_id": request.document_ids.id, "request_item_id": signer.id,
+                "page": 1, "pos_x": 0.1, "width": 0.3}
+        phone = self.env["sign.item"].create(dict(base, type="text", pos_y=0.1, height=0.03, item_type_id=field_type.id,
+                                                  linked_field="partner_id.phone", alignment=entry["alignment"]))
+        sig = self.env["sign.item"].create(dict(base, type="signature", pos_y=0.6, height=0.08))
+        public = phone._public_data(signer)[0]
+        self.assertEqual((public["tip"], public["align"], public["value"]), ("Your number", "center", "111"))
+        request.action_send()
+        signer._sign(make_png(), "draw", values={phone.id: "222", sig.id: "1"})
+        self.assertEqual(partner.phone, "222")

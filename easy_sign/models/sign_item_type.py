@@ -1,6 +1,9 @@
 from odoo import api, fields, models
 
-from .sign_item import FIELD_TYPES, LINKABLE_FIELDS
+from .sign_item import FIELD_TYPES, LINKED_SELECTION
+
+# Field Size: default width of a new field, as a fraction of the page.
+FIELD_SIZES = {"short": 0.15, "regular": 0.25, "long": 0.4}
 
 
 class SignItemType(models.Model):
@@ -15,12 +18,29 @@ class SignItemType(models.Model):
     base_type = fields.Selection(FIELD_TYPES, string="Type", required=True, default="text")
     icon = fields.Char(default="fa-font", help="Font Awesome class, for example fa-user.")
     linked_field = fields.Selection(
-        selection=[(f, f) for f in sorted(LINKABLE_FIELDS)], string="Auto-complete",
+        selection=LINKED_SELECTION, string="Field",
+        help="Value of the signer's contact that fills this field.",
+    )
+    update_field = fields.Boolean(
+        string="Update Field",
+        help="Write the value entered by the signer back to their contact.",
+    )
+    tip = fields.Char(
+        translate=True,
+        help="Text of the guide ribbon on the signing page, for example 'Fill in'. Empty: automatic.",
+    )
+    alignment = fields.Selection(
+        [("left", "Left"), ("center", "Center"), ("right", "Right")], default="left", required=True,
+    )
+    field_size = fields.Selection(
+        [("short", "Short Text"), ("regular", "Regular Text"), ("long", "Long Text")],
+        compute="_compute_field_size", inverse="_inverse_field_size",
+        help="Default width of a new field of this type.",
     )
     default_width = fields.Float(default=0.25, digits=(6, 5))
     default_height = fields.Float(default=0.03, digits=(6, 5))
-    required = fields.Boolean(default=True)
-    readonly = fields.Boolean()
+    required = fields.Boolean(string="Mandatory", default=True)
+    readonly = fields.Boolean(string="Read Only")
     placeholder = fields.Char(translate=True)
     linked_model = fields.Char(string="Linked to", compute="_compute_linked")
     linked_field_name = fields.Char(string="Linked Field", compute="_compute_linked")
@@ -29,6 +49,15 @@ class SignItemType(models.Model):
         "CHECK (default_width > 0 AND default_width <= 1 AND default_height > 0 AND default_height <= 1)",
         "The default size is a fraction of the page (0-1).",
     )
+
+    @api.depends("default_width")
+    def _compute_field_size(self):
+        for item_type in self:
+            item_type.field_size = min(FIELD_SIZES, key=lambda size: abs(FIELD_SIZES[size] - item_type.default_width))
+
+    def _inverse_field_size(self):
+        for item_type in self.filtered("field_size"):
+            item_type.default_width = FIELD_SIZES[item_type.field_size]
 
     @api.depends("linked_field")
     def _compute_linked(self):
@@ -49,4 +78,5 @@ class SignItemType(models.Model):
             "required": t.required,
             "readonly": t.readonly,
             "placeholder": t.placeholder or "",
+            "alignment": t.alignment,
         } for t in self.search([])]

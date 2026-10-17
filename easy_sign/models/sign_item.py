@@ -24,6 +24,19 @@ LINKABLE_FIELDS = {
     "partner_id.street", "partner_id.city", "partner_id.zip", "partner_id.country_id.name",
     "partner_id.company_name", "partner_id.parent_id.name", "name", "email", "phone", "vat", "street", "city", "zip",
 }
+# Labels of the auto-complete paths, as shown to users.
+LINKED_LABELS = {
+    "partner_id.name": "Name", "partner_id.email": "Email", "partner_id.phone": "Phone",
+    "partner_id.vat": "Tax ID", "partner_id.street": "Street", "partner_id.city": "City",
+    "partner_id.zip": "ZIP", "partner_id.country_id.name": "Country",
+    "partner_id.company_name": "Company Name", "partner_id.parent_id.name": "Company",
+}
+LINKED_SELECTION = sorted(((f, LINKED_LABELS.get(f, f)) for f in LINKABLE_FIELDS), key=lambda x: x[1])
+# Contact fields a signer may update with "Update Field" (plain fields of the contact itself).
+UPDATABLE_FIELDS = {
+    "partner_id.name", "partner_id.email", "partner_id.phone", "partner_id.vat",
+    "partner_id.street", "partner_id.city", "partner_id.zip",
+}
 # Without a contact, these values come from the signer itself.
 SIGNER_FALLBACK = {"partner_id.name": "signer_name", "partner_id.email": "signer_email"}
 
@@ -54,7 +67,7 @@ class SignItem(models.Model):
         [("left", "Left"), ("center", "Center"), ("right", "Right")], default="left", required=True,
     )
     linked_field = fields.Selection(
-        selection=[(f, f) for f in sorted(LINKABLE_FIELDS)], string="Auto-complete",
+        selection=LINKED_SELECTION, string="Auto-complete",
         help="Fill the field with this value of the signer's contact.",
     )
 
@@ -129,6 +142,16 @@ class SignItem(models.Model):
                 raise UserError(_("Please complete all the required fields."))
             item.with_context(easy_sign_force=True).sudo().value = value or False
 
+    def _update_contact(self, signer):
+        """Write the values of "Update Field" fields back to the signer's contact."""
+        vals = {}
+        for item in self:
+            if (item.item_type_id.update_field and not item.readonly and item.value
+                    and item.linked_field in UPDATABLE_FIELDS):
+                vals[item.linked_field.removeprefix("partner_id.")] = item.value
+        if vals and signer.partner_id:
+            signer.partner_id.sudo().write(vals)
+
     def _clean_value(self, raw):
         self.ensure_one()
         raw = (raw or "").strip()
@@ -167,6 +190,7 @@ class SignItem(models.Model):
             "placeholder": item.placeholder or "",
             "options": item._option_list(),
             "align": item.alignment,
+            "tip": item.item_type_id.tip or "",
             "value": item._autocomplete_value(signer) if item.type not in IMAGE_TYPES else "",
         } for item in self]
 

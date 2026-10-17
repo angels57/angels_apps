@@ -30,6 +30,7 @@ export function newItemVals(entry) {
         required: entry.required,
         readonly: entry.readonly,
         placeholder: entry.placeholder || "",
+        alignment: entry.alignment || "left",
         options: ["radio", "selection"].includes(entry.type) ? `${_t("Option 1")}\n${_t("Option 2")}` : false,
     };
 }

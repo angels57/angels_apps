@@ -228,6 +228,7 @@ class SignRequestItem(models.Model):
             raise UserError(_("This document can no longer be signed."))
         own_fields = self.request_id.item_ids.filtered(lambda f: f.request_item_id == self)
         own_fields._apply_signer_values(values or {})
+        own_fields._update_contact(self)
         vals = {
             "state": "signed",
             "signed_date": fields.Datetime.now(),
