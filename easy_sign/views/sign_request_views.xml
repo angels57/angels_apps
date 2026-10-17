@@ -81,7 +81,7 @@
                                    decoration-danger="state == 'declined'" decoration-muted="state in ('cancelled', 'waiting')"/>
                             <field name="signed_date" optional="hide"/>
                             <field name="sign_url" widget="CopyClipboardChar" optional="show" invisible="state not in ('sent', 'viewed')"/>
-                            <button name="action_resend" type="object" icon="fa-paper-plane" title="Send again"
+                            <button name="action_resend" type="object" class="btn-link o_es_btn_send" title="Send again"
                                     invisible="state not in ('sent', 'viewed') or parent.state != 'sent'"/>
                         </list>
                     </field>

@@ -10,7 +10,7 @@
                 <field name="model_id" optional="show"/>
                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="show"/>
                 <field name="request_count" string="Used"/>
-                <button name="action_create_request" type="object" string="Use" class="btn-link" icon="fa-paper-plane"/>
+                <button name="action_create_request" type="object" string="Use" class="btn-link o_es_btn_send"/>
             </list>
         </field>
     </record>

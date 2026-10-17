@@ -60,7 +60,7 @@
     text-align: left; touch-action: none; user-select: none;
 }
 .o_es_tool:hover { background: color-mix(in srgb, var(--es-color) 28%, #fff); }
-.o_es_tool .fa { width: 16px; text-align: center; }
+.o_es_tool .o_es_i { width: 16px; height: 16px; }
 .o_es_ghost {
     position: fixed; z-index: 2000; pointer-events: none; padding: 4px 10px; border-radius: 3px;
     border: 1.5px solid var(--es-color); background: color-mix(in srgb, var(--es-color) 25%, #fff); font-size: 12px;
@@ -92,7 +92,7 @@
 .o_es_tags { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .o_es_tags_label { color: #475569; }
 .o_es_tag { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
-.o_es_tag .fa { cursor: pointer; opacity: .7; }
+.o_es_tag .o_es_i { cursor: pointer; opacity: .7; }
 .o_es_tag_add { position: relative; }
 .o_es_tag_add input { border: 0; border-bottom: 1px solid #cbd5e1; font-size: 13px; width: 120px; }
 .o_es_tag_menu {
