@@ -1,329 +1,411 @@
 /** @odoo-module ignore */
 /**
- * Easy Sign — Public Signing Page JavaScript
- * Self-hosted electronic signature for Odoo 20
- * Handles: canvas drawing, mouse events, touch events, sign/decline submission
+ * Easy Sign — public signing page: the document viewer (pages, zoom), the
+ * ribbon that walks the signer through the fields, the signature / initials,
+ * code and decline dialogs, and the sign / decline requests.
  */
 (function () {
     'use strict';
 
+    var TEXT = {
+        en: {
+            start: 'Click to start', sign: 'Sign it', fill: 'Fill in',
+            left1: '1 required field left', leftN: '%s required fields left', ready: 'Ready to sign',
+            expired: 'Your session has expired. Please reload the page and try again.',
+            addSignature: 'Please add your signature.', complete: 'Please complete the highlighted required fields.',
+            code: 'Enter the 6-digit code we sent you.', unexpected: 'An unexpected error occurred.',
+            network: 'Network error. Please check your connection and try again.',
+            declineFailed: 'Failed to decline. Please try again.',
+            noDocument: 'The document could not be displayed. Reload the page to try again.',
+        },
+        es: {
+            start: 'Clic para empezar', sign: 'Firmar', fill: 'Completar',
+            left1: 'Falta 1 campo obligatorio', leftN: 'Faltan %s campos obligatorios', ready: 'Listo para firmar',
+            expired: 'Tu sesión expiró. Recarga la página e inténtalo de nuevo.',
+            addSignature: 'Agrega tu firma.', complete: 'Completa los campos obligatorios resaltados.',
+            code: 'Ingresa el código de 6 dígitos que te enviamos.', unexpected: 'Ocurrió un error inesperado.',
+            network: 'Error de red. Revisa tu conexión e inténtalo de nuevo.',
+            declineFailed: 'No se pudo rechazar. Inténtalo de nuevo.',
+            noDocument: 'No se pudo mostrar el documento. Recarga la página para intentarlo de nuevo.',
+        },
+    };
+    var ZOOMS = [0.5, 0.75, 1, 1.25, 1.5, 2];
+
+    function t(key) {
+        return TEXT[window.EasySign.lang() === 'es' ? 'es' : 'en'][key];
+    }
+    function byId(id) { return document.getElementById(id); }
+    function show(node, visible) { if (node) { node.classList.toggle('es-hidden', !visible); } }
+
+    function post(url, data) {
+        var form = new FormData();
+        Object.keys(data).forEach(function (key) { form.append(key, data[key]); });
+        return fetch(url, { method: 'POST', body: form, credentials: 'same-origin' }).then(function (response) {
+            return response.json().then(function (json) { return json; }, function () {
+                return { success: false, error: t('expired') };
+            });
+        });
+    }
 
     document.addEventListener('DOMContentLoaded', function () {
+        var btnSign = byId('btnSign');
+        var pagesNode = byId('esPages');
+        if (!btnSign || !pagesNode) { return; }
+        var token = btnSign.getAttribute('data-token');
+        var csrf = btnSign.getAttribute('data-csrf');
+        var needsOtp = btnSign.getAttribute('data-otp') === '1';
+        var needsSignature = btnSign.getAttribute('data-signature') === '1';
+        var viewer = byId('esViewer');
+        var ribbon = byId('esRibbon');
+        var progressText = byId('esProgressText');
+        var otpInput = byId('esOtpInput');
+        var started = false;
+        var otpRequested = false;
+        var toastTimer;
 
-        /* ---- Element references ---- */
-        var canvas          = document.getElementById('signatureCanvas');
-        var canvasWrap      = canvas && canvas.parentElement;
-        var canvasHint      = document.querySelector('.es-canvas-hint');
-        var canvasStatus    = document.getElementById('canvasStatus');
-        var btnClear        = document.getElementById('btnClear');
-        var btnSign         = document.getElementById('btnSign');
-        var btnSignText     = document.getElementById('btnSignText');
-        var btnSignSpinner  = document.getElementById('btnSignSpinner');
-        var btnShowDecline  = document.getElementById('btnShowDecline');
-        var declineForm     = document.getElementById('declineForm');
-        var declineReason   = document.getElementById('declineReason');
-        var btnCancelDecline   = document.getElementById('btnCancelDecline');
-        var btnConfirmDecline  = document.getElementById('btnConfirmDecline');
-        var msgSuccess      = document.getElementById('msgSuccess');
-        var msgError        = document.getElementById('msgError');
-        var msgErrorText    = document.getElementById('msgErrorText');
-        var msgDeclined     = document.getElementById('msgDeclined');
-
-        if (!canvas) {
-            return;
-        }
-
-        /* ---- Canvas context setup ---- */
-        var ctx = canvas.getContext('2d');
-        var isDrawing   = false;
-        var hasSigned   = false;
-        var lastX       = 0;
-        var lastY       = 0;
-
-        function initCanvas() {
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = '#1a1a2e';
-            ctx.lineWidth   = 2.5;
-            ctx.lineCap     = 'round';
-            ctx.lineJoin    = 'round';
-        }
-
-        initCanvas();
-
-
-        function getCanvasCoords(event) {
-            var rect = canvas.getBoundingClientRect();
-            var scaleX = canvas.width  / rect.width;
-            var scaleY = canvas.height / rect.height;
-            var clientX, clientY;
-            if (event.touches && event.touches.length > 0) {
-                clientX = event.touches[0].clientX;
-                clientY = event.touches[0].clientY;
-            } else {
-                clientX = event.clientX;
-                clientY = event.clientY;
+        // ------------------------------------------------------------------
+        // Messages
+        // ------------------------------------------------------------------
+        function toast(id, text) {
+            ['msgSuccess', 'msgError', 'msgDeclined'].forEach(function (key) { show(byId(key), key === id); });
+            if (text) { byId('msgErrorText').textContent = text; }
+            show(byId('esToast'), true);
+            clearTimeout(toastTimer);
+            if (id === 'msgError') {
+                toastTimer = setTimeout(function () { show(byId('esToast'), false); }, 5000);
             }
-            return {
-                x: (clientX - rect.left) * scaleX,
-                y: (clientY - rect.top)  * scaleY,
+        }
+        function showError(text) { toast('msgError', text); }
+
+        // ------------------------------------------------------------------
+        // Dialogs
+        // ------------------------------------------------------------------
+        var openDialog = null;
+        function open(dialog) {
+            if (!dialog) { return; }
+            closeMenu();
+            show(dialog, true);
+            openDialog = dialog;
+            var focusable = dialog.querySelector('input:not(.es-hidden), textarea, .es-btn-primary, .es-btn-danger');
+            if (focusable) { focusable.focus(); }
+        }
+        function close(dialog) {
+            if (!dialog || dialog.classList.contains('es-hidden')) { return; }
+            show(dialog, false);
+            if (dialog.onClose) { dialog.onClose(); }
+            if (openDialog === dialog) { openDialog = null; }
+        }
+        document.querySelectorAll('.es-dialog').forEach(function (dialog) {
+            dialog.addEventListener('click', function (ev) {
+                if (ev.target === dialog || ev.target.closest('[data-close]')) { close(dialog); }
+            });
+        });
+        document.addEventListener('keydown', function (ev) {
+            if (ev.key === 'Escape') { close(openDialog); closeMenu(); }
+        });
+
+        // ------------------------------------------------------------------
+        // Options menu
+        // ------------------------------------------------------------------
+        var menu = byId('esMenu');
+        var btnOptions = byId('esBtnOptions');
+        function closeMenu() { show(menu, false); btnOptions.setAttribute('aria-expanded', 'false'); }
+        btnOptions.addEventListener('click', function (ev) {
+            ev.stopPropagation();
+            var opening = menu.classList.contains('es-hidden');
+            show(menu, opening);
+            btnOptions.setAttribute('aria-expanded', opening ? 'true' : 'false');
+        });
+        document.addEventListener('click', function (ev) {
+            if (!menu.contains(ev.target)) { closeMenu(); }
+        });
+
+        // ------------------------------------------------------------------
+        // Signature and initials: a pad per dialog. "Sign" puts the image on the
+        // clicked field, "Sign all" on every field of that kind.
+        // ------------------------------------------------------------------
+        var pads = {};
+        var adopted = { signature: '', initials: '' };
+        var fields;
+
+        document.querySelectorAll('[data-pad]').forEach(function (node) {
+            var kind = node.getAttribute('data-pad');
+            var dialog = node.closest('.es-dialog');
+            var pad = new window.EasySign.Pad(node);
+            pads[kind] = pad;
+            dialog.querySelectorAll('[data-adopt]').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    if (!pad.filled) { pad.root.querySelector('.es-canvas-wrap').classList.add('es-flash'); return; }
+                    var then = dialog.then;
+                    var target = button.getAttribute('data-adopt') === 'one' ? dialog.target : null;
+                    adopted[kind] = pad.dataURL();
+                    dialog.adopting = true;
+                    close(dialog);
+                    dialog.adopting = false;
+                    fields.applyImage(kind, adopted[kind], target);
+                    if (then) { then(); }
+                });
+            });
+            dialog.onClose = function () {
+                // Cancelled: go back to what was adopted before.
+                if (!dialog.adopting && pad.dataURL() !== adopted[kind]) {
+                    if (adopted[kind]) { pad.load(adopted[kind]); } else { pad.setMode('type', true); }
+                }
+                dialog.then = null;
+                dialog.target = null;
+                pad.root.querySelector('.es-canvas-wrap').classList.remove('es-flash');
             };
+        });
+        function openPad(kind, field, then) {
+            var dialog = byId('esDlg_' + kind) || byId('esDlg_signature');
+            if (!dialog) { return; }
+            dialog.then = then || null;
+            dialog.target = field || null;
+            // "Sign" only differs from "Sign all" for one field among several.
+            show(dialog.querySelector('[data-adopt="one"]'), !!field && fields.count(kind) > 1);
+            open(dialog);
         }
 
-        function startDraw(x, y) {
-            isDrawing = true;
-            lastX = x;
-            lastY = y;
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            if (canvasWrap) {
-                canvasWrap.classList.add('es-canvas-active');
+        // ------------------------------------------------------------------
+        // Document, progress and ribbon
+        // ------------------------------------------------------------------
+        function ribbonLabel(field) {
+            if (!started) { return t('start'); }
+            if (field.tip) { return field.tip; }
+            return field.type === 'signature' || field.type === 'initials' ? t('sign') : t('fill');
+        }
+        function placeRibbon() {
+            var next = fields && fields.missing()[0];
+            var node = next && fields.nodes[next.id];
+            show(ribbon, !!node);
+            btnSign.classList.toggle('es-ready', !next);
+            if (!node) { return; }
+            ribbon.firstElementChild.textContent = ribbonLabel(next);
+            var box = node.getBoundingClientRect();
+            var area = pagesNode.getBoundingClientRect();
+            // Arrow only when the label would cover the field.
+            ribbon.classList.remove('es-ribbon-compact');
+            var room = box.left - area.left;
+            ribbon.classList.toggle('es-ribbon-compact', room < ribbon.offsetWidth + 4);
+            ribbon.style.top = (box.top - area.top + pagesNode.offsetTop + box.height / 2 - ribbon.offsetHeight / 2) + 'px';
+        }
+        function updateProgress() {
+            if (!fields) { return; }
+            var missing = fields.missing().length;
+            progressText.textContent = missing === 0 ? (fields.fields.length ? t('ready') : '')
+                : missing === 1 ? t('left1') : t('leftN').replace('%s', missing);
+            progressText.classList.toggle('es-progress-done', missing === 0);
+            placeRibbon();
+        }
+        function goNext() {
+            started = true;
+            var next = fields.missing()[0];
+            if (!next) { placeRibbon(); return; }
+            var isImage = next.type === 'signature' || next.type === 'initials';
+            fields.focusNextMissing(isImage);
+            placeRibbon();
+            return next;
+        }
+
+        fields = new window.EasySign.Fields(pagesNode, {
+            onChange: updateProgress,
+            onImage: function (field) {
+                started = true;
+                var after = function () { if (fields.missing().length) { goNext(); } };
+                if (adopted[field.type] && !fields.applied[field.id]) {
+                    // Already adopted: one click signs this field too.
+                    fields.applyImage(field.type, adopted[field.type], field);
+                    after();
+                    return;
+                }
+                openPad(field.type, field, after);
+            },
+        });
+        fields.render().then(syncPageCount).catch(function () {
+            pagesNode.textContent = t('noDocument');
+        });
+
+        ribbon.addEventListener('click', function () {
+            var wasStarted = started;
+            var next = goNext();
+            if (wasStarted && next && (next.type === 'signature' || next.type === 'initials')) {
+                fields.hooks.onImage(next);
             }
+        });
+
+        // ------------------------------------------------------------------
+        // Pages and zoom
+        // ------------------------------------------------------------------
+        var pageInput = byId('esPageInput');
+        var zoomSelect = byId('esZoom');
+        function syncPageCount() {
+            byId('esPageCount').textContent = fields.pages.length;
+            syncCurrentPage();
         }
-
-        function draw(x, y) {
-            if (!isDrawing) { return; }
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            lastX = x;
-            lastY = y;
-            if (!hasSigned) {
-                hasSigned = true;
-                if (canvasHint) { canvasHint.classList.add('hidden'); }
-                if (canvasStatus) { canvasStatus.textContent = 'Signature captured'; }
-            }
-        }
-
-        function endDraw() {
-            isDrawing = false;
-            ctx.closePath();
-            if (canvasWrap) {
-                canvasWrap.classList.remove('es-canvas-active');
-            }
-        }
-
-
-        canvas.addEventListener('mousedown', function (e) {
-            e.preventDefault();
-            var coords = getCanvasCoords(e);
-            startDraw(coords.x, coords.y);
-        });
-
-        canvas.addEventListener('mousemove', function (e) {
-            e.preventDefault();
-            if (!isDrawing) { return; }
-            var coords = getCanvasCoords(e);
-            draw(coords.x, coords.y);
-        });
-
-        canvas.addEventListener('mouseup', function (e) {
-            e.preventDefault();
-            endDraw();
-        });
-
-        canvas.addEventListener('mouseleave', function (e) {
-            if (isDrawing) { endDraw(); }
-        });
-
-
-        canvas.addEventListener('touchstart', function (e) {
-            e.preventDefault();
-            var coords = getCanvasCoords(e);
-            startDraw(coords.x, coords.y);
-        }, { passive: false });
-
-        canvas.addEventListener('touchmove', function (e) {
-            e.preventDefault();
-            var coords = getCanvasCoords(e);
-            draw(coords.x, coords.y);
-        }, { passive: false });
-
-        canvas.addEventListener('touchend', function (e) {
-            e.preventDefault();
-            endDraw();
-        }, { passive: false });
-
-        canvas.addEventListener('touchcancel', function (e) {
-            endDraw();
-        });
-
-
-        if (btnClear) {
-            btnClear.addEventListener('click', function () {
-                initCanvas();
-                hasSigned = false;
-                if (canvasHint)   { canvasHint.classList.remove('hidden'); }
-                if (canvasStatus) { canvasStatus.textContent = ''; }
-                hideMessages();
+        function currentPage() {
+            var middle = viewer.getBoundingClientRect().top + viewer.clientHeight / 3;
+            var index = 0;
+            fields.pages.forEach(function (entry, i) {
+                if (entry.wrap.getBoundingClientRect().top <= middle) { index = i; }
             });
+            return index;
         }
-
-
-        function hideMessages() {
-            if (msgSuccess) { msgSuccess.classList.add('es-hidden'); }
-            if (msgError)   { msgError.classList.add('es-hidden'); }
-            if (msgDeclined){ msgDeclined.classList.add('es-hidden'); }
+        function syncCurrentPage() {
+            if (document.activeElement !== pageInput) { pageInput.value = currentPage() + 1; }
         }
+        function goToPage(index) {
+            var entry = fields.pages[Math.max(0, Math.min(fields.pages.length - 1, index))];
+            if (entry) { entry.wrap.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        }
+        viewer.addEventListener('scroll', syncCurrentPage, { passive: true });
+        byId('esPrevPage').addEventListener('click', function () { goToPage(currentPage() - 1); });
+        byId('esNextPage').addEventListener('click', function () { goToPage(currentPage() + 1); });
+        pageInput.addEventListener('change', function () { goToPage(parseInt(pageInput.value, 10) - 1); pageInput.blur(); });
+        pageInput.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { pageInput.blur(); } });
 
-        function showError(text) {
-            hideMessages();
-            if (msgError && msgErrorText) {
-                msgErrorText.textContent = text;
-                msgError.classList.remove('es-hidden');
+        function setZoom(value) {
+            var anchor = currentPage();
+            var custom = zoomSelect.querySelector('option[data-custom]');
+            if (value !== 'auto' && !zoomSelect.querySelector('option[value="' + value + '"]')) {
+                if (!custom) {
+                    custom = document.createElement('option');
+                    custom.setAttribute('data-custom', '1');
+                    zoomSelect.appendChild(custom);
+                }
+                custom.value = value;
+                custom.textContent = Math.round(value * 100) + '%';
             }
+            zoomSelect.value = String(value);
+            fields.setZoom(value).then(placeRibbon);
+            placeRibbon();
+            goToPage(anchor);
         }
-
-        /* Non-JSON answers (e.g. an expired CSRF session) become a readable error. */
-        function parseResponse(response) {
-            return response.json().then(function (data) {
-                return { status: response.status, data: data };
-            }, function () {
-                return {
-                    status: response.status,
-                    data: { success: false, error: 'Your session has expired. Please reload the page and try again.' },
-                };
-            });
+        function step(direction) {
+            var scale = fields.scale();
+            var list = direction > 0 ? ZOOMS.filter(function (z) { return z > scale + 0.01; })
+                : ZOOMS.filter(function (z) { return z < scale - 0.01; }).reverse();
+            if (list.length) { setZoom(list[0]); }
         }
+        zoomSelect.addEventListener('change', function () {
+            setZoom(zoomSelect.value === 'auto' ? 'auto' : Number(zoomSelect.value));
+        });
+        byId('esZoomIn').addEventListener('click', function () { step(1); });
+        byId('esZoomOut').addEventListener('click', function () { step(-1); });
 
-        function setSignButtonLoading(loading) {
-            if (!btnSign) { return; }
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                if (fields.zoom === 'auto') { fields.layout().then(placeRibbon); }
+                placeRibbon();
+            }, 150);
+        });
+
+        // ------------------------------------------------------------------
+        // Sign
+        // ------------------------------------------------------------------
+        function setLoading(loading) {
             btnSign.disabled = loading;
-            if (btnSignText)    { btnSignText.classList.toggle('es-hidden', loading); }
-            if (btnSignSpinner) { btnSignSpinner.classList.toggle('es-hidden', !loading); }
+            if (byId('btnOtpConfirm')) { byId('btnOtpConfirm').disabled = loading; }
+            show(byId('btnSignText'), !loading);
+            show(byId('btnSignSpinner'), loading);
         }
 
-
-        if (btnSign) {
-            btnSign.addEventListener('click', function () {
-                if (!hasSigned) {
-                    showError('Please draw your signature in the box before submitting.');
-                    if (canvasWrap) {
-                        canvasWrap.style.borderColor = '#e74c3c';
-                        setTimeout(function () {
-                            canvasWrap.style.borderColor = '';
-                        }, 2000);
-                    }
-                    return;
-                }
-
-                var token = btnSign.getAttribute('data-token');
-                if (!token) {
-                    showError('Missing token. Please reload the page.');
-                    return;
-                }
-
-                var signatureDataURL = canvas.toDataURL('image/png');
-
-                setSignButtonLoading(true);
-                hideMessages();
-
-                var formData = new FormData();
-                formData.append('signature', signatureDataURL);
-                formData.append('csrf_token', btnSign.getAttribute('data-csrf') || '');
-
-                fetch('/sign/submit/' + token, {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(parseResponse)
-                .then(function (result) {
-                    setSignButtonLoading(false);
-                    if (result.data && result.data.success) {
-                        // Success — show message and disable further interaction
-                        if (msgSuccess) { msgSuccess.classList.remove('es-hidden'); }
-                        if (btnSign)    { btnSign.style.display = 'none'; }
-                        if (btnClear)   { btnClear.disabled = true; }
-                        if (btnShowDecline) { btnShowDecline.style.display = 'none'; }
-                        if (canvasWrap) { canvasWrap.style.pointerEvents = 'none'; }
-                        if (canvasStatus) { canvasStatus.textContent = ''; }
-                        // Redirect to success page after 2 seconds
-                        setTimeout(function () {
-                            window.location.href = '/sign/view/' + token;
-                        }, 2000);
-                    } else {
-                        showError(
-                            (result.data && result.data.error)
-                                ? result.data.error
-                                : 'An unexpected error occurred. Please try again.'
-                        );
-                    }
-                })
-                .catch(function (err) {
-                    setSignButtonLoading(false);
-                    showError('Network error: ' + err.message + '. Please check your connection and try again.');
-                });
+        function requestOtp() {
+            return post('/sign/otp/' + token, { csrf_token: csrf }).then(function (result) {
+                if (!result.success) { showError(result.error); return; }
+                otpRequested = true;
+                otpInput.focus();
             });
         }
 
-
-        if (btnShowDecline) {
-            btnShowDecline.addEventListener('click', function () {
-                if (declineForm) { declineForm.classList.remove('es-hidden'); }
-                btnShowDecline.style.display = 'none';
-                hideMessages();
+        function submit() {
+            if (btnSign.disabled) { return; }  // already sending, or done
+            var otp = needsOtp ? (otpInput.value || '').trim() : '';
+            if (needsOtp && !/^\d{6}$/.test(otp)) {
+                showError(t('code'));
+                otpInput.focus();
+                return;
+            }
+            setLoading(true);
+            post('/sign/submit/' + token, {
+                csrf_token: csrf,
+                signature: adopted.signature,
+                signature_method: pads.signature ? pads.signature.mode : 'draw',
+                initials: adopted.initials,
+                values: JSON.stringify(fields.values()),
+                otp: otp,
+            }).then(function (result) {
+                setLoading(false);
+                if (!result.success) { showError(result.error || t('unexpected')); return; }
+                close(byId('esDlgOtp'));
+                toast('msgSuccess');
+                btnSign.disabled = true;
+                show(ribbon, false);
+                setTimeout(function () { window.location.href = '/sign/view/' + token; }, 1200);
+            }).catch(function () {
+                setLoading(false);
+                showError(t('network'));
             });
         }
 
-        if (btnCancelDecline) {
-            btnCancelDecline.addEventListener('click', function () {
-                if (declineForm) { declineForm.classList.add('es-hidden'); }
-                if (btnShowDecline) { btnShowDecline.style.display = ''; }
-            });
+        btnSign.addEventListener('click', function () {
+            show(byId('esToast'), false);
+            var next = fields.missing()[0];
+            if (next) {
+                showError(t('complete'));
+                goNext();
+                if (next.type === 'signature' || next.type === 'initials') { fields.hooks.onImage(next); }
+                return;
+            }
+            if (needsSignature && !adopted.signature) {
+                started = true;
+                openPad('signature', null, function () { btnSign.click(); });
+                return;
+            }
+            if (needsOtp) {
+                open(byId('esDlgOtp'));
+                if (!otpRequested) { requestOtp(); }
+                return;
+            }
+            submit();
+        });
+
+        if (needsOtp) {
+            byId('btnOtpResend').addEventListener('click', requestOtp);
+            byId('btnOtpConfirm').addEventListener('click', submit);
+            otpInput.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { submit(); } });
         }
 
-        if (btnConfirmDecline) {
-            btnConfirmDecline.addEventListener('click', function () {
-                var token  = btnConfirmDecline.getAttribute('data-token');
-                var reason = declineReason ? declineReason.value.trim() : '';
-
-                if (!token) {
-                    showError('Missing token. Please reload the page.');
-                    return;
-                }
-
-                btnConfirmDecline.disabled = true;
-                btnConfirmDecline.textContent = 'Declining…';
-                hideMessages();
-
-                var formData = new FormData();
-                formData.append('reason', reason);
-                formData.append('csrf_token', btnConfirmDecline.getAttribute('data-csrf') || '');
-
-                fetch('/sign/decline/' + token, {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(parseResponse)
-                .then(function (result) {
-                    btnConfirmDecline.disabled = false;
-                    btnConfirmDecline.textContent = 'Confirm Decline';
-
-                    if (result.data && result.data.success) {
-                        if (declineForm) { declineForm.classList.add('es-hidden'); }
-                        if (msgDeclined) { msgDeclined.classList.remove('es-hidden'); }
-                        if (btnSign)     { btnSign.style.display = 'none'; }
-                        if (canvasWrap)  { canvasWrap.style.pointerEvents = 'none'; }
-                        // Redirect to declined page
-                        setTimeout(function () {
-                            window.location.href = '/sign/view/' + token;
-                        }, 2000);
-                    } else {
-                        showError(
-                            (result.data && result.data.error)
-                                ? result.data.error
-                                : 'Failed to decline. Please try again.'
-                        );
-                        btnConfirmDecline.disabled = false;
-                    }
-                })
-                .catch(function (err) {
-                    btnConfirmDecline.disabled = false;
-                    btnConfirmDecline.textContent = 'Confirm Decline';
-                    showError('Network error: ' + err.message);
-                });
+        // ------------------------------------------------------------------
+        // Decline
+        // ------------------------------------------------------------------
+        var declineDialog = byId('esDlgDecline');
+        byId('btnShowDecline').addEventListener('click', function () { open(declineDialog); });
+        byId('btnConfirmDecline').addEventListener('click', function () {
+            var button = byId('btnConfirmDecline');
+            button.disabled = true;
+            post('/sign/decline/' + token, {
+                csrf_token: button.getAttribute('data-csrf'),
+                reason: (byId('declineReason').value || '').trim(),
+            }).then(function (result) {
+                button.disabled = false;
+                if (!result.success) { showError(result.error || t('declineFailed')); return; }
+                close(declineDialog);
+                toast('msgDeclined');
+                btnSign.disabled = true;
+                show(ribbon, false);
+                setTimeout(function () { window.location.href = '/sign/view/' + token; }, 1200);
+            }).catch(function () {
+                button.disabled = false;
+                showError(t('network'));
             });
-        }
+        });
 
+        // Language switch changes the texts set from here.
+        document.addEventListener('es-lang', function () {
+            updateProgress();
+            fields.refreshLabels();
+        });
     });
-
 })();

@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+<template id="sign_pad" name="Easy Sign - Signature Pad">
+    <div t-att-class="'es-pad ' + (pad_class or '')" t-att-data-pad="pad_name" t-att-data-frame-code="frame_code">
+        <label class="es-pad-label es-i18n" t-att-data-en="pad_label" t-att-data-es="pad_label_es" t-att-for="'esPadText_' + pad_name" t-out="pad_label"/>
+        <input type="text" t-att-id="'esPadText_' + pad_name" class="es-pad-text es-textarea" maxlength="60" t-att-value="pad_default or ''"/>
+        <div class="es-pad-box">
+            <div class="es-pad-toolbar">
+                <div class="es-pad-tabs" role="tablist">
+                    <button type="button" class="es-pad-tab" data-mode="type"><span class="es-i18n" data-en="Auto" data-es="Auto">Auto</span></button>
+                    <button type="button" class="es-pad-tab" data-mode="draw"><span class="es-i18n" data-en="Draw" data-es="Dibujar">Draw</span></button>
+                    <button type="button" class="es-pad-tab" data-mode="upload"><span class="es-i18n" data-en="Load" data-es="Cargar">Load</span></button>
+                </div>
+                <label class="es-pad-frame">
+                    <input type="checkbox" class="es-pad-frame-input" checked="checked"/>
+                    <span class="es-i18n" data-en="Frame" data-es="Marco">Frame</span>
+                </label>
+                <div class="es-font-menu">
+                    <button type="button" class="es-font-toggle" aria-haspopup="true" aria-label="Font">A <span class="es-caret">&#9662;</span></button>
+                    <div class="es-font-list es-hidden" role="menu">
+                        <t t-foreach="[('LaBelleAurore', 'La Belle Aurore'), ('MarckScript', 'Marck Script'), ('ShadowsIntoLight', 'Shadows Into Light'), ('Zeyada', 'Zeyada'), ('ReenieBeanie', 'Reenie Beanie'), ('OoohBaby', 'Oooh Baby')]" t-as="font">
+                            <button type="button" class="es-font-item" role="menuitem" t-att-data-font="font[0]"
+                                    t-attf-style="font-family: '{{ font[0] }}'"><t t-out="pad_default or font[1]"/></button>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="es-canvas-wrap">
+                <canvas t-att-width="pad_width or 600" t-att-height="pad_height or 200" class="es-canvas"/>
+                <div class="es-canvas-hint es-i18n" t-att-data-en="pad_hint" t-att-data-es="pad_hint_es" t-out="pad_hint"/>
+                <button type="button" class="es-pad-clear es-hidden"><span class="es-i18n" data-en="Clear" data-es="Borrar">Clear</span></button>
+            </div>
+            <input type="file" class="es-pad-file es-hidden" accept="image/png,image/jpeg"/>
+        </div>
+    </div>
+</template>
+
+<template id="sign_dialog" name="Easy Sign - Dialog">
+    <div t-att-id="dialog_id" class="es-dialog es-hidden" role="dialog" aria-modal="true">
+        <div class="es-dialog-card">
+            <div class="es-dialog-header">
+                <h2 class="es-dialog-title es-i18n" t-att-data-en="dialog_title" t-att-data-es="dialog_title_es" t-out="dialog_title"/>
+                <button type="button" class="es-dialog-close" data-close="1" aria-label="Close">&#215;</button>
+            </div>
+            <t t-out="0"/>
+        </div>
+    </div>
+</template>
 
 <template id="sign_page" name="Easy Sign - Sign Document">
 <html lang="en" id="esRoot">
@@ -11,294 +57,316 @@
     <title>Sign Document - Easy Sign</title>
     <t t-call-assets="easy_sign.assets_sign_page" t-js="false"/>
 </head>
-<body class="es-body">
-
-    <!-- Navbar -->
-    <nav class="es-navbar">
-        <div class="es-navbar-brand">
-            <span class="es-logo-icon">&#9998;</span>
-            <span class="es-logo-text">Easy Sign</span>
+<body class="es-body es-sign-body">
+    <header class="es-topbar">
+        <div class="es-topbar-brand">
+            <img t-att-src="'/logo.png?company=%s' % sign_request.company_id.id" t-att-alt="sign_request.company_id.name" class="es-company-logo"/>
         </div>
-        <div class="es-navbar-right">
-            <span class="es-badge es-badge-pending">
-                <span class="es-i18n" data-en="Signature Required" data-ar="يلزم التوقيع">Signature Required</span>
+        <div class="es-topbar-doc">
+            <strong class="es-topbar-title" t-out="sign_request.document_name or sign_request.name"/>
+            <span class="es-topbar-meta">
+                <span class="es-i18n" data-en="Requested by" data-es="Solicitado por">Requested by</span> <t t-out="sign_request.user_id.name"/>
+                <t t-if="sign_request.expiry_date"> · <span class="es-i18n" data-en="Valid until" data-es="Válido hasta">Valid until</span>
+                    <span class="es-expiry" t-out="sign_request.expiry_date"/></t>
             </span>
-            <!-- Language Switch Button -->
-            <button type="button" class="es-lang-btn" id="esBtnLang">
-                <span class="es-lang-flag">🌐</span>
-                <span id="esLangLabel">عربي</span>
-            </button>
         </div>
-    </nav>
-
-    <div class="es-container">
-        <div class="es-main-row">
-
-            <!-- Left: PDF Viewer -->
-            <div class="es-pdf-panel">
-                <div class="es-panel-header">
-                    <div class="es-panel-title">
-                        <span class="es-icon">📄</span>
-                        <span class="es-i18n" data-en="Document to Sign" data-ar="الوثيقة المطلوب توقيعها">Document to Sign</span>
-                    </div>
-                    <div class="es-doc-info">
-                        <strong t-out="sign_request.document_name or sign_request.name"/>
-                    </div>
-                </div>
-                <div class="es-pdf-viewer-wrap">
-                    <object t-att-data="document_url" type="application/pdf"
-                            class="es-pdf-object" id="pdfViewer">
-                        <div class="es-pdf-fallback">
-                            <p class="es-i18n" data-en="Your browser cannot display PDF inline." data-ar="المتصفح لا يدعم عرض PDF مباشرة.">Your browser cannot display PDF inline.</p>
-                            <a t-att-href="document_url" class="es-btn-outline" target="_blank">
-                                <span class="es-i18n" data-en="Open PDF in New Tab" data-ar="فتح الملف في تبويب جديد">Open PDF in New Tab</span>
-                            </a>
-                        </div>
-                    </object>
-                </div>
+        <div class="es-topbar-right">
+            <div class="es-signer-chip">
+                <span class="es-signer-name" t-out="item.signer_name"/>
+                <span class="es-signer-state">&#9998; <span class="es-i18n" data-en="Signing" data-es="Firmando">Signing</span></span>
             </div>
-
-            <div class="es-sign-panel">
-                <div class="es-sign-panel-inner">
-
-                    <div class="es-signer-info">
-                        <div class="es-avatar">
-                            <t t-out="(item.signer_name or 'S')[0].upper()"/>
-                        </div>
-                        <div class="es-signer-details">
-                            <div class="es-signer-name" t-out="item.signer_name"/>
-                            <div class="es-signer-email" t-out="item.signer_email"/>
-                        </div>
-                    </div>
-
-                    <div class="es-request-info">
-                        <p class="es-info-label es-i18n" data-en="Requested by" data-ar="طلب من">Requested by</p>
-                        <p class="es-info-value" t-out="sign_request.user_id.name"/>
-                        <t t-if="sign_request.expiry_date">
-                            <p class="es-info-label es-i18n" data-en="Expires on" data-ar="تنتهي في">Expires on</p>
-                            <p class="es-info-value es-expiry" t-out="sign_request.expiry_date"/>
-                        </t>
-                    </div>
-
-                    <div class="es-instructions">
-                        <h5 class="es-section-title es-i18n" data-en="Draw Your Signature" data-ar="ارسم توقيعك">Draw Your Signature</h5>
-                        <p class="es-instructions-text es-i18n"
-                           data-en="Please review the document on the left, then draw your signature in the box below using your mouse or finger."
-                           data-ar="يرجى مراجعة الوثيقة، ثم ارسم توقيعك في المربع أدناه باستخدام الماوس أو إصبعك.">
-                            Please review the document on the left, then draw your signature in the box below using your mouse or finger.
-                        </p>
-                    </div>
-
-                    <div class="es-canvas-wrap">
-                        <canvas id="signatureCanvas" width="480" height="180" class="es-canvas"/>
-                        <div class="es-canvas-hint es-i18n" data-en="Sign here ✍" data-ar="وقّع هنا ✍">Sign here ✍</div>
-                    </div>
-
-                    <div class="es-canvas-controls">
-                        <button id="btnClear" type="button" class="es-btn-clear">
-                            &#8634; <span class="es-i18n" data-en="Clear" data-ar="مسح">Clear</span>
-                        </button>
-                        <span id="canvasStatus" class="es-canvas-status"/>
-                    </div>
-
-                    <button id="btnSign" type="button" t-att-data-csrf="csrf_token" class="es-btn-sign" t-att-data-token="token">
-                        <span id="btnSignText">
-                            &#10003; <span class="es-i18n" data-en="Sign Document" data-ar="توقيع الوثيقة">Sign Document</span>
-                        </span>
-                        <span id="btnSignSpinner" class="es-hidden">
-                            <span class="es-spinner" role="status"/>
-                            <span class="es-i18n" data-en="Submitting..." data-ar="جاري الإرسال...">Submitting...</span>
-                        </span>
+            <button type="button" class="es-lang-btn" id="esBtnLang" aria-label="Language">
+                <span class="es-lang-flag">🌐</span>
+                <span id="esLangLabel">Español</span>
+            </button>
+            <div class="es-menu">
+                <button type="button" id="esBtnOptions" class="es-btn-options" aria-haspopup="true" aria-expanded="false">
+                    <span class="es-i18n" data-en="Options" data-es="Opciones">Options</span> &#9662;
+                </button>
+                <div id="esMenu" class="es-menu-list es-hidden" role="menu">
+                    <button type="button" id="btnShowDecline" class="es-menu-item es-menu-danger" role="menuitem">
+                        <span class="es-i18n" data-en="Decline to sign" data-es="Rechazar firma">Decline to sign</span>
                     </button>
-
-                    <div class="es-decline-section">
-                        <button id="btnShowDecline" type="button" class="es-btn-decline-link">
-                            <span class="es-i18n" data-en="I decline to sign this document" data-ar="أرفض التوقيع على هذه الوثيقة">I decline to sign this document</span>
-                        </button>
+                    <a t-foreach="sign_request.document_ids" t-as="doc" class="es-menu-item" role="menuitem"
+                       t-att-href="'/sign/document/%s/%s' % (token, doc.id)" t-att-download="doc.name">
+                        <span class="es-i18n" data-en="Download" data-es="Descargar">Download</span>
+                        <t t-if="len(sign_request.document_ids) &gt; 1"> · <t t-out="doc.name"/></t>
+                    </a>
+                    <a t-if="terms_url" class="es-menu-item" role="menuitem" t-att-href="terms_url" target="_blank" rel="noopener">
+                        <span class="es-i18n" data-en="Terms &amp; Conditions" data-es="Términos y condiciones">Terms &amp; Conditions</span>
+                    </a>
+                    <div class="es-menu-info">
+                        <span class="es-i18n" data-en="Requested by" data-es="Solicitado por">Requested by</span> <t t-out="sign_request.user_id.name"/>
+                        <t t-if="sign_request.expiry_date"><br/><span class="es-i18n" data-en="Valid until" data-es="Válido hasta">Valid until</span>
+                            <span class="es-expiry" t-out="sign_request.expiry_date"/></t>
                     </div>
-
-                    <div id="declineForm" class="es-decline-form es-hidden">
-                        <h6 class="es-section-title es-i18n" data-en="Reason for Declining" data-ar="سبب الرفض">Reason for Declining</h6>
-                        <textarea id="declineReason" rows="3" class="es-textarea" placeholder="Optional: provide a reason..."></textarea>
-                        <div class="es-decline-actions">
-                            <button id="btnCancelDecline" type="button" class="es-btn-cancel-decline">
-                                <span class="es-i18n" data-en="Cancel" data-ar="إلغاء">Cancel</span>
-                            </button>
-                            <button id="btnConfirmDecline" type="button" t-att-data-csrf="csrf_token" class="es-btn-confirm-decline" t-att-data-token="token">
-                                <span class="es-i18n" data-en="Confirm Decline" data-ar="تأكيد الرفض">Confirm Decline</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Messages -->
-                    <div id="msgSuccess" class="es-msg es-msg-success es-hidden">
-                        <span class="es-msg-icon">&#10004;</span>
-                        <div>
-                            <strong class="es-i18n" data-en="Signed successfully!" data-ar="تم التوقيع بنجاح!">Signed successfully!</strong>
-                            <p class="es-i18n" data-en="Thank you. The document has been signed." data-ar="شكراً. تم توقيع الوثيقة.">Thank you. The document has been signed.</p>
-                        </div>
-                    </div>
-                    <div id="msgError" class="es-msg es-msg-error es-hidden">
-                        <span class="es-msg-icon">&#9888;</span>
-                        <div>
-                            <strong class="es-i18n" data-en="Error" data-ar="خطأ">Error</strong>
-                            <p id="msgErrorText"/>
-                        </div>
-                    </div>
-                    <div id="msgDeclined" class="es-msg es-msg-declined es-hidden">
-                        <span class="es-msg-icon">&#10005;</span>
-                        <div>
-                            <strong class="es-i18n" data-en="Signing declined" data-ar="تم رفض التوقيع">Signing declined</strong>
-                            <p class="es-i18n" data-en="The requester has been notified." data-ar="تم إشعار مقدم الطلب.">The requester has been notified.</p>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+        </div>
+    </header>
+
+    <div class="es-toolbar">
+        <div class="es-toolbar-group">
+            <button type="button" id="esPrevPage" class="es-tool" aria-label="Previous page">&#8963;</button>
+            <input id="esPageInput" class="es-page-input" type="text" inputmode="numeric" value="1" aria-label="Page"/>
+            <span class="es-page-total"><span class="es-i18n" data-en="of" data-es="de">of</span> <span id="esPageCount">1</span></span>
+            <button type="button" id="esNextPage" class="es-tool" aria-label="Next page">&#8964;</button>
+        </div>
+        <div class="es-toolbar-group">
+            <button type="button" id="esZoomOut" class="es-tool" aria-label="Zoom out">&#8722;</button>
+            <select id="esZoom" class="es-zoom" aria-label="Zoom">
+                <option value="auto" class="es-i18n" data-en="Automatic Zoom" data-es="Zoom automático">Automatic Zoom</option>
+                <option value="0.5">50%</option>
+                <option value="0.75">75%</option>
+                <option value="1">100%</option>
+                <option value="1.25">125%</option>
+                <option value="1.5">150%</option>
+                <option value="2">200%</option>
+            </select>
+            <button type="button" id="esZoomIn" class="es-tool" aria-label="Zoom in">+</button>
         </div>
     </div>
 
-    <footer class="es-footer">
-        <span class="es-i18n" data-en="Secured by" data-ar="مؤمّن بواسطة">Secured by</span>
-        <strong> Easy Sign</strong>
+    <main id="esViewer" class="es-viewer">
+        <div id="esPages" class="es-pages" t-att-data-documents="documents_json" t-att-data-fields="fields_json">
+            <div class="es-pages-loading es-i18n" data-en="Loading document…" data-es="Cargando documento…">Loading document…</div>
+        </div>
+        <button type="button" id="esRibbon" class="es-ribbon es-hidden">
+            <span class="es-i18n" data-en="Click to start" data-es="Clic para empezar">Click to start</span>
+        </button>
+    </main>
+
+    <div id="esToast" class="es-toast es-hidden" role="status">
+        <div id="msgSuccess" class="es-msg es-msg-success es-hidden">
+            <span class="es-msg-icon">&#10004;</span>
+            <strong class="es-i18n" data-en="Signed successfully!" data-es="¡Firmado correctamente!">Signed successfully!</strong>
+        </div>
+        <div id="msgError" class="es-msg es-msg-error es-hidden">
+            <span class="es-msg-icon">&#9888;</span>
+            <span id="msgErrorText"/>
+        </div>
+        <div id="msgDeclined" class="es-msg es-msg-declined es-hidden">
+            <span class="es-msg-icon">&#10005;</span>
+            <strong class="es-i18n" data-en="Signing declined" data-es="Firma rechazada">Signing declined</strong>
+        </div>
+    </div>
+
+    <footer class="es-actionbar">
+        <span class="es-actionbar-secured">
+            <span class="es-i18n" data-en="Secured by" data-es="Protegido por">Secured by</span> <strong>Easy Sign</strong>
+        </span>
+        <span id="esProgressText" class="es-progress-text"/>
+        <button id="btnSign" type="button" class="es-btn-sign"
+                t-att-data-token="token" t-att-data-csrf="csrf_token" t-att-data-otp="needs_otp and '1' or ''"
+                t-att-data-signature="needs_signature and '1' or ''">
+            <span id="btnSignText">&#10003; <span class="es-i18n" data-en="Sign Document" data-es="Firmar documento">Sign Document</span></span>
+            <span id="btnSignSpinner" class="es-hidden">
+                <span class="es-spinner" role="status"/>
+                <span class="es-i18n" data-en="Submitting..." data-es="Enviando...">Submitting...</span>
+            </span>
+        </button>
     </footer>
 
+    <t t-foreach="[('signature', needs_signature), ('initials', needs_initials)]" t-as="kind">
+        <t t-if="kind[1]" t-call="easy_sign.sign_dialog" dialog_id="'esDlg_' + kind[0]" dialog_title="kind[0] == 'signature' and 'Adopt Your Signature' or 'Adopt Your Initials'" dialog_title_es="kind[0] == 'signature' and 'Adopta tu firma' or 'Adopta tus iniciales'">
+            <div class="es-dialog-body">
+                <t t-call="easy_sign.sign_pad"
+                   pad_name="kind[0]"
+                   frame_code="(sign_request.document_hash or sign_request.verification_code or '')[:10]"
+                   pad_class="'' if kind[0] == 'signature' else 'es-pad-small'"
+                   pad_width="600 if kind[0] == 'signature' else 360"
+                   pad_height="200"
+                   pad_label="'Full Name' if kind[0] == 'signature' else 'Initials'"
+                   pad_label_es="'Nombre completo' if kind[0] == 'signature' else 'Iniciales'"
+                   pad_hint="'Sign here ✍' if kind[0] == 'signature' else 'Initials'"
+                   pad_hint_es="'Firma aquí ✍' if kind[0] == 'signature' else 'Iniciales'"
+                   pad_default="item.signer_name if kind[0] == 'signature' else ''.join(w[0] for w in (item.signer_name or '').split() if w).upper()"/>
+                <p class="es-legal es-i18n"
+                   data-en="By clicking Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence."
+                   data-es="Al hacer clic en Firmar, acepto que la firma o las iniciales elegidas serán una representación electrónica válida de mi firma o iniciales manuscritas para todos los fines en que se usen en documentos, incluidos los contratos legalmente vinculantes. Mi dirección IP, mi navegador y la hora de cada acción se registran como evidencia.">By clicking Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence.</p>
+            </div>
+            <div class="es-dialog-footer">
+                <button type="button" class="es-btn-primary" data-adopt="all">
+                    <span class="es-i18n" data-en="Sign all" data-es="Firmar todo">Sign all</span>
+                </button>
+                <button type="button" class="es-btn-secondary" data-adopt="one">
+                    <span class="es-i18n" data-en="Sign" data-es="Firmar">Sign</span>
+                </button>
+                <button type="button" class="es-btn-secondary" data-close="1">
+                    <span class="es-i18n" data-en="Cancel" data-es="Cancelar">Cancel</span>
+                </button>
+            </div>
+        </t>
+    </t>
+
+    <t t-if="needs_otp" t-call="easy_sign.sign_dialog" dialog_id="'esDlgOtp'" dialog_title="'Verification Code'" dialog_title_es="'Código de verificación'">
+        <div class="es-dialog-body">
+            <p class="es-instructions-text es-i18n" data-en="We sent you a 6-digit code. Enter it to sign."
+               data-es="Te enviamos un código de 6 dígitos. Ingrésalo para firmar.">We sent you a 6-digit code. Enter it to sign.</p>
+            <input id="esOtpInput" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" class="es-textarea es-otp-input"/>
+            <button type="button" id="btnOtpResend" class="es-btn-link">
+                <span class="es-i18n" data-en="Send a new code" data-es="Enviar un código nuevo">Send a new code</span>
+            </button>
+        </div>
+        <div class="es-dialog-footer">
+            <button type="button" id="btnOtpConfirm" class="es-btn-primary">
+                <span class="es-i18n" data-en="Confirm and Sign" data-es="Confirmar y firmar">Confirm and Sign</span>
+            </button>
+            <button type="button" class="es-btn-secondary" data-close="1">
+                <span class="es-i18n" data-en="Cancel" data-es="Cancelar">Cancel</span>
+            </button>
+        </div>
+    </t>
+
+    <t t-call="easy_sign.sign_dialog" dialog_id="'esDlgDecline'" dialog_title="'Decline to Sign'" dialog_title_es="'Rechazar firma'">
+        <div class="es-dialog-body">
+            <p class="es-instructions-text es-i18n" data-en="The request will be cancelled for everyone. You can tell the sender why."
+               data-es="La solicitud se cancelará para todos. Puedes contarle al remitente el motivo.">The request will be cancelled for everyone. You can tell the sender why.</p>
+            <textarea id="declineReason" rows="3" class="es-textarea" placeholder="Optional: provide a reason..."></textarea>
+        </div>
+        <div class="es-dialog-footer">
+            <button id="btnConfirmDecline" type="button" class="es-btn-danger" t-att-data-csrf="csrf_token">
+                <span class="es-i18n" data-en="Decline" data-es="Rechazar">Decline</span>
+            </button>
+            <button type="button" class="es-btn-secondary" data-close="1">
+                <span class="es-i18n" data-en="Cancel" data-es="Cancelar">Cancel</span>
+            </button>
+        </div>
+    </t>
+
+    <!-- Odoo's pdf.js is an ES module: same loading as web/static/src/core/assets.js -->
+    <script type="module" src="/web/static/lib/pdfjs/build/pdf.worker.js"></script>
+    <script type="module" src="/web/static/lib/pdfjs/build/pdf.js"></script>
     <t t-call-assets="easy_sign.assets_sign_page" t-css="false"/>
 </body>
 </html>
 </template>
 
+<template id="result_layout" name="Easy Sign - Result Layout">
+<html lang="en" id="esRoot">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <title t-out="page_title or 'Easy Sign'"/>
+    <t t-call-assets="easy_sign.assets_sign_result" t-js="false"/>
+</head>
+<body class="es-body es-result-body">
+    <div t-att-class="'es-result-card ' + (card_class or '')">
+        <t t-out="0"/>
+        <div class="es-result-footer">
+            <span class="es-i18n" data-en="Secured by" data-es="Protegido por">Secured by</span>
+            <strong>Easy Sign</strong>
+        </div>
+    </div>
+    <t t-call-assets="easy_sign.assets_sign_result" t-css="false"/>
+</body>
+</html>
+</template>
 
-<!-- ═══════════════════════════════════════════════════
-     SUCCESS PAGE
-═══════════════════════════════════════════════════ -->
 <template id="sign_success" name="Easy Sign - Signing Success">
-<html lang="en" id="esRoot">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Document Signed - Easy Sign</title>
-    <t t-call-assets="easy_sign.assets_sign_page" t-js="false"/>
-</head>
-<body class="es-body es-result-body">
-    <div class="es-result-card es-result-success">
+    <t t-call="easy_sign.result_layout" page_title="'Document Signed - Easy Sign'" card_class="'es-result-success'">
         <div class="es-result-icon">&#10004;</div>
-
-        <button type="button" class="es-lang-btn">
-            🌐 <span id="esLangLabel">عربي</span>
-        </button>
-
+        <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title">
-            <t t-if="already_done">
-                <span class="es-i18n" data-en="Already Signed" data-ar="تم التوقيع مسبقاً">Already Signed</span>
-            </t>
-            <t t-else="">
-                <span class="es-i18n" data-en="Document Signed!" data-ar="تم توقيع الوثيقة!">Document Signed!</span>
-            </t>
+            <span class="es-i18n" data-en="Document Signed!" data-es="¡Documento firmado!">Document Signed!</span>
         </h2>
         <p class="es-result-message">
-            <t t-if="already_done">
-                <span class="es-i18n" data-en="You have already signed this document. Thank you!" data-ar="لقد وقّعت على هذه الوثيقة مسبقاً. شكراً!">You have already signed this document. Thank you!</span>
-            </t>
-            <t t-else="">
-                <span class="es-i18n" data-en="Thank you" data-ar="شكراً">Thank you</span>,
-                <strong t-out="item.signer_name"/>!
-                <span class="es-i18n" data-en="Your signature has been recorded successfully." data-ar="تم تسجيل توقيعك بنجاح.">Your signature has been recorded successfully.</span>
+            <span class="es-i18n" data-en="Thank you. Your signature has been recorded."
+                  data-es="Gracias. Tu firma quedó registrada.">Thank you. Your signature has been recorded.</span>
+            <t t-if="sign_request.state == 'signed'">
+                <span class="es-i18n" data-en="All parties have signed: you will receive the signed document by email."
+                      data-es="Todas las partes firmaron: recibirás el documento firmado por correo.">All parties have signed: you will receive the signed document by email.</span>
             </t>
         </p>
-        <t t-if="item and item.signed_date">
-            <p class="es-result-meta">
-                <span class="es-i18n" data-en="Signed on:" data-ar="تاريخ التوقيع:">Signed on:</span>
-                <strong t-out="item.signed_date"/>
-            </p>
-        </t>
-        <div class="es-result-footer">
-            <span class="es-i18n" data-en="Secured by" data-ar="مؤمّن بواسطة">Secured by</span>
-            <strong> Easy Sign</strong>
-        </div>
-    </div>
-    <t t-call-assets="easy_sign.assets_sign_page" t-css="false"/>
-</body>
-</html>
+        <p class="es-result-meta" t-if="item.signed_date">
+            <span class="es-i18n" data-en="Signed on:" data-es="Firmado el:">Signed on:</span>
+            <strong t-out="item.signed_date"/> UTC
+        </p>
+        <p t-if="sign_request.redirect_url">
+            <a class="es-btn-outline" t-att-href="sign_request.redirect_url" rel="noopener noreferrer">
+                <span class="es-i18n" data-en="Continue" data-es="Continuar">Continue</span>
+            </a>
+        </p>
+    </t>
 </template>
 
-
-<!-- ═══════════════════════════════════════════════════
-     DECLINED PAGE
-═══════════════════════════════════════════════════ -->
 <template id="sign_declined" name="Easy Sign - Signing Declined">
-<html lang="en" id="esRoot">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Signing Declined - Easy Sign</title>
-    <t t-call-assets="easy_sign.assets_sign_page" t-js="false"/>
-</head>
-<body class="es-body es-result-body">
-    <div class="es-result-card es-result-declined">
+    <t t-call="easy_sign.result_layout" page_title="'Signing Declined - Easy Sign'" card_class="'es-result-declined'">
         <div class="es-result-icon">&#10005;</div>
-
-        <button type="button" class="es-lang-btn">
-            🌐 <span id="esLangLabel">عربي</span>
-        </button>
-
+        <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title">
-            <span class="es-i18n" data-en="Signing Declined" data-ar="تم رفض التوقيع">Signing Declined</span>
+            <span class="es-i18n" data-en="Signing Declined" data-es="Firma rechazada">Signing Declined</span>
         </h2>
         <p class="es-result-message">
-            <t t-if="already_done">
-                <span class="es-i18n" data-en="You have already declined to sign this document." data-ar="لقد رفضت التوقيع على هذه الوثيقة مسبقاً.">You have already declined to sign this document.</span>
-            </t>
-            <t t-else="">
-                <span class="es-i18n" data-en="You have declined to sign this document. The requester has been notified." data-ar="لقد رفضت التوقيع على الوثيقة. تم إشعار مقدم الطلب.">You have declined to sign this document. The requester has been notified.</span>
-            </t>
+            <span class="es-i18n" data-en="You declined to sign this document. The requester has been notified."
+                  data-es="Rechazaste firmar este documento. Se notificó a quien lo solicitó.">You declined to sign this document. The requester has been notified.</span>
         </p>
-        <t t-if="item and item.declined_reason">
-            <p class="es-result-meta">
-                <span class="es-i18n" data-en="Reason:" data-ar="السبب:">Reason:</span>
-                <em t-out="item.declined_reason"/>
-            </p>
-        </t>
-        <div class="es-result-footer">
-            <span class="es-i18n" data-en="Secured by" data-ar="مؤمّن بواسطة">Secured by</span>
-            <strong> Easy Sign</strong>
-        </div>
-    </div>
-    <t t-call-assets="easy_sign.assets_sign_page" t-css="false"/>
-</body>
-</html>
+        <p class="es-result-meta" t-if="item.declined_reason">
+            <span class="es-i18n" data-en="Reason:" data-es="Motivo:">Reason:</span>
+            <em t-out="item.declined_reason"/>
+        </p>
+    </t>
 </template>
 
-
-<!-- ═══════════════════════════════════════════════════
-     INVALID / EXPIRED PAGE
-═══════════════════════════════════════════════════ -->
 <template id="sign_invalid" name="Easy Sign - Invalid Link">
-<html lang="en" id="esRoot">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Invalid Link - Easy Sign</title>
-    <t t-call-assets="easy_sign.assets_sign_page" t-js="false"/>
-</head>
-<body class="es-body es-result-body">
-    <div class="es-result-card es-result-invalid">
+    <t t-call="easy_sign.result_layout" page_title="'Easy Sign'" card_class="'es-result-invalid'">
         <div class="es-result-icon">&#9888;</div>
-
-        <button type="button" class="es-lang-btn">
-            🌐 <span id="esLangLabel">عربي</span>
-        </button>
-
+        <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title" t-out="error_title or 'Invalid Link'"/>
         <p class="es-result-message" t-out="error_message or 'This signing link is invalid or has expired.'"/>
-        <div class="es-result-footer">
-            <span class="es-i18n" data-en="Secured by" data-ar="مؤمّن بواسطة">Secured by</span>
-            <strong> Easy Sign</strong>
-        </div>
-    </div>
-    <t t-call-assets="easy_sign.assets_sign_page" t-css="false"/>
-</body>
-</html>
+    </t>
+</template>
+
+<template id="sign_terms_page" name="Easy Sign - Terms &amp; Conditions">
+    <t t-call="easy_sign.result_layout" page_title="'Terms &amp; Conditions - Easy Sign'" card_class="'es-result-terms'">
+        <h2 class="es-result-title" t-out="company.name"/>
+        <p class="es-info-label">Terms &amp; Conditions</p>
+        <div class="es-terms" t-out="terms"/>
+    </t>
+</template>
+
+<template id="verify_page" name="Easy Sign - Verify a Document">
+    <t t-call="easy_sign.result_layout" page_title="'Verify a Signed Document - Easy Sign'" card_class="'es-result-verify'">
+        <div class="es-result-icon">&#128269;</div>
+        <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
+        <h2 class="es-result-title">
+            <span class="es-i18n" data-en="Verify a Signed Document" data-es="Verificar un documento firmado">Verify a Signed Document</span>
+        </h2>
+        <form method="post" action="/sign/verify" enctype="multipart/form-data" class="es-verify-form">
+            <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+            <label class="es-info-label es-i18n" for="esVerifyCode" data-en="Verification code (printed at the bottom of each page)"
+                   data-es="Código de verificación (impreso al pie de cada página)">Verification code (printed at the bottom of each page)</label>
+            <input id="esVerifyCode" type="text" name="code" maxlength="10" class="es-textarea" t-att-value="code or ''"/>
+            <label class="es-info-label es-i18n" for="esVerifyFile" data-en="Signed PDF (optional, checks that the file was not altered)"
+                   data-es="PDF firmado (opcional, comprueba que el archivo no fue alterado)">Signed PDF (optional, checks that the file was not altered)</label>
+            <input id="esVerifyFile" type="file" name="document" accept="application/pdf"/>
+            <button type="submit" class="es-btn-sign"><span class="es-i18n" data-en="Verify" data-es="Verificar">Verify</span></button>
+        </form>
+        <div t-if="error" class="es-msg es-msg-error"><span class="es-msg-icon">&#9888;</span><div t-out="error"/></div>
+        <t t-if="submitted and not error">
+            <div t-if="found and (file_matches or not file_checked) and chain_ok" class="es-msg es-msg-success">
+                <span class="es-msg-icon">&#10004;</span>
+                <div>
+                    <strong t-if="file_matches">The file is authentic and has not been modified.</strong>
+                    <strong t-else="">This verification code belongs to a completed signature.</strong>
+                    <p>Completed on <t t-out="completed_date"/> UTC · <t t-out="signers_count"/> signer(s).</p>
+                </div>
+            </div>
+            <div t-elif="found and file_checked and not file_matches" class="es-msg es-msg-error">
+                <span class="es-msg-icon">&#9888;</span>
+                <div><strong>The file does not match the signed document. It may have been modified.</strong></div>
+            </div>
+            <div t-elif="found and not chain_ok" class="es-msg es-msg-error">
+                <span class="es-msg-icon">&#9888;</span>
+                <div><strong>The audit trail of this document is not consistent.</strong></div>
+            </div>
+            <div t-else="" class="es-msg es-msg-error">
+                <span class="es-msg-icon">&#9888;</span>
+                <div><strong>No signed document matches this code or file.</strong></div>
+            </div>
+        </t>
+    </t>
 </template>
 
 </odoo>

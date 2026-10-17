@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="easy_sign.EditorAction">
+        <div class="o_action o_es_editor_action">
+            <EditorTopbar t-if="data" store="store" breadcrumbs="breadcrumbs" onSend.bind="onSend"
+                          onSignNow.bind="onSignNow" onProperties.bind="onProperties"/>
+            <div t-if="data and data.locked" class="o_es_locked" role="status">
+                <span t-out="data.locked"/>
+                <button t-if="resModel === 'sign.template' and data.is_manager" type="button"
+                        class="btn btn-sm btn-secondary ms-2" t-on-click="onEditCopy">Edit a Copy</button>
+            </div>
+            <div t-if="!data" class="o_es_empty">Open a document from the list to edit it.</div>
+            <div t-else="" class="o_es_body">
+                <EditorPanel store="store"/>
+                <EditorViewer store="store"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="easy_sign.EditorTopbar">
+        <div class="o_es_topbar">
+            <div class="o_es_actions">
+                <button t-if="data.can_send" type="button"
+                        class="btn btn-primary" t-on-click="props.onSend">Send</button>
+                <button t-if="data.can_sign_now" type="button" class="btn btn-primary" t-on-click="props.onSignNow">Sign Now</button>
+            </div>
+            <div class="o_es_titles">
+                <div class="o_es_crumbs">
+                    <t t-foreach="props.breadcrumbs" t-as="crumb" t-key="crumb_index">
+                        <a href="#" t-on-click.prevent="() => crumb.onSelected()" t-out="crumb.name"/>
+                        <span class="o_es_sep">/</span>
+                    </t>
+                </div>
+                <div class="o_es_name">
+                    <input t-if="data.editable_name and !data.locked" type="text" class="o_es_name_input"
+                           t-att-value="data.name" t-on-change="onRename"/>
+                    <span t-else="" t-out="data.name"/>
+                    <button type="button" class="o_es_icon_btn" title="Properties" t-on-click="props.onProperties"><i class="fa fa-cog"/></button>
+                    <i t-if="state.saving" class="fa fa-circle-o-notch fa-spin o_es_saved" title="Saving…"/>
+                    <i t-else="" class="fa fa-cloud o_es_saved" title="Saved"/>
+                </div>
+            </div>
+            <div class="o_es_tags">
+                <span class="o_es_tags_label">Tags:</span>
+                <span t-foreach="data.tags" t-as="tag" t-key="tag.id" t-attf-class="o_es_tag o_tag_color_{{tag.color or 0}}">
+                    <t t-out="tag.name"/>
+                    <i class="fa fa-times" title="Remove" t-on-click="() => this.removeTag(tag)"/>
+                </span>
+                <div class="o_es_tag_add">
+                    <input type="text" placeholder="Add a tag" t-on-focus="openTags" t-on-keydown="createTag"
+                           t-on-blur="closeTagsLater"/>
+                    <div t-if="tags.open and availableTags.length" class="o_es_tag_menu">
+                        <button t-foreach="availableTags" t-as="tag" t-key="tag.id" type="button"
+                                t-on-mousedown.prevent="() => this.addTag(tag)" t-out="tag.name"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="easy_sign.EditorPanel">
+        <aside class="o_es_panel">
+            <div class="o_es_section_head">
+                <span>Documents</span>
+                <a t-if="!locked" href="#" class="o_es_add" t-on-click.prevent="onAddDocument">Add</a>
+                <input type="file" class="d-none" t-ref="docInput" accept="application/pdf" multiple="multiple"
+                       t-on-change="onDocumentFiles"/>
+            </div>
+            <div t-foreach="state.documents" t-as="doc" t-key="doc.id" class="o_es_row">
+                <span class="o_es_row_name" t-out="doc.name"/>
+                <Dropdown t-if="!locked" items="docMenu(doc)" position="'bottom-end'">
+                    <button type="button" class="o_es_kebab" title="Options"><i class="fa fa-ellipsis-v"/></button>
+                </Dropdown>
+            </div>
+
+            <div class="o_es_section_head">
+                <span>Signers</span>
+                <a t-if="!locked" href="#" class="o_es_add" t-on-click.prevent="onAddParty">Add</a>
+            </div>
+            <t t-foreach="state.parties" t-as="party" t-key="party.id">
+                <div t-attf-class="o_es_row o_es_party o_es_c{{party.color % 12}} {{state.party === party.id ? 'active' : ''}}"
+                     t-on-click="() => this.selectParty(party)">
+                    <span class="o_es_row_name" t-out="party.name"/>
+                    <img t-if="party.avatar" class="o_es_avatar" t-att-src="party.avatar" alt=""/>
+                    <span class="o_es_count" t-out="countOf(party)"/>
+                    <Dropdown items="partyMenu(party)" position="'bottom-end'">
+                        <button type="button" class="o_es_kebab" title="Options" t-on-click.stop="() => {}"><i class="fa fa-ellipsis-v"/></button>
+                    </Dropdown>
+                </div>
+                <div t-if="state.party === party.id and !locked" t-attf-class="o_es_palette o_es_c{{party.color % 12}}">
+                    <button t-foreach="palette" t-as="entry" t-key="entry.id" type="button" class="o_es_tool"
+                            t-on-pointerdown="(ev) => this.onPalettePointerDown(ev, entry)">
+                        <i t-attf-class="fa {{entry.icon}}"/> <span t-out="entry.label"/>
+                    </button>
+                    <button t-if="state.data.is_manager" type="button" class="o_es_tool o_es_tool_add" t-on-click="onAddFieldType">
+                        <i class="fa fa-plus"/> <span>Add Field</span>
+                    </button>
+                </div>
+            </t>
+            <div t-if="!state.parties.length" class="o_es_hint">Add a signer to place fields.</div>
+        </aside>
+    </t>
+
+    <t t-name="easy_sign.EditorViewer">
+        <div class="o_es_viewer">
+            <div class="o_es_toolbar">
+                <div class="o_es_toolbar_group">
+                    <button type="button" class="o_es_tbtn" title="Previous page" t-on-click="() => this.goToPage(view.pageIndex - 1)"><i class="fa fa-angle-up"/></button>
+                    <input type="number" min="1" class="o_es_page_input" t-att-value="view.pageIndex + 1" t-on-change="onPageInput"/>
+                    <span class="o_es_of">of <t t-out="allPages.length"/></span>
+                    <button type="button" class="o_es_tbtn" title="Next page" t-on-click="() => this.goToPage(view.pageIndex + 1)"><i class="fa fa-angle-down"/></button>
+                </div>
+                <div class="o_es_toolbar_group">
+                    <button type="button" class="o_es_tbtn" title="Zoom out" t-on-click="() => this.zoomStep(-1)"><i class="fa fa-minus"/></button>
+                    <select class="o_es_zoom" t-on-change="(ev) => this.setZoom(ev.target.value === 'auto' ? 'auto' : Number(ev.target.value))">
+                        <option value="auto" t-att-selected="view.zoom === 'auto'">Automatic Zoom</option>
+                        <option t-foreach="zooms" t-as="z" t-key="z" t-att-value="z" t-att-selected="view.zoom === z"><t t-out="zoomLabel(z)"/></option>
+                    </select>
+                    <button type="button" class="o_es_tbtn" title="Zoom in" t-on-click="() => this.zoomStep(1)"><i class="fa fa-plus"/></button>
+                </div>
+                <div class="o_es_toolbar_group">
+                    <i class="fa fa-search o_es_search_icon"/>
+                    <input type="search" class="o_es_search" placeholder="Search" t-on-keydown="onSearch"/>
+                    <span t-if="view.query" class="o_es_of">
+                        <t t-if="view.results.length"><t t-out="view.resultIndex + 1"/>/<t t-out="view.results.length"/></t>
+                        <t t-else="">0</t>
+                    </span>
+                </div>
+                <button type="button" t-attf-class="o_es_tbtn o_es_thumbs_btn {{view.thumbs ? 'active' : ''}}" title="Thumbnails" t-on-click="toggleThumbs"><i class="fa fa-columns"/></button>
+            </div>
+            <div class="o_es_viewer_body">
+                <div class="o_es_pages" t-ref="pages" t-on-scroll="onScroll">
+                    <t t-foreach="state.documents" t-as="doc" t-key="doc.id">
+                        <div t-foreach="pagesOf(doc)" t-as="page" t-key="page"
+                             t-attf-class="o_es_page {{view.flash === doc.id + '-' + page ? 'o_es_flash' : ''}}"
+                             t-att-style="pageStyle(doc, page)"
+                             t-att-data-doc="doc.id" t-att-data-page="page" t-on-click="onPageClick">
+                            <canvas/>
+                            <div t-foreach="guidesOf(doc, page)" t-as="guide" t-key="guide_index"
+                                 t-attf-class="o_es_guide o_es_guide_{{guide.axis}}" t-att-style="guideStyle(guide)"/>
+                            <t t-foreach="itemsOf(doc.id, page)" t-as="item" t-key="item.id">
+                                <div t-attf-class="o_es_item o_es_item_{{item.type}} o_es_c{{partyOf(item).color % 12}} {{state.selectedId === item.id ? 'selected' : ''}} {{item.required ? '' : 'optional'}}"
+                                     t-att-style="itemStyle(item)"
+                                     t-on-pointerdown="(ev) => this.startDrag(ev, item, 'move')"
+                                     t-on-click.stop="() => {}">
+                                    <span t-if="['signature', 'initials'].includes(item.type)" class="o_es_item_script" t-out="partyOf(item).name"/>
+                                    <span t-else="" class="o_es_item_label" t-out="itemLabel(item)"/>
+                                    <span t-if="!store.locked" class="o_es_resize"
+                                          t-on-pointerdown.stop="(ev) => this.startDrag(ev, item, 'resize')"/>
+                                </div>
+                                <div t-if="state.selectedId === item.id and !store.locked" class="o_es_popover_anchor"
+                                     t-attf-style="left:{{item.pos_x * 100}}%;top:{{(item.pos_y + item.height) * 100}}%;"
+                                     t-on-click.stop="() => {}" t-on-pointerdown.stop="() => {}">
+                                    <FieldPopover store="store" item="item" onAllPages="() => this.copyToAllPages(item)"/>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+                <aside t-if="view.thumbs" class="o_es_thumbs">
+                    <t t-foreach="allPages" t-as="entry" t-key="entry_index">
+                        <button type="button" t-attf-class="o_es_thumb {{view.pageIndex === entry_index ? 'active' : ''}}"
+                                t-on-click="() => this.goToPage(entry_index)">
+                            <canvas t-att-data-doc="entry.doc.id" t-att-data-page="entry.page"/>
+                            <span t-out="entry_index + 1"/>
+                        </button>
+                    </t>
+                </aside>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="easy_sign.FieldPopover">
+        <div class="o_es_popover">
+            <div class="o_es_popover_title" t-out="itemLabel(item)"/>
+            <select class="o_input" t-on-change="onParty">
+                <option t-foreach="state.parties" t-as="party" t-key="party.id" t-att-value="party.id"
+                        t-att-selected="item[store.partyField] === party.id" t-out="party.name"/>
+            </select>
+            <label class="o_es_check">
+                <input type="checkbox" t-att-checked="item.required"
+                       t-on-change="(ev) => this.update({ required: ev.target.checked })"/> Required
+            </label>
+            <label class="o_es_check" t-if="isTextual">
+                <input type="checkbox" t-att-checked="item.readonly"
+                       t-on-change="(ev) => this.update({ readonly: ev.target.checked })"/> Read-only
+            </label>
+            <input t-if="isTextual" type="text" class="o_input" placeholder="Placeholder"
+                   t-att-value="item.placeholder or ''" t-on-change="(ev) => this.update({ placeholder: ev.target.value })"/>
+            <textarea t-if="hasOptions" class="o_input" rows="3" placeholder="One option per line"
+                      t-on-change="(ev) => this.update({ options: ev.target.value })" t-out="item.options or ''"/>
+            <select t-if="isTextual" class="o_input" t-on-change="(ev) => this.update({ alignment: ev.target.value })">
+                <option value="left" t-att-selected="item.alignment === 'left'">Left</option>
+                <option value="center" t-att-selected="item.alignment === 'center'">Center</option>
+                <option value="right" t-att-selected="item.alignment === 'right'">Right</option>
+            </select>
+            <select t-if="['text', 'textarea'].includes(item.type)" class="o_input"
+                    t-on-change="(ev) => this.update({ linked_field: ev.target.value or false })">
+                <option value="">No auto-complete</option>
+                <option t-foreach="linked" t-as="entry" t-key="entry[0]" t-att-value="entry[0]"
+                        t-att-selected="item.linked_field === entry[0]" t-out="entry[1]"/>
+            </select>
+            <div class="o_es_popover_actions">
+                <button type="button" class="btn btn-secondary btn-sm" t-on-click="props.onAllPages">All pages</button>
+                <button type="button" class="btn btn-danger btn-sm" t-on-click="() => this.store.deleteItem(item)">Delete</button>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,82 @@
+/* Easy Sign — buttons, text inputs and messages. */
+
+/* ---------- Sign Button ---------- */
+.es-btn-sign {
+    width: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+    color: #ffffff;
+    border: none;
+    padding: 15px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 15px rgba(26, 26, 46, 0.3);
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.es-btn-sign:hover:not(:disabled) {
+    background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+    box-shadow: 0 6px 20px rgba(26, 26, 46, 0.4);
+    transform: translateY(-1px);
+}
+
+.es-btn-sign:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.es-btn-sign:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ---------- Text inputs ---------- */
+.es-textarea {
+    resize: vertical;
+    font-size: 14px;
+}
+
+.es-textarea:focus {
+    border-color: #0f3460;
+    box-shadow: 0 0 0 3px rgba(15, 52, 96, 0.15);
+}
+
+/* ---------- Result Messages ---------- */
+.es-msg {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.es-msg-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.es-msg-success {
+    background: #eefaf3;
+    border: 1px solid #a9dfbf;
+    color: #1e8449;
+}
+
+.es-msg-error {
+    background: #fff5f5;
+    border: 1px solid #f5b7b1;
+    color: #922b21;
+}
+
+.es-msg-declined {
+    background: #fef9e7;
+    border: 1px solid #f9e79f;
+    color: #7d6608;
+}

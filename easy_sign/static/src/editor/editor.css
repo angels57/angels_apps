@@ -1,0 +1,134 @@
+.o_es_editor_action { display: flex; flex-direction: column; height: 100%; background: #f1f3f6; }
+.o_es_topbar {
+    display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: #fff;
+    border-bottom: 1px solid #e2e8f0; min-height: 56px;
+}
+.o_es_titles { display: flex; flex-direction: column; min-width: 0; }
+.o_es_crumbs { font-size: 13px; }
+.o_es_crumbs a { color: #017e84; }
+.o_es_sep { margin: 0 4px; color: #94a3b8; }
+.o_es_name { font-size: 15px; font-weight: 600; color: #1e293b; }
+.o_es_empty { padding: 48px; text-align: center; color: #64748b; }
+.o_es_body { flex: 1; display: flex; min-height: 0; }
+.o_es_panel { flex: 0 0 320px; overflow-y: auto; background: #fff; border-right: 1px solid #e2e8f0; }
+.o_es_section_head {
+    display: flex; justify-content: space-between; align-items: center; padding: 12px 8px 8px;
+    font-weight: 600; border-bottom: 1px solid #e2e8f0;
+}
+.o_es_row {
+    display: flex; align-items: center; gap: 8px; padding: 10px 8px; border-bottom: 1px solid #f1f5f9;
+    cursor: default;
+}
+.o_es_row_name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.o_es_party { cursor: pointer; }
+.o_es_party.active { background: color-mix(in srgb, var(--es-color) 10%, #fff); }
+.o_es_avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+.o_es_count {
+    min-width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center;
+    justify-content: center; font-size: 12px; background: color-mix(in srgb, var(--es-color) 20%, #fff);
+}
+.o_es_viewer { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.o_es_pages { flex: 1; overflow: auto; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.o_es_page { position: relative; width: 100%; max-width: 900px; background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .15); line-height: 0; }
+.o_es_page canvas { width: 100%; height: auto; display: block; }
+.o_es_item {
+    position: absolute; border: 1.5px solid var(--es-color); border-radius: 3px; line-height: 1.1;
+    background: color-mix(in srgb, var(--es-color) 18%, transparent); overflow: hidden;
+}
+.o_es_item_label { font-size: 11px; padding: 2px 4px; color: #1e293b; white-space: nowrap; }
+.o_es_c0 { --es-color: #94a3b8; }
+.o_es_c1 { --es-color: #8b5cf6; }
+.o_es_c2 { --es-color: #10b981; }
+.o_es_c3 { --es-color: #f59e0b; }
+.o_es_c4 { --es-color: #06b6d4; }
+.o_es_c5 { --es-color: #ec4899; }
+.o_es_c6 { --es-color: #f97316; }
+.o_es_c7 { --es-color: #0ea5e9; }
+.o_es_c8 { --es-color: #6366f1; }
+.o_es_c9 { --es-color: #ef4444; }
+.o_es_c10 { --es-color: #84cc16; }
+.o_es_c11 { --es-color: #eab308; }
+.o_es_saved { margin-left: 8px; color: #94a3b8; font-size: 14px; }
+.o_es_locked { padding: 8px 16px; background: #fff7ed; color: #9a3412; border-bottom: 1px solid #fed7aa; }
+.o_es_add { font-weight: 600; color: #017e84; }
+.o_es_kebab { border: 0; background: transparent; color: #64748b; padding: 2px 6px; }
+.o_es_hint { padding: 12px 8px; color: #64748b; font-size: 13px; }
+.o_es_palette { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px; border-bottom: 1px solid #e2e8f0; }
+.o_es_tool {
+    display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 0; border-radius: 4px;
+    background: color-mix(in srgb, var(--es-color) 16%, #fff); color: #1e293b; cursor: grab;
+    text-align: left; touch-action: none; user-select: none;
+}
+.o_es_tool:hover { background: color-mix(in srgb, var(--es-color) 28%, #fff); }
+.o_es_tool .fa { width: 16px; text-align: center; }
+.o_es_ghost {
+    position: fixed; z-index: 2000; pointer-events: none; padding: 4px 10px; border-radius: 3px;
+    border: 1.5px solid var(--es-color); background: color-mix(in srgb, var(--es-color) 25%, #fff); font-size: 12px;
+}
+.o_es_item { cursor: move; touch-action: none; }
+.o_es_item.optional { border-style: dashed; }
+.o_es_item.selected { box-shadow: 0 0 0 2px #1e293b; z-index: 2; }
+.o_es_resize {
+    position: absolute; right: 0; bottom: 0; width: 0; height: 0; cursor: nwse-resize;
+    border-style: solid; border-width: 0 0 9px 9px; border-color: transparent transparent #1e293b transparent;
+}
+.o_es_guide { position: absolute; pointer-events: none; z-index: 3; }
+.o_es_guide_x { top: 0; bottom: 0; border-left: 1px dashed #f59e0b; }
+.o_es_guide_y { left: 0; right: 0; border-top: 1px dashed #f59e0b; }
+.o_es_popover_anchor { position: absolute; z-index: 5; line-height: 1.4; margin-top: 6px; }
+.o_es_popover {
+    width: 240px; display: flex; flex-direction: column; gap: 6px; padding: 10px; background: #fff;
+    border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 6px 20px rgba(0, 0, 0, .15); font-size: 13px;
+}
+.o_es_popover_title { font-weight: 700; }
+.o_es_check { display: flex; gap: 6px; align-items: center; margin: 0; }
+.o_es_popover_actions { display: flex; gap: 6px; }
+.o_es_actions { display: flex; gap: 6px; }
+.o_es_titles { flex: 1; }
+.o_es_name { display: flex; align-items: center; gap: 6px; }
+.o_es_name_input { border: 0; border-bottom: 1px dashed transparent; font-weight: 600; font-size: 15px; min-width: 240px; }
+.o_es_name_input:hover, .o_es_name_input:focus { border-bottom-color: #94a3b8; outline: none; }
+.o_es_icon_btn { border: 0; background: transparent; color: #475569; padding: 0 4px; }
+.o_es_tags { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.o_es_tags_label { color: #475569; }
+.o_es_tag { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+.o_es_tag .fa { cursor: pointer; opacity: .7; }
+.o_es_tag_add { position: relative; }
+.o_es_tag_add input { border: 0; border-bottom: 1px solid #cbd5e1; font-size: 13px; width: 120px; }
+.o_es_tag_menu {
+    position: absolute; top: 100%; left: 0; z-index: 10; min-width: 160px; display: flex; flex-direction: column;
+    background: #fff; border: 1px solid #cbd5e1; border-radius: 4px; box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+}
+.o_es_tag_menu button { border: 0; background: transparent; text-align: left; padding: 6px 10px; }
+.o_es_tag_menu button:hover { background: #f1f5f9; }
+.o_es_toolbar {
+    display: flex; align-items: center; justify-content: center; gap: 18px; padding: 6px 12px;
+    background: #fff; border-bottom: 1px solid #e2e8f0; position: relative;
+}
+.o_es_toolbar_group { display: flex; align-items: center; gap: 6px; }
+.o_es_tbtn { border: 0; background: transparent; color: #475569; padding: 4px 6px; border-radius: 4px; }
+.o_es_tbtn:hover, .o_es_tbtn.active { background: #f1f5f9; }
+.o_es_thumbs_btn { position: absolute; right: 12px; }
+.o_es_page_input { width: 48px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; }
+.o_es_of { color: #64748b; font-size: 13px; }
+.o_es_zoom { border: 1px solid #cbd5e1; border-radius: 4px; padding: 2px 6px; }
+.o_es_search { border: 0; border-bottom: 1px solid #cbd5e1; width: 140px; }
+.o_es_search_icon { color: #64748b; }
+.o_es_viewer_body { flex: 1; display: flex; min-height: 0; }
+.o_es_pages { align-items: flex-start; }
+.o_es_page { max-width: none; flex: 0 0 auto; margin: 0 auto; }
+.o_es_page canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.o_es_page.o_es_flash { box-shadow: 0 0 0 3px #f59e0b; }
+.o_es_thumbs {
+    flex: 0 0 150px; overflow-y: auto; background: #fff; border-left: 1px solid #e2e8f0; padding: 8px;
+    display: flex; flex-direction: column; gap: 8px; align-items: center;
+}
+.o_es_thumb { border: 2px solid transparent; background: transparent; padding: 2px; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; }
+.o_es_thumb.active { border-color: #017e84; }
+.o_es_thumb canvas { width: 110px; height: auto; box-shadow: 0 1px 3px rgba(0, 0, 0, .2); background: #fff; }
+.o_es_item_script {
+    display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 0 6px;
+    font-family: "Z003", "URW Chancery L", "Apple Chancery", "Segoe Script", "Brush Script MT", cursive;
+    font-style: italic; font-size: clamp(12px, 2.2vw, 30px); color: #1e3a8a; white-space: nowrap; overflow: hidden;
+}
+.o_es_tool_add { cursor: pointer; }

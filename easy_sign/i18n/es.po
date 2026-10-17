@@ -1,0 +1,3111 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* easy_sign
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20261015\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-17 01:51+0000\n"
+"PO-Revision-Date: 2026-10-17 01:51+0000\n"
+"Last-Translator: Angels SAS\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "%(name)s declined to sign. The request has been cancelled."
+msgstr "%(name)s rechazó firmar. La solicitud fue cancelada."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_mail.py:0
+msgid "%(name)s declined to sign: %(doc)s"
+msgstr "%(name)s rechazó firmar: %(doc)s"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_template.py:0
+msgid "%s (copy)"
+msgstr "%s (copia)"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_document.py:0
+msgid "%s cannot be read as a PDF."
+msgstr "%s no se puede leer como PDF."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_document.py:0
+msgid "%s is not a PDF file."
+msgstr "%s no es un archivo PDF."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "&gt;"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "&lt;"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.actions.report,print_report_name:easy_sign.action_report_certificate
+msgid "'%s - certificate' % object.name"
+msgstr "'%s - certificado' % object.name"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_declined
+msgid ") declined to sign"
+msgstr ") rechazó firmar"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_declined
+msgid ". The request has been cancelled."
+msgstr ". La solicitud fue cancelada."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "/sign/verify with the verification code."
+msgstr "/sign/verify con el código de verificación."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_template__validity_days
+msgid "0 means no expiry."
+msgstr "0 significa sin vencimiento."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<br/><span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido "
+"hasta\">Valid until</span>"
+msgstr "<br/><span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido hasta\">Válido hasta</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<select id=\"esZoom\" class=\"es-zoom\" aria-label=\"Zoom\">\n"
+"                <option value=\"auto\" class=\"es-i18n\" data-en=\"Automatic Zoom\" data-es=\"Zoom automático\">Automatic Zoom</option>\n"
+"                <option value=\"0.5\">50%</option>\n"
+"                <option value=\"0.75\">75%</option>\n"
+"                <option value=\"1\">100%</option>\n"
+"                <option value=\"1.25\">125%</option>\n"
+"                <option value=\"1.5\">150%</option>\n"
+"                <option value=\"2\">200%</option>\n"
+"            </select>"
+msgstr "<select id=\"esZoom\" class=\"es-zoom\" aria-label=\"Zoom\">\n                <option value=\"auto\" class=\"es-i18n\" data-en=\"Automatic Zoom\" data-es=\"Zoom automático\">Zoom automático</option>\n                <option value=\"0.5\">50%</option>\n                <option value=\"0.75\">75%</option>\n                <option value=\"1\">100%</option>\n                <option value=\"1.25\">125%</option>\n                <option value=\"1.5\">150%</option>\n                <option value=\"2\">200%</option>\n            </select>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-actionbar-secured\">\n"
+"            <span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Secured by</span> <strong>Easy Sign</strong>\n"
+"        </span>\n"
+"        <span id=\"esProgressText\" class=\"es-progress-text\"/>"
+msgstr "<span class=\"es-actionbar-secured\">\n            <span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Protegido por</span> <strong>Easy Sign</strong>\n        </span>\n        <span id=\"esProgressText\" class=\"es-progress-text\"/>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
+msgid ""
+"<span class=\"es-i18n\" data-en=\"All parties have signed: you will receive "
+"the signed document by email.\" data-es=\"Todas las partes firmaron: "
+"recibirás el documento firmado por correo.\">All parties have signed: you "
+"will receive the signed document by email.</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"All parties have signed: you will receive the signed document by email.\" data-es=\"Todas las partes firmaron: recibirás el documento firmado por correo.\">Todas las partes firmaron: recibirás el documento firmado por correo.</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "<span class=\"es-i18n\" data-en=\"Auto\" data-es=\"Auto\">Auto</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Auto\" data-es=\"Auto\">Auto</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "<span class=\"es-i18n\" data-en=\"Cancel\" data-es=\"Cancelar\">Cancel</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Cancel\" data-es=\"Cancelar\">Cancelar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "<span class=\"es-i18n\" data-en=\"Clear\" data-es=\"Borrar\">Clear</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Clear\" data-es=\"Borrar\">Borrar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Click to start\" data-es=\"Clic para "
+"empezar\">Click to start</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Click to start\" data-es=\"Clic para empezar\">Clic para empezar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Confirm and Sign\" data-es=\"Confirmar y "
+"firmar\">Confirm and Sign</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Confirm and Sign\" data-es=\"Confirmar y firmar\">Confirmar y firmar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
+msgid "<span class=\"es-i18n\" data-en=\"Continue\" data-es=\"Continuar\">Continue</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Continue\" data-es=\"Continuar\">Continuar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Decline to sign\" data-es=\"Rechazar "
+"firma\">Decline to sign</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Decline to sign\" data-es=\"Rechazar firma\">Rechazar firma</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "<span class=\"es-i18n\" data-en=\"Decline\" data-es=\"Rechazar\">Decline</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Decline\" data-es=\"Rechazar\">Rechazar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Document Signed!\" data-es=\"¡Documento "
+"firmado!\">Document Signed!</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Document Signed!\" data-es=\"¡Documento firmado!\">¡Documento firmado!</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "<span class=\"es-i18n\" data-en=\"Download\" data-es=\"Descargar\">Download</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Download\" data-es=\"Descargar\">Descargar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "<span class=\"es-i18n\" data-en=\"Draw\" data-es=\"Dibujar\">Draw</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Draw\" data-es=\"Dibujar\">Dibujar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "<span class=\"es-i18n\" data-en=\"Frame\" data-es=\"Marco\">Frame</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Frame\" data-es=\"Marco\">Marco</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "<span class=\"es-i18n\" data-en=\"Load\" data-es=\"Cargar\">Load</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Load\" data-es=\"Cargar\">Cargar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "<span class=\"es-i18n\" data-en=\"Options\" data-es=\"Opciones\">Options</span> ▾"
+msgstr "<span class=\"es-i18n\" data-en=\"Options\" data-es=\"Opciones\">Opciones</span> ▾"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
+msgid "<span class=\"es-i18n\" data-en=\"Reason:\" data-es=\"Motivo:\">Reason:</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Reason:\" data-es=\"Motivo:\">Motivo:</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Requested by\" data-es=\"Solicitado "
+"por\">Requested by</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Requested by\" data-es=\"Solicitado por\">Solicitado por</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.result_layout
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Secured by</span>\n"
+"            <strong>Easy Sign</strong>"
+msgstr "<span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Protegido por</span>\n            <strong>Easy Sign</strong>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Send a new code\" data-es=\"Enviar un "
+"código nuevo\">Send a new code</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Send a new code\" data-es=\"Enviar un código nuevo\">Enviar un código nuevo</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Sign all\" data-es=\"Firmar todo\">Sign "
+"all</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Sign all\" data-es=\"Firmar todo\">Firmar todo</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "<span class=\"es-i18n\" data-en=\"Sign\" data-es=\"Firmar\">Sign</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Sign\" data-es=\"Firmar\">Firmar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Signed on:\" data-es=\"Firmado "
+"el:\">Signed on:</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Signed on:\" data-es=\"Firmado el:\">Firmado el:</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Signing Declined\" data-es=\"Firma "
+"rechazada\">Signing Declined</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Signing Declined\" data-es=\"Firma rechazada\">Firma rechazada</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Terms &amp; Conditions\" data-"
+"es=\"Términos y condiciones\">Terms &amp; Conditions</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Terms &amp; Conditions\" data-es=\"Términos y condiciones\">Términos y condiciones</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been "
+"recorded.\" data-es=\"Gracias. Tu firma quedó registrada.\">Thank you. Your "
+"signature has been recorded.</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been recorded.\" data-es=\"Gracias. Tu firma quedó registrada.\">Gracias. Tu firma quedó registrada.</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Verify a Signed Document\" data-"
+"es=\"Verificar un documento firmado\">Verify a Signed Document</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Verify a Signed Document\" data-es=\"Verificar un documento firmado\">Verificar un documento firmado</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "<span class=\"es-i18n\" data-en=\"Verify\" data-es=\"Verificar\">Verify</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Verify\" data-es=\"Verificar\">Verificar</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
+msgid ""
+"<span class=\"es-i18n\" data-en=\"You declined to sign this document. The "
+"requester has been notified.\" data-es=\"Rechazaste firmar este documento. "
+"Se notificó a quien lo solicitó.\">You declined to sign this document. The "
+"requester has been notified.</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"You declined to sign this document. The requester has been notified.\" data-es=\"Rechazaste firmar este documento. Se notificó a quien lo solicitó.\">Rechazaste firmar este documento. Se notificó a quien lo solicitó.</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-lang-flag\">🌐</span>\n"
+"                <span id=\"esLangLabel\">Español</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "<span class=\"es-msg-icon\">⚠</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-msg-icon\">⚠</span>\n"
+"            <span id=\"msgErrorText\"/>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "<span class=\"es-msg-icon\">✔</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-msg-icon\">✔</span>\n"
+"            <strong class=\"es-i18n\" data-en=\"Signed successfully!\" data-es=\"¡Firmado correctamente!\">Signed successfully!</strong>"
+msgstr "<span class=\"es-msg-icon\">✔</span>\n            <strong class=\"es-i18n\" data-en=\"Signed successfully!\" data-es=\"¡Firmado correctamente!\">¡Firmado correctamente!</strong>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-msg-icon\">✕</span>\n"
+"            <strong class=\"es-i18n\" data-en=\"Signing declined\" data-es=\"Firma rechazada\">Signing declined</strong>"
+msgstr "<span class=\"es-msg-icon\">✕</span>\n            <strong class=\"es-i18n\" data-en=\"Signing declined\" data-es=\"Firma rechazada\">Firma rechazada</strong>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-page-total\"><span class=\"es-i18n\" data-en=\"of\" data-"
+"es=\"de\">of</span> <span id=\"esPageCount\">1</span></span>"
+msgstr "<span class=\"es-page-total\"><span class=\"es-i18n\" data-en=\"of\" data-es=\"de\">de</span> <span id=\"esPageCount\">1</span></span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-signer-state\">✎ <span class=\"es-i18n\" data-"
+"en=\"Signing\" data-es=\"Firmando\">Signing</span></span>"
+msgstr "<span class=\"es-signer-state\">✎ <span class=\"es-i18n\" data-en=\"Signing\" data-es=\"Firmando\">Firmando</span></span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span id=\"btnSignText\">✓ <span class=\"es-i18n\" data-en=\"Sign Document\" data-es=\"Firmar documento\">Sign Document</span></span>\n"
+"            <span id=\"btnSignSpinner\" class=\"es-hidden\">\n"
+"                <span class=\"es-spinner\" role=\"status\"/>\n"
+"                <span class=\"es-i18n\" data-en=\"Submitting...\" data-es=\"Enviando...\">Submitting...</span>\n"
+"            </span>"
+msgstr "<span id=\"btnSignText\">✓ <span class=\"es-i18n\" data-en=\"Sign Document\" data-es=\"Firmar documento\">Firmar documento</span></span>\n            <span id=\"btnSignSpinner\" class=\"es-hidden\">\n                <span class=\"es-spinner\" role=\"status\"/>\n                <span class=\"es-i18n\" data-en=\"Submitting...\" data-es=\"Enviando...\">Enviando...</span>\n            </span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "<strong>No signed document matches this code or file.</strong>"
+msgstr "<strong>Ningún documento firmado coincide con este código o archivo.</strong>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_declined
+msgid "<strong>Reason:</strong>"
+msgstr "<strong>Motivo:</strong>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "<strong>The audit trail of this document is not consistent.</strong>"
+msgstr "<strong>El registro de auditoría de este documento no es coherente.</strong>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid ""
+"<strong>The file does not match the signed document. It may have been "
+"modified.</strong>"
+msgstr "<strong>El archivo no coincide con el documento firmado. Es posible que haya sido modificado.</strong>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "A <span class=\"es-caret\">▾</span>"
+msgstr ""
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "A code was sent less than a minute ago. Please check your inbox."
+msgstr "Se envió un código hace menos de un minuto. Revisa tu bandeja de entrada."
+
+#. module: easy_sign
+#: model:ir.model.constraint,message:easy_sign.constraint_sign_document_owner_check
+msgid "A document belongs to a request or a template."
+msgstr "Un documento pertenece a una solicitud o a una plantilla."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__access_token
+msgid "Access Token"
+msgstr "Token de acceso"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__action
+msgid "Action"
+msgstr "Acción"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__active
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__active
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Ícono del tipo de actividad"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Add"
+msgstr "Agregar"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Add Field"
+msgstr "Agregar campo"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_request
+msgid "Add a PDF, the signers, place the fields and click Send."
+msgstr "Agrega un PDF y los firmantes, coloca los campos y haz clic en Enviar."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Add a signer to place fields."
+msgstr "Agrega un firmante para colocar campos."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Add a tag"
+msgstr "Agregar una etiqueta"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Add at least one PDF document."
+msgstr "Agrega al menos un documento PDF."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Add at least one signer."
+msgstr "Agrega al menos un firmante."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Add terms & conditions to the signature request email"
+msgstr "Agregar términos y condiciones al correo de solicitud de firma"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_template__model_id
+msgid "Adds a 'Request Signature' action on the records of this model."
+msgstr "Agrega una acción 'Solicitar firma' en los registros de este modelo."
+
+#. module: easy_sign
+#: model:res.groups,name:easy_sign.group_sign_manager
+msgid "Administrator"
+msgstr "Administrador"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__alignment
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__alignment
+msgid "Alignment"
+msgstr "Alineación"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "All pages"
+msgstr "Todas las páginas"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_completed
+msgid "All parties have signed"
+msgstr "Todas las partes firmaron"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid ""
+"All signers have signed. The signed document and its certificate are "
+"available."
+msgstr "Todos los firmantes firmaron. El documento firmado y su certificado están disponibles."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request_item__can_delegate
+msgid "Allow changing this signer after the request has been sent."
+msgstr "Permite cambiar este firmante después de enviar la solicitud."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid ""
+"Allow users to define the users or groups which have access to the template"
+msgstr "Permite definir los usuarios o grupos que tienen acceso a cada plantilla"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__group_ids
+msgid "Allowed Groups"
+msgstr "Grupos permitidos"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__allowed_template_ids
+msgid "Allowed Template"
+msgstr "Plantilla permitida"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__authorized_ids
+msgid "Allowed Users"
+msgstr "Usuarios permitidos"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "Already answered."
+msgstr "Ya respondido."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "Already signed."
+msgstr "Ya firmado."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_role__default_partner_id
+msgid ""
+"Always use this contact for the role (for example, the company "
+"representative)."
+msgstr "Usar siempre este contacto para el rol (por ejemplo, el representante de la empresa)."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Audit"
+msgstr "Auditoría"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__log_ids
+msgid "Audit Log"
+msgstr "Registro de auditoría"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_log.py:0
+msgid "Audit log entries cannot be deleted."
+msgstr "Los registros de auditoría no se pueden eliminar."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_log.py:0
+msgid "Audit log entries cannot be modified."
+msgstr "Los registros de auditoría no se pueden modificar."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__module_easy_sign_sms
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Authenticate by SMS"
+msgstr "Autenticar por SMS"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__linked_field
+msgid "Auto-complete"
+msgstr "Autocompletar"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Automatic Zoom"
+msgstr "Zoom automático"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__model_id
+msgid "Available On"
+msgstr "Disponible en"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Back to Draft"
+msgstr "Volver a borrador"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__user_agent
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__user_agent
+msgid "Browser"
+msgstr "Navegador"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"By clicking Sign, I agree that the chosen signature/initials will be a valid"
+" electronic representation of my hand-written signature/initials for all "
+"purposes when it is used on documents, including legally binding contracts. "
+"My IP address, browser and the time of each action are recorded as evidence."
+msgstr "Al hacer clic en Firmar, acepto que la firma o las iniciales elegidas serán una representación electrónica válida de mi firma o iniciales manuscritas para todos los fines en que se usen en documentos, incluidos los contratos legalmente vinculantes. Mi dirección IP, mi navegador y la hora de cada acción se registran como evidencia."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+msgid "By signing you accept our"
+msgstr "Al firmar aceptas nuestros"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__can_delegate
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__can_delegate
+msgid "Can Be Replaced"
+msgstr "Se puede reemplazar"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Cancel Request"
+msgstr "Cancelar solicitud"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Cancel this signature request? Pending signers will be notified."
+msgstr "¿Cancelar esta solicitud de firma? Se notificará a los firmantes pendientes."
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__cancelled
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Cancelled / Expired"
+msgstr "Cancelada / vencida"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_mail.py:0
+msgid "Cancelled: %s"
+msgstr "Cancelada: %s"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__center
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__alignment__center
+msgid "Center"
+msgstr "Centro"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__certificate_pdf
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Certificate"
+msgstr "Certificado"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__certificate_name
+msgid "Certificate Name"
+msgstr "Nombre del certificado"
+
+#. module: easy_sign
+#: model:ir.actions.report,name:easy_sign.action_report_certificate
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Certificate of Completion"
+msgstr "Certificado de finalización"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Certify your documents using a provided .pfx or .p12 file."
+msgstr "Certifica tus documentos con un archivo .pfx o .p12."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__checkbox
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__checkbox
+#: model:sign.item.type,name:easy_sign.item_type_checkbox
+msgid "Checkbox"
+msgstr "Casilla"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/wizard/sign_send_wizard.py:0
+msgid "Choose a template or a PDF."
+msgstr "Elige una plantilla o un PDF."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "Choose at least one PDF file."
+msgstr "Elige al menos un archivo PDF."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_city
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_city
+msgid "City"
+msgstr "Ciudad"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_dialog
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Codes are sent with Odoo SMS, which uses IAP credits."
+msgstr "Los códigos se envían con SMS de Odoo, que usa créditos IAP."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__color
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__color
+#: model:ir.model.fields,field_description:easy_sign.field_sign_tag__color
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
+msgid "Color"
+msgstr "Color"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__company_id
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_parent_id_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_parent_id_name
+#: model:sign.item.type,name:easy_sign.item_type_company
+msgid "Company"
+msgstr "Empresa"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_company_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_company_name
+msgid "Company Name"
+msgstr "Nombre de la empresa"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__completed_date
+msgid "Completed On"
+msgstr "Completada el"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "Completed on"
+msgstr "Completada el"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Completed on (UTC)"
+msgstr "Completada el (UTC)"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: easy_sign
+#: model:ir.ui.menu,name:easy_sign.menu_sign_configuration
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_item_type.py:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__partner_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__partner_id
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__cc_partner_ids
+msgid "Contacts that receive the signed document and the certificate."
+msgstr "Contactos que reciben el documento firmado y el certificado."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__cc_partner_ids
+msgid "Copy To"
+msgstr "Copia a"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_country_id_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_country_id_name
+msgid "Country"
+msgstr "País"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
+msgid "Create a field type"
+msgstr "Crea un tipo de campo"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_template
+msgid "Create a reusable template"
+msgstr "Crea una plantilla reutilizable"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_tag
+msgid "Create a tag"
+msgstr "Crea una etiqueta"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_tag__create_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_tag__create_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__module_easy_sign_certificate
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Cryptographic signature"
+msgstr "Firma criptográfica"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__date
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__date
+#: model:sign.item.type,name:easy_sign.item_type_date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__date
+msgid "Date & Time"
+msgstr "Fecha y hora"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Date (UTC)"
+msgstr "Fecha (UTC)"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__declined_reason
+msgid "Decline Reason"
+msgstr "Motivo del rechazo"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__declined
+msgid "Declined"
+msgstr "Rechazada"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__default_height
+msgid "Default Height"
+msgstr "Alto por defecto"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__default_width
+msgid "Default Width"
+msgstr "Ancho por defecto"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_properties_form
+msgid "Default message for the signers"
+msgstr "Mensaje por defecto para los firmantes"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+msgid "Default values"
+msgstr "Valores por defecto"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__field_size
+msgid "Default width of a new field of this type."
+msgstr "Ancho por defecto de un campo nuevo de este tipo."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Delete"
+msgstr "Eliminar"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid ""
+"Deliver one-time codes by SMS to identify signatories when signing a "
+"document"
+msgstr "Envía códigos de un solo uso por SMS para identificar a los firmantes al firmar un documento"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
+msgid "Discard"
+msgstr "Descartar"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_company__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_editor_mixin__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_tag__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__document_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__document_name
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_document_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Document"
+msgstr "Documento"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__declined
+msgid "Document Declined"
+msgstr "Documento rechazado"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__document_hash
+msgid "Document Hash (SHA-256)"
+msgstr "Hash del documento (SHA-256)"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__signed
+msgid "Document Signed"
+msgstr "Documento firmado"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__viewed
+msgid "Document Viewed"
+msgstr "Documento visto"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_completed
+msgid "Document fully signed"
+msgstr "Documento firmado por todos"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Document signed with Easy Sign: %s"
+msgstr "Documento firmado con Easy Sign: %s"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__document_ids
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__document_ids
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_document.py:0
+msgid "Documents cannot be changed once the request has been sent."
+msgstr "Los documentos no se pueden cambiar después de enviar la solicitud."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Download Signed"
+msgstr "Descargar firmado"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__draft
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__pending
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__signature_method__draw
+msgid "Drawn"
+msgstr "Dibujada"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Each event hash chains to the previous one. Check the signed file at"
+msgstr "El hash de cada evento se encadena con el anterior. Verifica el archivo firmado en"
+
+#. module: easy_sign
+#: model:ir.module.category,name:easy_sign.module_category_easy_sign
+#: model:ir.ui.menu,name:easy_sign.menu_easy_sign_root
+#: model:res.groups.privilege,name:easy_sign.res_groups_privilege_easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Easy Sign"
+msgstr "Easy Sign"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_editor_mixin
+msgid "Easy Sign PDF Editor"
+msgstr "Editor de PDF de Easy Sign"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_layout
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Easy Sign ·"
+msgstr "Easy Sign ·"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_pdf.py:0
+msgid "Easy Sign · %(code)s · %(hash)s"
+msgstr "Easy Sign · %(code)s · %(hash)s"
+
+#. module: easy_sign
+#: model:ir.actions.server,name:easy_sign.cron_expire_requests_ir_actions_server
+msgid "Easy Sign: expire requests"
+msgstr "Easy Sign: vencer solicitudes"
+
+#. module: easy_sign
+#: model:res.groups,name:easy_sign.group_manage_template_access
+msgid "Easy Sign: manage template access"
+msgstr "Easy Sign: gestionar el acceso a plantillas"
+
+#. module: easy_sign
+#: model:ir.actions.server,name:easy_sign.cron_send_reminders_ir_actions_server
+msgid "Easy Sign: send reminders"
+msgstr "Easy Sign: enviar recordatorios"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Edit"
+msgstr "Editar"
+
+#. module: easy_sign
+#: model:ir.actions.client,name:easy_sign.action_sign_request_editor
+msgid "Edit Document"
+msgstr "Editar documento"
+
+#. module: easy_sign
+#: model:ir.actions.client,name:easy_sign.action_sign_template_editor
+msgid "Edit Template"
+msgstr "Editar plantilla"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Edit a Copy"
+msgstr "Editar una copia"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+msgid "Editor"
+msgstr "Editor"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_request
+msgid "Electronic Signature Request"
+msgstr "Solicitud de firma electrónica"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__signer_email
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signer_email
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_email
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_email
+#: model:sign.item.type,name:easy_sign.item_type_email
+msgid "Email"
+msgstr "Correo electrónico"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__attachment_ids
+msgid "Email Attachments"
+msgstr "Adjuntos del correo"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__subject
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__default_subject
+msgid "Email Subject"
+msgstr "Asunto del correo"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__auth_method__none
+msgid "Email link"
+msgstr "Enlace por correo"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__auth_method__email_otp
+msgid "Email link + code"
+msgstr "Enlace por correo + código"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/verify.py:0
+msgid "Enter a verification code or choose the signed PDF."
+msgstr "Ingresa un código de verificación o elige el PDF firmado."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Event"
+msgstr "Evento"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__log_hash
+msgid "Event Hash"
+msgstr "Hash del evento"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Event hash"
+msgstr "Hash del evento"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Events"
+msgstr "Eventos"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/wizard/sign_send_wizard.py:0
+msgid "Every signer needs a contact with an email address."
+msgstr "Cada firmante necesita un contacto con correo electrónico."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Every signer needs an email address."
+msgstr "Cada firmante necesita un correo electrónico."
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__expired
+msgid "Expired"
+msgstr "Vencida"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__attachment_ids
+msgid "Extra files sent with the invitation email."
+msgstr "Archivos adicionales que se envían con el correo de invitación."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field
+msgid "Field"
+msgstr "Campo"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
+msgid "Field Name"
+msgstr "Nombre del campo"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__field_size
+msgid "Field Size"
+msgstr "Tamaño del campo"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__item_type_id
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+msgid "Field Type"
+msgstr "Tipo de campo"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
+msgid "Field types make up the palette of the document editor."
+msgstr "Los tipos de campo forman la paleta del editor de documentos."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__item_ids
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__item_ids
+#: model:ir.ui.menu,name:easy_sign.menu_sign_item_types
+msgid "Fields"
+msgstr "Campos"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_item.py:0
+msgid "Fields cannot be changed once the request has been sent."
+msgstr "Los campos no se pueden cambiar después de enviar la solicitud."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__file_name
+msgid "File Name"
+msgstr "Nombre del archivo"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item__linked_field
+msgid "Fill the field with this value of the signer's contact."
+msgstr "Rellena el campo con este dato del contacto del firmante."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__default_partner_id
+msgid "Fixed Signer"
+msgstr "Firmante fijo"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
+msgid "Font"
+msgstr "Fuente"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__icon
+msgid "Font Awesome class, for example fa-user."
+msgstr "Clase de Font Awesome, por ejemplo fa-user."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Ícono de Font Awesome, por ejemplo fa-tasks"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__signed
+msgid "Fully Signed"
+msgstr "Firmada por todos"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__has_pending_signers
+msgid "Has Pending Signers"
+msgstr "Tiene firmantes pendientes"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__height
+msgid "Height"
+msgstr "Alto"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
+msgid "Hello"
+msgstr "Hola"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_company__id
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_editor_mixin__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_tag__id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__id
+msgid "ID"
+msgstr "ID"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "IP"
+msgstr "IP"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__ip_address
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__ip_address
+msgid "IP Address"
+msgstr "Dirección IP"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__icon
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_exception_icon
+msgid "Icon"
+msgstr "Ícono"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Ícono que indica una actividad de excepción."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay mensajes nuevos que requieren tu atención."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__initials
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__initials
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__initials
+#: model:sign.item.type,name:easy_sign.item_type_initials
+msgid "Initials"
+msgstr "Iniciales"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "Invalid Link"
+msgstr "Enlace no válido"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "Invalid data."
+msgstr "Datos no válidos."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_item.py:0
+msgid "Invalid date."
+msgstr "Fecha no válida."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_item.py:0
+msgid "Invalid option."
+msgstr "Opción no válida."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__default_message
+msgid "Invitation Message"
+msgstr "Mensaje de invitación"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__sent
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__sent
+msgid "Invitation Sent"
+msgstr "Invitación enviada"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "Language"
+msgstr "Idioma"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__last_reminder_date
+msgid "Last Reminder Date"
+msgstr "Fecha del último recordatorio"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_tag__write_uid
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_tag__write_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__left
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__alignment__left
+msgid "Left"
+msgstr "Izquierda"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "Link Expired"
+msgstr "Enlace vencido"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__redirect_url
+msgid "Link shown to the signers after they sign."
+msgstr "Enlace que ven los firmantes después de firmar."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+msgid "Link:"
+msgstr "Enlace:"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field_name
+msgid "Linked Field"
+msgstr "Campo vinculado"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_model
+msgid "Linked to"
+msgstr "Vinculado a"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "Loading document…"
+msgstr "Cargando documento…"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__long
+msgid "Long Text"
+msgstr "Texto largo"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__group_manage_template_access
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Manage template access"
+msgstr "Gestionar el acceso a plantillas"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__required
+msgid "Mandatory"
+msgstr "Obligatorio"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__message
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_properties_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
+msgid "Message for the signers"
+msgstr "Mensaje para los firmantes"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Move down"
+msgstr "Bajar"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Move up"
+msgstr "Subir"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:sign.item.type,name:easy_sign.item_type_textarea
+msgid "Multiline"
+msgstr "Multilínea"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__textarea
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__textarea
+msgid "Multiline Text"
+msgstr "Texto multilínea"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "My Requests"
+msgstr "Mis solicitudes"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__signer_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signer_name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_tag__name
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_name
+#: model:sign.item.type,name:easy_sign.item_type_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "New Field"
+msgstr "Campo nuevo"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la próxima actividad"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la próxima actividad"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de la próxima actividad"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "Next page"
+msgstr "Página siguiente"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "No auto-complete"
+msgstr "Sin autocompletar"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "No code is needed."
+msgstr "No se necesita código."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "Not Your Turn Yet"
+msgstr "Todavía no es tu turno"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__notes
+msgid "Notes"
+msgstr "Notas"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "One option per line"
+msgstr "Una opción por línea"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item__options
+msgid "One option per line (radio and selection)."
+msgstr "Una opción por línea (radio y selección)."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Only cancelled or expired requests can be reset to draft."
+msgstr "Solo las solicitudes canceladas o vencidas pueden volver a borrador."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Only draft or cancelled requests can be deleted."
+msgstr "Solo se pueden eliminar las solicitudes en borrador o canceladas."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Only draft or sent requests can be cancelled."
+msgstr "Solo se pueden cancelar las solicitudes en borrador o enviadas."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "Only pending signers can receive the invitation again."
+msgstr "Solo los firmantes pendientes pueden recibir la invitación de nuevo."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Open Editor"
+msgstr "Abrir editor"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Open a document from the list to edit it."
+msgstr "Abre un documento de la lista para editarlo."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "Option 1"
+msgstr "Opción 1"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+msgid "Option 2"
+msgstr "Opción 2"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "Optional: provide a reason..."
+msgstr "Opcional: indica un motivo..."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__options
+msgid "Options"
+msgstr "Opciones"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__origin_ref
+msgid "Origin"
+msgstr "Origen"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Original document hash (SHA-256)"
+msgstr "Hash del documento original (SHA-256)"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__otp_attempts
+msgid "Otp Attempts"
+msgstr "Intentos de código"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__otp_expiry
+msgid "Otp Expiry"
+msgstr "Vencimiento del código"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__otp_hash
+msgid "Otp Hash"
+msgstr "Hash del código"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__otp_sent_date
+msgid "Otp Sent Date"
+msgstr "Fecha de envío del código"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__file
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__file
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "PDF"
+msgstr "PDF"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__page
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "Page"
+msgstr "Página"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_item.py:0
+msgid "Page %s does not exist in %s."
+msgstr "La página %s no existe en %s."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__page_count
+msgid "Page Count"
+msgstr "Número de páginas"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Pages"
+msgstr "Páginas"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_phone
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_phone
+#: model:sign.item.type,name:easy_sign.item_type_phone
+msgid "Phone"
+msgstr "Teléfono"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__placeholder
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__placeholder
+msgid "Placeholder"
+msgstr "Texto de ejemplo"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "Please add your initials."
+msgstr "Agrega tus iniciales."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "Please add your signature."
+msgstr "Agrega tu firma."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_item.py:0
+msgid "Please complete all the required fields."
+msgstr "Completa todos los campos obligatorios."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_mail.py:0
+msgid "Please sign: %s"
+msgstr "Por favor firma: %s"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_properties_form
+msgid "Please sign: ..."
+msgstr "Por favor firma: ..."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__pos_x
+msgid "Pos X"
+msgstr "Pos. X"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__pos_y
+msgid "Pos Y"
+msgstr "Pos. Y"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__previous_log_hash
+msgid "Previous Log Hash"
+msgstr "Hash del registro anterior"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "Previous page"
+msgstr "Página anterior"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor_action.js:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_properties_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_properties_form
+msgid "Properties"
+msgstr "Propiedades"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__radio
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__radio
+#: model:sign.item.type,name:easy_sign.item_type_radio
+msgid "Radio"
+msgstr "Radio"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__readonly
+msgid "Read Only"
+msgstr "Solo lectura"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Read-only"
+msgstr "Solo lectura"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__readonly
+msgid "Readonly"
+msgstr "Solo lectura"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__redirect_url
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__redirect_url
+msgid "Redirect URL"
+msgstr "URL de redirección"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__name
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__regular
+msgid "Regular Text"
+msgstr "Texto normal"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__res_model
+msgid "Related Model"
+msgstr "Modelo relacionado"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__res_id
+msgid "Related Record"
+msgstr "Registro relacionado"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__reminder_days
+msgid "Remind pending signers every N days. 0 disables reminders."
+msgstr "Recordar a los firmantes pendientes cada N días. 0 desactiva los recordatorios."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__reminder_days
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__reminder_days
+msgid "Reminder Every (days)"
+msgstr "Recordatorio cada (días)"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__reminded
+msgid "Reminder Sent"
+msgstr "Recordatorio enviado"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_mail.py:0
+msgid "Reminder: %s"
+msgstr "Recordatorio: %s"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Remove"
+msgstr "Quitar"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+msgid "Rename"
+msgstr "Renombrar"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__request_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__request_id
+msgid "Request"
+msgstr "Solicitud"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__cancelled
+msgid "Request Cancelled"
+msgstr "Solicitud cancelada"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__completed
+msgid "Request Completed"
+msgstr "Solicitud completada"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__request_count
+msgid "Request Count"
+msgstr "Número de solicitudes"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__expired
+msgid "Request Expired"
+msgstr "Solicitud vencida"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_template.py:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
+msgid "Request Signature"
+msgstr "Solicitar firma"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_send_wizard
+msgid "Request a Signature from a Record"
+msgstr "Solicitar una firma desde un registro"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__user_id
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Requested By"
+msgstr "Solicitado por"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Requested by"
+msgstr "Solicitado por"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__request_ids
+#: model:ir.ui.menu,name:easy_sign.menu_sign_requests
+msgid "Requests"
+msgstr "Solicitudes"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__required
+msgid "Required"
+msgstr "Obligatorio"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__res_id
+msgid "Res"
+msgstr "Registro"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__res_model
+msgid "Res Model"
+msgstr "Modelo"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__user_id
+msgid "Responsible"
+msgstr "Responsable"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+msgid "Review &amp; Sign"
+msgstr "Revisar y firmar"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__right
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__alignment__right
+msgid "Right"
+msgstr "Derecha"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__role_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__role_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__role_id
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_role_form
+msgid "Role"
+msgstr "Rol"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__role_ids
+msgid "Roles"
+msgstr "Roles"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__file_hash
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Saved"
+msgstr "Guardado"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Saving…"
+msgstr "Guardando…"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Search"
+msgstr "Buscar"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__selection
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__selection
+#: model:sign.item.type,name:easy_sign.item_type_selection
+msgid "Selection"
+msgstr "Selección"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
+msgid "Send"
+msgstr "Enviar"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Send again"
+msgstr "Enviar de nuevo"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_request
+msgid "Send your first document for signature"
+msgstr "Envía tu primer documento a firmar"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__sent
+msgid "Sent"
+msgstr "Enviada"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__sequence
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__sequence
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__sequence
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: easy_sign
+#: model:ir.actions.act_window,name:easy_sign.action_easy_sign_settings
+#: model:ir.ui.menu,name:easy_sign.menu_sign_settings
+msgid "Settings"
+msgstr "Ajustes"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__short
+msgid "Short Text"
+msgstr "Texto corto"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__use_sign_terms
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Sign Default Terms & Conditions"
+msgstr "Términos y condiciones por defecto"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Sign Now"
+msgstr "Firmar ahora"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Sign Settings"
+msgstr "Ajustes de firma"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_company__sign_terms
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__sign_terms
+msgid "Sign Terms & Conditions"
+msgstr "Términos y condiciones de firma"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__sign_terms_url
+msgid "Sign Terms Url"
+msgstr "URL de los términos de firma"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signature
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__signature
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__signature
+#: model:sign.item.type,name:easy_sign.item_type_signature
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Signature"
+msgstr "Firma"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_log
+msgid "Signature Audit Log"
+msgstr "Registro de auditoría de firma"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_document
+msgid "Signature Document (PDF)"
+msgstr "Documento de firma (PDF)"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_item
+msgid "Signature Field Placed on a Document"
+msgstr "Campo de firma colocado en un documento"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_item_type
+msgid "Signature Field Type"
+msgstr "Tipo de campo de firma"
+
+#. module: easy_sign
+#: model:ir.actions.act_window,name:easy_sign.action_sign_item_type
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
+msgid "Signature Fields"
+msgstr "Campos de firma"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signature_method
+msgid "Signature Method"
+msgstr "Método de firma"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__request_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__request_id
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
+msgid "Signature Request"
+msgstr "Solicitud de firma"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_request_item
+msgid "Signature Request Signer"
+msgstr "Firmante de la solicitud"
+
+#. module: easy_sign
+#: model:ir.actions.act_window,name:easy_sign.action_sign_request
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Signature Requests"
+msgstr "Solicitudes de firma"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_role
+msgid "Signature Role"
+msgstr "Rol de firma"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_tag
+msgid "Signature Tag"
+msgstr "Etiqueta de firma"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_template
+msgid "Signature Template"
+msgstr "Plantilla de firma"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_declined
+msgid "Signature declined"
+msgstr "Firma rechazada"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
+msgid "Signature request cancelled"
+msgstr "Solicitud de firma cancelada"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Signature request cancelled."
+msgstr "Solicitud de firma cancelada."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Signature request sent."
+msgstr "Solicitud de firma enviada."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/wizard/sign_send_wizard.py:0
+msgid "Signature requested: %s"
+msgstr "Firma solicitada: %s"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__signed
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Signed"
+msgstr "Firmada"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Signed (UTC) / IP / Browser"
+msgstr "Firmado (UTC) / IP / navegador"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__signed_count
+msgid "Signed Count"
+msgstr "Firmas realizadas"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__signed_document
+msgid "Signed Document"
+msgstr "Documento firmado"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__signed_document_hash
+msgid "Signed Document Hash (SHA-256)"
+msgstr "Hash del documento firmado (SHA-256)"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__signed_document_name
+msgid "Signed Document Name"
+msgstr "Nombre del documento firmado"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signed_date
+msgid "Signed On"
+msgstr "Firmado el"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "Signed PDF (optional, checks that the file was not altered)"
+msgstr "PDF firmado (opcional, comprueba que el archivo no fue alterado)"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_pdf.py:0
+msgid "Signed with Easy Sign - verification code %s"
+msgstr "Firmado con Easy Sign - código de verificación %s"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_mail.py:0
+msgid "Signed: %s"
+msgstr "Firmado: %s"
+
+#. module: easy_sign
+#. odoo-javascript
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+#: code:addons/easy_sign/static/src/editor/editor_panel.js:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__request_item_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_log__request_item_id
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_item_form
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Signer"
+msgstr "Firmante"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "Signer %s"
+msgstr "Firmante %s"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "Signer %s can no longer be changed."
+msgstr "El firmante %s ya no se puede cambiar."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signer_hash
+msgid "Signer Hash"
+msgstr "Hash del firmante"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__delegated
+msgid "Signer Replaced"
+msgstr "Firmante reemplazado"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_sign_send_wizard_signer
+msgid "Signer of a Signature Request Wizard"
+msgstr "Firmante del asistente de solicitud de firma"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "Signer replaced by %s"
+msgstr "Firmante reemplazado por %s"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__request_item_ids
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__signer_ids
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_list
+msgid "Signers"
+msgstr "Firmantes"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__signers_count
+msgid "Signers Count"
+msgstr "Número de firmantes"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "Signers can only be reconfigured while the request is a draft."
+msgstr "Los firmantes solo se pueden reconfigurar mientras la solicitud está en borrador."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "Signers can only be removed while the request is a draft."
+msgstr "Los firmantes solo se pueden quitar mientras la solicitud está en borrador."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__signing_order
+msgid ""
+"Signers receive the invitation one after the other, following the sequence."
+msgstr "Los firmantes reciben la invitación uno tras otro, siguiendo la secuencia."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__sign_url
+msgid "Signing Link"
+msgstr "Enlace de firma"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__signing_order
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__signing_order
+msgid "Signing Order"
+msgstr "Orden de firma"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "Some fields are not assigned to a signer of this request."
+msgstr "Algunos campos no están asignados a un firmante de esta solicitud."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_item.py:0
+msgid "Some fields do not belong to this signer."
+msgstr "Algunos campos no pertenecen a este firmante."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__stamp
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__stamp
+#: model:sign.item.type,name:easy_sign.item_type_stamp
+msgid "Stamp"
+msgstr "Sello"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__state
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__state
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Estado según las actividades\nVencida: la fecha límite ya pasó\nHoy: la actividad es hoy\nPlanificada: actividades futuras."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_street
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_street
+msgid "Street"
+msgstr "Calle"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__strike
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__strike
+#: model:sign.item.type,name:easy_sign.item_type_strike
+msgid "Strikethrough"
+msgstr "Tachado"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_search
+msgid "Tag Name"
+msgstr "Nombre de la etiqueta"
+
+#. module: easy_sign
+#: model:ir.actions.act_window,name:easy_sign.action_sign_tag
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__tag_ids
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__tag_ids
+#: model:ir.ui.menu,name:easy_sign.menu_sign_tags
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_search
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_tag
+msgid "Tags classify requests and templates."
+msgstr "Las etiquetas clasifican solicitudes y plantillas."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Tags:"
+msgstr "Etiquetas:"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_vat
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_vat
+msgid "Tax ID"
+msgstr "NIT"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+#: model:ir.model.fields,field_description:easy_sign.field_sign_document__template_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__template_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__template_id
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__template_id
+msgid "Template"
+msgstr "Plantilla"
+
+#. module: easy_sign
+#: model:ir.actions.act_window,name:easy_sign.action_sign_template
+#: model:ir.ui.menu,name:easy_sign.menu_sign_templates
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_list
+msgid "Templates"
+msgstr "Plantillas"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_terms_page
+msgid "Terms &amp; Conditions"
+msgstr "Términos y condiciones"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_company__sign_terms_type
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__sign_terms_type
+msgid "Terms Display"
+msgstr "Mostrar términos"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__res_company__sign_terms_type__html
+msgid "Terms as Web Page"
+msgstr "Términos como página web"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__res_company__sign_terms_type__plain
+msgid "Terms in Email"
+msgstr "Términos en el correo"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__text
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__text
+#: model:sign.item.type,name:easy_sign.item_type_text
+msgid "Text"
+msgstr "Texto"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__tip
+msgid ""
+"Text of the guide ribbon on the signing page, for example 'Fill in'. Empty: "
+"automatic."
+msgstr "Texto de la cinta guía en la página de firma, por ejemplo 'Completar'. Vacío: automático."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "The certificate is not available yet."
+msgstr "El certificado todavía no está disponible."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "The code has expired. Request a new one."
+msgstr "El código venció. Solicita uno nuevo."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "The code is not correct."
+msgstr "El código no es correcto."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
+msgid ""
+"The code is valid for 10 minutes. If you did not ask for it, ignore this "
+"email."
+msgstr "El código es válido por 10 minutos. Si no lo pediste, ignora este correo."
+
+#. module: easy_sign
+#: model:ir.model.constraint,message:easy_sign.constraint_sign_item_type_size_check
+msgid "The default size is a fraction of the page (0-1)."
+msgstr "El tamaño por defecto es una fracción de la página (0-1)."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "The document could not be declined."
+msgstr "No se pudo rechazar el documento."
+
+#. module: easy_sign
+#: model:ir.model.constraint,message:easy_sign.constraint_sign_item_inside_page
+msgid "The field must stay inside the page."
+msgstr "El campo debe quedar dentro de la página."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "The file is authentic and has not been modified."
+msgstr "El archivo es auténtico y no ha sido modificado."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_pdf.py:0
+msgid "The file is not an image."
+msgstr "El archivo no es una imagen."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/verify.py:0
+msgid "The file is too large."
+msgstr "El archivo es demasiado grande."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_pdf.py:0
+msgid "The image is larger than 2 MB."
+msgstr "La imagen pesa más de 2 MB."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_pdf.py:0
+msgid "The image is not valid."
+msgstr "La imagen no es válida."
+
+#. module: easy_sign
+#: model:ir.model.constraint,message:easy_sign.constraint_sign_item_page_positive
+msgid "The page must be 1 or more."
+msgstr "La página debe ser 1 o mayor."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "The redirect URL must start with http:// or https://."
+msgstr "La URL de redirección debe empezar con http:// o https://."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
+msgid "The request to sign"
+msgstr "La solicitud para firmar"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"The request will be cancelled for everyone. You can tell the sender why."
+msgstr "La solicitud se cancelará para todos. Puedes contarle al remitente el motivo."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "The signature could not be saved."
+msgstr "No se pudo guardar la firma."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_completed
+msgid "The signed document and its certificate of completion are attached."
+msgstr "Se adjuntan el documento firmado y su certificado de finalización."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "The signed document is not available yet."
+msgstr "El documento firmado todavía no está disponible."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__expiry_date
+msgid "The signing links stop working after this date."
+msgstr "Los enlaces de firma dejan de funcionar después de esta fecha."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_template.py:0
+msgid "The template has no document."
+msgstr "La plantilla no tiene documento."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_item.py:0
+msgid "The text is too long."
+msgstr "El texto es demasiado largo."
+
+#. module: easy_sign
+#: model:ir.model.constraint,message:easy_sign.constraint_sign_request_verification_code_unique
+msgid "The verification code must be unique."
+msgstr "El código de verificación debe ser único."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request.py:0
+msgid "There is nobody left to invite."
+msgstr "No queda nadie por invitar."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_template__group_ids
+msgid ""
+"These groups can use the template. Empty groups and users: every Easy Sign "
+"user."
+msgstr "Estos grupos pueden usar la plantilla. Sin grupos ni usuarios: todos los usuarios de Easy Sign."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_template__authorized_ids
+msgid "These users can use the template, besides the allowed groups."
+msgstr "Estos usuarios pueden usar la plantilla, además de los grupos permitidos."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "This document can no longer be declined."
+msgstr "Este documento ya no se puede rechazar."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "This document can no longer be signed."
+msgstr "Este documento ya no se puede firmar."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "This link is not active."
+msgstr "Este enlace no está activo."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+msgid "This link is personal. Do not share it."
+msgstr "Este enlace es personal. No lo compartas."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid ""
+"This request has been sent: documents and fields can no longer be changed."
+msgstr "Esta solicitud ya fue enviada: los documentos y campos ya no se pueden cambiar."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "This signature request has been cancelled."
+msgstr "Esta solicitud de firma fue cancelada."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "This signing link expired on %s."
+msgstr "Este enlace de firma venció el %s."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "This signing link is invalid or does not exist."
+msgstr "Este enlace de firma no es válido o no existe."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "This signing link is not active."
+msgstr "Este enlace de firma no está activo."
+
+#. module: easy_sign
+#: model:ir.model.constraint,message:easy_sign.constraint_sign_tag_name_unique
+msgid "This tag already exists."
+msgstr "Esta etiqueta ya existe."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_document.py:0
+#: code:addons/easy_sign/models/sign_item.py:0
+msgid "This template has already been used. Edit a copy instead."
+msgstr "Esta plantilla ya se usó. Edita una copia."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid ""
+"This template has been used: documents and fields are locked. Edit a copy to"
+" change them."
+msgstr "Esta plantilla ya se usó: los documentos y campos están bloqueados. Edita una copia para cambiarlos."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "This verification code belongs to a completed signature."
+msgstr "Este código de verificación corresponde a una firma completada."
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "Thumbnails"
+msgstr "Miniaturas"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__tip
+msgid "Tip"
+msgstr "Indicación"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_item.py:0
+msgid "Too many attempts. Request a new code."
+msgstr "Demasiados intentos. Solicita un código nuevo."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/verify.py:0
+msgid "Too many attempts. Try again in a few minutes."
+msgstr "Demasiados intentos. Inténtalo de nuevo en unos minutos."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__type
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__base_type
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
+msgid "Type"
+msgstr "Tipo"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_request__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de la actividad de excepción en el registro."
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__signature_method__type
+msgid "Typed"
+msgstr "Escrita"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
+msgid "UTC"
+msgstr "UTC"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "UTC ·"
+msgstr "UTC ·"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__update_field
+msgid "Update Field"
+msgstr "Actualizar campo"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/list_upload.xml:0
+msgid "Upload PDF"
+msgstr "Subir PDF"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_template
+msgid "Upload the PDF once, define the roles and place the fields."
+msgstr "Sube el PDF una vez, define los roles y coloca los campos."
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__signature_method__upload
+msgid "Uploaded"
+msgstr "Subida"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_list
+msgid "Use"
+msgstr "Usar"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_pdf.py:0
+msgid "Use a PNG or JPEG image."
+msgstr "Usa una imagen PNG o JPEG."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
+msgid "Use this code to sign"
+msgstr "Usa este código para firmar"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_list
+msgid "Used"
+msgstr "Usada"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_template.py:0
+msgid "Used templates cannot be deleted. Archive them instead."
+msgstr "Las plantillas usadas no se pueden eliminar. Archívalas."
+
+#. module: easy_sign
+#: model:res.groups,name:easy_sign.group_sign_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__validity_days
+msgid "Valid For (days)"
+msgstr "Válida por (días)"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__expiry_date
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__expiry_date
+msgid "Valid Until"
+msgstr "Válida hasta"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+msgid "Valid until"
+msgstr "Válido hasta"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__value
+msgid "Value"
+msgstr "Valor"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__linked_field
+msgid "Value of the signer's contact that fills this field."
+msgstr "Dato del contacto del firmante que rellena este campo."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__auth_method
+#: model:ir.model.fields,field_description:easy_sign.field_sign_role__auth_method
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Verification"
+msgstr "Verificación"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_request__verification_code
+msgid "Verification Code"
+msgstr "Código de verificación"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__otp_sent
+msgid "Verification Code Sent"
+msgstr "Código de verificación enviado"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+msgid "Verification code"
+msgstr "Código de verificación"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "Verification code (printed at the bottom of each page)"
+msgstr "Código de verificación (impreso al pie de cada página)"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_completed
+msgid "Verification code:"
+msgstr "Código de verificación:"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__viewed
+msgid "Viewed"
+msgstr "Vista"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__waiting
+msgid "Waiting Turn"
+msgstr "Esperando turno"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
+msgid "Waiting for Me"
+msgstr "Esperando mi firma"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "We sent you a 6-digit code. Enter it to sign."
+msgstr "Te enviamos un código de 6 dígitos. Ingrésalo para firmar."
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item__width
+msgid "Width"
+msgstr "Ancho"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__wizard_id
+msgid "Wizard"
+msgstr "Asistente"
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_item_type__update_field
+msgid "Write the value entered by the signer back to their contact."
+msgstr "Guarda en el contacto del firmante el valor que escribió."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_template.py:0
+msgid "You are not allowed to use this template."
+msgstr "No tienes permiso para usar esta plantilla."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "You are not one of the signers. Add yourself as a signer first."
+msgstr "No eres uno de los firmantes. Agrégate primero como firmante."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_editor.py:0
+msgid "You have already signed this document."
+msgstr "Ya firmaste este documento."
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/controllers/main.py:0
+msgid "You will receive an email when it is your turn to sign."
+msgstr "Recibirás un correo cuando sea tu turno de firmar."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Your conditions..."
+msgstr "Tus condiciones..."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
+msgid "Your signing code"
+msgstr "Tu código de firma"
+
+#. module: easy_sign
+#. odoo-python
+#: code:addons/easy_sign/models/sign_request_mail.py:0
+msgid "Your signing code: %s"
+msgstr "Tu código de firma: %s"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/palette.js:0
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_zip
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_zip
+msgid "ZIP"
+msgstr "Código postal"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "Zoom in"
+msgstr "Acercar"
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "Zoom out"
+msgstr "Alejar"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+msgid "asks you to sign"
+msgstr "te pide firmar"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__city
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__city
+msgid "city"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
+msgid "e.g. Phone"
+msgstr "p. ej. Teléfono"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__email
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__email
+msgid "email"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
+msgid "has been cancelled. No action is needed."
+msgstr "fue cancelada. No necesitas hacer nada."
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__name
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__name
+msgid "name"
+msgstr ""
+
+#. module: easy_sign
+#. odoo-javascript
+#: code:addons/easy_sign/static/src/editor/editor.xml:0
+msgid "of"
+msgstr "de"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__phone
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__phone
+msgid "phone"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "signer(s)."
+msgstr "firmante(s)."
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__street
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__street
+msgid "street"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__vat
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__vat
+msgid "vat"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__zip
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__zip
+msgid "zip"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"· <span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido "
+"hasta\">Valid until</span>"
+msgstr "· <span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido hasta\">Válido hasta</span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_invalid
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
+#: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
+msgid "🌐 <span id=\"esLangLabel\">Español</span>"
+msgstr ""

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sign_request_form_sms" model="ir.ui.view">
+        <field name="name">sign.request.form.sms</field>
+        <field name="model">sign.request</field>
+        <field name="inherit_id" ref="easy_sign.view_sign_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='request_item_ids']/list/field[@name='signer_email']" position="after">
+                <field name="signer_phone" optional="show" required="auth_method == 'sms_otp'"
+                       readonly="parent.state != 'draft'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
