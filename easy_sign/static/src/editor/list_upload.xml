@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-    <!-- Odoo 19: the "New" button is in web.ListView; the view's buttonTemplate sits right after it. -->
-    <t t-name="easy_sign.ListView" t-inherit="web.ListView" t-inherit-mode="primary">
-        <xpath expr="//button[hasclass('o_list_button_add')]" position="replace"/>
-    </t>
+    <!-- Odoo 20: the "New" button lives in web.ListView.Buttons (the view's buttonTemplate). -->
+    <t t-name="easy_sign.ListView" t-inherit="web.ListView" t-inherit-mode="primary"/>
 
-    <t t-name="easy_sign.ListView.Buttons">
-        <t t-call="easy_sign.ListView.UploadButton"/>
+    <t t-name="easy_sign.ListView.Buttons" t-inherit="web.ListView.Buttons" t-inherit-mode="primary">
+        <xpath expr="//button[hasclass('o_list_button_add')]" position="replace">
+            <t t-call="easy_sign.ListView.UploadButton"/>
+        </xpath>
     </t>
 </templates>
