@@ -1,21 +1,21 @@
-import { Component, onWillStart, onWillUnmount, useState } from "@odoo/owl";
+import { Component, onWillStart, onWillUnmount } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { loadPDFJSAssets } from "@web/core/utils/pdfjs";
-import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { EditorPanel } from "./editor_panel";
 import { EditorStore } from "./editor_store";
 import { EditorTopbar } from "./editor_topbar";
 import { EditorViewer } from "./editor_viewer";
+import { useProps, useState } from "./owl_compat";
 
 export class SignEditorAction extends Component {
     static template = "easy_sign.EditorAction";
     static components = { EditorPanel, EditorTopbar, EditorViewer };
-    static props = { ...standardActionServiceProps };
 
     setup() {
+        this.props = useProps();
         this.orm = useService("orm");
         this.actionService = useService("action");
         this.dialog = useService("dialog");

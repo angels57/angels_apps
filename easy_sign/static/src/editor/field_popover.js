@@ -1,4 +1,5 @@
-import { Component, useState } from "@odoo/owl";
+import { Component } from "@odoo/owl";
+import { useProps, useState } from "./owl_compat";
 import { LINKED_LABEL, itemLabel } from "./palette";
 
 const TEXTUAL = ["text", "textarea", "date", "selection"];
@@ -6,9 +7,9 @@ const TEXTUAL = ["text", "textarea", "date", "selection"];
 /** Properties of the selected field, shown under it. */
 export class FieldPopover extends Component {
     static template = "easy_sign.FieldPopover";
-    static props = { store: Object, item: Object, onAllPages: Function };
 
     setup() {
+        this.props = useProps(); // store, item, onAllPages
         this.linked = Object.entries(LINKED_LABEL);
         this.itemLabel = (item) => itemLabel(item, this.state.data?.palette);
         this.state = useState(this.props.store.state);

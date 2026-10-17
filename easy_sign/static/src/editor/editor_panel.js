@@ -1,19 +1,19 @@
-import { Component, useRef, useState } from "@odoo/owl";
+import { Component } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { useService } from "@web/core/utils/hooks";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
-import { readPdfFiles } from "./list_upload";
+import { pickPdfFiles } from "./list_upload";
+import { useProps, useState } from "./owl_compat";
 import { clamp, newItemVals } from "./palette";
 
 export class EditorPanel extends Component {
     static template = "easy_sign.EditorPanel";
     static components = { Dropdown };
-    static props = { store: Object };
 
     setup() {
+        this.props = useProps(); // store
         this.dialog = useService("dialog");
-        this.fileInput = useRef("docInput");
         this.state = useState(this.props.store.state);
     }
 
@@ -44,12 +44,8 @@ export class EditorPanel extends Component {
     // ------------------------------------------------------------------
     // Documents
     // ------------------------------------------------------------------
-    onAddDocument() {
-        this.fileInput.el.click();
-    }
-    async onDocumentFiles(ev) {
-        const files = await readPdfFiles(ev.target.files);
-        ev.target.value = "";
+    async onAddDocument() {
+        const files = await pickPdfFiles();
         if (files.length) {
             await this.store.addDocuments(files);
         }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="easy_sign.ListView.UploadButton">
+        <button t-if="this.activeActions.create and !this.editedRecord and !this.env.inDialog" type="button"
+                class="btn btn-primary o_es_upload" data-hotkey="c" t-on-click="() => this.onClickUpload()">Upload PDF</button>
+    </t>
+</templates>

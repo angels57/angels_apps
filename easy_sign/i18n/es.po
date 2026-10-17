@@ -2826,7 +2826,7 @@ msgstr "Actualizar campo"
 
 #. module: easy_sign
 #. odoo-javascript
-#: code:addons/easy_sign/static/src/editor/list_upload.xml:0
+#: code:addons/easy_sign/static/src/editor/list_upload_button.xml:0
 msgid "Upload PDF"
 msgstr "Subir PDF"
 
