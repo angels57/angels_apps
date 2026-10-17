@@ -28,7 +28,11 @@ class SignTemplate(models.Model):
     redirect_url = fields.Char(string="Redirect URL")
     group_ids = fields.Many2many(
         "res.groups", string="Allowed Groups",
-        help="Only these groups can use the template. Empty: every Easy Sign user.",
+        help="These groups can use the template. Empty groups and users: every Easy Sign user.",
+    )
+    authorized_ids = fields.Many2many(
+        "res.users", "sign_template_authorized_users_rel", string="Allowed Users",
+        help="These users can use the template, besides the allowed groups.",
     )
     user_id = fields.Many2one("res.users", string="Responsible", default=lambda self: self.env.user)
     request_ids = fields.One2many("sign.request", "template_id", string="Requests")
@@ -94,7 +98,9 @@ class SignTemplate(models.Model):
         self.ensure_one()
         if not self.document_ids:
             raise UserError(_("The template has no document."))
-        if self.group_ids and not (self.group_ids & self.env.user.all_group_ids):
+        if (self.group_ids or self.authorized_ids) and not (
+            self.group_ids & self.env.user.all_group_ids or self.env.user in self.authorized_ids
+        ):
             raise UserError(_("You are not allowed to use this template."))
 
     def _prepare_request(self, partners_by_role=None, extra_vals=None):

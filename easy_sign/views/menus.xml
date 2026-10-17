@@ -9,6 +9,8 @@
               action="action_sign_template" sequence="20"/>
     <menuitem id="menu_sign_configuration" name="Configuration" parent="menu_easy_sign_root"
               sequence="90" groups="easy_sign.group_sign_manager"/>
+    <menuitem id="menu_sign_settings" name="Settings" parent="menu_sign_configuration"
+              action="action_easy_sign_settings" sequence="10" groups="base.group_system"/>
     <menuitem id="menu_sign_item_types" name="Fields" parent="menu_sign_configuration"
               action="action_sign_item_type" sequence="20"/>
     <menuitem id="menu_sign_tags" name="Tags" parent="menu_sign_configuration"

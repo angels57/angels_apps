@@ -27,4 +27,9 @@
         <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
     </record>
 
+    <!-- Enabled by Settings > Manage template access: shows who may use each template. -->
+    <record id="group_manage_template_access" model="res.groups">
+        <field name="name">Easy Sign: manage template access</field>
+    </record>
+
 </odoo>

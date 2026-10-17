@@ -23,19 +23,19 @@
     <record id="rule_sign_template_user" model="ir.rule">
         <field name="name">Easy Sign: allowed templates</field>
         <field name="model_id" ref="model_sign_template"/>
-        <field name="domain_force">['|', ('group_ids', '=', False), ('group_ids', 'in', user.all_group_ids.ids)]</field>
+        <field name="domain_force">['|', '&amp;', ('group_ids', '=', False), ('authorized_ids', '=', False), '|', ('group_ids', 'in', user.all_group_ids.ids), ('authorized_ids', 'in', [user.id])]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
     </record>
     <record id="rule_sign_document_user" model="ir.rule">
         <field name="name">Easy Sign: documents of own requests and allowed templates</field>
         <field name="model_id" ref="model_sign_document"/>
-        <field name="domain_force">['|', ('request_id.user_id', '=', user.id), '&amp;', ('template_id', '!=', False), '|', ('template_id.group_ids', '=', False), ('template_id.group_ids', 'in', user.all_group_ids.ids)]</field>
+        <field name="domain_force">['|', ('request_id.user_id', '=', user.id), '&amp;', ('template_id', '!=', False), '|', '&amp;', ('template_id.group_ids', '=', False), ('template_id.authorized_ids', '=', False), '|', ('template_id.group_ids', 'in', user.all_group_ids.ids), ('template_id.authorized_ids', 'in', [user.id])]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
     </record>
     <record id="rule_sign_item_user" model="ir.rule">
         <field name="name">Easy Sign: fields of own requests and allowed templates</field>
         <field name="model_id" ref="model_sign_item"/>
-        <field name="domain_force">['|', ('request_id.user_id', '=', user.id), '&amp;', ('template_id', '!=', False), '|', ('template_id.group_ids', '=', False), ('template_id.group_ids', 'in', user.all_group_ids.ids)]</field>
+        <field name="domain_force">['|', ('request_id.user_id', '=', user.id), '&amp;', ('template_id', '!=', False), '|', '&amp;', ('template_id.group_ids', '=', False), ('template_id.authorized_ids', '=', False), '|', ('template_id.group_ids', 'in', user.all_group_ids.ids), ('template_id.authorized_ids', 'in', [user.id])]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
     </record>
 

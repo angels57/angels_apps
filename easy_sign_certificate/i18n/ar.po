@@ -3,10 +3,22 @@
 # 	* easy_sign_certificate
 #
 msgid ""
-msgstr "Project-Id-Version: Odoo Server 19.0-20261015\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2026-10-16 03:21+0000\nPO-Revision-Date: 2026-10-16 03:21+0000\nLast-Translator: \nLanguage-Team: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: \nPlural-Forms: \n"
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20261015\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-17 00:41+0000\n"
+"PO-Revision-Date: 2026-10-16 03:21+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: easy_sign_certificate
 #: model:ir.model.fields,help:easy_sign_certificate.field_res_company__signing_certificate_id
+#: model:ir.model.fields,help:easy_sign_certificate.field_res_config_settings__signing_certificate_id
 msgid "Certificate used to sign the documents completed with Easy Sign."
 msgstr "الشهادة المستخدمة لتوقيع المستندات المكتملة عبر Easy Sign."
 
@@ -16,7 +28,13 @@ msgid "Companies"
 msgstr "الشركات"
 
 #. module: easy_sign_certificate
+#: model:ir.model,name:easy_sign_certificate.model_res_config_settings
+msgid "Config Settings"
+msgstr "إعدادات التهيئة"
+
+#. module: easy_sign_certificate
 #: model:ir.model.fields,field_description:easy_sign_certificate.field_res_company__display_name
+#: model:ir.model.fields,field_description:easy_sign_certificate.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:easy_sign_certificate.field_sign_request__display_name
 msgid "Display Name"
 msgstr "اسم العرض"
@@ -28,11 +46,18 @@ msgstr "طلب توقيع إلكتروني"
 
 #. module: easy_sign_certificate
 #: model:ir.model.fields,field_description:easy_sign_certificate.field_res_company__id
+#: model:ir.model.fields,field_description:easy_sign_certificate.field_res_config_settings__id
 #: model:ir.model.fields,field_description:easy_sign_certificate.field_sign_request__id
 msgid "ID"
 msgstr "المُعرف"
 
 #. module: easy_sign_certificate
 #: model:ir.model.fields,field_description:easy_sign_certificate.field_res_company__signing_certificate_id
+#: model:ir.model.fields,field_description:easy_sign_certificate.field_res_config_settings__signing_certificate_id
 msgid "PDF Signing Certificate"
 msgstr "شهادة توقيع PDF"
+
+#. module: easy_sign_certificate
+#: model_terms:ir.ui.view,arch_db:easy_sign_certificate.res_config_settings_view_form
+msgid "Signing certificate"
+msgstr "شهادة التوقيع"

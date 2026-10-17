@@ -9,3 +9,5 @@ from . import sign_item_type
 from . import sign_template
 from . import sign_log
 from . import sign_editor
+from . import res_company
+from . import res_config_settings

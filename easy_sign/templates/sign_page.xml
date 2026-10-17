@@ -92,6 +92,9 @@
                         <span class="es-i18n" data-en="Download" data-ar="تنزيل">Download</span>
                         <t t-if="len(sign_request.document_ids) &gt; 1"> · <t t-out="doc.name"/></t>
                     </a>
+                    <a t-if="terms_url" class="es-menu-item" role="menuitem" t-att-href="terms_url" target="_blank" rel="noopener">
+                        <span class="es-i18n" data-en="Terms &amp; Conditions" data-ar="الشروط والأحكام">Terms &amp; Conditions</span>
+                    </a>
                     <div class="es-menu-info">
                         <span class="es-i18n" data-en="Requested by" data-ar="طلب من">Requested by</span> <t t-out="sign_request.user_id.name"/>
                         <t t-if="sign_request.expiry_date"><br/><span class="es-i18n" data-en="Valid until" data-ar="صالح حتى">Valid until</span>
@@ -337,6 +340,16 @@
         <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">عربي</span></button>
         <h2 class="es-result-title" t-out="error_title or 'Invalid Link'"/>
         <p class="es-result-message" t-out="error_message or 'This signing link is invalid or has expired.'"/>
+    </t>
+</template>
+
+<template id="sign_terms_page" name="Easy Sign - Terms &amp; Conditions">
+    <t t-call="easy_sign.result_layout">
+        <t t-set="page_title" t-value="'Terms &amp; Conditions - Easy Sign'"/>
+        <t t-set="card_class" t-value="'es-result-terms'"/>
+        <h2 class="es-result-title" t-out="company.name"/>
+        <p class="es-info-label">Terms &amp; Conditions</p>
+        <div class="es-terms" t-out="terms"/>
     </t>
 </template>
 

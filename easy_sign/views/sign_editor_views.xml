@@ -83,7 +83,8 @@
                     </group>
                     <group>
                         <field name="redirect_url" widget="url"/>
-                        <field name="group_ids" widget="many2many_tags"/>
+                        <field name="group_ids" widget="many2many_tags" groups="easy_sign.group_manage_template_access"/>
+                        <field name="authorized_ids" widget="many2many_tags" groups="easy_sign.group_manage_template_access"/>
                         <field name="user_id"/>
                         <field name="default_subject"/>
                     </group>

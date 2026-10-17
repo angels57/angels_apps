@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 00:33+0000\n"
+"POT-Creation-Date: 2026-10-17 00:40+0000\n"
 "PO-Revision-Date: 2026-10-16 11:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -229,6 +229,11 @@ msgid "<span class=\"es-i18n\" data-en=\"Signing Declined\" data-ar=\"تم رف�
 msgstr "<span class=\"es-i18n\" data-en=\"Signing Declined\" data-ar=\"تم رفض التوقيع\">تم رفض التوقيع</span>"
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid "<span class=\"es-i18n\" data-en=\"Terms &amp; Conditions\" data-ar=\"الشروط والأحكام\">Terms &amp; Conditions</span>"
+msgstr ""
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 msgid "<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been recorded.\" data-ar=\"شكراً. تم تسجيل توقيعك.\">Thank you. Your signature has been recorded.</span>"
 msgstr "<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been recorded.\" data-ar=\"شكراً. تم تسجيل توقيعك.\">شكراً. تم تسجيل توقيعك.</span>"
@@ -428,6 +433,11 @@ msgid "Add at least one signer."
 msgstr "أضف موقّعاً واحداً على الأقل."
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Add terms & conditions to the signature request email"
+msgstr "إضافة الشروط والأحكام إلى بريد طلب التوقيع"
+
+#. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_template__model_id
 msgid "Adds a 'Request Signature' action on the records of this model."
 msgstr "يضيف إجراء 'طلب توقيع' على سجلات هذا النموذج."
@@ -466,6 +476,11 @@ msgid "Allow changing this signer after the request has been sent."
 msgstr "السماح بتغيير هذا الموقّع بعد إرسال الطلب."
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Allow users to define the users or groups which have access to the template"
+msgstr "السماح للمستخدمين بتحديد المستخدمين أو المجموعات التي يمكنها الوصول إلى القالب"
+
+#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__group_ids
 msgid "Allowed Groups"
 msgstr "المجموعات المسموح لها"
@@ -474,6 +489,11 @@ msgstr "المجموعات المسموح لها"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__allowed_template_ids
 msgid "Allowed Template"
 msgstr "القالب المسموح"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_template__authorized_ids
+msgid "Allowed Users"
+msgstr "المستخدمون المسموح لهم"
 
 #. module: easy_sign
 #. odoo-python
@@ -528,6 +548,12 @@ msgid "Audit log entries cannot be modified."
 msgstr "لا يمكن تعديل سجلات التدقيق."
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__module_easy_sign_sms
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Authenticate by SMS"
+msgstr "المصادقة عبر الرسائل القصيرة"
+
+#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__linked_field
 msgid "Auto-complete"
 msgstr "إكمال تلقائي"
@@ -558,6 +584,11 @@ msgstr "المتصفح"
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "By clicking Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence."
 msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+msgid "By signing you accept our"
+msgstr "بالتوقيع فإنك توافق على"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__can_delegate
@@ -618,6 +649,11 @@ msgid "Certificate of Completion"
 msgstr "شهادة الإتمام"
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Certify your documents using a provided .pfx or .p12 file."
+msgstr "صادِق على مستنداتك باستخدام ملف ‎.pfx أو ‎.p12."
+
+#. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__checkbox
@@ -652,12 +688,22 @@ msgid "Close"
 msgstr ""
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Codes are sent with Odoo SMS, which uses IAP credits."
+msgstr "تُرسل الرموز عبر رسائل Odoo القصيرة التي تستخدم أرصدة IAP."
+
+#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__color
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__color
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__color
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
 msgid "Color"
 msgstr "اللون"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_res_company
+msgid "Companies"
+msgstr "الشركات"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -691,6 +737,11 @@ msgstr "تم الإتمام في"
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Completed on (UTC)"
 msgstr "تاريخ الإتمام (UTC)"
+
+#. module: easy_sign
+#: model:ir.model,name:easy_sign.model_res_config_settings
+msgid "Config Settings"
+msgstr "إعدادات التهيئة"
 
 #. module: easy_sign
 #: model:ir.ui.menu,name:easy_sign.menu_sign_configuration
@@ -769,6 +820,12 @@ msgid "Created on"
 msgstr "تاريخ الإنشاء"
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__module_easy_sign_certificate
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Cryptographic signature"
+msgstr "التوقيع المشفّر"
+
+#. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__date
@@ -829,11 +886,18 @@ msgid "Delete"
 msgstr "حذف"
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Deliver one-time codes by SMS to identify signatories when signing a document"
+msgstr "إرسال رموز لمرة واحدة عبر الرسائل القصيرة للتحقق من هوية الموقّعين عند توقيع مستند"
+
+#. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
 msgid "Discard"
 msgstr "تجاهل"
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_company__display_name
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_editor_mixin__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__display_name
@@ -931,6 +995,7 @@ msgstr "كل بصمة حدث مرتبطة بالحدث السابق. تحقق م
 #: model:ir.module.category,name:easy_sign.module_category_easy_sign
 #: model:ir.ui.menu,name:easy_sign.menu_easy_sign_root
 #: model:res.groups.privilege,name:easy_sign.res_groups_privilege_easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Easy Sign"
 msgstr "التوقيع الإلكتروني"
 
@@ -955,6 +1020,11 @@ msgstr "Easy Sign · %(code)s · %(hash)s"
 #: model:ir.actions.server,name:easy_sign.cron_expire_requests_ir_actions_server
 msgid "Easy Sign: expire requests"
 msgstr "Easy Sign: إنهاء صلاحية الطلبات"
+
+#. module: easy_sign
+#: model:res.groups,name:easy_sign.group_manage_template_access
+msgid "Easy Sign: manage template access"
+msgstr "Easy Sign: إدارة الوصول إلى القوالب"
 
 #. module: easy_sign
 #: model:ir.actions.server,name:easy_sign.cron_send_reminders_ir_actions_server
@@ -1183,6 +1253,8 @@ msgid "Hello"
 msgstr "مرحباً"
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_company__id
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_editor_mixin__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__id
@@ -1366,6 +1438,12 @@ msgid "Long Text"
 msgstr "نص طويل"
 
 #. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__group_manage_template_access
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Manage template access"
+msgstr "إدارة الوصول إلى القوالب"
+
+#. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__required
 msgid "Mandatory"
 msgstr "إلزامي"
@@ -1546,11 +1624,6 @@ msgstr "يمكن إلغاء المسودات أو الطلبات المرسلة 
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "Only pending signers can receive the invitation again."
 msgstr "يمكن إعادة إرسال الدعوة للموقّعين المعلّقين فقط."
-
-#. module: easy_sign
-#: model:ir.model.fields,help:easy_sign.field_sign_template__group_ids
-msgid "Only these groups can use the template. Empty: every Easy Sign user."
-msgstr "هذه المجموعات فقط يمكنها استخدام القالب. فارغ: كل مستخدمي Easy Sign."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
@@ -1989,15 +2062,43 @@ msgid "Sequence"
 msgstr "التسلسل"
 
 #. module: easy_sign
+#: model:ir.actions.act_window,name:easy_sign.action_easy_sign_settings
+#: model:ir.ui.menu,name:easy_sign.menu_sign_settings
+msgid "Settings"
+msgstr "الإعدادات"
+
+#. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__short
 msgid "Short Text"
 msgstr "نص قصير"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__use_sign_terms
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Sign Default Terms & Conditions"
+msgstr "الشروط والأحكام الافتراضية للتوقيع"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Sign Now"
 msgstr "وقّع الآن"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Sign Settings"
+msgstr "إعدادات التوقيع"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_company__sign_terms
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__sign_terms
+msgid "Sign Terms & Conditions"
+msgstr "شروط وأحكام التوقيع"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__sign_terms_url
+msgid "Sign Terms Url"
+msgstr "رابط شروط التوقيع"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2358,6 +2459,28 @@ msgid "Templates"
 msgstr "القوالب"
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_terms_page
+msgid "Terms &amp; Conditions"
+msgstr "الشروط والأحكام"
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_res_company__sign_terms_type
+#: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__sign_terms_type
+msgid "Terms Display"
+msgstr "عرض الشروط"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__res_company__sign_terms_type__html
+msgid "Terms as Web Page"
+msgstr "الشروط كصفحة ويب"
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__res_company__sign_terms_type__plain
+msgid "Terms in Email"
+msgstr "الشروط في البريد"
+
+#. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__text
@@ -2504,6 +2627,16 @@ msgstr "يجب أن يكون رمز التحقق فريداً."
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "There is nobody left to invite."
 msgstr "لا يوجد أحد آخر لدعوته."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_template__group_ids
+msgid "These groups can use the template. Empty groups and users: every Easy Sign user."
+msgstr "يمكن لهذه المجموعات استخدام القالب. بدون مجموعات أو مستخدمين: جميع مستخدمي Easy Sign."
+
+#. module: easy_sign
+#: model:ir.model.fields,help:easy_sign.field_sign_template__authorized_ids
+msgid "These users can use the template, besides the allowed groups."
+msgstr "يمكن لهؤلاء المستخدمين استخدام القالب، إضافة إلى المجموعات المسموح لها."
 
 #. module: easy_sign
 #. odoo-python
@@ -2800,6 +2933,11 @@ msgstr "لقد وقّعت هذا المستند مسبقاً."
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "You will receive an email when it is your turn to sign."
 msgstr "ستتلقى بريداً عندما يحين دورك للتوقيع."
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
+msgid "Your conditions..."
+msgstr "شروطك..."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp

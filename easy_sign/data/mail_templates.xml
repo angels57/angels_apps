@@ -36,6 +36,13 @@
             </t>
             <p style="font-size:12px;color:#64748b;word-break:break-all;">Link: <a t-att-href="sign_url" t-out="sign_url"/></p>
             <p style="font-size:12px;color:#64748b;">This link is personal. Do not share it.</p>
+            <div t-if="terms.get('html')" style="border-top:1px solid #e2e8f0;margin-top:16px;padding-top:12px;font-size:12px;color:#475569;">
+                <p style="font-weight:600;margin:0 0 6px;">Terms &amp; Conditions</p>
+                <div t-out="terms['html']"/>
+            </div>
+            <p t-if="terms.get('url')" style="font-size:12px;color:#64748b;">
+                By signing you accept our <a t-att-href="terms['url']">Terms &amp; Conditions</a>.
+            </p>
         </t>
     </template>
 

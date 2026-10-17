@@ -11,7 +11,7 @@ signature panel. Without a certificate the flow does not change.
     "author": "Angels SAS",
     "license": "LGPL-3",
     "depends": ["easy_sign", "certificate"],
-    "data": ["views/res_company_views.xml"],
+    "data": ["views/res_company_views.xml", "views/res_config_settings_views.xml"],
     "installable": True,
     "auto_install": False,
 }

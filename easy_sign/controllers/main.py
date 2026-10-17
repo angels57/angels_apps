@@ -92,7 +92,17 @@ class EasySignController(http.Controller):
             "needs_signature": not own_fields or "signature" in own_fields.mapped("type"),
             "needs_initials": "initials" in own_fields.mapped("type"),
             "needs_otp": signer.auth_method != "none",
+            "terms_url": sign_request._sign_terms() and f"/sign/terms/{sign_request.company_id.id}",
         })
+
+    @http.route("/sign/terms/<int:company_id>", type="http", auth="public", sitemap=False)
+    def sign_terms(self, company_id, **kwargs):
+        """Public terms & conditions of a company, only while the setting is on."""
+        company = request.env["res.company"].sudo().browse(company_id).exists()
+        enabled = request.env["ir.config_parameter"].sudo().get_param("easy_sign.use_sign_terms")
+        if not company or not enabled or not company.sign_terms:
+            raise request.not_found()
+        return request.render("easy_sign.sign_terms_page", {"company": company, "terms": company.sign_terms})
 
     @http.route("/sign/document/<string:token>/<int:doc_id>", type="http", auth="public", sitemap=False)
     def sign_document(self, token, doc_id, **kwargs):

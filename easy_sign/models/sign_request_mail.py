@@ -26,6 +26,16 @@ class SignRequest(models.Model):
         })
         mail.send(raise_exception=False)
 
+    def _sign_terms(self):
+        """Terms & conditions of the company for the invitation: {} when the setting is off."""
+        self.ensure_one()
+        company = self.company_id.sudo()
+        if not self.env["ir.config_parameter"].sudo().get_param("easy_sign.use_sign_terms") or not company.sign_terms:
+            return {}
+        if company.sign_terms_type == "html":
+            return {"url": f"{self.get_base_url()}/sign/terms/{company.id}"}
+        return {"html": company.sign_terms}
+
     def _send_invitation_mail(self, signer, reminder=False):
         self.ensure_one()
         subject = self.subject or _("Please sign: %s", self.document_name or self.name)
@@ -35,6 +45,7 @@ class SignRequest(models.Model):
             "signer": signer,
             "sign_url": signer.sudo().sign_url,
             "reminder": reminder,
+            "terms": self._sign_terms(),
         }, signer.partner_id)
         self._send_mail(signer.signer_email, subject, body, self.attachment_ids)
 

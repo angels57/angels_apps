@@ -79,6 +79,10 @@
     }
 }
 
+.es-result-terms { max-width: 720px; text-align: start; }
+.es-result-terms .es-result-title { text-align: center; }
+.es-terms { font-size: 14px; line-height: 1.6; color: #334155; }
+
 .es-hidden {
     display: none !important;
 }
