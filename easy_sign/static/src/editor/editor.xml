@@ -36,16 +36,16 @@
                     <input t-if="this.data.editable_name and !this.data.locked" type="text" class="o_es_name_input"
                            t-att-value="this.data.name" t-on-change="(ev) => this.onRename(ev)"/>
                     <span t-else="" t-out="this.data.name"/>
-                    <button type="button" class="o_es_icon_btn" title="Properties" t-on-click="() => this.props.onProperties()"><i class="fa fa-cog"/></button>
-                    <i t-if="this.state.saving" class="fa fa-circle-o-notch fa-spin o_es_saved" title="Saving…"/>
-                    <i t-else="" class="fa fa-cloud o_es_saved" title="Saved"/>
+                    <button type="button" class="o_es_icon_btn" title="Properties" t-on-click="() => this.props.onProperties()"><i class="o_es_i o_es_i_cog"/></button>
+                    <i t-if="this.state.saving" class="o_es_i o_es_i_spinner o_es_i_spin o_es_saved" title="Saving…"/>
+                    <i t-else="" class="o_es_i o_es_i_cloud o_es_saved" title="Saved"/>
                 </div>
             </div>
             <div class="o_es_tags">
                 <span class="o_es_tags_label">Tags:</span>
                 <span t-foreach="this.data.tags" t-as="tag" t-key="tag.id" t-attf-class="o_es_tag o_tag_color_{{tag.color or 0}}">
                     <t t-out="tag.name"/>
-                    <i class="fa fa-times" title="Remove" t-on-click="() => this.removeTag(tag)"/>
+                    <i class="o_es_i o_es_i_close" title="Remove" t-on-click="() => this.removeTag(tag)"/>
                 </span>
                 <div class="o_es_tag_add">
                     <input type="text" placeholder="Add a tag" t-on-focus="() => this.openTags()" t-on-keydown="(ev) => this.createTag(ev)"
@@ -68,7 +68,7 @@
             <div t-foreach="this.state.documents" t-as="doc" t-key="doc.id" class="o_es_row">
                 <span class="o_es_row_name" t-out="doc.name"/>
                 <Dropdown t-if="!this.locked" items="this.docMenu(doc)" position="'bottom-end'">
-                    <button type="button" class="o_es_kebab" title="Options"><i class="fa fa-ellipsis-v"/></button>
+                    <button type="button" class="o_es_kebab" title="Options"><i class="o_es_i o_es_i_kebab"/></button>
                 </Dropdown>
             </div>
 
@@ -83,16 +83,16 @@
                     <img t-if="party.avatar" class="o_es_avatar" t-att-src="party.avatar" alt=""/>
                     <span class="o_es_count" t-out="this.countOf(party)"/>
                     <Dropdown items="this.partyMenu(party)" position="'bottom-end'">
-                        <button type="button" class="o_es_kebab" title="Options" t-on-click.stop="() => {}"><i class="fa fa-ellipsis-v"/></button>
+                        <button type="button" class="o_es_kebab" title="Options" t-on-click.stop="() => {}"><i class="o_es_i o_es_i_kebab"/></button>
                     </Dropdown>
                 </div>
                 <div t-if="this.state.party === party.id and !this.locked" t-attf-class="o_es_palette o_es_c{{party.color % 12}}">
                     <button t-foreach="this.palette" t-as="entry" t-key="entry.id" type="button" class="o_es_tool"
                             t-on-pointerdown="(ev) => this.onPalettePointerDown(ev, entry)">
-                        <i t-attf-class="fa {{entry.icon}}"/> <span t-out="entry.label"/>
+                        <i t-attf-class="o_es_i o_es_i_{{entry.icon}}"/> <span t-out="entry.label"/>
                     </button>
                     <button t-if="this.state.data.is_manager" type="button" class="o_es_tool o_es_tool_add" t-on-click="() => this.onAddFieldType()">
-                        <i class="fa fa-plus"/> <span>Add Field</span>
+                        <i class="o_es_i o_es_i_plus"/> <span>Add Field</span>
                     </button>
                 </div>
             </t>
@@ -104,28 +104,28 @@
         <div class="o_es_viewer">
             <div class="o_es_toolbar">
                 <div class="o_es_toolbar_group">
-                    <button type="button" class="o_es_tbtn" title="Previous page" t-on-click="() => this.goToPage(this.view.pageIndex - 1)"><i class="fa fa-angle-up"/></button>
+                    <button type="button" class="o_es_tbtn" title="Previous page" t-on-click="() => this.goToPage(this.view.pageIndex - 1)"><i class="o_es_i o_es_i_chevron_up"/></button>
                     <input type="number" min="1" class="o_es_page_input" t-att-value="this.view.pageIndex + 1" t-on-change="(ev) => this.onPageInput(ev)"/>
                     <span class="o_es_of">of <t t-out="this.allPages.length"/></span>
-                    <button type="button" class="o_es_tbtn" title="Next page" t-on-click="() => this.goToPage(this.view.pageIndex + 1)"><i class="fa fa-angle-down"/></button>
+                    <button type="button" class="o_es_tbtn" title="Next page" t-on-click="() => this.goToPage(this.view.pageIndex + 1)"><i class="o_es_i o_es_i_chevron_down"/></button>
                 </div>
                 <div class="o_es_toolbar_group">
-                    <button type="button" class="o_es_tbtn" title="Zoom out" t-on-click="() => this.zoomStep(-1)"><i class="fa fa-minus"/></button>
+                    <button type="button" class="o_es_tbtn" title="Zoom out" t-on-click="() => this.zoomStep(-1)"><i class="o_es_i o_es_i_minus"/></button>
                     <select class="o_es_zoom" t-on-change="(ev) => this.setZoom(ev.target.value === 'auto' ? 'auto' : Number(ev.target.value))">
                         <option value="auto" t-att-selected="this.view.zoom === 'auto'">Automatic Zoom</option>
                         <option t-foreach="this.zooms" t-as="z" t-key="z" t-att-value="z" t-att-selected="this.view.zoom === z"><t t-out="this.zoomLabel(z)"/></option>
                     </select>
-                    <button type="button" class="o_es_tbtn" title="Zoom in" t-on-click="() => this.zoomStep(1)"><i class="fa fa-plus"/></button>
+                    <button type="button" class="o_es_tbtn" title="Zoom in" t-on-click="() => this.zoomStep(1)"><i class="o_es_i o_es_i_plus"/></button>
                 </div>
                 <div class="o_es_toolbar_group">
-                    <i class="fa fa-search o_es_search_icon"/>
+                    <i class="o_es_i o_es_i_search o_es_search_icon"/>
                     <input type="search" class="o_es_search" placeholder="Search" t-on-keydown="(ev) => this.onSearch(ev)"/>
                     <span t-if="this.view.query" class="o_es_of">
                         <t t-if="this.view.results.length"><t t-out="this.view.resultIndex + 1"/>/<t t-out="this.view.results.length"/></t>
                         <t t-else="">0</t>
                     </span>
                 </div>
-                <button type="button" t-attf-class="o_es_tbtn o_es_thumbs_btn {{this.view.thumbs ? 'active' : ''}}" title="Thumbnails" t-on-click="() => this.toggleThumbs()"><i class="fa fa-columns"/></button>
+                <button type="button" t-attf-class="o_es_tbtn o_es_thumbs_btn {{this.view.thumbs ? 'active' : ''}}" title="Thumbnails" t-on-click="() => this.toggleThumbs()"><i class="o_es_i o_es_i_thumbnails"/></button>
             </div>
             <div class="o_es_viewer_body">
                 <div class="o_es_pages" t-on-scroll="() => this.onScroll()">

@@ -1,6 +1,6 @@
 {
     "name": "Easy Sign - Electronic Signature",
-    "version": "20.0.2.0.0",
+    "version": "20.0.2.1.0",
     "summary": "Self-hosted electronic signature: place fields on PDFs, collect signatures, get a certificate",
     "description": """
 Easy Sign - Electronic Signature for Odoo 20
@@ -51,6 +51,7 @@ Adapted to Odoo 20 and maintained by Angels SAS.
     ],
     "assets": {
         "web.assets_backend": [
+            "easy_sign/static/src/icons/icons.css",
             "easy_sign/static/src/editor/*.js",
             "easy_sign/static/src/editor/*.xml",
             "easy_sign/static/src/editor/*.css",

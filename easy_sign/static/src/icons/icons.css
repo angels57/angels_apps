@@ -1,0 +1,61 @@
+/*
+ * easy_sign icons: inline SVG drawn with CSS masks, so they take the text
+ * color and need no icon font. Odoo 19 ships Font Awesome and `oi-*` classes;
+ * Odoo 20 dropped Font Awesome and moved `oi` to ligatures, so the module
+ * carries its own set that works on both.
+ *
+ * Usage: <i class="o_es_i o_es_i_user"/>. The palette keys match
+ * ICONS in models/sign_item_type.py.
+ */
+.o_es_i, .o_es_btn_send::before {
+    display: inline-block;
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    vertical-align: -0.2em;
+    background-color: currentColor;
+    -webkit-mask: var(--es-icon) center / contain no-repeat;
+    mask: var(--es-icon) center / contain no-repeat;
+}
+.o_es_i_spin { animation: o_es_spin 1s linear infinite; }
+@keyframes o_es_spin { to { transform: rotate(360deg); } }
+
+/* Buttons declared in views (no <i> to style): the icon is a ::before. */
+.o_es_btn_send::before {
+    content: "";
+    --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 3L3 10.5l7 3 3 7.5z'/><path d='M10 13.5L21 3'/></svg>");
+}
+.o_es_btn_send:not(:empty)::before { margin-right: 4px; }
+
+/* Interface */
+.o_es_i_cog { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><circle cx='12' cy='12' r='3'/><circle cx='12' cy='12' r='6.5'/><path d='M12 2v3.5M12 18.5V22M2 12h3.5M18.5 12H22M4.9 4.9l2.5 2.5M16.6 16.6l2.5 2.5M4.9 19.1l2.5-2.5M16.6 7.4l2.5-2.5'/></svg>"); }
+.o_es_i_spinner { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'><path d='M12 3a9 9 0 1 0 9 9'/></svg>"); }
+.o_es_i_cloud { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'><path d='M7 18h11a4 4 0 0 0 .5-8A6 6 0 0 0 7 9.5a4.3 4.3 0 0 0 0 8.5z'/></svg>"); }
+.o_es_i_close { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'><path d='M6 6l12 12M18 6L6 18'/></svg>"); }
+.o_es_i_kebab { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><circle cx='12' cy='5' r='2'/><circle cx='12' cy='12' r='2'/><circle cx='12' cy='19' r='2'/></svg>"); }
+.o_es_i_plus { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'><path d='M12 5v14M5 12h14'/></svg>"); }
+.o_es_i_minus { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round'><path d='M5 12h14'/></svg>"); }
+.o_es_i_chevron_up { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 15l6-6 6 6'/></svg>"); }
+.o_es_i_chevron_down { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>"); }
+.o_es_i_search { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='M16 16l5 5'/></svg>"); }
+.o_es_i_thumbnails { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'><rect x='3' y='4' width='18' height='16' rx='2'/><path d='M9 4v16'/></svg>"); }
+
+/* Palette (sign.item.type.icon) */
+.o_es_i_signature { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 16c2-5 4-9 6-9 3 0-1 9 2 9 2 0 3-4 5-4 1 0 1 2 3 2'/><path d='M3 21h18'/></svg>"); }
+.o_es_i_initials { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M16 3l5 5L8 21H3v-5z'/><path d='M13 6l5 5'/></svg>"); }
+.o_es_i_user { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><circle cx='12' cy='8' r='4'/><path d='M4 21c0-4 4-7 8-7s8 3 8 7'/></svg>"); }
+.o_es_i_email { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'><rect x='3' y='5' width='18' height='14' rx='2'/><path d='M3 7l9 6 9-6'/></svg>"); }
+.o_es_i_phone { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><rect x='6.5' y='2' width='11' height='20' rx='2'/><path d='M11 18h2'/></svg>"); }
+.o_es_i_company { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 21V3h11v18M15 9h5v12M2 21h20M8 7h3M8 11h3M8 15h3'/></svg>"); }
+.o_es_i_text { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'><path d='M5 7V4h14v3M12 4v16M9 20h6'/></svg>"); }
+.o_es_i_multiline { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'><path d='M4 6h16M4 10h16M4 14h16M4 18h10'/></svg>"); }
+.o_es_i_checkbox { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='18' height='18' rx='3'/><path d='M7 12l4 4 6-8'/></svg>"); }
+.o_es_i_radio { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'><circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='3.5' fill='black'/></svg>"); }
+.o_es_i_selection { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='6' width='20' height='12' rx='2'/><path d='M14 11l2.5 2.5L19 11'/></svg>"); }
+.o_es_i_date { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='5' width='18' height='16' rx='2'/><path d='M3 10h18M8 3v4M16 3v4'/></svg>"); }
+.o_es_i_strike { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><path d='M4 12h16M17 6.5C16 5 14 4 12 4 9 4 7 5.5 7 8c0 1.5 1 2.5 3 3.2M7 17.5C8 19 10 20 12 20c3 0 5-1.5 5-4 0-.8-.2-1.4-.6-2'/></svg>"); }
+.o_es_i_stamp { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'><circle cx='12' cy='9' r='6'/><path d='M8.5 14L7 22l5-3 5 3-1.5-8'/></svg>"); }
+.o_es_i_id_card { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><rect x='2' y='5' width='20' height='14' rx='2'/><circle cx='8' cy='11' r='2'/><path d='M5 16c.5-1.3 1.6-2 3-2s2.5.7 3 2M14 10h5M14 14h4'/></svg>"); }
+.o_es_i_number { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><path d='M10 4L8 20M16 4l-2 16M4 9h16M4 15h16'/></svg>"); }
+.o_es_i_location { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'><path d='M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z'/><circle cx='12' cy='10' r='2.5'/></svg>"); }
+.o_es_i_star { --es-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'><path d='M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.2L12 17.4l-5.5 2.9 1-6.2L3 9.7l6.2-.9z'/></svg>"); }

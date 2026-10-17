@@ -5,6 +5,15 @@ from .sign_item import FIELD_TYPES, LINKED_SELECTION
 # Field Size: default width of a new field, as a fraction of the page.
 FIELD_SIZES = {"short": 0.15, "regular": 0.25, "long": 0.4}
 
+# Palette icons, drawn by static/src/icons/icons.css (class o_es_i_<key>).
+ICONS = [
+    ("signature", "Signature"), ("initials", "Pen"), ("user", "Person"), ("email", "Envelope"),
+    ("phone", "Phone"), ("company", "Building"), ("text", "Text"), ("multiline", "Lines"),
+    ("checkbox", "Checkbox"), ("radio", "Radio"), ("selection", "Drop-down"), ("date", "Calendar"),
+    ("strike", "Strikethrough"), ("stamp", "Stamp"), ("id_card", "ID Card"), ("number", "Number"),
+    ("location", "Location"), ("star", "Star"),
+]
+
 
 class SignItemType(models.Model):
     """Entries of the editor palette (Signature, Name, Email... and custom ones)."""
@@ -16,7 +25,7 @@ class SignItemType(models.Model):
     sequence = fields.Integer(default=10)
     active = fields.Boolean(default=True)
     base_type = fields.Selection(FIELD_TYPES, string="Type", required=True, default="text")
-    icon = fields.Char(default="fa-font", help="Font Awesome class, for example fa-user.")
+    icon = fields.Selection(ICONS, default="text", help="Icon of the field in the editor palette.")
     linked_field = fields.Selection(
         selection=LINKED_SELECTION, string="Field",
         help="Value of the signer's contact that fills this field.",
@@ -71,7 +80,7 @@ class SignItemType(models.Model):
         return [{
             "id": t.id,
             "label": t.name,
-            "icon": t.icon or "fa-font",
+            "icon": t.icon or "text",
             "type": t.base_type,
             "linked": t.linked_field or False,
             "size": [t.default_width, t.default_height],

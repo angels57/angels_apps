@@ -118,7 +118,7 @@ class TestEditor(EasySignCase):
         company = next(e for e in palette if e["linked"] == "partner_id.parent_id.name")
         self.assertEqual(company["type"], "text")
         self.env["sign.item.type"].create({
-            "name": "Employee ID", "base_type": "text", "icon": "fa-id-card", "default_width": 0.2,
+            "name": "Employee ID", "base_type": "text", "icon": "id_card", "default_width": 0.2,
         })
         palette = request.get_editor_data()["palette"]
         self.assertIn("Employee ID", [e["label"] for e in palette])
@@ -129,7 +129,7 @@ class TestEditor(EasySignCase):
         from odoo.tools.pdf import PdfReader
         from .common import make_png
         field_type = self.env["sign.item.type"].create({
-            "name": "Employee ID", "base_type": "text", "icon": "fa-id-card",
+            "name": "Employee ID", "base_type": "text", "icon": "id_card",
             "default_width": 0.3, "default_height": 0.04, "placeholder": "EMP-000",
         })
         request = self.env["sign.request"].browse(

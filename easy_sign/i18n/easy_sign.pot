@@ -704,6 +704,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__checkbox
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__checkbox
 #: model:sign.item.type,name:easy_sign.item_type_checkbox
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__checkbox
 msgid "Checkbox"
 msgstr ""
 
@@ -1264,7 +1265,7 @@ msgstr ""
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_item_type__icon
-msgid "Font Awesome class, for example fa-user."
+msgid "Icon of the field in the editor palette."
 msgstr ""
 
 #. module: easy_sign
@@ -1777,6 +1778,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_phone
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_phone
 #: model:sign.item.type,name:easy_sign.item_type_phone
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__phone
 msgid "Phone"
 msgstr ""
 
@@ -1854,6 +1856,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__radio
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__radio
 #: model:sign.item.type,name:easy_sign.item_type_radio
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__radio
 msgid "Radio"
 msgstr ""
 
@@ -2155,6 +2158,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__signature
 #: model:sign.item.type,name:easy_sign.item_type_signature
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__signature
 msgid "Signature"
 msgstr ""
 
@@ -2414,6 +2418,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__stamp
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__stamp
 #: model:sign.item.type,name:easy_sign.item_type_stamp
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__stamp
 msgid "Stamp"
 msgstr ""
 
@@ -2447,6 +2452,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__strike
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__strike
 #: model:sign.item.type,name:easy_sign.item_type_strike
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__strike
 msgid "Strikethrough"
 msgstr ""
 
@@ -2530,6 +2536,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__text
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__text
 #: model:sign.item.type,name:easy_sign.item_type_text
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__text
 msgid "Text"
 msgstr ""
 
@@ -3107,4 +3114,59 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "🌐 <span id=\"esLangLabel\">Español</span>"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__initials
+msgid "Pen"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__user
+msgid "Person"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__email
+msgid "Envelope"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__company
+msgid "Building"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__multiline
+msgid "Lines"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__selection
+msgid "Drop-down"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__date
+msgid "Calendar"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__id_card
+msgid "ID Card"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__number
+msgid "Number"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__location
+msgid "Location"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__icon__star
+msgid "Star"
 msgstr ""
