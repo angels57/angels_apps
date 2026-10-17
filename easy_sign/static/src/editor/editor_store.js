@@ -1,4 +1,4 @@
-import { reactive } from "@odoo/owl";
+import { reactive } from "./owl_compat";
 
 const ITEM_FIELDS = [
     "document_id", "page", "pos_x", "pos_y", "width", "height", "type", "required", "readonly",

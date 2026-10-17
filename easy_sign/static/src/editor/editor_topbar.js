@@ -1,18 +1,13 @@
-import { Component, useState } from "@odoo/owl";
+import { Component } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
+import { useProps, useState } from "./owl_compat";
 
 /** Send / Sign Now, editable name, tags. */
 export class EditorTopbar extends Component {
     static template = "easy_sign.EditorTopbar";
-    static props = {
-        store: Object,
-        breadcrumbs: Array,
-        onSend: Function,
-        onSignNow: Function,
-        onProperties: Function,
-    };
 
     setup() {
+        this.props = useProps(); // store, breadcrumbs, onSend, onSignNow, onProperties
         this.orm = useService("orm");
         this.state = useState(this.props.store.state);
         this.tags = useState({ all: [], open: false });

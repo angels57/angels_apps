@@ -1,6 +1,7 @@
-import { Component, onMounted, onPatched, onWillUnmount, useRef, useState } from "@odoo/owl";
+import { Component, onMounted, onPatched, onWillUnmount } from "@odoo/owl";
 import { FieldPopover } from "./field_popover";
 import { clamp, itemLabel } from "./palette";
+import { useProps, useState } from "./owl_compat";
 import { PdfCache } from "./pdf_cache";
 
 const SNAP = 0.006;
@@ -10,10 +11,9 @@ const PT_TO_PX = 96 / 72;
 export class EditorViewer extends Component {
     static template = "easy_sign.EditorViewer";
     static components = { FieldPopover };
-    static props = { store: Object };
 
     setup() {
-        this.root = useRef("pages");
+        this.props = useProps(); // store
         this.itemLabel = (item) => itemLabel(item, this.state.data?.palette);
         this.zooms = ZOOMS;
         this.pdf = new PdfCache();
@@ -28,11 +28,14 @@ export class EditorViewer extends Component {
         this.resizer = new ResizeObserver(() => this.onResize());
         onMounted(() => {
             window.addEventListener("keydown", this.onKeyDown);
-            this.resizer.observe(this.root.el);
+            this.resizer.observe(this.pagesEl);
             this.onResize();
             this.loadSizes();
         });
-        onPatched(() => this.observePages());
+        onPatched(() => {
+            this.observePages();
+            this.renderThumbs();
+        });
         onWillUnmount(() => {
             window.removeEventListener("keydown", this.onKeyDown);
             this.observer.disconnect();
@@ -42,6 +45,10 @@ export class EditorViewer extends Component {
 
     get store() {
         return this.props.store;
+    }
+    /** The scrolling page column (only one editor is open at a time). */
+    get pagesEl() {
+        return document.querySelector(".o_es_editor_action .o_es_pages");
     }
     itemsOf(docId, page) {
         return this.state.items.filter((item) => item.document_id === docId && item.page === page);
@@ -84,8 +91,8 @@ export class EditorViewer extends Component {
         return `width:${this.pageWidth(doc, page)}px;aspect-ratio:${size.w} / ${size.h};`;
     }
     onResize() {
-        if (this.root.el) {
-            this.view.width = Math.max(320, Math.min(this.root.el.clientWidth - 48, 1100));
+        if (this.pagesEl) {
+            this.view.width = Math.max(320, Math.min(this.pagesEl.clientWidth - 48, 1100));
         }
     }
     zoomLabel(zoom) {
@@ -103,10 +110,10 @@ export class EditorViewer extends Component {
         }
     }
     observePages() {
-        if (!this.root.el) {
+        if (!this.pagesEl) {
             return;
         }
-        for (const el of this.root.el.querySelectorAll(".o_es_page")) {
+        for (const el of this.pagesEl.querySelectorAll(".o_es_page")) {
             this.observer.observe(el);
             if (el.dataset.visible === "1") {
                 this.renderPage(el);
@@ -144,15 +151,15 @@ export class EditorViewer extends Component {
     // Page navigation, thumbnails and search
     // ------------------------------------------------------------------
     onScroll() {
-        const top = this.root.el.getBoundingClientRect().top + 40;
-        const pages = [...this.root.el.querySelectorAll(".o_es_page")];
+        const top = this.pagesEl.getBoundingClientRect().top + 40;
+        const pages = [...this.pagesEl.querySelectorAll(".o_es_page")];
         const index = pages.findIndex((el) => el.getBoundingClientRect().bottom > top);
         if (index >= 0 && index !== this.view.pageIndex) {
             this.view.pageIndex = index;
         }
     }
     goToPage(index) {
-        const pages = this.root.el.querySelectorAll(".o_es_page");
+        const pages = this.pagesEl.querySelectorAll(".o_es_page");
         const target = pages[clamp(index, 0, pages.length - 1)];
         if (target) {
             target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -164,9 +171,10 @@ export class EditorViewer extends Component {
     }
     toggleThumbs() {
         this.view.thumbs = !this.view.thumbs;
-        if (this.view.thumbs) {
-            setTimeout(() => document.querySelectorAll(".o_es_thumb canvas").forEach((c) => this.renderThumb(c)));
-        }
+    }
+    /** Thumbnails are drawn once, after the patch that shows them. */
+    renderThumbs() {
+        document.querySelectorAll(".o_es_editor_action .o_es_thumb canvas").forEach((c) => this.renderThumb(c));
     }
     async onSearch(ev) {
         if (ev.key !== "Enter") {
@@ -289,7 +297,7 @@ export class EditorViewer extends Component {
         if (!item || this.store.locked || ev.target.closest("input, textarea, select, .modal")) {
             return;
         }
-        const page = this.root.el?.querySelector(`.o_es_page[data-doc="${item.document_id}"][data-page="${item.page}"]`);
+        const page = this.pagesEl?.querySelector(`.o_es_page[data-doc="${item.document_id}"][data-page="${item.page}"]`);
         const px = page ? 1 / page.clientWidth : 0.001;
         const py = page ? 1 / page.clientHeight : 0.001;
         const step = ev.shiftKey ? 10 : 1;

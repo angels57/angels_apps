@@ -1,4 +1,3 @@
-import { useRef } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { ListController } from "@web/views/list/list_controller";
@@ -13,6 +12,18 @@ export function readPdfFiles(fileList) {
     })));
 }
 
+/** Open the browser's file picker for PDFs and resolve with the chosen files, read as base64. */
+export function pickPdfFiles() {
+    return new Promise((resolve) => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "application/pdf";
+        input.multiple = true;
+        input.addEventListener("change", () => resolve(readPdfFiles(input.files)));
+        input.click();
+    });
+}
+
 /** "New" becomes "Upload PDF": the PDF opens straight in the editor. */
 export class EasySignListController extends ListController {
     static template = "easy_sign.ListView";
@@ -20,16 +31,10 @@ export class EasySignListController extends ListController {
     setup() {
         super.setup();
         this.easySignOrm = useService("orm");
-        this.uploadInput = useRef("esUpload");
     }
 
-    onClickUpload() {
-        this.uploadInput.el.click();
-    }
-
-    async onUploadChange(ev) {
-        const files = await readPdfFiles(ev.target.files);
-        ev.target.value = "";
+    async onClickUpload() {
+        const files = await pickPdfFiles();
         if (!files.length) {
             return;
         }
@@ -47,4 +52,8 @@ export class EasySignListController extends ListController {
     }
 }
 
-registry.category("views").add("easy_sign_list", { ...listView, Controller: EasySignListController });
+registry.category("views").add("easy_sign_list", {
+    ...listView,
+    Controller: EasySignListController,
+    buttonTemplate: "easy_sign.ListView.Buttons",
+});
