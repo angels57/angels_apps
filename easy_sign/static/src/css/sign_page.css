@@ -119,11 +119,6 @@ html[dir="rtl"] textarea {
     font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
 }
 
-html[dir="rtl"] .es-canvas-hint {
-    text-align: right;
-}
-
-html[dir="rtl"] .es-canvas-controls,
 html[dir="rtl"] .es-msg {
     flex-direction: row-reverse;
 }

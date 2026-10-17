@@ -2,22 +2,36 @@
 <odoo>
 
 <template id="sign_pad" name="Easy Sign - Signature Pad">
-    <div t-att-class="'es-pad ' + (pad_class or '')" t-att-data-pad="pad_name">
-        <div class="es-pad-tabs" role="tablist">
-            <button type="button" class="es-pad-tab" data-mode="type"><span class="es-i18n" data-en="Auto" data-ar="تلقائي">Auto</span></button>
-            <button type="button" class="es-pad-tab" data-mode="draw"><span class="es-i18n" data-en="Draw" data-ar="ارسم">Draw</span></button>
-            <button type="button" class="es-pad-tab" data-mode="upload"><span class="es-i18n" data-en="Upload" data-ar="ارفع صورة">Upload</span></button>
-        </div>
-        <input type="text" class="es-pad-text es-textarea" maxlength="60" t-att-value="pad_default or ''"
-               t-att-aria-label="pad_hint"/>
-        <input type="file" class="es-pad-file es-hidden" accept="image/png,image/jpeg"/>
-        <div class="es-canvas-wrap">
-            <canvas t-att-width="pad_width or 600" t-att-height="pad_height or 200" class="es-canvas"/>
-            <div class="es-canvas-hint es-i18n" t-att-data-en="pad_hint" t-att-data-ar="pad_hint_ar" t-out="pad_hint"/>
-        </div>
-        <div class="es-canvas-controls">
-            <button type="button" class="es-btn-clear es-pad-clear">&#8634; <span class="es-i18n" data-en="Clear" data-ar="مسح">Clear</span></button>
-            <span class="es-canvas-status es-pad-status"/>
+    <div t-att-class="'es-pad ' + (pad_class or '')" t-att-data-pad="pad_name" t-att-data-frame-code="frame_code">
+        <label class="es-pad-label es-i18n" t-att-data-en="pad_label" t-att-data-ar="pad_label_ar" t-att-for="'esPadText_' + pad_name" t-out="pad_label"/>
+        <input type="text" t-att-id="'esPadText_' + pad_name" class="es-pad-text es-textarea" maxlength="60" t-att-value="pad_default or ''"/>
+        <div class="es-pad-box">
+            <div class="es-pad-toolbar">
+                <div class="es-pad-tabs" role="tablist">
+                    <button type="button" class="es-pad-tab" data-mode="type"><span class="es-i18n" data-en="Auto" data-ar="تلقائي">Auto</span></button>
+                    <button type="button" class="es-pad-tab" data-mode="draw"><span class="es-i18n" data-en="Draw" data-ar="ارسم">Draw</span></button>
+                    <button type="button" class="es-pad-tab" data-mode="upload"><span class="es-i18n" data-en="Load" data-ar="تحميل">Load</span></button>
+                </div>
+                <label class="es-pad-frame">
+                    <input type="checkbox" class="es-pad-frame-input" checked="checked"/>
+                    <span class="es-i18n" data-en="Frame" data-ar="إطار">Frame</span>
+                </label>
+                <div class="es-font-menu">
+                    <button type="button" class="es-font-toggle" aria-haspopup="true" aria-label="Font">A <span class="es-caret">&#9662;</span></button>
+                    <div class="es-font-list es-hidden" role="menu">
+                        <t t-foreach="[('LaBelleAurore', 'La Belle Aurore'), ('MarckScript', 'Marck Script'), ('ShadowsIntoLight', 'Shadows Into Light'), ('Zeyada', 'Zeyada'), ('ReenieBeanie', 'Reenie Beanie'), ('OoohBaby', 'Oooh Baby')]" t-as="font">
+                            <button type="button" class="es-font-item" role="menuitem" t-att-data-font="font[0]"
+                                    t-attf-style="font-family: '{{ font[0] }}'"><t t-out="pad_default or font[1]"/></button>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="es-canvas-wrap">
+                <canvas t-att-width="pad_width or 600" t-att-height="pad_height or 200" class="es-canvas"/>
+                <div class="es-canvas-hint es-i18n" t-att-data-en="pad_hint" t-att-data-ar="pad_hint_ar" t-out="pad_hint"/>
+                <button type="button" class="es-pad-clear es-hidden"><span class="es-i18n" data-en="Clear" data-ar="مسح">Clear</span></button>
+            </div>
+            <input type="file" class="es-pad-file es-hidden" accept="image/png,image/jpeg"/>
         </div>
     </div>
 </template>
@@ -29,7 +43,7 @@
                 <h2 class="es-dialog-title es-i18n" t-att-data-en="dialog_title" t-att-data-ar="dialog_title_ar" t-out="dialog_title"/>
                 <button type="button" class="es-dialog-close" data-close="1" aria-label="Close">&#215;</button>
             </div>
-            <div class="es-dialog-body"><t t-out="0"/></div>
+            <t t-out="0"/>
         </div>
     </div>
 </template>
@@ -155,28 +169,38 @@
             <t t-set="dialog_id" t-value="'esDlg_' + kind[0]"/>
             <t t-set="dialog_title" t-value="kind[0] == 'signature' and 'Adopt Your Signature' or 'Adopt Your Initials'"/>
             <t t-set="dialog_title_ar" t-value="kind[0] == 'signature' and 'اعتماد توقيعك' or 'اعتماد الأحرف الأولى'"/>
-            <t t-call="easy_sign.sign_pad">
-                <t t-set="pad_name" t-value="kind[0]"/>
-                <t t-if="kind[0] == 'signature'">
-                    <t t-set="pad_hint" t-value="'Sign here ✍'"/>
-                    <t t-set="pad_hint_ar" t-value="'وقّع هنا ✍'"/>
-                    <t t-set="pad_default" t-value="item.signer_name"/>
+            <div class="es-dialog-body">
+                <t t-call="easy_sign.sign_pad">
+                    <t t-set="pad_name" t-value="kind[0]"/>
+                    <t t-set="frame_code" t-value="(sign_request.document_hash or sign_request.verification_code or '')[:10]"/>
+                    <t t-if="kind[0] == 'signature'">
+                        <t t-set="pad_label" t-value="'Full Name'"/>
+                        <t t-set="pad_label_ar" t-value="'الاسم الكامل'"/>
+                        <t t-set="pad_hint" t-value="'Sign here ✍'"/>
+                        <t t-set="pad_hint_ar" t-value="'وقّع هنا ✍'"/>
+                        <t t-set="pad_default" t-value="item.signer_name"/>
+                    </t>
+                    <t t-else="">
+                        <t t-set="pad_class" t-value="'es-pad-small'"/>
+                        <t t-set="pad_width" t-value="360"/>
+                        <t t-set="pad_height" t-value="200"/>
+                        <t t-set="pad_label" t-value="'Initials'"/>
+                        <t t-set="pad_label_ar" t-value="'الأحرف الأولى'"/>
+                        <t t-set="pad_hint" t-value="'Initials'"/>
+                        <t t-set="pad_hint_ar" t-value="'الأحرف الأولى'"/>
+                        <t t-set="pad_default" t-value="''.join(w[0] for w in (item.signer_name or '').split() if w).upper()"/>
+                    </t>
                 </t>
-                <t t-else="">
-                    <t t-set="pad_class" t-value="'es-pad-small'"/>
-                    <t t-set="pad_width" t-value="300"/>
-                    <t t-set="pad_height" t-value="150"/>
-                    <t t-set="pad_hint" t-value="'Initials'"/>
-                    <t t-set="pad_hint_ar" t-value="'الأحرف الأولى'"/>
-                    <t t-set="pad_default" t-value="''.join(w[0] for w in (item.signer_name or '').split() if w).upper()"/>
-                </t>
-            </t>
-            <p class="es-legal es-i18n"
-               data-en="By signing, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence."
-               data-ar="بالتوقيع، أوافق على أن التوقيع أو الأحرف الأولى المختارة تمثيل إلكتروني صالح لتوقيعي الخطي لجميع الأغراض، بما في ذلك العقود الملزمة قانونًا. يتم تسجيل عنوان IP والمتصفح ووقت كل إجراء كدليل.">By signing, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence.</p>
-            <div class="es-dialog-actions">
-                <button type="button" class="es-btn-primary" data-adopt="1">
-                    <span class="es-i18n" data-en="Adopt and Sign" data-ar="اعتماد وتوقيع">Adopt and Sign</span>
+                <p class="es-legal es-i18n"
+                   data-en="By clicking Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence."
+                   data-ar="بالنقر على توقيع، أوافق على أن التوقيع أو الأحرف الأولى المختارة تمثيل إلكتروني صالح لتوقيعي الخطي لجميع الأغراض عند استخدامه في المستندات، بما في ذلك العقود الملزمة قانونًا. يتم تسجيل عنوان IP والمتصفح ووقت كل إجراء كدليل.">By clicking Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence.</p>
+            </div>
+            <div class="es-dialog-footer">
+                <button type="button" class="es-btn-primary" data-adopt="all">
+                    <span class="es-i18n" data-en="Sign all" data-ar="توقيع الكل">Sign all</span>
+                </button>
+                <button type="button" class="es-btn-secondary" data-adopt="one">
+                    <span class="es-i18n" data-en="Sign" data-ar="توقيع">Sign</span>
                 </button>
                 <button type="button" class="es-btn-secondary" data-close="1">
                     <span class="es-i18n" data-en="Cancel" data-ar="إلغاء">Cancel</span>
@@ -189,13 +213,15 @@
         <t t-set="dialog_id" t-value="'esDlgOtp'"/>
         <t t-set="dialog_title" t-value="'Verification Code'"/>
         <t t-set="dialog_title_ar" t-value="'رمز التحقق'"/>
-        <p class="es-instructions-text es-i18n" data-en="We sent you a 6-digit code. Enter it to sign."
-           data-ar="أرسلنا إليك رمزاً من 6 أرقام. أدخله للتوقيع.">We sent you a 6-digit code. Enter it to sign.</p>
-        <input id="esOtpInput" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" class="es-textarea es-otp-input"/>
-        <button type="button" id="btnOtpResend" class="es-btn-link">
-            <span class="es-i18n" data-en="Send a new code" data-ar="إرسال رمز جديد">Send a new code</span>
-        </button>
-        <div class="es-dialog-actions">
+        <div class="es-dialog-body">
+            <p class="es-instructions-text es-i18n" data-en="We sent you a 6-digit code. Enter it to sign."
+               data-ar="أرسلنا إليك رمزاً من 6 أرقام. أدخله للتوقيع.">We sent you a 6-digit code. Enter it to sign.</p>
+            <input id="esOtpInput" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" class="es-textarea es-otp-input"/>
+            <button type="button" id="btnOtpResend" class="es-btn-link">
+                <span class="es-i18n" data-en="Send a new code" data-ar="إرسال رمز جديد">Send a new code</span>
+            </button>
+        </div>
+        <div class="es-dialog-footer">
             <button type="button" id="btnOtpConfirm" class="es-btn-primary">
                 <span class="es-i18n" data-en="Confirm and Sign" data-ar="تأكيد وتوقيع">Confirm and Sign</span>
             </button>
@@ -209,10 +235,12 @@
         <t t-set="dialog_id" t-value="'esDlgDecline'"/>
         <t t-set="dialog_title" t-value="'Decline to Sign'"/>
         <t t-set="dialog_title_ar" t-value="'رفض التوقيع'"/>
-        <p class="es-instructions-text es-i18n" data-en="The request will be cancelled for everyone. You can tell the sender why."
-           data-ar="سيتم إلغاء الطلب للجميع. يمكنك إخبار المرسل بالسبب.">The request will be cancelled for everyone. You can tell the sender why.</p>
-        <textarea id="declineReason" rows="3" class="es-textarea" placeholder="Optional: provide a reason..."></textarea>
-        <div class="es-dialog-actions">
+        <div class="es-dialog-body">
+            <p class="es-instructions-text es-i18n" data-en="The request will be cancelled for everyone. You can tell the sender why."
+               data-ar="سيتم إلغاء الطلب للجميع. يمكنك إخبار المرسل بالسبب.">The request will be cancelled for everyone. You can tell the sender why.</p>
+            <textarea id="declineReason" rows="3" class="es-textarea" placeholder="Optional: provide a reason..."></textarea>
+        </div>
+        <div class="es-dialog-footer">
             <button id="btnConfirmDecline" type="button" class="es-btn-danger" t-att-data-csrf="csrf_token">
                 <span class="es-i18n" data-en="Decline" data-ar="رفض">Decline</span>
             </button>

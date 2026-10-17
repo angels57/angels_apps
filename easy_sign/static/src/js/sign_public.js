@@ -122,29 +122,30 @@
         });
 
         // ------------------------------------------------------------------
-        // Signature and initials: a pad per dialog, applied on "Adopt"
+        // Signature and initials: a pad per dialog. "Sign" puts the image on the
+        // clicked field, "Sign all" on every field of that kind.
         // ------------------------------------------------------------------
         var pads = {};
         var adopted = { signature: '', initials: '' };
         var fields;
 
-        function applyImages() {
-            if (fields) { fields.setImages(adopted.signature, adopted.initials); }
-        }
         document.querySelectorAll('[data-pad]').forEach(function (node) {
             var kind = node.getAttribute('data-pad');
             var dialog = node.closest('.es-dialog');
             var pad = new window.EasySign.Pad(node);
             pads[kind] = pad;
-            dialog.querySelector('[data-adopt]').addEventListener('click', function () {
-                if (!pad.filled) { pad.root.querySelector('.es-canvas-wrap').classList.add('es-flash'); return; }
-                var then = dialog.then;
-                adopted[kind] = pad.dataURL();
-                dialog.adopting = true;
-                close(dialog);
-                dialog.adopting = false;
-                applyImages();
-                if (then) { then(); }
+            dialog.querySelectorAll('[data-adopt]').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    if (!pad.filled) { pad.root.querySelector('.es-canvas-wrap').classList.add('es-flash'); return; }
+                    var then = dialog.then;
+                    var target = button.getAttribute('data-adopt') === 'one' ? dialog.target : null;
+                    adopted[kind] = pad.dataURL();
+                    dialog.adopting = true;
+                    close(dialog);
+                    dialog.adopting = false;
+                    fields.applyImage(kind, adopted[kind], target);
+                    if (then) { then(); }
+                });
             });
             dialog.onClose = function () {
                 // Cancelled: go back to what was adopted before.
@@ -152,13 +153,17 @@
                     if (adopted[kind]) { pad.load(adopted[kind]); } else { pad.setMode('type', true); }
                 }
                 dialog.then = null;
+                dialog.target = null;
                 pad.root.querySelector('.es-canvas-wrap').classList.remove('es-flash');
             };
         });
-        function openPad(kind, then) {
+        function openPad(kind, field, then) {
             var dialog = byId('esDlg_' + kind) || byId('esDlg_signature');
             if (!dialog) { return; }
             dialog.then = then || null;
+            dialog.target = field || null;
+            // "Sign" only differs from "Sign all" for one field among several.
+            show(dialog.querySelector('[data-adopt="one"]'), !!field && fields.count(kind) > 1);
             open(dialog);
         }
 
@@ -206,7 +211,14 @@
             onChange: updateProgress,
             onImage: function (field) {
                 started = true;
-                openPad(field.type, function () { if (fields.missing().length) { goNext(); } });
+                var after = function () { if (fields.missing().length) { goNext(); } };
+                if (adopted[field.type] && !fields.applied[field.id]) {
+                    // Already adopted: one click signs this field too.
+                    fields.applyImage(field.type, adopted[field.type], field);
+                    after();
+                    return;
+                }
+                openPad(field.type, field, after);
             },
         });
         fields.render().then(syncPageCount).catch(function () {
@@ -348,7 +360,7 @@
             }
             if (needsSignature && !adopted.signature) {
                 started = true;
-                openPad('signature', function () { btnSign.click(); });
+                openPad('signature', null, function () { btnSign.click(); });
                 return;
             }
             if (needsOtp) {

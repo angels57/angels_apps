@@ -1,13 +1,17 @@
 /** @odoo-module ignore */
 /**
- * Easy Sign — signature pad with three modes: draw, type (name in a script
- * font) and upload (PNG/JPEG fitted into the pad). The result is always the
- * canvas as PNG, so the server validates a single format.
+ * Easy Sign — signature pad with three modes: Auto (the name in a handwriting
+ * font), Draw and Load (PNG/JPEG fitted into the pad), plus an optional frame
+ * "Signed with Easy Sign" with the document code. The pad keeps what was
+ * entered and redraws it, so the frame and the font can change at any time.
+ * The result is always the canvas as PNG, so the server validates one format.
  */
 (function () {
     'use strict';
 
-    var SCRIPT_FONT = '"Z003", "URW Chancery L", "Apple Chancery", "Segoe Script", "Brush Script MT", cursive';
+    var INK = '#0a1a6b';
+    var FRAME = '#5f97a3';
+    var FONTS = ['LaBelleAurore', 'MarckScript', 'ShadowsIntoLight', 'Zeyada', 'ReenieBeanie', 'OoohBaby'];
 
     function Pad(root, onChange) {
         this.root = root;
@@ -15,14 +19,22 @@
         this.canvas = root.querySelector('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.hint = root.querySelector('.es-canvas-hint');
-        this.status = root.querySelector('.es-pad-status');
         this.text = root.querySelector('.es-pad-text');
         this.file = root.querySelector('.es-pad-file');
+        this.clearButton = root.querySelector('.es-pad-clear');
+        this.frameInput = root.querySelector('.es-pad-frame-input');
+        this.fontList = root.querySelector('.es-font-list');
+        this.code = root.getAttribute('data-frame-code') || '';
+        this.font = FONTS[0];
         this.mode = 'type';
+        this.strokes = [];     // Draw: list of point lists, in canvas units
+        this.image = null;     // Load: the image element
+        this.adopted = null;   // image shown by load(), until something new is entered
         this.filled = false;
         this.drawing = false;
         this._bind();
         this.setMode('type', true);
+        this._loadFonts();
     }
 
     Pad.prototype._bind = function () {
@@ -30,34 +42,58 @@
         this.root.querySelectorAll('.es-pad-tab').forEach(function (tab) {
             tab.addEventListener('click', function () { self.setMode(tab.getAttribute('data-mode')); });
         });
-        this.root.querySelector('.es-pad-clear').addEventListener('click', function () {
-            self.clear();
-            if (self.text) { self.text.value = ''; }
-            if (self.file) { self.file.value = ''; }
+        this.clearButton.addEventListener('click', function () { self.clear(); });
+        this.text.addEventListener('input', function () {
+            if (self.mode !== 'type') { self.setMode('type', true); }
+            self._render();
         });
-        this.text.addEventListener('input', function () { self._drawText(); });
-        this.file.addEventListener('change', function () { self._drawFile(); });
+        this.file.addEventListener('change', function () { self._readFile(); });
+        this.frameInput.addEventListener('change', function () { self.adopted = null; self._render(); });
+
+        var toggle = this.root.querySelector('.es-font-toggle');
+        toggle.addEventListener('click', function (ev) {
+            ev.stopPropagation();
+            self.fontList.classList.toggle('es-hidden');
+        });
+        this.fontList.querySelectorAll('.es-font-item').forEach(function (item) {
+            item.addEventListener('click', function () {
+                self.font = item.getAttribute('data-font');
+                self.fontList.classList.add('es-hidden');
+                self.setMode('type', true);
+            });
+        });
+        document.addEventListener('click', function (ev) {
+            if (!self.fontList.contains(ev.target)) { self.fontList.classList.add('es-hidden'); }
+        });
+
         var start = function (ev) {
             if (self.mode !== 'draw') { return; }
             ev.preventDefault();
+            self.canvas.setPointerCapture(ev.pointerId);
             self.drawing = true;
-            var p = self._point(ev);
-            self.ctx.beginPath();
-            self.ctx.moveTo(p.x, p.y);
+            self.adopted = null;
+            self.strokes.push([self._point(ev)]);
+            self._render();
         };
         var move = function (ev) {
             if (!self.drawing) { return; }
             ev.preventDefault();
-            var p = self._point(ev);
-            self.ctx.lineTo(p.x, p.y);
-            self.ctx.stroke();
-            self._setFilled(true);
+            self.strokes[self.strokes.length - 1].push(self._point(ev));
+            self._render();
         };
         var end = function () { self.drawing = false; };
         this.canvas.addEventListener('pointerdown', start);
         this.canvas.addEventListener('pointermove', move);
-        window.addEventListener('pointerup', end);
-        this.canvas.addEventListener('pointerleave', end);
+        this.canvas.addEventListener('pointerup', end);
+        this.canvas.addEventListener('pointercancel', end);
+    };
+
+    /** The handwriting fonts ship with Odoo (web/static/fonts/sign); draw again once loaded. */
+    Pad.prototype._loadFonts = function () {
+        var self = this;
+        if (!document.fonts || !document.fonts.load) { return; }
+        Promise.all(FONTS.map(function (font) { return document.fonts.load('40px "' + font + '"'); }))
+            .then(function () { self._render(); }, function () {});
     };
 
     Pad.prototype._point = function (ev) {
@@ -68,75 +104,126 @@
         };
     };
 
-    Pad.prototype._reset = function () {
+    /** Area left for the signature: inside the frame when it is on. */
+    Pad.prototype._box = function () {
+        var w = this.canvas.width;
+        var h = this.canvas.height;
+        if (!this.frameInput.checked) { return { x: w * 0.05, y: h * 0.1, w: w * 0.9, h: h * 0.8 }; }
+        return { x: w * 0.1, y: h * 0.17, w: w * 0.84, h: h * 0.55 };
+    };
+
+    Pad.prototype._drawFrame = function () {
         var ctx = this.ctx;
-        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        ctx.strokeStyle = '#1a1a2e';
-        ctx.fillStyle = '#1a1a2e';
-        ctx.lineWidth = 2.5;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
+        var sx = this.canvas.width / 600;
+        var sy = this.canvas.height / 200;
+        var r = 18 * Math.min(sx, sy);
+        ctx.save();
+        ctx.strokeStyle = FRAME;
+        ctx.lineWidth = 3 * Math.min(sx, sy);
+        ctx.beginPath();
+        ctx.moveTo(112 * sx, 18 * sy);
+        ctx.lineTo(22 * sx + r, 18 * sy);
+        ctx.arcTo(22 * sx, 18 * sy, 22 * sx, 18 * sy + r, r);
+        ctx.lineTo(22 * sx, 182 * sy - r);
+        ctx.arcTo(22 * sx, 182 * sy, 22 * sx + r, 182 * sy, r);
+        ctx.lineTo(112 * sx, 182 * sy);
+        ctx.stroke();
+        ctx.strokeStyle = '#c4cad3';
+        ctx.lineWidth = 1.5 * Math.min(sx, sy);
+        ctx.beginPath();
+        ctx.moveTo(62 * sx, 152 * sy);
+        ctx.lineTo(560 * sx, 152 * sy);
+        ctx.stroke();
+        ctx.fillStyle = FRAME;
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'left';
+        ctx.font = 'bold ' + Math.round(15 * sy) + 'px "Segoe UI", Arial, sans-serif';
+        ctx.fillText('Signed with Easy Sign', 120 * sx, 18 * sy);
+        if (this.code) {
+            ctx.font = Math.round(14 * sy) + 'px Menlo, Consolas, monospace';
+            ctx.fillText(this.code + '...', 120 * sx, 182 * sy);
+        }
+        ctx.restore();
+    };
+
+    Pad.prototype._render = function () {
+        var ctx = this.ctx;
+        var w = this.canvas.width;
+        var h = this.canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        if (this.adopted) {
+            ctx.drawImage(this.adopted, 0, 0, w, h);
+            this._setFilled(true);
+            return;
+        }
+        if (this.frameInput.checked) { this._drawFrame(); }
+        ctx.strokeStyle = INK;
+        ctx.fillStyle = INK;
+        var filled = false;
+        var box = this._box();
+        if (this.mode === 'type') {
+            var value = (this.text.value || '').trim();
+            if (value) {
+                var size = Math.round(box.h * 1.1);
+                do {
+                    ctx.font = size + 'px "' + this.font + '", cursive';
+                    size -= 2;
+                } while (ctx.measureText(value).width > box.w && size > 10);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(value, box.x + box.w / 2, box.y + box.h / 2);
+                filled = true;
+            }
+        } else if (this.mode === 'draw') {
+            ctx.lineWidth = Math.max(2, w / 200);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            this.strokes.forEach(function (points) {
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+                points.forEach(function (p) { ctx.lineTo(p.x, p.y); });
+                if (points.length === 1) { ctx.lineTo(points[0].x + 0.1, points[0].y); }
+                ctx.stroke();
+            });
+            filled = this.strokes.some(function (points) { return points.length > 1; });
+        } else if (this.mode === 'upload' && this.image) {
+            var ratio = Math.min(box.w / this.image.width, box.h / this.image.height);
+            var iw = this.image.width * ratio;
+            var ih = this.image.height * ratio;
+            ctx.drawImage(this.image, box.x + (box.w - iw) / 2, box.y + (box.h - ih) / 2, iw, ih);
+            filled = true;
+        }
+        this._setFilled(filled);
     };
 
     Pad.prototype._setFilled = function (filled) {
         this.filled = filled;
-        if (this.hint) { this.hint.classList.toggle('hidden', filled); }
-        if (this.status) { this.status.textContent = filled ? '✓' : ''; }
+        if (this.hint) { this.hint.classList.toggle('hidden', filled || this.mode === 'type'); }
+        this.clearButton.classList.toggle('es-hidden', !filled || this.mode === 'type');
         this.onChange(this);
     };
 
     Pad.prototype.clear = function () {
-        this._reset();
-        this._setFilled(false);
+        this.adopted = null;
+        this.strokes = [];
+        this.image = null;
+        this.file.value = '';
+        this._render();
     };
 
     Pad.prototype.setMode = function (mode, silent) {
         this.mode = mode;
+        this.adopted = null;
         this.root.querySelectorAll('.es-pad-tab').forEach(function (tab) {
             tab.classList.toggle('active', tab.getAttribute('data-mode') === mode);
         });
-        this.text.classList.toggle('es-hidden', mode !== 'type');
-        this.file.classList.toggle('es-hidden', mode !== 'upload');
         this.canvas.style.cursor = mode === 'draw' ? 'crosshair' : 'default';
-        this.clear();
-        if (mode === 'type') {
-            if (!silent) { this.text.focus(); }
-            this._drawText();
-        } else if (mode === 'upload' && !silent) {
-            this.file.click();
-        }
+        this.root.classList.toggle('es-pad-drawing', mode === 'draw');
+        this._render();
+        if (mode === 'upload' && !silent) { this.file.click(); }
     };
 
-    /** Show an image adopted earlier (used to undo a cancelled edit). */
-    Pad.prototype.load = function (dataURL) {
-        var self = this;
-        if (!dataURL) { this.clear(); return; }
-        var img = new Image();
-        img.onload = function () {
-            self._reset();
-            self.ctx.drawImage(img, 0, 0, self.canvas.width, self.canvas.height);
-            self._setFilled(true);
-        };
-        img.src = dataURL;
-    };
-
-    Pad.prototype._drawText = function () {
-        this._reset();
-        var value = (this.text.value || '').trim();
-        if (!value) { this._setFilled(false); return; }
-        var size = Math.round(this.canvas.height * 0.45);
-        var ctx = this.ctx;
-        do {
-            ctx.font = 'italic ' + size + 'px ' + SCRIPT_FONT;
-            size -= 2;
-        } while (ctx.measureText(value).width > this.canvas.width * 0.9 && size > 10);
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(value, this.canvas.width / 2, this.canvas.height / 2);
-        this._setFilled(true);
-    };
-
-    Pad.prototype._drawFile = function () {
+    Pad.prototype._readFile = function () {
         var self = this;
         var file = this.file.files && this.file.files[0];
         if (!file) { return; }
@@ -147,15 +234,23 @@
         }
         var img = new Image();
         img.onload = function () {
-            self._reset();
-            var ratio = Math.min(self.canvas.width / img.width, self.canvas.height / img.height);
-            var w = img.width * ratio;
-            var h = img.height * ratio;
-            self.ctx.drawImage(img, (self.canvas.width - w) / 2, (self.canvas.height - h) / 2, w, h);
             URL.revokeObjectURL(img.src);
-            self._setFilled(true);
+            self.image = img;
+            self.adopted = null;
+            self._render();
         };
         img.src = URL.createObjectURL(file);
+    };
+
+    /** Show an image adopted earlier (used to undo a cancelled edit). */
+    Pad.prototype.load = function (dataURL) {
+        var self = this;
+        var img = new Image();
+        img.onload = function () {
+            self.adopted = img;
+            self._render();
+        };
+        img.src = dataURL;
     };
 
     Pad.prototype.dataURL = function () {

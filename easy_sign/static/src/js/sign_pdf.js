@@ -31,6 +31,7 @@
         this.nodes = {};       // field id -> overlay element
         this.pages = [];       // {page, wrap, canvas, task, generation}
         this.images = { signature: '', initials: '' };
+        this.applied = {};     // signature / initials field id -> true once signed
         this.stamps = {};
         this.zoom = 'auto';
     }
@@ -137,7 +138,7 @@
             input.addEventListener('click', function () {
                 if (self.hooks.onImage) { self.hooks.onImage(field); }
             });
-            this.inputs[field.id] = function () { return self.images[field.type] || (field.type === 'initials' && self.images.signature) ? '1' : ''; };
+            this.inputs[field.id] = function () { return self.applied[field.id] && self.images[field.type] ? '1' : ''; };
         } else if (field.type === 'stamp') {
             input = el('label', 'es-field-image');
             input.textContent = LABELS.stamp;
@@ -203,20 +204,31 @@
         return box;
     };
 
-    Fields.prototype.setImages = function (signature, initials) {
+    /**
+     * Put the adopted image of ``kind`` on ``field`` only ("Sign"), or on every
+     * field of that kind when ``field`` is empty ("Sign all"). Fields signed
+     * earlier always show the latest image: there is one image per kind.
+     */
+    Fields.prototype.applyImage = function (kind, url, field) {
         var self = this;
-        this.images.signature = signature;
-        this.images.initials = initials;
-        this.fields.forEach(function (field) {
-            if (field.type !== 'signature' && field.type !== 'initials') { return; }
-            var button = self.nodes[field.id] && self.nodes[field.id].firstChild;
+        this.images[kind] = url;
+        this.fields.forEach(function (f) {
+            if (f.type !== kind) { return; }
+            if (!field || f.id === field.id) { self.applied[f.id] = true; }
+            var node = self.nodes[f.id];
+            var button = node && node.firstChild;
             if (!button) { return; }
-            var url = field.type === 'initials' ? (initials || signature) : signature;
-            button.style.backgroundImage = url ? 'url(' + url + ')' : '';
-            button.textContent = url ? '' : LABELS[field.type];
-            self.nodes[field.id].classList.toggle('es-done', !!url);
+            var shown = self.applied[f.id] && url;
+            button.style.backgroundImage = shown ? 'url(' + url + ')' : '';
+            button.textContent = shown ? '' : LABELS[kind];
+            node.classList.toggle('es-done', !!shown);
         });
         this.onChange();
+    };
+
+    /** Number of fields of ``kind``. */
+    Fields.prototype.count = function (kind) {
+        return this.fields.filter(function (f) { return f.type === kind; }).length;
     };
 
     Fields.prototype.values = function () {
