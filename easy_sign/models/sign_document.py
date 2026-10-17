@@ -5,7 +5,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.pdf import PdfReader
 
-from ..utils.binary import binary_bytes
+from ..utils.compat import binary_bytes
 
 
 class SignDocument(models.Model):

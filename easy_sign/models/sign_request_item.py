@@ -6,7 +6,7 @@ from datetime import timedelta
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
-from ..utils.binary import binary_bytes, binary_value
+from ..utils.compat import binary_bytes, binary_value
 
 OTP_VALIDITY = timedelta(minutes=10)
 OTP_MAX_ATTEMPTS = 5

@@ -6,7 +6,6 @@
         <field name="model">sign.request</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">easy_sign.report_certificate</field>
-        <field name="report_file">easy_sign.report_certificate</field>
         <field name="print_report_name">'%s - certificate' % object.name</field>
         <field name="binding_model_id" ref="model_sign_request"/>
         <field name="binding_type">report</field>

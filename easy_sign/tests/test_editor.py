@@ -4,14 +4,14 @@ from odoo.exceptions import UserError
 from odoo.tests import tagged
 
 from .common import EasySignCase, make_pdf
-from ..utils.binary import binary_bytes
+from ..utils.compat import binary_bytes
 
 
 @tagged("post_install", "-at_install")
 class TestEditor(EasySignCase):
 
     def _files(self, *names):
-        return [{"name": name, "data": make_pdf(1).decode()} for name in names]
+        return [{"name": name, "data": base64.b64encode(binary_bytes(make_pdf(1))).decode()} for name in names]
 
     def test_upload_creates_request_and_opens_editor(self):
         action = self.env["sign.request"].create_from_upload(self._files("a.pdf", "b.pdf"))

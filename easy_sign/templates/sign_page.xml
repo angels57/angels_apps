@@ -168,32 +168,19 @@
     </footer>
 
     <t t-foreach="[('signature', needs_signature), ('initials', needs_initials)]" t-as="kind">
-        <t t-if="kind[1]" t-call="easy_sign.sign_dialog">
-            <t t-set="dialog_id" t-value="'esDlg_' + kind[0]"/>
-            <t t-set="dialog_title" t-value="kind[0] == 'signature' and 'Adopt Your Signature' or 'Adopt Your Initials'"/>
-            <t t-set="dialog_title_es" t-value="kind[0] == 'signature' and 'Adopta tu firma' or 'Adopta tus iniciales'"/>
+        <t t-if="kind[1]" t-call="easy_sign.sign_dialog" dialog_id="'esDlg_' + kind[0]" dialog_title="kind[0] == 'signature' and 'Adopt Your Signature' or 'Adopt Your Initials'" dialog_title_es="kind[0] == 'signature' and 'Adopta tu firma' or 'Adopta tus iniciales'">
             <div class="es-dialog-body">
-                <t t-call="easy_sign.sign_pad">
-                    <t t-set="pad_name" t-value="kind[0]"/>
-                    <t t-set="frame_code" t-value="(sign_request.document_hash or sign_request.verification_code or '')[:10]"/>
-                    <t t-if="kind[0] == 'signature'">
-                        <t t-set="pad_label" t-value="'Full Name'"/>
-                        <t t-set="pad_label_es" t-value="'Nombre completo'"/>
-                        <t t-set="pad_hint" t-value="'Sign here ✍'"/>
-                        <t t-set="pad_hint_es" t-value="'Firma aquí ✍'"/>
-                        <t t-set="pad_default" t-value="item.signer_name"/>
-                    </t>
-                    <t t-else="">
-                        <t t-set="pad_class" t-value="'es-pad-small'"/>
-                        <t t-set="pad_width" t-value="360"/>
-                        <t t-set="pad_height" t-value="200"/>
-                        <t t-set="pad_label" t-value="'Initials'"/>
-                        <t t-set="pad_label_es" t-value="'Iniciales'"/>
-                        <t t-set="pad_hint" t-value="'Initials'"/>
-                        <t t-set="pad_hint_es" t-value="'Iniciales'"/>
-                        <t t-set="pad_default" t-value="''.join(w[0] for w in (item.signer_name or '').split() if w).upper()"/>
-                    </t>
-                </t>
+                <t t-call="easy_sign.sign_pad"
+                   pad_name="kind[0]"
+                   frame_code="(sign_request.document_hash or sign_request.verification_code or '')[:10]"
+                   pad_class="'' if kind[0] == 'signature' else 'es-pad-small'"
+                   pad_width="600 if kind[0] == 'signature' else 360"
+                   pad_height="200"
+                   pad_label="'Full Name' if kind[0] == 'signature' else 'Initials'"
+                   pad_label_es="'Nombre completo' if kind[0] == 'signature' else 'Iniciales'"
+                   pad_hint="'Sign here ✍' if kind[0] == 'signature' else 'Initials'"
+                   pad_hint_es="'Firma aquí ✍' if kind[0] == 'signature' else 'Iniciales'"
+                   pad_default="item.signer_name if kind[0] == 'signature' else ''.join(w[0] for w in (item.signer_name or '').split() if w).upper()"/>
                 <p class="es-legal es-i18n"
                    data-en="By clicking Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence."
                    data-es="Al hacer clic en Firmar, acepto que la firma o las iniciales elegidas serán una representación electrónica válida de mi firma o iniciales manuscritas para todos los fines en que se usen en documentos, incluidos los contratos legalmente vinculantes. Mi dirección IP, mi navegador y la hora de cada acción se registran como evidencia.">By clicking Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence.</p>
@@ -212,10 +199,7 @@
         </t>
     </t>
 
-    <t t-if="needs_otp" t-call="easy_sign.sign_dialog">
-        <t t-set="dialog_id" t-value="'esDlgOtp'"/>
-        <t t-set="dialog_title" t-value="'Verification Code'"/>
-        <t t-set="dialog_title_es" t-value="'Código de verificación'"/>
+    <t t-if="needs_otp" t-call="easy_sign.sign_dialog" dialog_id="'esDlgOtp'" dialog_title="'Verification Code'" dialog_title_es="'Código de verificación'">
         <div class="es-dialog-body">
             <p class="es-instructions-text es-i18n" data-en="We sent you a 6-digit code. Enter it to sign."
                data-es="Te enviamos un código de 6 dígitos. Ingrésalo para firmar.">We sent you a 6-digit code. Enter it to sign.</p>
@@ -234,10 +218,7 @@
         </div>
     </t>
 
-    <t t-call="easy_sign.sign_dialog">
-        <t t-set="dialog_id" t-value="'esDlgDecline'"/>
-        <t t-set="dialog_title" t-value="'Decline to Sign'"/>
-        <t t-set="dialog_title_es" t-value="'Rechazar firma'"/>
+    <t t-call="easy_sign.sign_dialog" dialog_id="'esDlgDecline'" dialog_title="'Decline to Sign'" dialog_title_es="'Rechazar firma'">
         <div class="es-dialog-body">
             <p class="es-instructions-text es-i18n" data-en="The request will be cancelled for everyone. You can tell the sender why."
                data-es="La solicitud se cancelará para todos. Puedes contarle al remitente el motivo.">The request will be cancelled for everyone. You can tell the sender why.</p>
@@ -284,9 +265,7 @@
 </template>
 
 <template id="sign_success" name="Easy Sign - Signing Success">
-    <t t-call="easy_sign.result_layout">
-        <t t-set="page_title" t-value="'Document Signed - Easy Sign'"/>
-        <t t-set="card_class" t-value="'es-result-success'"/>
+    <t t-call="easy_sign.result_layout" page_title="'Document Signed - Easy Sign'" card_class="'es-result-success'">
         <div class="es-result-icon">&#10004;</div>
         <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title">
@@ -313,9 +292,7 @@
 </template>
 
 <template id="sign_declined" name="Easy Sign - Signing Declined">
-    <t t-call="easy_sign.result_layout">
-        <t t-set="page_title" t-value="'Signing Declined - Easy Sign'"/>
-        <t t-set="card_class" t-value="'es-result-declined'"/>
+    <t t-call="easy_sign.result_layout" page_title="'Signing Declined - Easy Sign'" card_class="'es-result-declined'">
         <div class="es-result-icon">&#10005;</div>
         <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title">
@@ -333,9 +310,7 @@
 </template>
 
 <template id="sign_invalid" name="Easy Sign - Invalid Link">
-    <t t-call="easy_sign.result_layout">
-        <t t-set="page_title" t-value="'Easy Sign'"/>
-        <t t-set="card_class" t-value="'es-result-invalid'"/>
+    <t t-call="easy_sign.result_layout" page_title="'Easy Sign'" card_class="'es-result-invalid'">
         <div class="es-result-icon">&#9888;</div>
         <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title" t-out="error_title or 'Invalid Link'"/>
@@ -344,9 +319,7 @@
 </template>
 
 <template id="sign_terms_page" name="Easy Sign - Terms &amp; Conditions">
-    <t t-call="easy_sign.result_layout">
-        <t t-set="page_title" t-value="'Terms &amp; Conditions - Easy Sign'"/>
-        <t t-set="card_class" t-value="'es-result-terms'"/>
+    <t t-call="easy_sign.result_layout" page_title="'Terms &amp; Conditions - Easy Sign'" card_class="'es-result-terms'">
         <h2 class="es-result-title" t-out="company.name"/>
         <p class="es-info-label">Terms &amp; Conditions</p>
         <div class="es-terms" t-out="terms"/>
@@ -354,9 +327,7 @@
 </template>
 
 <template id="verify_page" name="Easy Sign - Verify a Document">
-    <t t-call="easy_sign.result_layout">
-        <t t-set="page_title" t-value="'Verify a Signed Document - Easy Sign'"/>
-        <t t-set="card_class" t-value="'es-result-verify'"/>
+    <t t-call="easy_sign.result_layout" page_title="'Verify a Signed Document - Easy Sign'" card_class="'es-result-verify'">
         <div class="es-result-icon">&#128269;</div>
         <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title">

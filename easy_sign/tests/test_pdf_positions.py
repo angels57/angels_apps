@@ -9,12 +9,16 @@ import io
 from reportlab.lib.pagesizes import A4, landscape
 
 from odoo.tests import tagged
+from odoo.tools import pdf as odoo_pdf
 from odoo.tools.pdf import PdfReader
 
 from .common import EasySignCase, make_pdf, make_png
-from ..utils.binary import binary_bytes
+from ..utils.compat import binary_bytes
 
 TOLERANCE = 2.0  # points
+# PyPDF2 2.x reports the text matrix one leading (1.2 x size, reportlab's
+# default) below the real baseline; pypdf does not.
+LEADING_FIX = 1.2 if getattr(odoo_pdf, "SUBMOD", "") == "._pypdf2_2" else 0.0
 
 
 def displayed_point(x, y, llx, lly, width, height, rotation):
@@ -45,9 +49,7 @@ class TestPdfPositions(EasySignCase):
                 if text.startswith("Easy Sign ·"):
                     text = "FOOTER%d" % len([k for k in found if k.startswith("FOOTER")])
                 if text.startswith(("VAL", "FOOTER")):
-                    # PyPDF2 2.x reports the text matrix one leading (1.2 x size,
-                    # reportlab's default) below the real baseline: undo it.
-                    tx, ty = tm[4], tm[5] + 1.2 * font_size
+                    tx, ty = tm[4], tm[5] + LEADING_FIX * font_size
                     ux = cm[0] * tx + cm[2] * ty + cm[4]
                     uy = cm[1] * tx + cm[3] * ty + cm[5]
                     found[text] = displayed_point(ux, uy, *_geo) + (_geo,)

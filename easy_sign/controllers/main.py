@@ -5,6 +5,8 @@ from odoo import _, fields, http
 from odoo.exceptions import UserError
 from odoo.http import request
 
+from ..utils.compat import get_flag
+
 _logger = logging.getLogger(__name__)
 
 
@@ -99,7 +101,7 @@ class EasySignController(http.Controller):
     def sign_terms(self, company_id, **kwargs):
         """Public terms & conditions of a company, only while the setting is on."""
         company = request.env["res.company"].sudo().browse(company_id).exists()
-        enabled = request.env["ir.config_parameter"].sudo().get_param("easy_sign.use_sign_terms")
+        enabled = get_flag(request.env, "easy_sign.use_sign_terms")
         if not company or not enabled or not company.sign_terms:
             raise request.not_found()
         return request.render("easy_sign.sign_terms_page", {"company": company, "terms": company.sign_terms})

@@ -2,6 +2,7 @@ from odoo.exceptions import UserError
 from odoo.tests import HttpCase, tagged
 
 from .common import EasySignCase, make_pdf
+from ..utils.compat import set_flag
 
 
 class TestSettings(EasySignCase):
@@ -60,7 +61,7 @@ class TestTermsPage(HttpCase):
         company.write({"sign_terms": "<p>Our conditions</p>", "sign_terms_type": "html"})
         url = f"/sign/terms/{company.id}"
         self.assertEqual(self.url_open(url).status_code, 404)
-        self.env["ir.config_parameter"].sudo().set_param("easy_sign.use_sign_terms", "True")
+        set_flag(self.env, "easy_sign.use_sign_terms", True)
         response = self.url_open(url)
         self.assertEqual(response.status_code, 200)
         self.assertIn("Our conditions", response.text)

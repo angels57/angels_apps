@@ -1,5 +1,7 @@
 from odoo import _, models
 
+from ..utils.compat import binary_bytes, get_flag
+
 
 class SignRequest(models.Model):
     _inherit = "sign.request"
@@ -30,7 +32,7 @@ class SignRequest(models.Model):
         """Terms & conditions of the company for the invitation: {} when the setting is off."""
         self.ensure_one()
         company = self.company_id.sudo()
-        if not self.env["ir.config_parameter"].sudo().get_param("easy_sign.use_sign_terms") or not company.sign_terms:
+        if not get_flag(self.env, "easy_sign.use_sign_terms") or not company.sign_terms:
             return {}
         if company.sign_terms_type == "html":
             return {"url": f"{self.get_base_url()}/sign/terms/{company.id}"}
@@ -63,7 +65,7 @@ class SignRequest(models.Model):
             if self[field]:
                 attachments |= Attachment.create({
                     "name": name,
-                    "datas": self[field],
+                    "raw": binary_bytes(self[field]),
                     "res_model": "sign.request",
                     "res_id": self.id,
                     "mimetype": "application/pdf",

@@ -6,7 +6,7 @@ from odoo.tools import mute_logger
 from odoo.tools.pdf import PdfReader
 
 from .common import EasySignCase, make_pdf, make_png
-from ..utils.binary import binary_bytes, binary_value
+from ..utils.compat import binary_bytes, binary_value
 
 
 @tagged("post_install", "-at_install")

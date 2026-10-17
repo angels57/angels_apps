@@ -6,7 +6,7 @@ from reportlab.pdfgen import canvas
 from odoo.tests.common import TransactionCase
 from odoo.tools.pdf import NameObject, NumberObject, PdfReader, PdfWriter
 
-from ..utils.binary import binary_value
+from ..utils.compat import binary_value
 
 
 def make_pdf(pages=2, rotate=0, pagesize=None):

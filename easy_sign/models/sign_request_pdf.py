@@ -10,7 +10,7 @@ from odoo.exceptions import UserError
 from odoo.tools import format_date
 from odoo.tools.pdf import PdfReader, PdfWriter
 
-from ..utils.binary import binary_value
+from ..utils.compat import binary_value
 from ..utils.pdf_overlay import PageOverlay
 
 _logger = logging.getLogger(__name__)
