@@ -92,6 +92,35 @@
             </form>
         </field>
     </record>
+    <record id="view_sign_tag_list" model="ir.ui.view">
+        <field name="name">sign.tag.list</field>
+        <field name="model">sign.tag</field>
+        <field name="arch" type="xml">
+            <list string="Tags" editable="bottom">
+                <field name="name" string="Tag Name"/>
+                <field name="color" string="Color" widget="color_picker"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sign_tag_search" model="ir.ui.view">
+        <field name="name">sign.tag.search</field>
+        <field name="model">sign.tag</field>
+        <field name="arch" type="xml">
+            <search string="Tags">
+                <field name="name" string="Tag Name"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_sign_tag" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">sign.tag</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_sign_tag_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a tag</p>
+            <p>Tags classify requests and templates.</p>
+        </field>
+    </record>
     <record id="view_sign_item_type_list" model="ir.ui.view">
         <field name="name">sign.item.type.list</field>
         <field name="model">sign.item.type</field>

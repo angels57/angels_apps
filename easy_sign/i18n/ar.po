@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 00:28+0000\n"
+"POT-Creation-Date: 2026-10-17 00:33+0000\n"
 "PO-Revision-Date: 2026-10-16 11:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -655,6 +655,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__color
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__color
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__color
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
 msgid "Color"
 msgstr "اللون"
 
@@ -731,6 +732,11 @@ msgstr "أنشئ نوع حقل"
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_template
 msgid "Create a reusable template"
 msgstr "أنشئ قالباً قابلاً لإعادة الاستخدام"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_tag
+msgid "Create a tag"
+msgstr "أنشئ وسمًا"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__create_uid
@@ -2300,10 +2306,25 @@ msgid "Strikethrough"
 msgstr "شطب"
 
 #. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_search
+msgid "Tag Name"
+msgstr "اسم الوسم"
+
+#. module: easy_sign
+#: model:ir.actions.act_window,name:easy_sign.action_sign_tag
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__tag_ids
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__tag_ids
+#: model:ir.ui.menu,name:easy_sign.menu_sign_tags
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_search
 msgid "Tags"
 msgstr "الوسوم"
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_tag
+msgid "Tags classify requests and templates."
+msgstr "تصنّف الوسوم الطلبات والقوالب."
 
 #. module: easy_sign
 #. odoo-javascript
