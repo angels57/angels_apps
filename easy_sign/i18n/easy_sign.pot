@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 00:40+0000\n"
-"PO-Revision-Date: 2026-10-17 00:40+0000\n"
+"POT-Creation-Date: 2026-10-17 01:51+0000\n"
+"PO-Revision-Date: 2026-10-17 01:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -83,15 +83,15 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<br/><span class=\"es-i18n\" data-en=\"Valid until\" data-ar=\"صالح "
-"حتى\">Valid until</span>"
+"<br/><span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido "
+"hasta\">Valid until</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<select id=\"esZoom\" class=\"es-zoom\" aria-label=\"Zoom\">\n"
-"                <option value=\"auto\" class=\"es-i18n\" data-en=\"Automatic Zoom\" data-ar=\"تكبير تلقائي\">Automatic Zoom</option>\n"
+"                <option value=\"auto\" class=\"es-i18n\" data-en=\"Automatic Zoom\" data-es=\"Zoom automático\">Automatic Zoom</option>\n"
 "                <option value=\"0.5\">50%</option>\n"
 "                <option value=\"0.75\">75%</option>\n"
 "                <option value=\"1\">100%</option>\n"
@@ -105,7 +105,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-actionbar-secured\">\n"
-"            <span class=\"es-i18n\" data-en=\"Secured by\" data-ar=\"مؤمّن بواسطة\">Secured by</span> <strong>Easy Sign</strong>\n"
+"            <span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Secured by</span> <strong>Easy Sign</strong>\n"
 "        </span>\n"
 "        <span id=\"esProgressText\" class=\"es-progress-text\"/>"
 msgstr ""
@@ -114,182 +114,182 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 msgid ""
 "<span class=\"es-i18n\" data-en=\"All parties have signed: you will receive "
-"the signed document by email.\" data-ar=\"وقّع جميع الأطراف: ستصلك الوثيقة "
-"الموقعة بالبريد.\">All parties have signed: you will receive the signed "
-"document by email.</span>"
+"the signed document by email.\" data-es=\"Todas las partes firmaron: "
+"recibirás el documento firmado por correo.\">All parties have signed: you "
+"will receive the signed document by email.</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Auto\" data-ar=\"تلقائي\">Auto</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Auto\" data-es=\"Auto\">Auto</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Cancel\" data-ar=\"إلغاء\">Cancel</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Cancel\" data-es=\"Cancelar\">Cancel</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Clear\" data-ar=\"مسح\">Clear</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Clear\" data-es=\"Borrar\">Clear</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Click to start\" data-ar=\"انقر "
-"للبدء\">Click to start</span>"
+"<span class=\"es-i18n\" data-en=\"Click to start\" data-es=\"Clic para "
+"empezar\">Click to start</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Confirm and Sign\" data-ar=\"تأكيد "
-"وتوقيع\">Confirm and Sign</span>"
+"<span class=\"es-i18n\" data-en=\"Confirm and Sign\" data-es=\"Confirmar y "
+"firmar\">Confirm and Sign</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
-msgid "<span class=\"es-i18n\" data-en=\"Continue\" data-ar=\"متابعة\">Continue</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Continue\" data-es=\"Continuar\">Continue</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Decline to sign\" data-ar=\"رفض "
-"التوقيع\">Decline to sign</span>"
+"<span class=\"es-i18n\" data-en=\"Decline to sign\" data-es=\"Rechazar "
+"firma\">Decline to sign</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Decline\" data-ar=\"رفض\">Decline</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Decline\" data-es=\"Rechazar\">Decline</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Document Signed!\" data-ar=\"تم توقيع "
-"الوثيقة!\">Document Signed!</span>"
+"<span class=\"es-i18n\" data-en=\"Document Signed!\" data-es=\"¡Documento "
+"firmado!\">Document Signed!</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Download\" data-ar=\"تنزيل\">Download</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Download\" data-es=\"Descargar\">Download</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Draw\" data-ar=\"ارسم\">Draw</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Draw\" data-es=\"Dibujar\">Draw</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Frame\" data-ar=\"إطار\">Frame</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Frame\" data-es=\"Marco\">Frame</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Load\" data-ar=\"تحميل\">Load</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Load\" data-es=\"Cargar\">Load</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Options\" data-ar=\"خيارات\">Options</span> ▾"
+msgid "<span class=\"es-i18n\" data-en=\"Options\" data-es=\"Opciones\">Options</span> ▾"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
-msgid "<span class=\"es-i18n\" data-en=\"Reason:\" data-ar=\"السبب:\">Reason:</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Reason:\" data-es=\"Motivo:\">Reason:</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Requested by\" data-ar=\"طلب "
-"من\">Requested by</span>"
+"<span class=\"es-i18n\" data-en=\"Requested by\" data-es=\"Solicitado "
+"por\">Requested by</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.result_layout
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Secured by\" data-ar=\"مؤمّن بواسطة\">Secured by</span>\n"
+"<span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Secured by</span>\n"
 "            <strong>Easy Sign</strong>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Send a new code\" data-ar=\"إرسال رمز "
-"جديد\">Send a new code</span>"
+"<span class=\"es-i18n\" data-en=\"Send a new code\" data-es=\"Enviar un "
+"código nuevo\">Send a new code</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Sign all\" data-ar=\"توقيع الكل\">Sign "
+"<span class=\"es-i18n\" data-en=\"Sign all\" data-es=\"Firmar todo\">Sign "
 "all</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Sign\" data-ar=\"توقيع\">Sign</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Sign\" data-es=\"Firmar\">Sign</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Signed on:\" data-ar=\"تاريخ "
-"التوقيع:\">Signed on:</span>"
+"<span class=\"es-i18n\" data-en=\"Signed on:\" data-es=\"Firmado "
+"el:\">Signed on:</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Signing Declined\" data-ar=\"تم رفض "
-"التوقيع\">Signing Declined</span>"
+"<span class=\"es-i18n\" data-en=\"Signing Declined\" data-es=\"Firma "
+"rechazada\">Signing Declined</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Terms &amp; Conditions\" data-ar=\"الشروط "
-"والأحكام\">Terms &amp; Conditions</span>"
+"<span class=\"es-i18n\" data-en=\"Terms &amp; Conditions\" data-"
+"es=\"Términos y condiciones\">Terms &amp; Conditions</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 msgid ""
 "<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been "
-"recorded.\" data-ar=\"شكراً. تم تسجيل توقيعك.\">Thank you. Your signature "
-"has been recorded.</span>"
+"recorded.\" data-es=\"Gracias. Tu firma quedó registrada.\">Thank you. Your "
+"signature has been recorded.</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid ""
 "<span class=\"es-i18n\" data-en=\"Verify a Signed Document\" data-"
-"ar=\"التحقق من وثيقة موقعة\">Verify a Signed Document</span>"
+"es=\"Verificar un documento firmado\">Verify a Signed Document</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
-msgid "<span class=\"es-i18n\" data-en=\"Verify\" data-ar=\"تحقق\">Verify</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Verify\" data-es=\"Verificar\">Verify</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
 msgid ""
 "<span class=\"es-i18n\" data-en=\"You declined to sign this document. The "
-"requester has been notified.\" data-ar=\"لقد رفضت التوقيع على الوثيقة. تم "
-"إشعار مقدم الطلب.\">You declined to sign this document. The requester has "
-"been notified.</span>"
+"requester has been notified.\" data-es=\"Rechazaste firmar este documento. "
+"Se notificó a quien lo solicitó.\">You declined to sign this document. The "
+"requester has been notified.</span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-lang-flag\">🌐</span>\n"
-"                <span id=\"esLangLabel\">عربي</span>"
+"                <span id=\"esLangLabel\">Español</span>"
 msgstr ""
 
 #. module: easy_sign
@@ -313,37 +313,37 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-msg-icon\">✔</span>\n"
-"            <strong class=\"es-i18n\" data-en=\"Signed successfully!\" data-ar=\"تم التوقيع بنجاح!\">Signed successfully!</strong>"
+"            <strong class=\"es-i18n\" data-en=\"Signed successfully!\" data-es=\"¡Firmado correctamente!\">Signed successfully!</strong>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-msg-icon\">✕</span>\n"
-"            <strong class=\"es-i18n\" data-en=\"Signing declined\" data-ar=\"تم رفض التوقيع\">Signing declined</strong>"
+"            <strong class=\"es-i18n\" data-en=\"Signing declined\" data-es=\"Firma rechazada\">Signing declined</strong>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-page-total\"><span class=\"es-i18n\" data-en=\"of\" data-"
-"ar=\"من\">of</span> <span id=\"esPageCount\">1</span></span>"
+"es=\"de\">of</span> <span id=\"esPageCount\">1</span></span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-signer-state\">✎ <span class=\"es-i18n\" data-"
-"en=\"Signing\" data-ar=\"قيد التوقيع\">Signing</span></span>"
+"en=\"Signing\" data-es=\"Firmando\">Signing</span></span>"
 msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span id=\"btnSignText\">✓ <span class=\"es-i18n\" data-en=\"Sign Document\" data-ar=\"توقيع الوثيقة\">Sign Document</span></span>\n"
+"<span id=\"btnSignText\">✓ <span class=\"es-i18n\" data-en=\"Sign Document\" data-es=\"Firmar documento\">Sign Document</span></span>\n"
 "            <span id=\"btnSignSpinner\" class=\"es-hidden\">\n"
 "                <span class=\"es-spinner\" role=\"status\"/>\n"
-"                <span class=\"es-i18n\" data-en=\"Submitting...\" data-ar=\"جاري الإرسال...\">Submitting...</span>\n"
+"                <span class=\"es-i18n\" data-en=\"Submitting...\" data-es=\"Enviando...\">Submitting...</span>\n"
 "            </span>"
 msgstr ""
 
@@ -3097,8 +3097,8 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"· <span class=\"es-i18n\" data-en=\"Valid until\" data-ar=\"صالح حتى\">Valid"
-" until</span>"
+"· <span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido "
+"hasta\">Valid until</span>"
 msgstr ""
 
 #. module: easy_sign
@@ -3106,5 +3106,5 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_invalid
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
-msgid "🌐 <span id=\"esLangLabel\">عربي</span>"
+msgid "🌐 <span id=\"esLangLabel\">Español</span>"
 msgstr ""

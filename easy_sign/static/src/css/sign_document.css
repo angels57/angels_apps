@@ -286,11 +286,6 @@
 
 .es-ribbon:hover { background: #1a1a2e; }
 
-html[dir="rtl"] .es-ribbon {
-    padding: 0 14px 0 26px;
-    clip-path: polygon(18px 0, 100% 0, 100% 100%, 18px 100%, 0 50%);
-}
-
 @keyframes es-nudge {
     0%, 100% { translate: 0 0; }
     50% { translate: 4px 0; }
@@ -482,8 +477,7 @@ html .es-ribbon.es-ribbon-compact { width: 28px; padding: 0; font-size: 0; }
     .es-zoom { max-width: 120px; }
     /* The ribbon becomes an arrow in the page margin so it never covers a field. */
     .es-pages { padding: 12px 8px 24px 30px; }
-    html[dir="rtl"] .es-pages { padding: 12px 30px 24px 8px; }
-    html .es-ribbon, html[dir="rtl"] .es-ribbon { width: 28px; height: 32px; padding: 0; font-size: 0; }
+    html .es-ribbon { width: 28px; height: 32px; padding: 0; font-size: 0; }
     .es-actionbar { flex-wrap: wrap; gap: 6px 12px; padding-inline: 12px; }
     .es-progress-text { flex: 1 1 100%; text-align: center; }
     .es-progress-text:empty { display: none; }

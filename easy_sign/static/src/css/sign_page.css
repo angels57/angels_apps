@@ -57,11 +57,6 @@
     animation: es-spin 0.75s linear infinite;
 }
 
-html[dir="rtl"] .es-spinner {
-    margin-right: 0;
-    margin-left: 8px;
-}
-
 @keyframes es-spin {
     to { transform: rotate(360deg); }
 }
@@ -109,18 +104,6 @@ html[dir="rtl"] .es-spinner {
     border: 1.5px solid #f59e0b;
     background: #fffbeb;
     color: #92400e;
-}
-
-/* ---------- RTL (Arabic) ---------- */
-html[dir="rtl"] body,
-html[dir="rtl"] button,
-html[dir="rtl"] input,
-html[dir="rtl"] textarea {
-    font-family: Tahoma, 'Segoe UI', Arial, sans-serif;
-}
-
-html[dir="rtl"] .es-msg {
-    flex-direction: row-reverse;
 }
 
 /* ---------- Footer ---------- */

@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 00:40+0000\n"
-"PO-Revision-Date: 2026-10-16 11:19+0000\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2026-10-17 01:51+0000\n"
+"PO-Revision-Date: 2026-10-17 01:51+0000\n"
+"Last-Translator: Angels SAS\n"
 "Language-Team: \n"
-"Language: ar\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -20,77 +20,79 @@ msgstr ""
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "%(name)s declined to sign. The request has been cancelled."
-msgstr "رفض %(name)s التوقيع. تم إلغاء الطلب."
+msgstr "%(name)s rechazó firmar. La solicitud fue cancelada."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_mail.py:0
 msgid "%(name)s declined to sign: %(doc)s"
-msgstr "رفض %(name)s التوقيع: %(doc)s"
+msgstr "%(name)s rechazó firmar: %(doc)s"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_template.py:0
 msgid "%s (copy)"
-msgstr "%s (نسخة)"
+msgstr "%s (copia)"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_document.py:0
 msgid "%s cannot be read as a PDF."
-msgstr "تعذّرت قراءة %s كملف PDF."
+msgstr "%s no se puede leer como PDF."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_document.py:0
 msgid "%s is not a PDF file."
-msgstr "%s ليس ملف PDF."
+msgstr "%s no es un archivo PDF."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "&gt;"
-msgstr "&gt;"
+msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "&lt;"
-msgstr "&lt;"
+msgstr ""
 
 #. module: easy_sign
 #: model:ir.actions.report,print_report_name:easy_sign.action_report_certificate
 msgid "'%s - certificate' % object.name"
-msgstr "'%s - شهادة' % object.name"
+msgstr "'%s - certificado' % object.name"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_declined
 msgid ") declined to sign"
-msgstr ") رفض التوقيع على"
+msgstr ") rechazó firmar"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_declined
 msgid ". The request has been cancelled."
-msgstr ". تم إلغاء الطلب."
+msgstr ". La solicitud fue cancelada."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "/sign/verify with the verification code."
-msgstr "‎/sign/verify باستخدام رمز التحقق."
+msgstr "/sign/verify con el código de verificación."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_template__validity_days
 msgid "0 means no expiry."
-msgstr "0 يعني بلا انتهاء صلاحية."
+msgstr "0 significa sin vencimiento."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<br/><span class=\"es-i18n\" data-en=\"Valid until\" data-ar=\"صالح حتى\">Valid until</span>"
-msgstr ""
+msgid ""
+"<br/><span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido "
+"hasta\">Valid until</span>"
+msgstr "<br/><span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido hasta\">Válido hasta</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<select id=\"esZoom\" class=\"es-zoom\" aria-label=\"Zoom\">\n"
-"                <option value=\"auto\" class=\"es-i18n\" data-en=\"Automatic Zoom\" data-ar=\"تكبير تلقائي\">Automatic Zoom</option>\n"
+"                <option value=\"auto\" class=\"es-i18n\" data-en=\"Automatic Zoom\" data-es=\"Zoom automático\">Automatic Zoom</option>\n"
 "                <option value=\"0.5\">50%</option>\n"
 "                <option value=\"0.75\">75%</option>\n"
 "                <option value=\"1\">100%</option>\n"
@@ -98,174 +100,203 @@ msgid ""
 "                <option value=\"1.5\">150%</option>\n"
 "                <option value=\"2\">200%</option>\n"
 "            </select>"
-msgstr ""
+msgstr "<select id=\"esZoom\" class=\"es-zoom\" aria-label=\"Zoom\">\n                <option value=\"auto\" class=\"es-i18n\" data-en=\"Automatic Zoom\" data-es=\"Zoom automático\">Zoom automático</option>\n                <option value=\"0.5\">50%</option>\n                <option value=\"0.75\">75%</option>\n                <option value=\"1\">100%</option>\n                <option value=\"1.25\">125%</option>\n                <option value=\"1.5\">150%</option>\n                <option value=\"2\">200%</option>\n            </select>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-actionbar-secured\">\n"
-"            <span class=\"es-i18n\" data-en=\"Secured by\" data-ar=\"مؤمّن بواسطة\">Secured by</span> <strong>Easy Sign</strong>\n"
+"            <span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Secured by</span> <strong>Easy Sign</strong>\n"
 "        </span>\n"
 "        <span id=\"esProgressText\" class=\"es-progress-text\"/>"
-msgstr ""
+msgstr "<span class=\"es-actionbar-secured\">\n            <span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Protegido por</span> <strong>Easy Sign</strong>\n        </span>\n        <span id=\"esProgressText\" class=\"es-progress-text\"/>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
-msgid "<span class=\"es-i18n\" data-en=\"All parties have signed: you will receive the signed document by email.\" data-ar=\"وقّع جميع الأطراف: ستصلك الوثيقة الموقعة بالبريد.\">All parties have signed: you will receive the signed document by email.</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"All parties have signed: you will receive the signed document by email.\" data-ar=\"وقّع جميع الأطراف: ستصلك الوثيقة الموقعة بالبريد.\">وقّع جميع الأطراف: ستصلك الوثيقة الموقعة بالبريد.</span>"
+msgid ""
+"<span class=\"es-i18n\" data-en=\"All parties have signed: you will receive "
+"the signed document by email.\" data-es=\"Todas las partes firmaron: "
+"recibirás el documento firmado por correo.\">All parties have signed: you "
+"will receive the signed document by email.</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"All parties have signed: you will receive the signed document by email.\" data-es=\"Todas las partes firmaron: recibirás el documento firmado por correo.\">Todas las partes firmaron: recibirás el documento firmado por correo.</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Auto\" data-ar=\"تلقائي\">Auto</span>"
-msgstr ""
+msgid "<span class=\"es-i18n\" data-en=\"Auto\" data-es=\"Auto\">Auto</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Auto\" data-es=\"Auto\">Auto</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Cancel\" data-ar=\"إلغاء\">Cancel</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Cancel\" data-ar=\"إلغاء\">إلغاء</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Cancel\" data-es=\"Cancelar\">Cancel</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Cancel\" data-es=\"Cancelar\">Cancelar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Clear\" data-ar=\"مسح\">Clear</span>"
-msgstr ""
+msgid "<span class=\"es-i18n\" data-en=\"Clear\" data-es=\"Borrar\">Clear</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Clear\" data-es=\"Borrar\">Borrar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Click to start\" data-ar=\"انقر للبدء\">Click to start</span>"
-msgstr ""
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Click to start\" data-es=\"Clic para "
+"empezar\">Click to start</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Click to start\" data-es=\"Clic para empezar\">Clic para empezar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Confirm and Sign\" data-ar=\"تأكيد وتوقيع\">Confirm and Sign</span>"
-msgstr ""
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Confirm and Sign\" data-es=\"Confirmar y "
+"firmar\">Confirm and Sign</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Confirm and Sign\" data-es=\"Confirmar y firmar\">Confirmar y firmar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
-msgid "<span class=\"es-i18n\" data-en=\"Continue\" data-ar=\"متابعة\">Continue</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Continue\" data-ar=\"متابعة\">متابعة</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Continue\" data-es=\"Continuar\">Continue</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Continue\" data-es=\"Continuar\">Continuar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Decline to sign\" data-ar=\"رفض التوقيع\">Decline to sign</span>"
-msgstr ""
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Decline to sign\" data-es=\"Rechazar "
+"firma\">Decline to sign</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Decline to sign\" data-es=\"Rechazar firma\">Rechazar firma</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Decline\" data-ar=\"رفض\">Decline</span>"
-msgstr ""
+msgid "<span class=\"es-i18n\" data-en=\"Decline\" data-es=\"Rechazar\">Decline</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Decline\" data-es=\"Rechazar\">Rechazar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
-msgid "<span class=\"es-i18n\" data-en=\"Document Signed!\" data-ar=\"تم توقيع الوثيقة!\">Document Signed!</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Document Signed!\" data-ar=\"تم توقيع الوثيقة!\">تم توقيع الوثيقة!</span>"
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Document Signed!\" data-es=\"¡Documento "
+"firmado!\">Document Signed!</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Document Signed!\" data-es=\"¡Documento firmado!\">¡Documento firmado!</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Download\" data-ar=\"تنزيل\">Download</span>"
-msgstr ""
+msgid "<span class=\"es-i18n\" data-en=\"Download\" data-es=\"Descargar\">Download</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Download\" data-es=\"Descargar\">Descargar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Draw\" data-ar=\"ارسم\">Draw</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Draw\" data-ar=\"ارسم\">ارسم</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Draw\" data-es=\"Dibujar\">Draw</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Draw\" data-es=\"Dibujar\">Dibujar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Frame\" data-ar=\"إطار\">Frame</span>"
-msgstr ""
+msgid "<span class=\"es-i18n\" data-en=\"Frame\" data-es=\"Marco\">Frame</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Frame\" data-es=\"Marco\">Marco</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
-msgid "<span class=\"es-i18n\" data-en=\"Load\" data-ar=\"تحميل\">Load</span>"
-msgstr ""
+msgid "<span class=\"es-i18n\" data-en=\"Load\" data-es=\"Cargar\">Load</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Load\" data-es=\"Cargar\">Cargar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Options\" data-ar=\"خيارات\">Options</span> ▾"
-msgstr ""
+msgid "<span class=\"es-i18n\" data-en=\"Options\" data-es=\"Opciones\">Options</span> ▾"
+msgstr "<span class=\"es-i18n\" data-en=\"Options\" data-es=\"Opciones\">Opciones</span> ▾"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
-msgid "<span class=\"es-i18n\" data-en=\"Reason:\" data-ar=\"السبب:\">Reason:</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Reason:\" data-ar=\"السبب:\">السبب:</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Reason:\" data-es=\"Motivo:\">Reason:</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Reason:\" data-es=\"Motivo:\">Motivo:</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Requested by\" data-ar=\"طلب من\">Requested by</span>"
-msgstr ""
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Requested by\" data-es=\"Solicitado "
+"por\">Requested by</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Requested by\" data-es=\"Solicitado por\">Solicitado por</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.result_layout
 msgid ""
-"<span class=\"es-i18n\" data-en=\"Secured by\" data-ar=\"مؤمّن بواسطة\">Secured by</span>\n"
+"<span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Secured by</span>\n"
 "            <strong>Easy Sign</strong>"
-msgstr ""
-"<span class=\"es-i18n\" data-en=\"Secured by\" data-ar=\"مؤمّن بواسطة\">مؤمّن بواسطة</span>\n"
-"            <strong>Easy Sign</strong>"
+msgstr "<span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Protegido por</span>\n            <strong>Easy Sign</strong>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Send a new code\" data-ar=\"إرسال رمز جديد\">Send a new code</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Send a new code\" data-ar=\"إرسال رمز جديد\">إرسال رمز جديد</span>"
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Send a new code\" data-es=\"Enviar un "
+"código nuevo\">Send a new code</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Send a new code\" data-es=\"Enviar un código nuevo\">Enviar un código nuevo</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Sign all\" data-ar=\"توقيع الكل\">Sign all</span>"
-msgstr ""
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Sign all\" data-es=\"Firmar todo\">Sign "
+"all</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Sign all\" data-es=\"Firmar todo\">Firmar todo</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Sign\" data-ar=\"توقيع\">Sign</span>"
-msgstr ""
+msgid "<span class=\"es-i18n\" data-en=\"Sign\" data-es=\"Firmar\">Sign</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Sign\" data-es=\"Firmar\">Firmar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
-msgid "<span class=\"es-i18n\" data-en=\"Signed on:\" data-ar=\"تاريخ التوقيع:\">Signed on:</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Signed on:\" data-ar=\"تاريخ التوقيع:\">تاريخ التوقيع:</span>"
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Signed on:\" data-es=\"Firmado "
+"el:\">Signed on:</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Signed on:\" data-es=\"Firmado el:\">Firmado el:</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
-msgid "<span class=\"es-i18n\" data-en=\"Signing Declined\" data-ar=\"تم رفض التوقيع\">Signing Declined</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Signing Declined\" data-ar=\"تم رفض التوقيع\">تم رفض التوقيع</span>"
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Signing Declined\" data-es=\"Firma "
+"rechazada\">Signing Declined</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Signing Declined\" data-es=\"Firma rechazada\">Firma rechazada</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-i18n\" data-en=\"Terms &amp; Conditions\" data-ar=\"الشروط والأحكام\">Terms &amp; Conditions</span>"
-msgstr ""
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Terms &amp; Conditions\" data-"
+"es=\"Términos y condiciones\">Terms &amp; Conditions</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Terms &amp; Conditions\" data-es=\"Términos y condiciones\">Términos y condiciones</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
-msgid "<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been recorded.\" data-ar=\"شكراً. تم تسجيل توقيعك.\">Thank you. Your signature has been recorded.</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been recorded.\" data-ar=\"شكراً. تم تسجيل توقيعك.\">شكراً. تم تسجيل توقيعك.</span>"
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been "
+"recorded.\" data-es=\"Gracias. Tu firma quedó registrada.\">Thank you. Your "
+"signature has been recorded.</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Thank you. Your signature has been recorded.\" data-es=\"Gracias. Tu firma quedó registrada.\">Gracias. Tu firma quedó registrada.</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
-msgid "<span class=\"es-i18n\" data-en=\"Verify a Signed Document\" data-ar=\"التحقق من وثيقة موقعة\">Verify a Signed Document</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Verify a Signed Document\" data-ar=\"التحقق من وثيقة موقعة\">التحقق من وثيقة موقعة</span>"
+msgid ""
+"<span class=\"es-i18n\" data-en=\"Verify a Signed Document\" data-"
+"es=\"Verificar un documento firmado\">Verify a Signed Document</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Verify a Signed Document\" data-es=\"Verificar un documento firmado\">Verificar un documento firmado</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
-msgid "<span class=\"es-i18n\" data-en=\"Verify\" data-ar=\"تحقق\">Verify</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"Verify\" data-ar=\"تحقق\">تحقق</span>"
+msgid "<span class=\"es-i18n\" data-en=\"Verify\" data-es=\"Verificar\">Verify</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"Verify\" data-es=\"Verificar\">Verificar</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
-msgid "<span class=\"es-i18n\" data-en=\"You declined to sign this document. The requester has been notified.\" data-ar=\"لقد رفضت التوقيع على الوثيقة. تم إشعار مقدم الطلب.\">You declined to sign this document. The requester has been notified.</span>"
-msgstr "<span class=\"es-i18n\" data-en=\"You declined to sign this document. The requester has been notified.\" data-ar=\"لقد رفضت التوقيع على الوثيقة. تم إشعار مقدم الطلب.\">لقد رفضت التوقيع على الوثيقة. تم إشعار مقدم الطلب.</span>"
+msgid ""
+"<span class=\"es-i18n\" data-en=\"You declined to sign this document. The "
+"requester has been notified.\" data-es=\"Rechazaste firmar este documento. "
+"Se notificó a quien lo solicitó.\">You declined to sign this document. The "
+"requester has been notified.</span>"
+msgstr "<span class=\"es-i18n\" data-en=\"You declined to sign this document. The requester has been notified.\" data-es=\"Rechazaste firmar este documento. Se notificó a quien lo solicitó.\">Rechazaste firmar este documento. Se notificó a quien lo solicitó.</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-lang-flag\">🌐</span>\n"
-"                <span id=\"esLangLabel\">عربي</span>"
+"                <span id=\"esLangLabel\">Español</span>"
 msgstr ""
-"<span class=\"es-lang-flag\">🌐</span>\n"
-"                <span id=\"esLangLabel\">عربي</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "<span class=\"es-msg-icon\">⚠</span>"
-msgstr "<span class=\"es-msg-icon\">⚠</span>"
+msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
@@ -277,61 +308,67 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "<span class=\"es-msg-icon\">✔</span>"
-msgstr "<span class=\"es-msg-icon\">✔</span>"
+msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-msg-icon\">✔</span>\n"
-"            <strong class=\"es-i18n\" data-en=\"Signed successfully!\" data-ar=\"تم التوقيع بنجاح!\">Signed successfully!</strong>"
-msgstr ""
+"            <strong class=\"es-i18n\" data-en=\"Signed successfully!\" data-es=\"¡Firmado correctamente!\">Signed successfully!</strong>"
+msgstr "<span class=\"es-msg-icon\">✔</span>\n            <strong class=\"es-i18n\" data-en=\"Signed successfully!\" data-es=\"¡Firmado correctamente!\">¡Firmado correctamente!</strong>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
 "<span class=\"es-msg-icon\">✕</span>\n"
-"            <strong class=\"es-i18n\" data-en=\"Signing declined\" data-ar=\"تم رفض التوقيع\">Signing declined</strong>"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-page-total\"><span class=\"es-i18n\" data-en=\"of\" data-ar=\"من\">of</span> <span id=\"esPageCount\">1</span></span>"
-msgstr ""
-
-#. module: easy_sign
-#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "<span class=\"es-signer-state\">✎ <span class=\"es-i18n\" data-en=\"Signing\" data-ar=\"قيد التوقيع\">Signing</span></span>"
-msgstr ""
+"            <strong class=\"es-i18n\" data-en=\"Signing declined\" data-es=\"Firma rechazada\">Signing declined</strong>"
+msgstr "<span class=\"es-msg-icon\">✕</span>\n            <strong class=\"es-i18n\" data-en=\"Signing declined\" data-es=\"Firma rechazada\">Firma rechazada</strong>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid ""
-"<span id=\"btnSignText\">✓ <span class=\"es-i18n\" data-en=\"Sign Document\" data-ar=\"توقيع الوثيقة\">Sign Document</span></span>\n"
+"<span class=\"es-page-total\"><span class=\"es-i18n\" data-en=\"of\" data-"
+"es=\"de\">of</span> <span id=\"esPageCount\">1</span></span>"
+msgstr "<span class=\"es-page-total\"><span class=\"es-i18n\" data-en=\"of\" data-es=\"de\">de</span> <span id=\"esPageCount\">1</span></span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span class=\"es-signer-state\">✎ <span class=\"es-i18n\" data-"
+"en=\"Signing\" data-es=\"Firmando\">Signing</span></span>"
+msgstr "<span class=\"es-signer-state\">✎ <span class=\"es-i18n\" data-en=\"Signing\" data-es=\"Firmando\">Firmando</span></span>"
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
+msgid ""
+"<span id=\"btnSignText\">✓ <span class=\"es-i18n\" data-en=\"Sign Document\" data-es=\"Firmar documento\">Sign Document</span></span>\n"
 "            <span id=\"btnSignSpinner\" class=\"es-hidden\">\n"
 "                <span class=\"es-spinner\" role=\"status\"/>\n"
-"                <span class=\"es-i18n\" data-en=\"Submitting...\" data-ar=\"جاري الإرسال...\">Submitting...</span>\n"
+"                <span class=\"es-i18n\" data-en=\"Submitting...\" data-es=\"Enviando...\">Submitting...</span>\n"
 "            </span>"
-msgstr ""
+msgstr "<span id=\"btnSignText\">✓ <span class=\"es-i18n\" data-en=\"Sign Document\" data-es=\"Firmar documento\">Firmar documento</span></span>\n            <span id=\"btnSignSpinner\" class=\"es-hidden\">\n                <span class=\"es-spinner\" role=\"status\"/>\n                <span class=\"es-i18n\" data-en=\"Submitting...\" data-es=\"Enviando...\">Enviando...</span>\n            </span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "<strong>No signed document matches this code or file.</strong>"
-msgstr "<strong>لا يوجد مستند موقّع يطابق هذا الرمز أو الملف.</strong>"
+msgstr "<strong>Ningún documento firmado coincide con este código o archivo.</strong>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_declined
 msgid "<strong>Reason:</strong>"
-msgstr "<strong>السبب:</strong>"
+msgstr "<strong>Motivo:</strong>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "<strong>The audit trail of this document is not consistent.</strong>"
-msgstr "<strong>سجل التدقيق لهذا المستند غير متسق.</strong>"
+msgstr "<strong>El registro de auditoría de este documento no es coherente.</strong>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
-msgid "<strong>The file does not match the signed document. It may have been modified.</strong>"
-msgstr "<strong>الملف لا يطابق المستند الموقّع. ربما تم تعديله.</strong>"
+msgid ""
+"<strong>The file does not match the signed document. It may have been "
+"modified.</strong>"
+msgstr "<strong>El archivo no coincide con el documento firmado. Es posible que haya sido modificado.</strong>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
@@ -342,175 +379,180 @@ msgstr ""
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "A code was sent less than a minute ago. Please check your inbox."
-msgstr "تم إرسال رمز منذ أقل من دقيقة. يرجى التحقق من بريدك."
+msgstr "Se envió un código hace menos de un minuto. Revisa tu bandeja de entrada."
 
 #. module: easy_sign
 #: model:ir.model.constraint,message:easy_sign.constraint_sign_document_owner_check
 msgid "A document belongs to a request or a template."
-msgstr "ينتمي المستند إلى طلب أو قالب."
+msgstr "Un documento pertenece a una solicitud o a una plantilla."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__access_token
 msgid "Access Token"
-msgstr "رمز الوصول"
+msgstr "Token de acceso"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__action
 msgid "Action"
-msgstr "الإجراء"
+msgstr "Acción"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_needaction
 msgid "Action Needed"
-msgstr "يحتاج إجراء"
+msgstr "Acción requerida"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__active
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__active
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__active
 msgid "Active"
-msgstr "نشط"
+msgstr "Activo"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_ids
 msgid "Activities"
-msgstr "الأنشطة"
+msgstr "Actividades"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "تزيين استثناء النشاط"
+msgstr "Decoración de excepción de actividad"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_state
 msgid "Activity State"
-msgstr "حالة النشاط"
+msgstr "Estado de la actividad"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_type_icon
 msgid "Activity Type Icon"
-msgstr "أيقونة نوع النشاط"
+msgstr "Ícono del tipo de actividad"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Add"
-msgstr "إضافة"
+msgstr "Agregar"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Add Field"
-msgstr "إضافة حقل"
+msgstr "Agregar campo"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_request
 msgid "Add a PDF, the signers, place the fields and click Send."
-msgstr "أضف ملف PDF والموقّعين، ضع الحقول ثم اضغط إرسال."
+msgstr "Agrega un PDF y los firmantes, coloca los campos y haz clic en Enviar."
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Add a signer to place fields."
-msgstr "أضف موقّعاً لوضع الحقول."
+msgstr "Agrega un firmante para colocar campos."
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Add a tag"
-msgstr "أضف وسماً"
+msgstr "Agregar una etiqueta"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Add at least one PDF document."
-msgstr "أضف مستند PDF واحداً على الأقل."
+msgstr "Agrega al menos un documento PDF."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Add at least one signer."
-msgstr "أضف موقّعاً واحداً على الأقل."
+msgstr "Agrega al menos un firmante."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Add terms & conditions to the signature request email"
-msgstr "إضافة الشروط والأحكام إلى بريد طلب التوقيع"
+msgstr "Agregar términos y condiciones al correo de solicitud de firma"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_template__model_id
 msgid "Adds a 'Request Signature' action on the records of this model."
-msgstr "يضيف إجراء 'طلب توقيع' على سجلات هذا النموذج."
+msgstr "Agrega una acción 'Solicitar firma' en los registros de este modelo."
 
 #. module: easy_sign
 #: model:res.groups,name:easy_sign.group_sign_manager
 msgid "Administrator"
-msgstr "مسؤول"
+msgstr "Administrador"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__alignment
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__alignment
 msgid "Alignment"
-msgstr "المحاذاة"
+msgstr "Alineación"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "All pages"
-msgstr "كل الصفحات"
+msgstr "Todas las páginas"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_completed
 msgid "All parties have signed"
-msgstr "وقّع جميع الأطراف على"
+msgstr "Todas las partes firmaron"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
-msgid "All signers have signed. The signed document and its certificate are available."
-msgstr "وقّع جميع الموقّعين. المستند الموقّع وشهادته متاحان."
+msgid ""
+"All signers have signed. The signed document and its certificate are "
+"available."
+msgstr "Todos los firmantes firmaron. El documento firmado y su certificado están disponibles."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request_item__can_delegate
 msgid "Allow changing this signer after the request has been sent."
-msgstr "السماح بتغيير هذا الموقّع بعد إرسال الطلب."
+msgstr "Permite cambiar este firmante después de enviar la solicitud."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
-msgid "Allow users to define the users or groups which have access to the template"
-msgstr "السماح للمستخدمين بتحديد المستخدمين أو المجموعات التي يمكنها الوصول إلى القالب"
+msgid ""
+"Allow users to define the users or groups which have access to the template"
+msgstr "Permite definir los usuarios o grupos que tienen acceso a cada plantilla"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__group_ids
 msgid "Allowed Groups"
-msgstr "المجموعات المسموح لها"
+msgstr "Grupos permitidos"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__allowed_template_ids
 msgid "Allowed Template"
-msgstr "القالب المسموح"
+msgstr "Plantilla permitida"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__authorized_ids
 msgid "Allowed Users"
-msgstr "المستخدمون المسموح لهم"
+msgstr "Usuarios permitidos"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "Already answered."
-msgstr "تم الرد مسبقاً."
+msgstr "Ya respondido."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "Already signed."
-msgstr "تم التوقيع مسبقاً."
+msgstr "Ya firmado."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_role__default_partner_id
-msgid "Always use this contact for the role (for example, the company representative)."
-msgstr "استخدم دائماً جهة الاتصال هذه للدور (مثل ممثل الشركة)."
+msgid ""
+"Always use this contact for the role (for example, the company "
+"representative)."
+msgstr "Usar siempre este contacto para el rol (por ejemplo, el representante de la empresa)."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
@@ -518,110 +560,114 @@ msgstr "استخدم دائماً جهة الاتصال هذه للدور (مث�
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_search
 msgid "Archived"
-msgstr "مؤرشف"
+msgstr "Archivado"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_attachment_count
 msgid "Attachment Count"
-msgstr "عدد المرفقات"
+msgstr "Número de adjuntos"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Audit"
-msgstr "التدقيق"
+msgstr "Auditoría"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__log_ids
 msgid "Audit Log"
-msgstr "سجل التدقيق"
+msgstr "Registro de auditoría"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_log.py:0
 msgid "Audit log entries cannot be deleted."
-msgstr "لا يمكن حذف سجلات التدقيق."
+msgstr "Los registros de auditoría no se pueden eliminar."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_log.py:0
 msgid "Audit log entries cannot be modified."
-msgstr "لا يمكن تعديل سجلات التدقيق."
+msgstr "Los registros de auditoría no se pueden modificar."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__module_easy_sign_sms
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Authenticate by SMS"
-msgstr "المصادقة عبر الرسائل القصيرة"
+msgstr "Autenticar por SMS"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__linked_field
 msgid "Auto-complete"
-msgstr "إكمال تلقائي"
+msgstr "Autocompletar"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Automatic Zoom"
-msgstr "تكبير تلقائي"
+msgstr "Zoom automático"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__model_id
 msgid "Available On"
-msgstr "متاح على"
+msgstr "Disponible en"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Back to Draft"
-msgstr "إعادة إلى مسودة"
+msgstr "Volver a borrador"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__user_agent
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__user_agent
 msgid "Browser"
-msgstr "المتصفح"
+msgstr "Navegador"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "By clicking Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts. My IP address, browser and the time of each action are recorded as evidence."
-msgstr ""
+msgid ""
+"By clicking Sign, I agree that the chosen signature/initials will be a valid"
+" electronic representation of my hand-written signature/initials for all "
+"purposes when it is used on documents, including legally binding contracts. "
+"My IP address, browser and the time of each action are recorded as evidence."
+msgstr "Al hacer clic en Firmar, acepto que la firma o las iniciales elegidas serán una representación electrónica válida de mi firma o iniciales manuscritas para todos los fines en que se usen en documentos, incluidos los contratos legalmente vinculantes. Mi dirección IP, mi navegador y la hora de cada acción se registran como evidencia."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
 msgid "By signing you accept our"
-msgstr "بالتوقيع فإنك توافق على"
+msgstr "Al firmar aceptas nuestros"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__can_delegate
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__can_delegate
 msgid "Can Be Replaced"
-msgstr "يمكن استبداله"
+msgstr "Se puede reemplazar"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Cancel Request"
-msgstr "إلغاء الطلب"
+msgstr "Cancelar solicitud"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Cancel this signature request? Pending signers will be notified."
-msgstr "إلغاء طلب التوقيع هذا؟ سيتم إشعار الموقّعين المعلّقين."
+msgstr "¿Cancelar esta solicitud de firma? Se notificará a los firmantes pendientes."
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__cancelled
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__cancelled
 msgid "Cancelled"
-msgstr "ملغي"
+msgstr "Cancelada"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Cancelled / Expired"
-msgstr "ملغى / منتهي"
+msgstr "Cancelada / vencida"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_mail.py:0
 msgid "Cancelled: %s"
-msgstr "ملغى: %s"
+msgstr "Cancelada: %s"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -629,29 +675,29 @@ msgstr "ملغى: %s"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__center
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__alignment__center
 msgid "Center"
-msgstr "وسط"
+msgstr "Centro"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__certificate_pdf
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Certificate"
-msgstr "الشهادة"
+msgstr "Certificado"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__certificate_name
 msgid "Certificate Name"
-msgstr "اسم الشهادة"
+msgstr "Nombre del certificado"
 
 #. module: easy_sign
 #: model:ir.actions.report,name:easy_sign.action_report_certificate
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Certificate of Completion"
-msgstr "شهادة الإتمام"
+msgstr "Certificado de finalización"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Certify your documents using a provided .pfx or .p12 file."
-msgstr "صادِق على مستنداتك باستخدام ملف ‎.pfx أو ‎.p12."
+msgstr "Certifica tus documentos con un archivo .pfx o .p12."
 
 #. module: easy_sign
 #. odoo-javascript
@@ -660,19 +706,19 @@ msgstr "صادِق على مستنداتك باستخدام ملف ‎.pfx أو 
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__checkbox
 #: model:sign.item.type,name:easy_sign.item_type_checkbox
 msgid "Checkbox"
-msgstr "مربع اختيار"
+msgstr "Casilla"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/wizard/sign_send_wizard.py:0
 msgid "Choose a template or a PDF."
-msgstr "اختر قالباً أو ملف PDF."
+msgstr "Elige una plantilla o un PDF."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_editor.py:0
 msgid "Choose at least one PDF file."
-msgstr "اختر ملف PDF واحداً على الأقل."
+msgstr "Elige al menos un archivo PDF."
 
 #. module: easy_sign
 #. odoo-javascript
@@ -680,17 +726,17 @@ msgstr "اختر ملف PDF واحداً على الأقل."
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_city
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_city
 msgid "City"
-msgstr "المدينة"
+msgstr "Ciudad"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_dialog
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Codes are sent with Odoo SMS, which uses IAP credits."
-msgstr "تُرسل الرموز عبر رسائل Odoo القصيرة التي تستخدم أرصدة IAP."
+msgstr "Los códigos se envían con SMS de Odoo, que usa créditos IAP."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__color
@@ -698,12 +744,12 @@ msgstr "تُرسل الرموز عبر رسائل Odoo القصيرة التي �
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__color
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
 msgid "Color"
-msgstr "اللون"
+msgstr "Color"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_res_company
 msgid "Companies"
-msgstr "الشركات"
+msgstr "Empresas"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -713,7 +759,7 @@ msgstr "الشركات"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_parent_id_name
 #: model:sign.item.type,name:easy_sign.item_type_company
 msgid "Company"
-msgstr "الشركة"
+msgstr "Empresa"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -721,32 +767,32 @@ msgstr "الشركة"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_company_name
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_company_name
 msgid "Company Name"
-msgstr "اسم الشركة"
+msgstr "Nombre de la empresa"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__completed_date
 msgid "Completed On"
-msgstr "تاريخ الإتمام"
+msgstr "Completada el"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "Completed on"
-msgstr "تم الإتمام في"
+msgstr "Completada el"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Completed on (UTC)"
-msgstr "تاريخ الإتمام (UTC)"
+msgstr "Completada el (UTC)"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_res_config_settings
 msgid "Config Settings"
-msgstr "إعدادات التهيئة"
+msgstr "Ajustes de configuración"
 
 #. module: easy_sign
 #: model:ir.ui.menu,name:easy_sign.menu_sign_configuration
 msgid "Configuration"
-msgstr "الإعدادات"
+msgstr "Configuración"
 
 #. module: easy_sign
 #. odoo-python
@@ -754,17 +800,17 @@ msgstr "الإعدادات"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__partner_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__partner_id
 msgid "Contact"
-msgstr "جهة الاتصال"
+msgstr "Contacto"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__cc_partner_ids
 msgid "Contacts that receive the signed document and the certificate."
-msgstr "جهات الاتصال التي تتلقى المستند الموقّع والشهادة."
+msgstr "Contactos que reciben el documento firmado y el certificado."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__cc_partner_ids
 msgid "Copy To"
-msgstr "نسخة إلى"
+msgstr "Copia a"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -772,22 +818,22 @@ msgstr "نسخة إلى"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_country_id_name
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_country_id_name
 msgid "Country"
-msgstr "الدولة"
+msgstr "País"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
 msgid "Create a field type"
-msgstr "أنشئ نوع حقل"
+msgstr "Crea un tipo de campo"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_template
 msgid "Create a reusable template"
-msgstr "أنشئ قالباً قابلاً لإعادة الاستخدام"
+msgstr "Crea una plantilla reutilizable"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_tag
 msgid "Create a tag"
-msgstr "أنشئ وسمًا"
+msgstr "Crea una etiqueta"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__create_uid
@@ -802,7 +848,7 @@ msgstr "أنشئ وسمًا"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__create_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__create_uid
 msgid "Created by"
-msgstr "أُنشئ بواسطة"
+msgstr "Creado por"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__create_date
@@ -817,13 +863,13 @@ msgstr "أُنشئ بواسطة"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__create_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__create_date
 msgid "Created on"
-msgstr "تاريخ الإنشاء"
+msgstr "Creado el"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__module_easy_sign_certificate
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Cryptographic signature"
-msgstr "التوقيع المشفّر"
+msgstr "Firma criptográfica"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -832,68 +878,70 @@ msgstr "التوقيع المشفّر"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__date
 #: model:sign.item.type,name:easy_sign.item_type_date
 msgid "Date"
-msgstr "التاريخ"
+msgstr "Fecha"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__date
 msgid "Date & Time"
-msgstr "التاريخ والوقت"
+msgstr "Fecha y hora"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Date (UTC)"
-msgstr "التاريخ (UTC)"
+msgstr "Fecha (UTC)"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__declined_reason
 msgid "Decline Reason"
-msgstr "سبب الرفض"
+msgstr "Motivo del rechazo"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__declined
 msgid "Declined"
-msgstr "مرفوض"
+msgstr "Rechazada"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__default_height
 msgid "Default Height"
-msgstr "الارتفاع الافتراضي"
+msgstr "Alto por defecto"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__default_width
 msgid "Default Width"
-msgstr "العرض الافتراضي"
+msgstr "Ancho por defecto"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_properties_form
 msgid "Default message for the signers"
-msgstr "الرسالة الافتراضية للموقّعين"
+msgstr "Mensaje por defecto para los firmantes"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
 msgid "Default values"
-msgstr "القيم الافتراضية"
+msgstr "Valores por defecto"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_item_type__field_size
 msgid "Default width of a new field of this type."
-msgstr "العرض الافتراضي لحقل جديد من هذا النوع."
+msgstr "Ancho por defecto de un campo nuevo de este tipo."
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Delete"
-msgstr "حذف"
+msgstr "Eliminar"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
-msgid "Deliver one-time codes by SMS to identify signatories when signing a document"
-msgstr "إرسال رموز لمرة واحدة عبر الرسائل القصيرة للتحقق من هوية الموقّعين عند توقيع مستند"
+msgid ""
+"Deliver one-time codes by SMS to identify signatories when signing a "
+"document"
+msgstr "Envía códigos de un solo uso por SMS para identificar a los firmantes al firmar un documento"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
 msgid "Discard"
-msgstr "تجاهل"
+msgstr "Descartar"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_res_company__display_name
@@ -911,7 +959,7 @@ msgstr "تجاهل"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__display_name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__display_name
 msgid "Display Name"
-msgstr "اسم العرض"
+msgstr "Nombre para mostrar"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -921,38 +969,38 @@ msgstr "اسم العرض"
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_document_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Document"
-msgstr "الوثيقة"
+msgstr "Documento"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__declined
 msgid "Document Declined"
-msgstr "وثيقة مرفوضة"
+msgstr "Documento rechazado"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__document_hash
 msgid "Document Hash (SHA-256)"
-msgstr "بصمة المستند (SHA-256)"
+msgstr "Hash del documento (SHA-256)"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__signed
 msgid "Document Signed"
-msgstr "وثيقة موقّعة"
+msgstr "Documento firmado"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__viewed
 msgid "Document Viewed"
-msgstr "تمت مشاهدة الوثيقة"
+msgstr "Documento visto"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_completed
 msgid "Document fully signed"
-msgstr "تم توقيع المستند بالكامل"
+msgstr "Documento firmado por todos"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Document signed with Easy Sign: %s"
-msgstr "مستند موقّع عبر Easy Sign: %s"
+msgstr "Documento firmado con Easy Sign: %s"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -961,35 +1009,35 @@ msgstr "مستند موقّع عبر Easy Sign: %s"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__document_ids
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Documents"
-msgstr "المستندات"
+msgstr "Documentos"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_document.py:0
 msgid "Documents cannot be changed once the request has been sent."
-msgstr "لا يمكن تغيير المستندات بعد إرسال الطلب."
+msgstr "Los documentos no se pueden cambiar después de enviar la solicitud."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Download Signed"
-msgstr "تنزيل الموقّع"
+msgstr "Descargar firmado"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__draft
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__pending
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Draft"
-msgstr "مسودة"
+msgstr "Borrador"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__signature_method__draw
 msgid "Drawn"
-msgstr "مرسوم"
+msgstr "Dibujada"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Each event hash chains to the previous one. Check the signed file at"
-msgstr "كل بصمة حدث مرتبطة بالحدث السابق. تحقق من الملف الموقّع على"
+msgstr "El hash de cada evento se encadena con el anterior. Verifica el archivo firmado en"
 
 #. module: easy_sign
 #: model:ir.module.category,name:easy_sign.module_category_easy_sign
@@ -997,12 +1045,12 @@ msgstr "كل بصمة حدث مرتبطة بالحدث السابق. تحقق م
 #: model:res.groups.privilege,name:easy_sign.res_groups_privilege_easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Easy Sign"
-msgstr "التوقيع الإلكتروني"
+msgstr "Easy Sign"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_editor_mixin
 msgid "Easy Sign PDF Editor"
-msgstr "محرر PDF في Easy Sign"
+msgstr "Editor de PDF de Easy Sign"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_layout
@@ -1019,49 +1067,49 @@ msgstr "Easy Sign · %(code)s · %(hash)s"
 #. module: easy_sign
 #: model:ir.actions.server,name:easy_sign.cron_expire_requests_ir_actions_server
 msgid "Easy Sign: expire requests"
-msgstr "Easy Sign: إنهاء صلاحية الطلبات"
+msgstr "Easy Sign: vencer solicitudes"
 
 #. module: easy_sign
 #: model:res.groups,name:easy_sign.group_manage_template_access
 msgid "Easy Sign: manage template access"
-msgstr "Easy Sign: إدارة الوصول إلى القوالب"
+msgstr "Easy Sign: gestionar el acceso a plantillas"
 
 #. module: easy_sign
 #: model:ir.actions.server,name:easy_sign.cron_send_reminders_ir_actions_server
 msgid "Easy Sign: send reminders"
-msgstr "Easy Sign: إرسال التذكيرات"
+msgstr "Easy Sign: enviar recordatorios"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor_panel.js:0
 msgid "Edit"
-msgstr "تعديل"
+msgstr "Editar"
 
 #. module: easy_sign
 #: model:ir.actions.client,name:easy_sign.action_sign_request_editor
 msgid "Edit Document"
-msgstr "تعديل المستند"
+msgstr "Editar documento"
 
 #. module: easy_sign
 #: model:ir.actions.client,name:easy_sign.action_sign_template_editor
 msgid "Edit Template"
-msgstr "تعديل القالب"
+msgstr "Editar plantilla"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Edit a Copy"
-msgstr "تعديل نسخة"
+msgstr "Editar una copia"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
 msgid "Editor"
-msgstr "المحرر"
+msgstr "Editor"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_request
 msgid "Electronic Signature Request"
-msgstr "طلب توقيع إلكتروني"
+msgstr "Solicitud de firma electrónica"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -1072,185 +1120,185 @@ msgstr "طلب توقيع إلكتروني"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_email
 #: model:sign.item.type,name:easy_sign.item_type_email
 msgid "Email"
-msgstr "البريد الإلكتروني"
+msgstr "Correo electrónico"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__attachment_ids
 msgid "Email Attachments"
-msgstr "مرفقات البريد"
+msgstr "Adjuntos del correo"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__subject
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__default_subject
 msgid "Email Subject"
-msgstr "موضوع البريد الإلكتروني"
+msgstr "Asunto del correo"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__auth_method__none
 msgid "Email link"
-msgstr "رابط بالبريد"
+msgstr "Enlace por correo"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__auth_method__email_otp
 msgid "Email link + code"
-msgstr "رابط بالبريد + رمز"
+msgstr "Enlace por correo + código"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/verify.py:0
 msgid "Enter a verification code or choose the signed PDF."
-msgstr "أدخل رمز التحقق أو اختر ملف PDF الموقّع."
+msgstr "Ingresa un código de verificación o elige el PDF firmado."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Event"
-msgstr "الحدث"
+msgstr "Evento"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__log_hash
 msgid "Event Hash"
-msgstr "بصمة الحدث"
+msgstr "Hash del evento"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Event hash"
-msgstr "بصمة الحدث"
+msgstr "Hash del evento"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Events"
-msgstr "الأحداث"
+msgstr "Eventos"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/wizard/sign_send_wizard.py:0
 msgid "Every signer needs a contact with an email address."
-msgstr "يحتاج كل موقّع إلى جهة اتصال لها بريد إلكتروني."
+msgstr "Cada firmante necesita un contacto con correo electrónico."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Every signer needs an email address."
-msgstr "يحتاج كل موقّع إلى بريد إلكتروني."
+msgstr "Cada firmante necesita un correo electrónico."
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__expired
 msgid "Expired"
-msgstr "منتهي الصلاحية"
+msgstr "Vencida"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__attachment_ids
 msgid "Extra files sent with the invitation email."
-msgstr "ملفات إضافية تُرسل مع بريد الدعوة."
+msgstr "Archivos adicionales que se envían con el correo de invitación."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field
 msgid "Field"
-msgstr "الحقل"
+msgstr "Campo"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
 msgid "Field Name"
-msgstr "اسم الحقل"
+msgstr "Nombre del campo"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__field_size
 msgid "Field Size"
-msgstr "حجم الحقل"
+msgstr "Tamaño del campo"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__item_type_id
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
 msgid "Field Type"
-msgstr "نوع الحقل"
+msgstr "Tipo de campo"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
 msgid "Field types make up the palette of the document editor."
-msgstr "تشكّل أنواع الحقول لوحة محرر المستندات."
+msgstr "Los tipos de campo forman la paleta del editor de documentos."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__item_ids
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__item_ids
 #: model:ir.ui.menu,name:easy_sign.menu_sign_item_types
 msgid "Fields"
-msgstr "الحقول"
+msgstr "Campos"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_item.py:0
 msgid "Fields cannot be changed once the request has been sent."
-msgstr "لا يمكن تغيير الحقول بعد إرسال الطلب."
+msgstr "Los campos no se pueden cambiar después de enviar la solicitud."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__name
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__file_name
 msgid "File Name"
-msgstr "اسم الملف"
+msgstr "Nombre del archivo"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_item__linked_field
 msgid "Fill the field with this value of the signer's contact."
-msgstr "املأ الحقل بهذه القيمة من جهة اتصال الموقّع."
+msgstr "Rellena el campo con este dato del contacto del firmante."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__default_partner_id
 msgid "Fixed Signer"
-msgstr "موقّع ثابت"
+msgstr "Firmante fijo"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_follower_ids
 msgid "Followers"
-msgstr "المتابعون"
+msgstr "Seguidores"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "المتابعون (الشركاء)"
+msgstr "Seguidores (contactos)"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_pad
 msgid "Font"
-msgstr ""
+msgstr "Fuente"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_item_type__icon
 msgid "Font Awesome class, for example fa-user."
-msgstr "فئة Font Awesome، مثل fa-user."
+msgstr "Clase de Font Awesome, por ejemplo fa-user."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "أيقونة Font Awesome مثل: fa-tasks"
+msgstr "Ícono de Font Awesome, por ejemplo fa-tasks"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__signed
 msgid "Fully Signed"
-msgstr "موقّع بالكامل"
+msgstr "Firmada por todos"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__has_message
 msgid "Has Message"
-msgstr "يحتوي رسالة"
+msgstr "Tiene mensaje"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__has_pending_signers
 msgid "Has Pending Signers"
-msgstr "يوجد موقّعون معلّقون"
+msgstr "Tiene firmantes pendientes"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__height
 msgid "Height"
-msgstr "الارتفاع"
+msgstr "Alto"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
 msgid "Hello"
-msgstr "مرحباً"
+msgstr "Hola"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_res_company__id
@@ -1268,7 +1316,7 @@ msgstr "مرحباً"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__id
 msgid "ID"
-msgstr "المعرّف"
+msgstr "ID"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
@@ -1279,28 +1327,28 @@ msgstr "IP"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__ip_address
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__ip_address
 msgid "IP Address"
-msgstr "عنوان IP"
+msgstr "Dirección IP"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__icon
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_exception_icon
 msgid "Icon"
-msgstr "الأيقونة"
+msgstr "Ícono"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "أيقونة للإشارة إلى نشاط استثنائي."
+msgstr "Ícono que indica una actividad de excepción."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "إذا كان محدداً، فإن الرسائل الجديدة تتطلب انتباهك."
+msgstr "Si está marcado, hay mensajes nuevos que requieren tu atención."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr "إذا كان محدداً، يوجد خطأ في إرسال بعض الرسائل."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
 
 #. module: easy_sign
 #. odoo-javascript
@@ -1310,58 +1358,58 @@ msgstr "إذا كان محدداً، يوجد خطأ في إرسال بعض ال
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__initials
 #: model:sign.item.type,name:easy_sign.item_type_initials
 msgid "Initials"
-msgstr "الأحرف الأولى"
+msgstr "Iniciales"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "Invalid Link"
-msgstr "رابط غير صالح"
+msgstr "Enlace no válido"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "Invalid data."
-msgstr "بيانات غير صالحة."
+msgstr "Datos no válidos."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_item.py:0
 msgid "Invalid date."
-msgstr "تاريخ غير صالح."
+msgstr "Fecha no válida."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_item.py:0
 msgid "Invalid option."
-msgstr "خيار غير صالح."
+msgstr "Opción no válida."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__default_message
 msgid "Invitation Message"
-msgstr "رسالة الدعوة"
+msgstr "Mensaje de invitación"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__sent
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__sent
 msgid "Invitation Sent"
-msgstr "تم إرسال الدعوة"
+msgstr "Invitación enviada"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_is_follower
 msgid "Is Follower"
-msgstr "متابع"
+msgstr "Es seguidor"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__last_reminder_date
 msgid "Last Reminder Date"
-msgstr "تاريخ آخر تذكير"
+msgstr "Fecha del último recordatorio"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__write_uid
@@ -1376,7 +1424,7 @@ msgstr "تاريخ آخر تذكير"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__write_uid
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__write_uid
 msgid "Last Updated by"
-msgstr "آخر تحديث بواسطة"
+msgstr "Última actualización por"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__write_date
@@ -1391,7 +1439,7 @@ msgstr "آخر تحديث بواسطة"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_tag__write_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__write_date
 msgid "Last Updated on"
-msgstr "تاريخ آخر تحديث"
+msgstr "Última actualización el"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -1399,110 +1447,110 @@ msgstr "تاريخ آخر تحديث"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__left
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__alignment__left
 msgid "Left"
-msgstr "يسار"
+msgstr "Izquierda"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "Link Expired"
-msgstr "انتهت صلاحية الرابط"
+msgstr "Enlace vencido"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__redirect_url
 msgid "Link shown to the signers after they sign."
-msgstr "رابط يُعرض للموقّعين بعد التوقيع."
+msgstr "Enlace que ven los firmantes después de firmar."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
 msgid "Link:"
-msgstr "الرابط:"
+msgstr "Enlace:"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field_name
 msgid "Linked Field"
-msgstr "الحقل المرتبط"
+msgstr "Campo vinculado"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_model
 msgid "Linked to"
-msgstr "مرتبط بـ"
+msgstr "Vinculado a"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Loading document…"
-msgstr "جاري تحميل الوثيقة…"
+msgstr "Cargando documento…"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__long
 msgid "Long Text"
-msgstr "نص طويل"
+msgstr "Texto largo"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__group_manage_template_access
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Manage template access"
-msgstr "إدارة الوصول إلى القوالب"
+msgstr "Gestionar el acceso a plantillas"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__required
 msgid "Mandatory"
-msgstr "إلزامي"
+msgstr "Obligatorio"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__message
 msgid "Message"
-msgstr "الرسالة"
+msgstr "Mensaje"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_has_error
 msgid "Message Delivery error"
-msgstr "خطأ في إرسال الرسالة"
+msgstr "Error de entrega del mensaje"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_properties_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
 msgid "Message for the signers"
-msgstr "رسالة للموقّعين"
+msgstr "Mensaje para los firmantes"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_ids
 msgid "Messages"
-msgstr "الرسائل"
+msgstr "Mensajes"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor_panel.js:0
 msgid "Move down"
-msgstr "نقل للأسفل"
+msgstr "Bajar"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor_panel.js:0
 msgid "Move up"
-msgstr "نقل للأعلى"
+msgstr "Subir"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 #: model:sign.item.type,name:easy_sign.item_type_textarea
 msgid "Multiline"
-msgstr "متعدد الأسطر"
+msgstr "Multilínea"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__type__textarea
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__textarea
 msgid "Multiline Text"
-msgstr "نص متعدد الأسطر"
+msgstr "Texto multilínea"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr "موعد نشاطي"
+msgstr "Fecha límite de mi actividad"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "My Requests"
-msgstr "طلباتي"
+msgstr "Mis solicitudes"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -1517,178 +1565,178 @@ msgstr "طلباتي"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_name
 #: model:sign.item.type,name:easy_sign.item_type_name
 msgid "Name"
-msgstr "الاسم"
+msgstr "Nombre"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor_panel.js:0
 msgid "New Field"
-msgstr "حقل جديد"
+msgstr "Campo nuevo"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "موعد النشاط القادم"
+msgstr "Fecha límite de la próxima actividad"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_summary
 msgid "Next Activity Summary"
-msgstr "ملخص النشاط القادم"
+msgstr "Resumen de la próxima actividad"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_type_id
 msgid "Next Activity Type"
-msgstr "نوع النشاط القادم"
+msgstr "Tipo de la próxima actividad"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Next page"
-msgstr "الصفحة التالية"
+msgstr "Página siguiente"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "No auto-complete"
-msgstr "بدون إكمال تلقائي"
+msgstr "Sin autocompletar"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "No code is needed."
-msgstr "لا حاجة إلى رمز."
+msgstr "No se necesita código."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "Not Your Turn Yet"
-msgstr "لم يحن دورك بعد"
+msgstr "Todavía no es tu turno"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__notes
 msgid "Notes"
-msgstr "ملاحظات"
+msgstr "Notas"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_needaction_counter
 msgid "Number of Actions"
-msgstr "عدد الإجراءات"
+msgstr "Número de acciones"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__message_has_error_counter
 msgid "Number of errors"
-msgstr "عدد الأخطاء"
+msgstr "Número de errores"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr "عدد الرسائل التي تتطلب إجراءً"
+msgstr "Número de mensajes que requieren acción"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "عدد الرسائل التي بها خطأ في الإرسال"
+msgstr "Número de mensajes con error de entrega"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "One option per line"
-msgstr "خيار واحد في كل سطر"
+msgstr "Una opción por línea"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_item__options
 msgid "One option per line (radio and selection)."
-msgstr "خيار واحد في كل سطر (اختيار فردي وقائمة)."
+msgstr "Una opción por línea (radio y selección)."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Only cancelled or expired requests can be reset to draft."
-msgstr "يمكن إعادة الطلبات الملغاة أو المنتهية فقط إلى مسودة."
+msgstr "Solo las solicitudes canceladas o vencidas pueden volver a borrador."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Only draft or cancelled requests can be deleted."
-msgstr "يمكن حذف المسودات أو الطلبات الملغاة فقط."
+msgstr "Solo se pueden eliminar las solicitudes en borrador o canceladas."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Only draft or sent requests can be cancelled."
-msgstr "يمكن إلغاء المسودات أو الطلبات المرسلة فقط."
+msgstr "Solo se pueden cancelar las solicitudes en borrador o enviadas."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "Only pending signers can receive the invitation again."
-msgstr "يمكن إعادة إرسال الدعوة للموقّعين المعلّقين فقط."
+msgstr "Solo los firmantes pendientes pueden recibir la invitación de nuevo."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Open Editor"
-msgstr "فتح المحرر"
+msgstr "Abrir editor"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Open a document from the list to edit it."
-msgstr "افتح مستنداً من القائمة لتعديله."
+msgstr "Abre un documento de la lista para editarlo."
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 msgid "Option 1"
-msgstr "الخيار 1"
+msgstr "Opción 1"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/palette.js:0
 msgid "Option 2"
-msgstr "الخيار 2"
+msgstr "Opción 2"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Optional: provide a reason..."
-msgstr "اختياري: اذكر السبب..."
+msgstr "Opcional: indica un motivo..."
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__options
 msgid "Options"
-msgstr "الخيارات"
+msgstr "Opciones"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__origin_ref
 msgid "Origin"
-msgstr "المصدر"
+msgstr "Origen"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Original document hash (SHA-256)"
-msgstr "بصمة المستند الأصلي (SHA-256)"
+msgstr "Hash del documento original (SHA-256)"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__otp_attempts
 msgid "Otp Attempts"
-msgstr "محاولات الرمز"
+msgstr "Intentos de código"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__otp_expiry
 msgid "Otp Expiry"
-msgstr "انتهاء الرمز"
+msgstr "Vencimiento del código"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__otp_hash
 msgid "Otp Hash"
-msgstr "بصمة الرمز"
+msgstr "Hash del código"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__otp_sent_date
 msgid "Otp Sent Date"
-msgstr "تاريخ إرسال الرمز"
+msgstr "Fecha de envío del código"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__file
@@ -1701,28 +1749,28 @@ msgstr "PDF"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__page
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Page"
-msgstr "الصفحة"
+msgstr "Página"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_item.py:0
 msgid "Page %s does not exist in %s."
-msgstr "الصفحة %s غير موجودة في %s."
+msgstr "La página %s no existe en %s."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__page_count
 msgid "Page Count"
-msgstr "عدد الصفحات"
+msgstr "Número de páginas"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Pages"
-msgstr "الصفحات"
+msgstr "Páginas"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Pending"
-msgstr "في الانتظار"
+msgstr "Pendiente"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -1731,7 +1779,7 @@ msgstr "في الانتظار"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_phone
 #: model:sign.item.type,name:easy_sign.item_type_phone
 msgid "Phone"
-msgstr "الهاتف"
+msgstr "Teléfono"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -1739,58 +1787,58 @@ msgstr "الهاتف"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__placeholder
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__placeholder
 msgid "Placeholder"
-msgstr "نص توضيحي"
+msgstr "Texto de ejemplo"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "Please add your initials."
-msgstr "يرجى إضافة الأحرف الأولى."
+msgstr "Agrega tus iniciales."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "Please add your signature."
-msgstr "يرجى إضافة توقيعك."
+msgstr "Agrega tu firma."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_item.py:0
 msgid "Please complete all the required fields."
-msgstr "يرجى إكمال جميع الحقول المطلوبة."
+msgstr "Completa todos los campos obligatorios."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_mail.py:0
 msgid "Please sign: %s"
-msgstr "يرجى التوقيع: %s"
+msgstr "Por favor firma: %s"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_properties_form
 msgid "Please sign: ..."
-msgstr "يرجى التوقيع: ..."
+msgstr "Por favor firma: ..."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__pos_x
 msgid "Pos X"
-msgstr "الموضع س"
+msgstr "Pos. X"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__pos_y
 msgid "Pos Y"
-msgstr "الموضع ص"
+msgstr "Pos. Y"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__previous_log_hash
 msgid "Previous Log Hash"
-msgstr "بصمة السجل السابق"
+msgstr "Hash del registro anterior"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Previous page"
-msgstr "الصفحة السابقة"
+msgstr "Página anterior"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -1799,7 +1847,7 @@ msgstr "الصفحة السابقة"
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_properties_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_properties_form
 msgid "Properties"
-msgstr "الخصائص"
+msgstr "Propiedades"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -1808,174 +1856,174 @@ msgstr "الخصائص"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__radio
 #: model:sign.item.type,name:easy_sign.item_type_radio
 msgid "Radio"
-msgstr "اختيار فردي"
+msgstr "Radio"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__readonly
 msgid "Read Only"
-msgstr "للقراءة فقط"
+msgstr "Solo lectura"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Read-only"
-msgstr "للقراءة فقط"
+msgstr "Solo lectura"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__readonly
 msgid "Readonly"
-msgstr "للقراءة فقط"
+msgstr "Solo lectura"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__redirect_url
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__redirect_url
 msgid "Redirect URL"
-msgstr "رابط إعادة التوجيه"
+msgstr "URL de redirección"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__name
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Reference"
-msgstr "المرجع"
+msgstr "Referencia"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__regular
 msgid "Regular Text"
-msgstr "نص عادي"
+msgstr "Texto normal"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__res_model
 msgid "Related Model"
-msgstr "النموذج المرتبط"
+msgstr "Modelo relacionado"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__res_id
 msgid "Related Record"
-msgstr "السجل المرتبط"
+msgstr "Registro relacionado"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__reminder_days
 msgid "Remind pending signers every N days. 0 disables reminders."
-msgstr "تذكير الموقّعين المعلّقين كل N أيام. 0 يعطّل التذكيرات."
+msgstr "Recordar a los firmantes pendientes cada N días. 0 desactiva los recordatorios."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__reminder_days
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__reminder_days
 msgid "Reminder Every (days)"
-msgstr "تذكير كل (أيام)"
+msgstr "Recordatorio cada (días)"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__reminded
 msgid "Reminder Sent"
-msgstr "تم إرسال تذكير"
+msgstr "Recordatorio enviado"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_mail.py:0
 msgid "Reminder: %s"
-msgstr "تذكير: %s"
+msgstr "Recordatorio: %s"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: code:addons/easy_sign/static/src/editor/editor_panel.js:0
 msgid "Remove"
-msgstr "إزالة"
+msgstr "Quitar"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor_panel.js:0
 msgid "Rename"
-msgstr "إعادة تسمية"
+msgstr "Renombrar"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__request_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__request_id
 msgid "Request"
-msgstr "الطلب"
+msgstr "Solicitud"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__cancelled
 msgid "Request Cancelled"
-msgstr "تم إلغاء الطلب"
+msgstr "Solicitud cancelada"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__completed
 msgid "Request Completed"
-msgstr "اكتمل الطلب"
+msgstr "Solicitud completada"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__request_count
 msgid "Request Count"
-msgstr "عدد الطلبات"
+msgstr "Número de solicitudes"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__expired
 msgid "Request Expired"
-msgstr "انتهت صلاحية الطلب"
+msgstr "Solicitud vencida"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_template.py:0
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
 msgid "Request Signature"
-msgstr "طلب توقيع"
+msgstr "Solicitar firma"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_send_wizard
 msgid "Request a Signature from a Record"
-msgstr "طلب توقيع من سجل"
+msgstr "Solicitar una firma desde un registro"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__user_id
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Requested By"
-msgstr "طلب بواسطة"
+msgstr "Solicitado por"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Requested by"
-msgstr "طلب من"
+msgstr "Solicitado por"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__request_ids
 #: model:ir.ui.menu,name:easy_sign.menu_sign_requests
 msgid "Requests"
-msgstr "الطلبات"
+msgstr "Solicitudes"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__required
 msgid "Required"
-msgstr "مطلوب"
+msgstr "Obligatorio"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__res_id
 msgid "Res"
-msgstr "السجل"
+msgstr "Registro"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__res_model
 msgid "Res Model"
-msgstr "النموذج"
+msgstr "Modelo"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__user_id
 msgid "Responsible"
-msgstr "المسؤول"
+msgstr "Responsable"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__activity_user_id
 msgid "Responsible User"
-msgstr "المستخدم المسؤول"
+msgstr "Usuario responsable"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
 msgid "Review &amp; Sign"
-msgstr "مراجعة وتوقيع"
+msgstr "Revisar y firmar"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -1983,7 +2031,7 @@ msgstr "مراجعة وتوقيع"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__alignment__right
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__alignment__right
 msgid "Right"
-msgstr "يمين"
+msgstr "Derecha"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__role_id
@@ -1991,12 +2039,12 @@ msgstr "يمين"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__role_id
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_role_form
 msgid "Role"
-msgstr "الدور"
+msgstr "Rol"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__role_ids
 msgid "Roles"
-msgstr "الأدوار"
+msgstr "Roles"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__file_hash
@@ -2007,19 +2055,19 @@ msgstr "SHA-256"
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Saved"
-msgstr "تم الحفظ"
+msgstr "Guardado"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Saving…"
-msgstr "جاري الحفظ…"
+msgstr "Guardando…"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Search"
-msgstr "بحث"
+msgstr "Buscar"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2028,7 +2076,7 @@ msgstr "بحث"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__selection
 #: model:sign.item.type,name:easy_sign.item_type_selection
 msgid "Selection"
-msgstr "قائمة اختيار"
+msgstr "Selección"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2036,22 +2084,22 @@ msgstr "قائمة اختيار"
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_send_wizard_form
 msgid "Send"
-msgstr "إرسال"
+msgstr "Enviar"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Send again"
-msgstr "إرسال مجدداً"
+msgstr "Enviar de nuevo"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_request
 msgid "Send your first document for signature"
-msgstr "أرسل أول مستند للتوقيع"
+msgstr "Envía tu primer documento a firmar"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request__state__sent
 msgid "Sent"
-msgstr "مُرسَل"
+msgstr "Enviada"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_document__sequence
@@ -2059,46 +2107,46 @@ msgstr "مُرسَل"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__sequence
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__sequence
 msgid "Sequence"
-msgstr "التسلسل"
+msgstr "Secuencia"
 
 #. module: easy_sign
 #: model:ir.actions.act_window,name:easy_sign.action_easy_sign_settings
 #: model:ir.ui.menu,name:easy_sign.menu_sign_settings
 msgid "Settings"
-msgstr "الإعدادات"
+msgstr "Ajustes"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__field_size__short
 msgid "Short Text"
-msgstr "نص قصير"
+msgstr "Texto corto"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__use_sign_terms
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Sign Default Terms & Conditions"
-msgstr "الشروط والأحكام الافتراضية للتوقيع"
+msgstr "Términos y condiciones por defecto"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Sign Now"
-msgstr "وقّع الآن"
+msgstr "Firmar ahora"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Sign Settings"
-msgstr "إعدادات التوقيع"
+msgstr "Ajustes de firma"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_res_company__sign_terms
 #: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__sign_terms
 msgid "Sign Terms & Conditions"
-msgstr "شروط وأحكام التوقيع"
+msgstr "Términos y condiciones de firma"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__sign_terms_url
 msgid "Sign Terms Url"
-msgstr "رابط شروط التوقيع"
+msgstr "URL de los términos de firma"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2109,155 +2157,155 @@ msgstr "رابط شروط التوقيع"
 #: model:sign.item.type,name:easy_sign.item_type_signature
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Signature"
-msgstr "التوقيع"
+msgstr "Firma"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_log
 msgid "Signature Audit Log"
-msgstr "سجل تدقيق التوقيع"
+msgstr "Registro de auditoría de firma"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_document
 msgid "Signature Document (PDF)"
-msgstr "مستند التوقيع (PDF)"
+msgstr "Documento de firma (PDF)"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_item
 msgid "Signature Field Placed on a Document"
-msgstr "حقل توقيع موضوع على مستند"
+msgstr "Campo de firma colocado en un documento"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_item_type
 msgid "Signature Field Type"
-msgstr "نوع حقل التوقيع"
+msgstr "Tipo de campo de firma"
 
 #. module: easy_sign
 #: model:ir.actions.act_window,name:easy_sign.action_sign_item_type
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
 msgid "Signature Fields"
-msgstr "حقول التوقيع"
+msgstr "Campos de firma"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signature_method
 msgid "Signature Method"
-msgstr "طريقة التوقيع"
+msgstr "Método de firma"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_log__request_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__request_id
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_form
 msgid "Signature Request"
-msgstr "طلب التوقيع"
+msgstr "Solicitud de firma"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_request_item
 msgid "Signature Request Signer"
-msgstr "موقّع طلب التوقيع"
+msgstr "Firmante de la solicitud"
 
 #. module: easy_sign
 #: model:ir.actions.act_window,name:easy_sign.action_sign_request
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_list
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Signature Requests"
-msgstr "طلبات التوقيع"
+msgstr "Solicitudes de firma"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_role
 msgid "Signature Role"
-msgstr "دور التوقيع"
+msgstr "Rol de firma"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_tag
 msgid "Signature Tag"
-msgstr "وسم التوقيع"
+msgstr "Etiqueta de firma"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_template
 msgid "Signature Template"
-msgstr "قالب التوقيع"
+msgstr "Plantilla de firma"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_declined
 msgid "Signature declined"
-msgstr "تم رفض التوقيع"
+msgstr "Firma rechazada"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
 msgid "Signature request cancelled"
-msgstr "تم إلغاء طلب التوقيع"
+msgstr "Solicitud de firma cancelada"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Signature request cancelled."
-msgstr "تم إلغاء طلب التوقيع."
+msgstr "Solicitud de firma cancelada."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Signature request sent."
-msgstr "تم إرسال طلب التوقيع."
+msgstr "Solicitud de firma enviada."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/wizard/sign_send_wizard.py:0
 msgid "Signature requested: %s"
-msgstr "تم طلب التوقيع: %s"
+msgstr "Firma solicitada: %s"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__signed
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_list
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Signed"
-msgstr "موقّع"
+msgstr "Firmada"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Signed (UTC) / IP / Browser"
-msgstr "التوقيع (UTC) / IP / المتصفح"
+msgstr "Firmado (UTC) / IP / navegador"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__signed_count
 msgid "Signed Count"
-msgstr "عدد الموقّعين"
+msgstr "Firmas realizadas"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__signed_document
 msgid "Signed Document"
-msgstr "الوثيقة الموقّعة"
+msgstr "Documento firmado"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__signed_document_hash
 msgid "Signed Document Hash (SHA-256)"
-msgstr "بصمة المستند الموقّع (SHA-256)"
+msgstr "Hash del documento firmado (SHA-256)"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__signed_document_name
 msgid "Signed Document Name"
-msgstr "اسم الوثيقة الموقّعة"
+msgstr "Nombre del documento firmado"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signed_date
 msgid "Signed On"
-msgstr "تاريخ التوقيع"
+msgstr "Firmado el"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "Signed PDF (optional, checks that the file was not altered)"
-msgstr "ملف PDF الموقّع (اختياري، للتحقق من عدم تعديله)"
+msgstr "PDF firmado (opcional, comprueba que el archivo no fue alterado)"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_pdf.py:0
 msgid "Signed with Easy Sign - verification code %s"
-msgstr "موقّع عبر Easy Sign - رمز التحقق %s"
+msgstr "Firmado con Easy Sign - código de verificación %s"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_mail.py:0
 msgid "Signed: %s"
-msgstr "موقّع: %s"
+msgstr "Firmado: %s"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2270,40 +2318,40 @@ msgstr "موقّع: %s"
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_item_form
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Signer"
-msgstr "الموقّع"
+msgstr "Firmante"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_editor.py:0
 msgid "Signer %s"
-msgstr "الموقّع %s"
+msgstr "Firmante %s"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "Signer %s can no longer be changed."
-msgstr "لم يعد بالإمكان تغيير الموقّع %s."
+msgstr "El firmante %s ya no se puede cambiar."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__signer_hash
 msgid "Signer Hash"
-msgstr "بصمة الموقّع"
+msgstr "Hash del firmante"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__delegated
 msgid "Signer Replaced"
-msgstr "تم استبدال الموقّع"
+msgstr "Firmante reemplazado"
 
 #. module: easy_sign
 #: model:ir.model,name:easy_sign.model_sign_send_wizard_signer
 msgid "Signer of a Signature Request Wizard"
-msgstr "موقّع في معالج طلب التوقيع"
+msgstr "Firmante del asistente de solicitud de firma"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "Signer replaced by %s"
-msgstr "تم استبدال الموقّع بـ %s"
+msgstr "Firmante reemplazado por %s"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2313,52 +2361,53 @@ msgstr "تم استبدال الموقّع بـ %s"
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_list
 msgid "Signers"
-msgstr "الموقّعون"
+msgstr "Firmantes"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__signers_count
 msgid "Signers Count"
-msgstr "عدد الموقّعين"
+msgstr "Número de firmantes"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "Signers can only be reconfigured while the request is a draft."
-msgstr "لا يمكن إعادة ضبط الموقّعين إلا والطلب مسودة."
+msgstr "Los firmantes solo se pueden reconfigurar mientras la solicitud está en borrador."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "Signers can only be removed while the request is a draft."
-msgstr "لا يمكن حذف الموقّعين إلا والطلب مسودة."
+msgstr "Los firmantes solo se pueden quitar mientras la solicitud está en borrador."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__signing_order
-msgid "Signers receive the invitation one after the other, following the sequence."
-msgstr "يتلقى الموقّعون الدعوة واحداً تلو الآخر حسب التسلسل."
+msgid ""
+"Signers receive the invitation one after the other, following the sequence."
+msgstr "Los firmantes reciben la invitación uno tras otro, siguiendo la secuencia."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__sign_url
 msgid "Signing Link"
-msgstr "رابط التوقيع"
+msgstr "Enlace de firma"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__signing_order
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__signing_order
 msgid "Signing Order"
-msgstr "ترتيب التوقيع"
+msgstr "Orden de firma"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "Some fields are not assigned to a signer of this request."
-msgstr "بعض الحقول غير مسندة إلى موقّع في هذا الطلب."
+msgstr "Algunos campos no están asignados a un firmante de esta solicitud."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_item.py:0
 msgid "Some fields do not belong to this signer."
-msgstr "بعض الحقول لا تخص هذا الموقّع."
+msgstr "Algunos campos no pertenecen a este firmante."
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2367,14 +2416,14 @@ msgstr "بعض الحقول لا تخص هذا الموقّع."
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__stamp
 #: model:sign.item.type,name:easy_sign.item_type_stamp
 msgid "Stamp"
-msgstr "ختم"
+msgstr "Sello"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__state
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__state
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Status"
-msgstr "الحالة"
+msgstr "Estado"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__activity_state
@@ -2383,11 +2432,7 @@ msgid ""
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
-msgstr ""
-"الحالة بناءً على الأنشطة\n"
-"متأخر: انتهى الموعد المحدد\n"
-"اليوم: تاريخ النشاط هو اليوم\n"
-"مخطط: أنشطة مستقبلية."
+msgstr "Estado según las actividades\nVencida: la fecha límite ya pasó\nHoy: la actividad es hoy\nPlanificada: actividades futuras."
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2395,7 +2440,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_street
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_street
 msgid "Street"
-msgstr "الشارع"
+msgstr "Calle"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2404,13 +2449,13 @@ msgstr "الشارع"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__strike
 #: model:sign.item.type,name:easy_sign.item_type_strike
 msgid "Strikethrough"
-msgstr "شطب"
+msgstr "Tachado"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_search
 msgid "Tag Name"
-msgstr "اسم الوسم"
+msgstr "Nombre de la etiqueta"
 
 #. module: easy_sign
 #: model:ir.actions.act_window,name:easy_sign.action_sign_tag
@@ -2420,18 +2465,18 @@ msgstr "اسم الوسم"
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_list
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_tag_search
 msgid "Tags"
-msgstr "الوسوم"
+msgstr "Etiquetas"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_tag
 msgid "Tags classify requests and templates."
-msgstr "تصنّف الوسوم الطلبات والقوالب."
+msgstr "Las etiquetas clasifican solicitudes y plantillas."
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Tags:"
-msgstr "الوسوم:"
+msgstr "Etiquetas:"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2439,7 +2484,7 @@ msgstr "الوسوم:"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_vat
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_vat
 msgid "Tax ID"
-msgstr "الرقم الضريبي"
+msgstr "NIT"
 
 #. module: easy_sign
 #. odoo-python
@@ -2449,36 +2494,36 @@ msgstr "الرقم الضريبي"
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__template_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__template_id
 msgid "Template"
-msgstr "القالب"
+msgstr "Plantilla"
 
 #. module: easy_sign
 #: model:ir.actions.act_window,name:easy_sign.action_sign_template
 #: model:ir.ui.menu,name:easy_sign.menu_sign_templates
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_list
 msgid "Templates"
-msgstr "القوالب"
+msgstr "Plantillas"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_terms_page
 msgid "Terms &amp; Conditions"
-msgstr "الشروط والأحكام"
+msgstr "Términos y condiciones"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_res_company__sign_terms_type
 #: model:ir.model.fields,field_description:easy_sign.field_res_config_settings__sign_terms_type
 msgid "Terms Display"
-msgstr "عرض الشروط"
+msgstr "Mostrar términos"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__res_company__sign_terms_type__html
 msgid "Terms as Web Page"
-msgstr "الشروط كصفحة ويب"
+msgstr "Términos como página web"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__res_company__sign_terms_type__plain
 msgid "Terms in Email"
-msgstr "الشروط في البريد"
+msgstr "Términos en el correo"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2487,272 +2532,282 @@ msgstr "الشروط في البريد"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__base_type__text
 #: model:sign.item.type,name:easy_sign.item_type_text
 msgid "Text"
-msgstr "نص"
+msgstr "Texto"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_item_type__tip
-msgid "Text of the guide ribbon on the signing page, for example 'Fill in'. Empty: automatic."
-msgstr "نص شريط الإرشاد في صفحة التوقيع، مثل 'املأ'. فارغ: تلقائي."
+msgid ""
+"Text of the guide ribbon on the signing page, for example 'Fill in'. Empty: "
+"automatic."
+msgstr "Texto de la cinta guía en la página de firma, por ejemplo 'Completar'. Vacío: automático."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "The certificate is not available yet."
-msgstr "الشهادة غير متاحة بعد."
+msgstr "El certificado todavía no está disponible."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "The code has expired. Request a new one."
-msgstr "انتهت صلاحية الرمز. اطلب رمزاً جديداً."
+msgstr "El código venció. Solicita uno nuevo."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "The code is not correct."
-msgstr "الرمز غير صحيح."
+msgstr "El código no es correcto."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
-msgid "The code is valid for 10 minutes. If you did not ask for it, ignore this email."
-msgstr "الرمز صالح لمدة 10 دقائق. إذا لم تطلبه، تجاهل هذا البريد."
+msgid ""
+"The code is valid for 10 minutes. If you did not ask for it, ignore this "
+"email."
+msgstr "El código es válido por 10 minutos. Si no lo pediste, ignora este correo."
 
 #. module: easy_sign
 #: model:ir.model.constraint,message:easy_sign.constraint_sign_item_type_size_check
 msgid "The default size is a fraction of the page (0-1)."
-msgstr "الحجم الافتراضي جزء من الصفحة (0-1)."
+msgstr "El tamaño por defecto es una fracción de la página (0-1)."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "The document could not be declined."
-msgstr "تعذّر رفض المستند."
+msgstr "No se pudo rechazar el documento."
 
 #. module: easy_sign
 #: model:ir.model.constraint,message:easy_sign.constraint_sign_item_inside_page
 msgid "The field must stay inside the page."
-msgstr "يجب أن يبقى الحقل داخل الصفحة."
+msgstr "El campo debe quedar dentro de la página."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "The file is authentic and has not been modified."
-msgstr "الملف أصلي ولم يتم تعديله."
+msgstr "El archivo es auténtico y no ha sido modificado."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_pdf.py:0
 msgid "The file is not an image."
-msgstr "الملف ليس صورة."
+msgstr "El archivo no es una imagen."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/verify.py:0
 msgid "The file is too large."
-msgstr "الملف كبير جداً."
+msgstr "El archivo es demasiado grande."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_pdf.py:0
 msgid "The image is larger than 2 MB."
-msgstr "الصورة أكبر من 2 ميغابايت."
+msgstr "La imagen pesa más de 2 MB."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_pdf.py:0
 msgid "The image is not valid."
-msgstr "الصورة غير صالحة."
+msgstr "La imagen no es válida."
 
 #. module: easy_sign
 #: model:ir.model.constraint,message:easy_sign.constraint_sign_item_page_positive
 msgid "The page must be 1 or more."
-msgstr "يجب أن تكون الصفحة 1 أو أكثر."
+msgstr "La página debe ser 1 o mayor."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "The redirect URL must start with http:// or https://."
-msgstr "يجب أن يبدأ رابط إعادة التوجيه بـ http:// أو https://."
+msgstr "La URL de redirección debe empezar con http:// o https://."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
 msgid "The request to sign"
-msgstr "طلب التوقيع على"
+msgstr "La solicitud para firmar"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "The request will be cancelled for everyone. You can tell the sender why."
-msgstr ""
+msgid ""
+"The request will be cancelled for everyone. You can tell the sender why."
+msgstr "La solicitud se cancelará para todos. Puedes contarle al remitente el motivo."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "The signature could not be saved."
-msgstr "تعذّر حفظ التوقيع."
+msgstr "No se pudo guardar la firma."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_completed
 msgid "The signed document and its certificate of completion are attached."
-msgstr "المستند الموقّع وشهادة إتمامه مرفقان."
+msgstr "Se adjuntan el documento firmado y su certificado de finalización."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "The signed document is not available yet."
-msgstr "المستند الموقّع غير متاح بعد."
+msgstr "El documento firmado todavía no está disponible."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__expiry_date
 msgid "The signing links stop working after this date."
-msgstr "تتوقف روابط التوقيع عن العمل بعد هذا التاريخ."
+msgstr "Los enlaces de firma dejan de funcionar después de esta fecha."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_template.py:0
 msgid "The template has no document."
-msgstr "القالب لا يحتوي على مستند."
+msgstr "La plantilla no tiene documento."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_item.py:0
 msgid "The text is too long."
-msgstr "النص طويل جداً."
+msgstr "El texto es demasiado largo."
 
 #. module: easy_sign
 #: model:ir.model.constraint,message:easy_sign.constraint_sign_request_verification_code_unique
 msgid "The verification code must be unique."
-msgstr "يجب أن يكون رمز التحقق فريداً."
+msgstr "El código de verificación debe ser único."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request.py:0
 msgid "There is nobody left to invite."
-msgstr "لا يوجد أحد آخر لدعوته."
+msgstr "No queda nadie por invitar."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_template__group_ids
-msgid "These groups can use the template. Empty groups and users: every Easy Sign user."
-msgstr "يمكن لهذه المجموعات استخدام القالب. بدون مجموعات أو مستخدمين: جميع مستخدمي Easy Sign."
+msgid ""
+"These groups can use the template. Empty groups and users: every Easy Sign "
+"user."
+msgstr "Estos grupos pueden usar la plantilla. Sin grupos ni usuarios: todos los usuarios de Easy Sign."
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_template__authorized_ids
 msgid "These users can use the template, besides the allowed groups."
-msgstr "يمكن لهؤلاء المستخدمين استخدام القالب، إضافة إلى المجموعات المسموح لها."
+msgstr "Estos usuarios pueden usar la plantilla, además de los grupos permitidos."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "This document can no longer be declined."
-msgstr "لم يعد بالإمكان رفض هذا المستند."
+msgstr "Este documento ya no se puede rechazar."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "This document can no longer be signed."
-msgstr "لم يعد بالإمكان توقيع هذا المستند."
+msgstr "Este documento ya no se puede firmar."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "This link is not active."
-msgstr "هذا الرابط غير نشط."
+msgstr "Este enlace no está activo."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
 msgid "This link is personal. Do not share it."
-msgstr "هذا الرابط شخصي. لا تشاركه."
+msgstr "Este enlace es personal. No lo compartas."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_editor.py:0
-msgid "This request has been sent: documents and fields can no longer be changed."
-msgstr "تم إرسال هذا الطلب: لم يعد بالإمكان تغيير المستندات والحقول."
+msgid ""
+"This request has been sent: documents and fields can no longer be changed."
+msgstr "Esta solicitud ya fue enviada: los documentos y campos ya no se pueden cambiar."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "This signature request has been cancelled."
-msgstr "تم إلغاء طلب التوقيع هذا."
+msgstr "Esta solicitud de firma fue cancelada."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "This signing link expired on %s."
-msgstr "انتهت صلاحية رابط التوقيع هذا في %s."
+msgstr "Este enlace de firma venció el %s."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "This signing link is invalid or does not exist."
-msgstr "رابط التوقيع هذا غير صالح أو غير موجود."
+msgstr "Este enlace de firma no es válido o no existe."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "This signing link is not active."
-msgstr "رابط التوقيع هذا غير نشط."
+msgstr "Este enlace de firma no está activo."
 
 #. module: easy_sign
 #: model:ir.model.constraint,message:easy_sign.constraint_sign_tag_name_unique
 msgid "This tag already exists."
-msgstr "هذا الوسم موجود مسبقاً."
+msgstr "Esta etiqueta ya existe."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_document.py:0
 #: code:addons/easy_sign/models/sign_item.py:0
 msgid "This template has already been used. Edit a copy instead."
-msgstr "تم استخدام هذا القالب مسبقاً. عدّل نسخة منه بدلاً من ذلك."
+msgstr "Esta plantilla ya se usó. Edita una copia."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_editor.py:0
-msgid "This template has been used: documents and fields are locked. Edit a copy to change them."
-msgstr "تم استخدام هذا القالب: المستندات والحقول مقفلة. عدّل نسخة منه لتغييرها."
+msgid ""
+"This template has been used: documents and fields are locked. Edit a copy to"
+" change them."
+msgstr "Esta plantilla ya se usó: los documentos y campos están bloqueados. Edita una copia para cambiarlos."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "This verification code belongs to a completed signature."
-msgstr "رمز التحقق هذا يخص توقيعاً مكتملاً."
+msgstr "Este código de verificación corresponde a una firma completada."
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "Thumbnails"
-msgstr "الصور المصغّرة"
+msgstr "Miniaturas"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__tip
 msgid "Tip"
-msgstr "تلميح"
+msgstr "Indicación"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_item.py:0
 msgid "Too many attempts. Request a new code."
-msgstr "محاولات كثيرة جداً. اطلب رمزاً جديداً."
+msgstr "Demasiados intentos. Solicita un código nuevo."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/verify.py:0
 msgid "Too many attempts. Try again in a few minutes."
-msgstr "محاولات كثيرة جداً. حاول مجدداً بعد بضع دقائق."
+msgstr "Demasiados intentos. Inténtalo de nuevo en unos minutos."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__type
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__base_type
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
 msgid "Type"
-msgstr "النوع"
+msgstr "Tipo"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_request__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "نوع النشاط الاستثنائي في السجل."
+msgstr "Tipo de la actividad de excepción en el registro."
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__signature_method__type
 msgid "Typed"
-msgstr "مكتوب"
+msgstr "Escrita"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
@@ -2767,188 +2822,188 @@ msgstr "UTC ·"
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__update_field
 msgid "Update Field"
-msgstr "تحديث الحقل"
+msgstr "Actualizar campo"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/list_upload.xml:0
 msgid "Upload PDF"
-msgstr "رفع PDF"
+msgstr "Subir PDF"
 
 #. module: easy_sign
 #: model_terms:ir.actions.act_window,help:easy_sign.action_sign_template
 msgid "Upload the PDF once, define the roles and place the fields."
-msgstr "ارفع ملف PDF مرة واحدة، حدّد الأدوار وضع الحقول."
+msgstr "Sube el PDF una vez, define los roles y coloca los campos."
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__signature_method__upload
 msgid "Uploaded"
-msgstr "مرفوع"
+msgstr "Subida"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_list
 msgid "Use"
-msgstr "استخدام"
+msgstr "Usar"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_pdf.py:0
 msgid "Use a PNG or JPEG image."
-msgstr "استخدم صورة PNG أو JPEG."
+msgstr "Usa una imagen PNG o JPEG."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
 msgid "Use this code to sign"
-msgstr "استخدم هذا الرمز لتوقيع"
+msgstr "Usa este código para firmar"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_list
 msgid "Used"
-msgstr "مستخدم"
+msgstr "Usada"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_template.py:0
 msgid "Used templates cannot be deleted. Archive them instead."
-msgstr "لا يمكن حذف القوالب المستخدمة. أرشفها بدلاً من ذلك."
+msgstr "Las plantillas usadas no se pueden eliminar. Archívalas."
 
 #. module: easy_sign
 #: model:res.groups,name:easy_sign.group_sign_user
 msgid "User"
-msgstr "مستخدم"
+msgstr "Usuario"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__validity_days
 msgid "Valid For (days)"
-msgstr "صالح لمدة (أيام)"
+msgstr "Válida por (días)"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__expiry_date
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard__expiry_date
 msgid "Valid Until"
-msgstr "صالح حتى"
+msgstr "Válida hasta"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
 msgid "Valid until"
-msgstr "صالح حتى"
+msgstr "Válido hasta"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__value
 msgid "Value"
-msgstr "القيمة"
+msgstr "Valor"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_item_type__linked_field
 msgid "Value of the signer's contact that fills this field."
-msgstr "قيمة جهة اتصال الموقّع التي تملأ هذا الحقل."
+msgstr "Dato del contacto del firmante que rellena este campo."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__auth_method
 #: model:ir.model.fields,field_description:easy_sign.field_sign_role__auth_method
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Verification"
-msgstr "التحقق"
+msgstr "Verificación"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__verification_code
 msgid "Verification Code"
-msgstr "رمز التحقق"
+msgstr "Código de verificación"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_log__action__otp_sent
 msgid "Verification Code Sent"
-msgstr "تم إرسال رمز التحقق"
+msgstr "Código de verificación enviado"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.report_certificate
 msgid "Verification code"
-msgstr "رمز التحقق"
+msgstr "Código de verificación"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "Verification code (printed at the bottom of each page)"
-msgstr "رمز التحقق (مطبوع أسفل كل صفحة)"
+msgstr "Código de verificación (impreso al pie de cada página)"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_completed
 msgid "Verification code:"
-msgstr "رمز التحقق:"
+msgstr "Código de verificación:"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__viewed
 msgid "Viewed"
-msgstr "تمت المشاهدة"
+msgstr "Vista"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_request_item__state__waiting
 msgid "Waiting Turn"
-msgstr "بانتظار الدور"
+msgstr "Esperando turno"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 msgid "Waiting for Me"
-msgstr "بانتظار توقيعي"
+msgstr "Esperando mi firma"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "We sent you a 6-digit code. Enter it to sign."
-msgstr "أرسلنا إليك رمزاً من 6 أرقام. أدخله للتوقيع."
+msgstr "Te enviamos un código de 6 dígitos. Ingrésalo para firmar."
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__width
 msgid "Width"
-msgstr "العرض"
+msgstr "Ancho"
 
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__wizard_id
 msgid "Wizard"
-msgstr "المعالج"
+msgstr "Asistente"
 
 #. module: easy_sign
 #: model:ir.model.fields,help:easy_sign.field_sign_item_type__update_field
 msgid "Write the value entered by the signer back to their contact."
-msgstr "كتابة القيمة التي أدخلها الموقّع في جهة اتصاله."
+msgstr "Guarda en el contacto del firmante el valor que escribió."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_template.py:0
 msgid "You are not allowed to use this template."
-msgstr "غير مسموح لك باستخدام هذا القالب."
+msgstr "No tienes permiso para usar esta plantilla."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_editor.py:0
 msgid "You are not one of the signers. Add yourself as a signer first."
-msgstr "لست من الموقّعين. أضف نفسك كموقّع أولاً."
+msgstr "No eres uno de los firmantes. Agrégate primero como firmante."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_editor.py:0
 msgid "You have already signed this document."
-msgstr "لقد وقّعت هذا المستند مسبقاً."
+msgstr "Ya firmaste este documento."
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/controllers/main.py:0
 msgid "You will receive an email when it is your turn to sign."
-msgstr "ستتلقى بريداً عندما يحين دورك للتوقيع."
+msgstr "Recibirás un correo cuando sea tu turno de firmar."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.res_config_settings_view_form
 msgid "Your conditions..."
-msgstr "شروطك..."
+msgstr "Tus condiciones..."
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_otp
 msgid "Your signing code"
-msgstr "رمز التوقيع الخاص بك"
+msgstr "Tu código de firma"
 
 #. module: easy_sign
 #. odoo-python
 #: code:addons/easy_sign/models/sign_request_mail.py:0
 msgid "Your signing code: %s"
-msgstr "رمز التوقيع الخاص بك: %s"
+msgstr "Tu código de firma: %s"
 
 #. module: easy_sign
 #. odoo-javascript
@@ -2956,99 +3011,101 @@ msgstr "رمز التوقيع الخاص بك: %s"
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__partner_id_zip
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__partner_id_zip
 msgid "ZIP"
-msgstr "الرمز البريدي"
+msgstr "Código postal"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Zoom in"
-msgstr "تكبير"
+msgstr "Acercar"
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
 msgid "Zoom out"
-msgstr "تصغير"
+msgstr "Alejar"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_invitation
 msgid "asks you to sign"
-msgstr "يطلب منك توقيع"
+msgstr "te pide firmar"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__city
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__city
 msgid "city"
-msgstr "المدينة"
+msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
 msgid "e.g. Phone"
-msgstr "مثال: الهاتف"
+msgstr "p. ej. Teléfono"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__email
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__email
 msgid "email"
-msgstr "البريد الإلكتروني"
+msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.mail_cancelled
 msgid "has been cancelled. No action is needed."
-msgstr "تم إلغاؤه. لا حاجة لأي إجراء."
+msgstr "fue cancelada. No necesitas hacer nada."
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__name
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__name
 msgid "name"
-msgstr "الاسم"
+msgstr ""
 
 #. module: easy_sign
 #. odoo-javascript
 #: code:addons/easy_sign/static/src/editor/editor.xml:0
 msgid "of"
-msgstr "من"
+msgstr "de"
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__phone
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__phone
 msgid "phone"
-msgstr "الهاتف"
+msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "signer(s)."
-msgstr "موقّع(ين)."
+msgstr "firmante(s)."
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__street
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__street
 msgid "street"
-msgstr "الشارع"
+msgstr ""
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__vat
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__vat
 msgid "vat"
-msgstr "الرقم الضريبي"
+msgstr ""
 
 #. module: easy_sign
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item__linked_field__zip
 #: model:ir.model.fields.selection,name:easy_sign.selection__sign_item_type__linked_field__zip
 msgid "zip"
-msgstr "الرمز البريدي"
+msgstr ""
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_page
-msgid "· <span class=\"es-i18n\" data-en=\"Valid until\" data-ar=\"صالح حتى\">Valid until</span>"
-msgstr ""
+msgid ""
+"· <span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido "
+"hasta\">Valid until</span>"
+msgstr "· <span class=\"es-i18n\" data-en=\"Valid until\" data-es=\"Válido hasta\">Válido hasta</span>"
 
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_declined
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_invalid
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
-msgid "🌐 <span id=\"esLangLabel\">عربي</span>"
-msgstr "🌐 <span id=\"esLangLabel\">عربي</span>"
+msgid "🌐 <span id=\"esLangLabel\">Español</span>"
+msgstr ""

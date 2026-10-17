@@ -6,7 +6,15 @@
 (function () {
     'use strict';
 
-    var LABELS = { signature: 'Sign here', initials: 'Initials', stamp: 'Stamp' };
+    var LABELS = {
+        en: { signature: 'Sign here', initials: 'Initials', stamp: 'Stamp' },
+        es: { signature: 'Firma aquí', initials: 'Iniciales', stamp: 'Sello' },
+    };
+
+    function label(type) {
+        var lang = window.EasySign && window.EasySign.lang && window.EasySign.lang() === 'es' ? 'es' : 'en';
+        return LABELS[lang][type];
+    }
     var CSS_UNITS = 96 / 72;   // pdf.js: 100% zoom shows PDF points at 96 dpi
     var AUTO_MAX = 1.25;       // "Automatic Zoom" fits the width, up to 125%
 
@@ -134,14 +142,14 @@
         var changed = function () { self.onChange(); };
         if (field.type === 'signature' || field.type === 'initials') {
             input = el('button', 'es-field-image', { type: 'button' });
-            input.textContent = LABELS[field.type];
+            input.textContent = label(field.type);
             input.addEventListener('click', function () {
                 if (self.hooks.onImage) { self.hooks.onImage(field); }
             });
             this.inputs[field.id] = function () { return self.applied[field.id] && self.images[field.type] ? '1' : ''; };
         } else if (field.type === 'stamp') {
             input = el('label', 'es-field-image');
-            input.textContent = LABELS.stamp;
+            input.textContent = label('stamp');
             var file = el('input', 'es-hidden', { type: 'file', accept: 'image/png,image/jpeg' });
             input.appendChild(file);
             file.addEventListener('change', function () {
@@ -220,10 +228,23 @@
             if (!button) { return; }
             var shown = self.applied[f.id] && url;
             button.style.backgroundImage = shown ? 'url(' + url + ')' : '';
-            button.textContent = shown ? '' : LABELS[kind];
+            button.textContent = shown ? '' : label(kind);
             node.classList.toggle('es-done', !!shown);
         });
         this.onChange();
+    };
+
+    /** Texts of the empty signature, initials and stamp boxes, after a language change. */
+    Fields.prototype.refreshLabels = function () {
+        var self = this;
+        this.fields.forEach(function (field) {
+            var node = self.nodes[field.id];
+            var box = node && node.firstChild;
+            if (!box || ['signature', 'initials', 'stamp'].indexOf(field.type) === -1) { return; }
+            var filled = field.type === 'stamp' ? self.stamps[field.id] : self.applied[field.id] && self.images[field.type];
+            if (filled) { return; }
+            if (field.type === 'stamp') { box.firstChild.textContent = label('stamp'); } else { box.textContent = label(field.type); }
+        });
     };
 
     /** Number of fields of ``kind``. */

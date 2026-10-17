@@ -2,7 +2,7 @@
 /**
  * Easy Sign — signature pad with three modes: Auto (the name in a handwriting
  * font), Draw and Load (PNG/JPEG fitted into the pad), plus an optional frame
- * "Signed with Easy Sign" with the document code. The pad keeps what was
+ * "Signed with Easy Sign" (in the page language) with the document code. The pad keeps what was
  * entered and redraws it, so the frame and the font can change at any time.
  * The result is always the canvas as PNG, so the server validates one format.
  */
@@ -11,7 +11,15 @@
 
     var INK = '#0a1a6b';
     var FRAME = '#5f97a3';
+    var TEXT = {
+        en: { frame: 'Signed with Easy Sign', image: 'Use a PNG or JPEG image up to 2 MB.' },
+        es: { frame: 'Firmado con Easy Sign', image: 'Usa una imagen PNG o JPEG de hasta 2 MB.' },
+    };
     var FONTS = ['LaBelleAurore', 'MarckScript', 'ShadowsIntoLight', 'Zeyada', 'ReenieBeanie', 'OoohBaby'];
+
+    function t(key) {
+        return TEXT[window.EasySign && window.EasySign.lang && window.EasySign.lang() === 'es' ? 'es' : 'en'][key];
+    }
 
     function Pad(root, onChange) {
         this.root = root;
@@ -86,6 +94,8 @@
         this.canvas.addEventListener('pointermove', move);
         this.canvas.addEventListener('pointerup', end);
         this.canvas.addEventListener('pointercancel', end);
+        // The frame text follows the language until a signature is adopted.
+        document.addEventListener('es-lang', function () { if (!self.adopted) { self._render(); } });
     };
 
     /** The handwriting fonts ship with Odoo (web/static/fonts/sign); draw again once loaded. */
@@ -138,7 +148,7 @@
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'left';
         ctx.font = 'bold ' + Math.round(15 * sy) + 'px "Segoe UI", Arial, sans-serif';
-        ctx.fillText('Signed with Easy Sign', 120 * sx, 18 * sy);
+        ctx.fillText(t('frame'), 120 * sx, 18 * sy);
         if (this.code) {
             ctx.font = Math.round(14 * sy) + 'px Menlo, Consolas, monospace';
             ctx.fillText(this.code + '...', 120 * sx, 182 * sy);
@@ -229,7 +239,7 @@
         if (!file) { return; }
         if (file.size > 2 * 1024 * 1024 || !/^image\/(png|jpeg)$/.test(file.type)) {
             this.file.value = '';
-            window.alert('Use a PNG or JPEG image up to 2 MB.');
+            window.alert(t('image'));
             return;
         }
         var img = new Image();

@@ -18,22 +18,21 @@
             declineFailed: 'Failed to decline. Please try again.',
             noDocument: 'The document could not be displayed. Reload the page to try again.',
         },
-        ar: {
-            start: 'انقر للبدء', sign: 'وقّع', fill: 'املأ',
-            left1: 'بقي حقل إلزامي واحد', leftN: 'بقيت %s حقول إلزامية', ready: 'جاهز للتوقيع',
-            expired: 'انتهت الجلسة. أعد تحميل الصفحة وحاول مرة أخرى.',
-            addSignature: 'يرجى إضافة توقيعك.', complete: 'يرجى إكمال الحقول الإلزامية المحددة.',
-            code: 'أدخل الرمز المكون من 6 أرقام الذي أرسلناه إليك.', unexpected: 'حدث خطأ غير متوقع.',
-            network: 'خطأ في الشبكة. تحقق من اتصالك وحاول مرة أخرى.',
-            declineFailed: 'تعذر الرفض. حاول مرة أخرى.',
-            noDocument: 'تعذر عرض الوثيقة. أعد تحميل الصفحة وحاول مرة أخرى.',
+        es: {
+            start: 'Clic para empezar', sign: 'Firmar', fill: 'Completar',
+            left1: 'Falta 1 campo obligatorio', leftN: 'Faltan %s campos obligatorios', ready: 'Listo para firmar',
+            expired: 'Tu sesión expiró. Recarga la página e inténtalo de nuevo.',
+            addSignature: 'Agrega tu firma.', complete: 'Completa los campos obligatorios resaltados.',
+            code: 'Ingresa el código de 6 dígitos que te enviamos.', unexpected: 'Ocurrió un error inesperado.',
+            network: 'Error de red. Revisa tu conexión e inténtalo de nuevo.',
+            declineFailed: 'No se pudo rechazar. Inténtalo de nuevo.',
+            noDocument: 'No se pudo mostrar el documento. Recarga la página para intentarlo de nuevo.',
         },
     };
     var ZOOMS = [0.5, 0.75, 1, 1.25, 1.5, 2];
 
     function t(key) {
-        var lang = document.documentElement.getAttribute('lang') === 'ar' ? 'ar' : 'en';
-        return TEXT[lang][key];
+        return TEXT[window.EasySign.lang() === 'es' ? 'es' : 'en'][key];
     }
     function byId(id) { return document.getElementById(id); }
     function show(node, visible) { if (node) { node.classList.toggle('es-hidden', !visible); } }
@@ -186,7 +185,7 @@
             var area = pagesNode.getBoundingClientRect();
             // Arrow only when the label would cover the field.
             ribbon.classList.remove('es-ribbon-compact');
-            var room = document.documentElement.dir === 'rtl' ? area.right - box.right : box.left - area.left;
+            var room = box.left - area.left;
             ribbon.classList.toggle('es-ribbon-compact', room < ribbon.offsetWidth + 4);
             ribbon.style.top = (box.top - area.top + pagesNode.offsetTop + box.height / 2 - ribbon.offsetHeight / 2) + 'px';
         }
@@ -404,6 +403,9 @@
         });
 
         // Language switch changes the texts set from here.
-        byId('esBtnLang').addEventListener('click', function () { setTimeout(updateProgress, 0); });
+        document.addEventListener('es-lang', function () {
+            updateProgress();
+            fields.refreshLabels();
+        });
     });
 })();
