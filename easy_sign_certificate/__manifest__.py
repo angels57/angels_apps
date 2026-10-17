@@ -1,6 +1,6 @@
 {
     "name": "Easy Sign - Certificate Signature",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "summary": "Sign the final Easy Sign PDF with the company certificate (.p12/.pfx)",
     "description": """
 When a request is completed, the signed PDF is also signed cryptographically
@@ -9,9 +9,13 @@ signature panel. Without a certificate the flow does not change.
     """,
     "category": "Tools/Sign",
     "author": "Angels SAS",
+    "maintainer": "Angels SAS",
     "license": "LGPL-3",
     "depends": ["easy_sign", "certificate"],
     "data": ["views/res_company_views.xml", "views/res_config_settings_views.xml"],
+    "images": [
+        "static/description/main_screenshot.png",
+    ],
     "installable": True,
     "auto_install": False,
 }
