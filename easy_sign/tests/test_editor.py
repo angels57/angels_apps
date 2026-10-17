@@ -4,6 +4,7 @@ from odoo.exceptions import UserError
 from odoo.tests import tagged
 
 from .common import EasySignCase, make_pdf
+from ..utils.binary import binary_bytes
 
 
 @tagged("post_install", "-at_install")
@@ -155,7 +156,7 @@ class TestEditor(EasySignCase):
         signer._sign(make_png(), "draw", values={item.id: "EMP-4521", sig.id: "1"})
         self.assertEqual(request.state, "signed")
         self.assertEqual(item.value, "EMP-4521")
-        pdf = PdfReader(io.BytesIO(base64.b64decode(request.signed_document)))
+        pdf = PdfReader(io.BytesIO(binary_bytes(request.signed_document)))
         self.assertIn("EMP-4521", pdf.pages[0].extract_text())
 
     def test_prefilled_fields_editable_or_readonly(self):

@@ -1,10 +1,11 @@
-import base64
 import hashlib
 import io
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.pdf import PdfReader
+
+from ..utils.binary import binary_bytes
 
 
 class SignDocument(models.Model):
@@ -27,7 +28,7 @@ class SignDocument(models.Model):
 
     def _get_bytes(self):
         self.ensure_one()
-        return base64.b64decode(self.file) if self.file else b""
+        return binary_bytes(self.file)
 
     @api.depends("file")
     def _compute_page_count(self):

@@ -10,6 +10,7 @@ from odoo.exceptions import UserError
 from odoo.tools import format_date
 from odoo.tools.pdf import PdfReader, PdfWriter
 
+from ..utils.binary import binary_value
 from ..utils.pdf_overlay import PageOverlay
 
 _logger = logging.getLogger(__name__)
@@ -150,9 +151,9 @@ class SignRequest(models.Model):
         final = self._easy_sign_post_process_pdf(out.getvalue())
         base_name = (self.document_ids[:1].name or "document.pdf").rsplit(".", 1)[0]
         self.with_context(easy_sign_force=True).write({
-            "signed_document": base64.b64encode(final),
+            "signed_document": binary_value(final),
             "signed_document_name": f"{base_name}_signed.pdf",
             "signed_document_hash": hashlib.sha256(final).hexdigest(),
-            "certificate_pdf": base64.b64encode(certificate) if certificate else False,
+            "certificate_pdf": binary_value(certificate),
             "certificate_name": f"{base_name}_certificate.pdf" if certificate else False,
         })

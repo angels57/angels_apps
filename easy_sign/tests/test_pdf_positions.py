@@ -4,7 +4,6 @@ Positions are read back from the final PDF (PyPDF2 text visitor, user space)
 and converted to the *displayed* page with the PDF rule for ``/Rotate``
 (clockwise), independently of the overlay code.
 """
-import base64
 import io
 
 from reportlab.lib.pagesizes import A4, landscape
@@ -13,6 +12,7 @@ from odoo.tests import tagged
 from odoo.tools.pdf import PdfReader
 
 from .common import EasySignCase, make_pdf, make_png
+from ..utils.binary import binary_bytes
 
 TOLERANCE = 2.0  # points
 
@@ -33,7 +33,7 @@ def displayed_point(x, y, llx, lly, width, height, rotation):
 class TestPdfPositions(EasySignCase):
 
     def _signed_text_positions(self, request):
-        reader = PdfReader(io.BytesIO(base64.b64decode(request.signed_document)))
+        reader = PdfReader(io.BytesIO(binary_bytes(request.signed_document)))
         found = {}
         for page in reader.pages:
             box = page.mediabox

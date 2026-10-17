@@ -1,4 +1,3 @@
-import base64
 import io
 
 from PIL import Image, ImageDraw
@@ -6,6 +5,8 @@ from reportlab.pdfgen import canvas
 
 from odoo.tests.common import TransactionCase
 from odoo.tools.pdf import NameObject, NumberObject, PdfReader, PdfWriter
+
+from ..utils.binary import binary_value
 
 
 def make_pdf(pages=2, rotate=0, pagesize=None):
@@ -25,7 +26,7 @@ def make_pdf(pages=2, rotate=0, pagesize=None):
         out = io.BytesIO()
         writer.write(out)
         data = out.getvalue()
-    return base64.b64encode(data)
+    return binary_value(data)
 
 
 def make_png():

@@ -1,4 +1,3 @@
-import base64
 import hashlib
 import hmac
 import secrets
@@ -6,6 +5,8 @@ from datetime import timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+
+from ..utils.binary import binary_bytes, binary_value
 
 OTP_VALIDITY = timedelta(minutes=10)
 OTP_MAX_ATTEMPTS = 5
@@ -284,11 +285,11 @@ class SignRequestItem(models.Model):
         )
         return True
 
-    # Binary helpers: the only place that knows how binaries are stored (differs in 20.0).
+    # Binary helpers (see utils/binary.py, which differs in 20.0).
     @api.model
     def _binary_bytes(self, value):
-        return base64.b64decode(value) if value else b""
+        return binary_bytes(value)
 
     @api.model
     def _binary_value(self, raw):
-        return base64.b64encode(raw)
+        return binary_value(raw)

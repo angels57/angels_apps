@@ -1,4 +1,3 @@
-import base64
 import io
 
 from odoo.exceptions import UserError, ValidationError
@@ -7,6 +6,7 @@ from odoo.tools import mute_logger
 from odoo.tools.pdf import PdfReader
 
 from .common import EasySignCase, make_pdf, make_png
+from ..utils.binary import binary_bytes, binary_value
 
 
 @tagged("post_install", "-at_install")
@@ -24,8 +24,8 @@ class TestRequestFlow(EasySignCase):
         signer._sign(make_png(), "draw", ip_address="1.1.1.1", user_agent="test")
         self.assertEqual(request.state, "signed")
         self.assertTrue(signer.signer_hash)
-        signed = base64.b64decode(request.signed_document)
-        self.assertNotEqual(signed, base64.b64decode(request.document_ids.file))
+        signed = binary_bytes(request.signed_document)
+        self.assertNotEqual(signed, binary_bytes(request.document_ids.file))
         self.assertGreaterEqual(len(PdfReader(io.BytesIO(signed)).pages), 2)
         self.assertTrue(request.log_ids._check_chain())
 
@@ -119,7 +119,7 @@ class TestRequestFlow(EasySignCase):
     def test_invalid_pdf_and_field_outside_page(self):
         request = self.env["sign.request"].create({})
         with self.assertRaises(ValidationError):
-            self.env["sign.document"].create({"request_id": request.id, "file": base64.b64encode(b"hello")})
+            self.env["sign.document"].create({"request_id": request.id, "file": binary_value(b"hello")})
         doc = self.env["sign.document"].create({"request_id": request.id, "file": make_pdf(1)})
         signer = self.env["sign.request.item"].create({"request_id": request.id, "signer_name": "A", "signer_email": "a@x.test"})
         with self.assertRaises(Exception), mute_logger("odoo.sql_db"), self.env.cr.savepoint():
