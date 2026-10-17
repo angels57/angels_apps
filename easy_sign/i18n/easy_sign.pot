@@ -473,6 +473,8 @@ msgstr ""
 #. module: easy_sign
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_request_search
 #: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_template_search
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_form
 msgid "Archived"
 msgstr ""
 
@@ -654,6 +656,8 @@ msgstr ""
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request_item__partner_id
 #: model:ir.model.fields,field_description:easy_sign.field_sign_send_wizard_signer__partner_id
+#. odoo-python
+#: code:addons/easy_sign/models/sign_item_type.py:0
 msgid "Contact"
 msgstr ""
 
@@ -1005,6 +1009,7 @@ msgstr ""
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_request__item_ids
 #: model:ir.model.fields,field_description:easy_sign.field_sign_template__item_ids
+#: model:ir.ui.menu,name:easy_sign.menu_sign_item_types
 msgid "Fields"
 msgstr ""
 
@@ -2422,6 +2427,7 @@ msgstr ""
 #. module: easy_sign
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item__type
 #: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__base_type
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
 msgid "Type"
 msgstr ""
 
@@ -2786,4 +2792,43 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:easy_sign.sign_success
 #: model_terms:ir.ui.view,arch_db:easy_sign.verify_page
 msgid "🌐 <span id=\"esLangLabel\">عربي</span>"
+msgstr ""
+
+
+#. module: easy_sign
+#: model:ir.ui.menu,name:easy_sign.menu_sign_configuration
+msgid "Configuration"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.actions.act_window,name:easy_sign.action_sign_item_type
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
+msgid "Signature Fields"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_model
+msgid "Linked to"
+msgstr ""
+
+#. module: easy_sign
+#: model:ir.model.fields,field_description:easy_sign.field_sign_item_type__linked_field_name
+msgid "Linked Field"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_list
+#: model_terms:ir.ui.view,arch_db:easy_sign.view_sign_item_type_search
+msgid "Field Name"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
+msgid "Create a field type"
+msgstr ""
+
+#. module: easy_sign
+#: model_terms:ir.actions.act_window,help:easy_sign.action_sign_item_type
+msgid "Field types make up the palette of the document editor."
 msgstr ""

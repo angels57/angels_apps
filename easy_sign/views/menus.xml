@@ -7,5 +7,9 @@
               action="action_sign_request" sequence="10"/>
     <menuitem id="menu_sign_templates" name="Templates" parent="menu_easy_sign_root"
               action="action_sign_template" sequence="20"/>
+    <menuitem id="menu_sign_configuration" name="Configuration" parent="menu_easy_sign_root"
+              sequence="90" groups="easy_sign.group_sign_manager"/>
+    <menuitem id="menu_sign_item_types" name="Fields" parent="menu_sign_configuration"
+              action="action_sign_item_type" sequence="20"/>
 
 </odoo>

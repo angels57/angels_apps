@@ -22,11 +22,20 @@ class SignItemType(models.Model):
     required = fields.Boolean(default=True)
     readonly = fields.Boolean()
     placeholder = fields.Char(translate=True)
+    linked_model = fields.Char(string="Linked to", compute="_compute_linked")
+    linked_field_name = fields.Char(string="Linked Field", compute="_compute_linked")
 
     _size_check = models.Constraint(
         "CHECK (default_width > 0 AND default_width <= 1 AND default_height > 0 AND default_height <= 1)",
         "The default size is a fraction of the page (0-1).",
     )
+
+    @api.depends("linked_field")
+    def _compute_linked(self):
+        # Every auto-complete value comes from the signer's contact.
+        for item_type in self:
+            item_type.linked_model = self.env._("Contact") if item_type.linked_field else False
+            item_type.linked_field_name = (item_type.linked_field or "").removeprefix("partner_id.") or False
 
     @api.model
     def _editor_palette(self):

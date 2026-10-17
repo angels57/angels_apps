@@ -92,11 +92,52 @@
             </form>
         </field>
     </record>
+    <record id="view_sign_item_type_list" model="ir.ui.view">
+        <field name="name">sign.item.type.list</field>
+        <field name="model">sign.item.type</field>
+        <field name="arch" type="xml">
+            <list string="Signature Fields">
+                <field name="sequence" widget="handle"/>
+                <field name="name" string="Field Name"/>
+                <field name="base_type"/>
+                <field name="linked_model"/>
+                <field name="linked_field_name"/>
+                <field name="required" optional="hide"/>
+                <field name="readonly" optional="hide"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_sign_item_type_search" model="ir.ui.view">
+        <field name="name">sign.item.type.search</field>
+        <field name="model">sign.item.type</field>
+        <field name="arch" type="xml">
+            <search string="Signature Fields">
+                <field name="name" string="Field Name"/>
+                <field name="base_type"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group name="group_by">
+                    <filter name="group_type" string="Type" context="{'group_by': 'base_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_sign_item_type" model="ir.actions.act_window">
+        <field name="name">Signature Fields</field>
+        <field name="res_model">sign.item.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_sign_item_type_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a field type</p>
+            <p>Field types make up the palette of the document editor.</p>
+        </field>
+    </record>
     <record id="view_sign_item_type_form" model="ir.ui.view">
         <field name="name">sign.item.type.form</field>
         <field name="model">sign.item.type</field>
         <field name="arch" type="xml">
             <form string="Field Type">
+                <field name="active" invisible="1"/>
+                <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                 <group>
                     <group>
                         <field name="name"/>
