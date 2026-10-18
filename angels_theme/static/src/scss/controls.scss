@@ -1,0 +1,246 @@
+// Buttons, focus, tags, empty states and check controls of every app.
+// The motion that goes with them lives in motion.scss.
+
+// = Buttons
+.btn {
+    --#{$variable-prefix}btn-border-radius: #{$at-radius};
+}
+
+.btn-primary {
+    --#{$variable-prefix}btn-hover-bg: #{$at-brand-dark};
+    --#{$variable-prefix}btn-hover-border-color: #{$at-brand-dark};
+    --#{$variable-prefix}btn-active-bg: #{$at-brand-dark};
+    --#{$variable-prefix}btn-active-border-color: #{$at-brand-dark};
+}
+
+// White with a hairline instead of Odoo's filled gray.
+.btn-secondary {
+    --#{$variable-prefix}btn-color: #{$at-ink};
+    --#{$variable-prefix}btn-bg: #{$o-view-background-color};
+    --#{$variable-prefix}btn-border-color: #{$at-line};
+    --#{$variable-prefix}btn-hover-color: #{$at-ink};
+    --#{$variable-prefix}btn-hover-bg: #{$at-home-bg};
+    --#{$variable-prefix}btn-hover-border-color: #{$o-gray-400};
+    --#{$variable-prefix}btn-active-color: #{$at-ink};
+    --#{$variable-prefix}btn-active-bg: #{$o-gray-200};
+    --#{$variable-prefix}btn-active-border-color: #{$o-gray-400};
+}
+
+// A soft brand wash on hover instead of an underline.
+.btn-link {
+    --#{$variable-prefix}btn-hover-bg: #{$at-brand-soft};
+    text-decoration: none;
+
+    &:hover, &:focus-visible {
+        text-decoration: none;
+    }
+}
+
+// Form header: every button the same height.
+.o_form_statusbar .o_statusbar_buttons > .btn {
+    min-height: 32px;
+}
+
+// = Focus, selection and scrollbars
+:root {
+    accent-color: var(--at-brand);
+}
+
+.o_web_client {
+    ::selection {
+        background-color: $at-brand-soft;
+        color: $at-brand-dark;
+    }
+
+    // Only with the keyboard: a click does not leave a ring behind.
+    .btn:focus-visible,
+    .form-check-input:focus-visible {
+        outline: 0;
+        box-shadow: 0 0 0 3px rgba($at-brand, .25);
+    }
+
+    a:focus-visible {
+        outline: 2px solid rgba($at-brand, .45);
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+
+    &, * {
+        scrollbar-width: thin;
+        scrollbar-color: $o-gray-400 transparent;
+    }
+}
+
+// = Tags and badges
+// Many2many tags: pills, with the delete cross shown on hover.
+.o_tag.o_badge {
+    padding: .25em .7em;
+    border-radius: 999px;
+    font-weight: 500;
+}
+
+@media (hover: hover) {
+    .o_tag.o_badge > .o_delete {
+        opacity: 0 !important;
+        transition: opacity .15s;
+    }
+
+    .o_tag.o_badge:hover > .o_delete,
+    .o_tag.o_badge > .o_delete:focus-visible {
+        opacity: .75 !important;
+    }
+}
+
+// Status badges (widget="badge"): a soft pill with a dot of its color.
+.o_field_badge .badge {
+    max-width: 100%;
+    padding: .3em .75em;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        margin-right: 6px;
+        border-radius: 50%;
+        background-color: currentColor;
+        vertical-align: middle;
+    }
+
+    @each $-name in (primary, success, info, warning, danger) {
+        $-color: map-get($theme-colors, $-name);
+
+        &.text-bg-#{$-name} {
+            background-color: mix($-color, #fff, 14%) !important;
+            color: mix($-color, #000, 60%) !important;
+        }
+    }
+
+    &.text-bg-300 {
+        background-color: $o-gray-100 !important;
+        color: $at-ink-muted !important;
+    }
+}
+
+// = Empty states: a card with a brand icon and a clear call to action
+$at-empty-icon: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#{$at-brand}' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M14 3v4a1 1 0 0 0 1 1h4'/><path d='M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z'/><path d='M12 11v6M9 14h6'/></svg>";
+
+.o_view_nocontent .o_nocontent_help {
+    max-width: 520px;
+    padding: 32px 28px;
+    border-radius: 16px;
+    background-color: $o-view-background-color;
+    box-shadow: $at-home-shadow;
+    color: $text-muted;
+    font-size: 14px;
+
+    > p:first-of-type {
+        margin-bottom: 6px;
+        color: $at-ink;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .o_view_nocontent_smiling_face,
+    .o_view_nocontent_neutral_face,
+    .o_view_nocontent_empty_folder {
+        &::before {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            border-radius: 18px;
+            background: $at-brand-soft escape-svg(url("data:image/svg+xml,#{$at-empty-icon}")) no-repeat center / 32px;
+        }
+    }
+}
+
+// = Checkbox, radio and switches
+.form-check-input {
+    border-color: $o-gray-500;
+
+    &[type="checkbox"] {
+        border-radius: 4px;
+    }
+
+    // An open ring with a brand dot, not a filled disc.
+    &[type="radio"]:checked {
+        background-color: $o-view-background-color;
+        background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='2' fill='#{$at-brand}'/></svg>"));
+        border-color: $at-brand;
+    }
+}
+
+// Switches in the brand color instead of Odoo's green.
+.form-switch {
+    .form-check-input:checked {
+        background-color: $at-brand;
+        border-color: $at-brand;
+    }
+
+    .form-check-input:focus,
+    &:hover .form-check-input:not(:disabled) {
+        border-color: $at-brand;
+    }
+}
+
+// Selected list rows take the brand tint instead of Odoo's light blue.
+.o_list_renderer .o_data_row.o_data_row_selected > td {
+    --#{$variable-prefix}table-bg: #{mix($at-brand, #fff, 8%)};
+}
+
+// Horizontal radio fields as a segmented control.
+.o_field_radio > .o_horizontal {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 2px;
+    border-radius: $at-radius;
+    background-color: $o-gray-200;
+
+    > .o_radio_item {
+        position: relative;
+        margin: 0;
+        padding: 0;
+
+        > .o_radio_input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        > .form-check-label {
+            display: block;
+            padding: 3px 12px;
+            border-radius: 6px;
+            color: $at-ink-muted;
+            font-weight: 400;
+            cursor: pointer;
+            transition: background-color .15s, color .15s, box-shadow .15s;
+        }
+
+        > .o_radio_input:checked + .form-check-label {
+            background-color: $o-view-background-color;
+            box-shadow: 0 0 0 1px $at-line;
+            color: $at-ink;
+            font-weight: 500;
+        }
+
+        > .o_radio_input:focus-visible + .form-check-label {
+            box-shadow: 0 0 0 3px rgba($at-brand, .25);
+        }
+
+        > .o_radio_input:disabled + .form-check-label {
+            cursor: default;
+        }
+    }
+}
+
+// Priority stars in amber.
+.o_field_widget .o_priority > .o_priority_star.fa-star,
+.o_field_widget.o_priority > .o_priority_star.fa-star {
+    color: #ef9f27;
+}
