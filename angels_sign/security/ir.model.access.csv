@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sign_request_user,sign.request user,model_sign_request,angels_sign.group_sign_user,1,1,1,0
+access_sign_request_manager,sign.request manager,model_sign_request,angels_sign.group_sign_manager,1,1,1,1
+access_sign_request_item_user,sign.request.item user,model_sign_request_item,angels_sign.group_sign_user,1,1,1,1
+access_sign_document_user,sign.document user,model_sign_document,angels_sign.group_sign_user,1,1,1,1
+access_sign_item_user,sign.item user,model_sign_item,angels_sign.group_sign_user,1,1,1,1
+access_sign_log_user,sign.log user,model_sign_log,angels_sign.group_sign_user,1,0,0,0
+access_sign_template_user,sign.template user,model_sign_template,angels_sign.group_sign_user,1,0,0,0
+access_sign_template_manager,sign.template manager,model_sign_template,angels_sign.group_sign_manager,1,1,1,1
+access_sign_role_user,sign.role user,model_sign_role,angels_sign.group_sign_user,1,0,0,0
+access_sign_role_manager,sign.role manager,model_sign_role,angels_sign.group_sign_manager,1,1,1,1
+access_sign_tag_user,sign.tag user,model_sign_tag,angels_sign.group_sign_user,1,1,1,0
+access_sign_tag_manager,sign.tag manager,model_sign_tag,angels_sign.group_sign_manager,1,1,1,1
+access_sign_send_wizard_user,sign.send.wizard user,model_sign_send_wizard,angels_sign.group_sign_user,1,1,1,1
+access_sign_send_wizard_signer_user,sign.send.wizard.signer user,model_sign_send_wizard_signer,angels_sign.group_sign_user,1,1,1,1
+access_sign_item_type_user,sign.item.type user,model_sign_item_type,angels_sign.group_sign_user,1,0,0,0
+access_sign_item_type_manager,sign.item.type manager,model_sign_item_type,angels_sign.group_sign_manager,1,1,1,1
