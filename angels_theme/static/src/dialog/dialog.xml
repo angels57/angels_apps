@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!--
+        Header of every dialog: the icon and name of the current app around
+        the title, and on phones (where the dialog is a bottom sheet, see
+        dialog.scss) a close button instead of Odoo's back arrow.
+    -->
+    <t t-inherit="web.Dialog.header" t-inherit-mode="extension">
+        <xpath expr="//h4[hasclass('modal-title')]" position="before">
+            <img t-if="this.angelsApp and this.angelsApp.webIconData" class="o_at_dialog_icon"
+                t-att-src="this.angelsApp.webIconData" alt=""/>
+        </xpath>
+        <xpath expr="//h4[hasclass('modal-title')]" position="inside">
+            <small t-if="this.angelsApp" class="o_at_dialog_app" t-out="this.angelsApp.name"/>
+        </xpath>
+        <xpath expr="//t[@t-if='!fullscreen']" position="before">
+            <button t-if="fullscreen" type="button" class="btn-close o_at_dialog_close" aria-label="Close"
+                tabindex="-1" t-on-click="dismiss"/>
+        </xpath>
+    </t>
+
+    <!-- Wizards and other actions opened in a dialog use this copy of the
+         header, built before the extension above: extend it the same way. -->
+    <t t-inherit="web.ActionDialog.header" t-inherit-mode="extension">
+        <xpath expr="//h4[hasclass('modal-title')]" position="before">
+            <img t-if="this.angelsApp and this.angelsApp.webIconData" class="o_at_dialog_icon"
+                t-att-src="this.angelsApp.webIconData" alt=""/>
+        </xpath>
+        <xpath expr="//h4[hasclass('modal-title')]" position="inside">
+            <small t-if="this.angelsApp" class="o_at_dialog_app" t-out="this.angelsApp.name"/>
+        </xpath>
+        <xpath expr="//t[@t-if='!fullscreen']" position="before">
+            <button t-if="fullscreen" type="button" class="btn-close o_at_dialog_close" aria-label="Close"
+                tabindex="-1" t-on-click="dismiss"/>
+        </xpath>
+    </t>
+</templates>
