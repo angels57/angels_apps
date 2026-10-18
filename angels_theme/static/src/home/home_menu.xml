@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="angels_theme.HomeMenu">
+        <div t-attf-class="o_at_home o_at_home_bg_{{ this.background }}" t-att-style="this.backgroundStyle">
+            <div class="o_at_home_search" t-att-class="{ 'o_at_home_search_active': this.state.query }">
+                <svg class="o_at_home_search_icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="M20 20l-4-4"/>
+                </svg>
+                <input type="text" t-att-value="this.state.query" t-on-input="this.onInput"
+                    t-att-placeholder="this.searchPlaceholder" autocomplete="off"/>
+            </div>
+
+            <div t-if="this.state.query.trim()" class="o_at_home_results" role="listbox">
+                <a t-foreach="this.results" t-as="entry" t-key="entry.id" href="#" role="option"
+                    class="o_at_home_result" t-att-class="{ 'o_at_focus': entry_index === this.state.focused }"
+                    t-on-click.prevent="() => this.open(entry.menu)">
+                    <img t-if="entry.app.webIconData" class="o_at_home_result_icon" t-att-src="entry.app.webIconData" alt=""/>
+                    <span t-else="" class="o_at_home_result_icon o_at_home_initial" t-out="this.initial(entry.app)"/>
+                    <span t-out="entry.label"/>
+                </a>
+                <div t-if="!this.results.length" class="o_at_home_empty">No results</div>
+            </div>
+
+            <div t-else="" class="o_at_home_grid">
+                <a t-foreach="this.apps" t-as="app" t-key="app.id" href="#" class="o_at_home_app"
+                    t-att-class="{ 'o_at_focus': app_index === this.state.focused }"
+                    t-att-data-menu-xmlid="app.xmlid" t-on-click.prevent="() => this.open(app)">
+                    <span class="o_at_home_tile">
+                        <img t-if="app.webIconData" t-att-src="app.webIconData" alt=""/>
+                        <span t-else="" class="o_at_home_initial" t-out="this.initial(app)"/>
+                    </span>
+                    <span class="o_at_home_name" t-out="app.name"/>
+                </a>
+            </div>
+        </div>
+    </t>
+</templates>

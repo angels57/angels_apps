@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_navbar_apps_menu')]/Dropdown" position="replace">
+            <button class="o_at_home_toggle" data-hotkey="h" title="Home Menu" t-on-click="() => this.angelsOpenHome()">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3" y="3" width="5" height="5" rx="1.2"/>
+                    <rect x="9.5" y="3" width="5" height="5" rx="1.2"/>
+                    <rect x="16" y="3" width="5" height="5" rx="1.2"/>
+                    <rect x="3" y="9.5" width="5" height="5" rx="1.2"/>
+                    <rect x="9.5" y="9.5" width="5" height="5" rx="1.2"/>
+                    <rect x="16" y="9.5" width="5" height="5" rx="1.2"/>
+                    <rect x="3" y="16" width="5" height="5" rx="1.2"/>
+                    <rect x="9.5" y="16" width="5" height="5" rx="1.2"/>
+                    <rect x="16" y="16" width="5" height="5" rx="1.2"/>
+                </svg>
+            </button>
+        </xpath>
+    </t>
+</templates>

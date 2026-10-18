@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 14:33+0000\n"
+"POT-Creation-Date: 2026-10-18 14:47+0000\n"
 "PO-Revision-Date: 2026-10-18 14:33+0000\n"
 "Last-Translator: Angels SAS\n"
 "Language-Team: \n"
@@ -17,10 +17,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: angels_theme
+#: model_terms:ir.ui.view,arch_db:angels_theme.view_company_form_angels_theme
 #: model_terms:ir.ui.view,arch_db:angels_theme.view_users_form_angels_theme
 #: model_terms:ir.ui.view,arch_db:angels_theme.view_users_form_simple_modif_angels_theme
 msgid "Appearance"
 msgstr "Apariencia"
+
+#. module: angels_theme
+#: model:ir.model.fields,help:angels_theme.field_res_company__angels_home_background
+msgid "Background of the home screen that lists the apps."
+msgstr "Fondo de la pantalla de inicio que muestra las aplicaciones."
+
+#. module: angels_theme
+#: model:ir.model.fields.selection,name:angels_theme.selection__res_company__angels_home_background__gradient
+msgid "Brand Gradient"
+msgstr "Degradado de marca"
 
 #. module: angels_theme
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_users__angels_theme_density__comfortable
@@ -33,12 +44,18 @@ msgid "Compact"
 msgstr "Compacta"
 
 #. module: angels_theme
+#: model:ir.model,name:angels_theme.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: angels_theme
 #: model:ir.model.fields,field_description:angels_theme.field_res_users__angels_theme_density
 msgid "Density"
 msgstr "Densidad"
 
 #. module: angels_theme
 #: model:ir.model.fields,field_description:angels_theme.field_ir_http__display_name
+#: model:ir.model.fields,field_description:angels_theme.field_res_company__display_name
 #: model:ir.model.fields,field_description:angels_theme.field_res_users__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
@@ -49,10 +66,43 @@ msgid "HTTP Routing"
 msgstr "Enrutamiento HTTP"
 
 #. module: angels_theme
+#: model:ir.actions.client,name:angels_theme.action_home
+msgid "Home"
+msgstr "Inicio"
+
+#. module: angels_theme
+#: model:ir.model.fields,field_description:angels_theme.field_res_company__angels_home_background
+msgid "Home Background"
+msgstr "Fondo de inicio"
+
+#. module: angels_theme
+#: model:ir.model.fields,field_description:angels_theme.field_res_company__angels_home_image
+msgid "Home Image"
+msgstr "Imagen de inicio"
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/home/navbar.xml:0
+msgid "Home Menu"
+msgstr "Menú de inicio"
+
+#. module: angels_theme
 #: model:ir.model.fields,field_description:angels_theme.field_ir_http__id
+#: model:ir.model.fields,field_description:angels_theme.field_res_company__id
 #: model:ir.model.fields,field_description:angels_theme.field_res_users__id
 msgid "ID"
 msgstr "ID"
+
+#. module: angels_theme
+#: model:ir.model.fields.selection,name:angels_theme.selection__res_company__angels_home_background__image
+msgid "Image"
+msgstr "Imagen"
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/home/home_menu.xml:0
+msgid "No results"
+msgstr "Sin resultados"
 
 #. module: angels_theme
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_users__angels_theme_density__normal
@@ -63,6 +113,17 @@ msgstr "Normal"
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_users__angels_theme_tab_style__pill
 msgid "Pill"
 msgstr "Píldora"
+
+#. module: angels_theme
+#: model:ir.model.fields.selection,name:angels_theme.selection__res_company__angels_home_background__plain
+msgid "Plain"
+msgstr "Liso"
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/home/home_menu.js:0
+msgid "Search apps and menus..."
+msgstr "Buscar aplicaciones y menús..."
 
 #. module: angels_theme
 #: model:ir.model.fields,help:angels_theme.field_res_users__angels_theme_density
