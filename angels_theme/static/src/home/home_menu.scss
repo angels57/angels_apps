@@ -40,28 +40,12 @@ body.o_at_home_open {
     }
 
     .o_main_navbar {
-        background: transparent;
-        border-bottom-color: transparent;
-        box-shadow: none;
-        color: $body-color;
-
         // The grid already lists the apps: the side menu would be empty here.
         .o_menu_brand,
         .o_menu_sections,
-        .o_menu_toggle {
+        .o_menu_toggle,
+        .o_at_brand_icon {
             display: none !important;
-        }
-
-        .o_at_home_toggle,
-        .o_menu_systray > * > button,
-        .o_menu_systray .o_nav_entry,
-        .o_menu_systray .dropdown-toggle {
-            color: $body-color;
-        }
-
-        .o_at_home_toggle:hover,
-        .o_menu_systray > * > button:hover {
-            background: rgba(#000, .05);
         }
     }
 }

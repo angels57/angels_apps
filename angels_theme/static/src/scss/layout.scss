@@ -1,0 +1,85 @@
+// Enterprise-style layout for every app: the views sit on the gray page as
+// white cards, with a round search box and quieter labels.
+
+// = Navbar
+.o_main_navbar {
+    .o_at_brand_icon {
+        align-self: center;
+        width: 30px;
+        height: 26px;
+        margin-left: 4px;
+        object-fit: contain;
+    }
+
+    .o_menu_brand {
+        padding-left: 6px;
+    }
+}
+
+// = Control panel and search
+.o_control_panel {
+    padding-bottom: 16px;
+}
+
+.o_cp_searchview {
+    .o_searchview {
+        background-color: $o-view-background-color;
+        border-radius: 999px 0 0 999px;
+        padding-left: 14px;
+    }
+
+    .o_searchview_dropdown_toggler {
+        background-color: $o-view-background-color;
+        border-radius: 0 999px 999px 0;
+    }
+}
+
+// = Lists on a white card
+.o_list_view .o_list_renderer {
+    --ListRenderer-thead-bg-color: #{$o-view-background-color};
+
+    background-color: $o-view-background-color;
+    border-radius: 12px 12px 0 0;
+
+    .o_list_table {
+        thead th {
+            background-color: transparent;
+            border-bottom: 0;
+            font-weight: 400;
+            color: $at-ink-muted;
+        }
+
+        tbody > tr.o_data_row > td {
+            border-top: 0;
+            border-bottom: 1px solid $at-line;
+        }
+    }
+}
+
+// = Search panel (left filters)
+.o_search_panel {
+    background-color: transparent;
+
+    .o_search_panel_category_value header.active,
+    .o_search_panel_filter_value.active {
+        border-radius: 6px;
+        background-color: rgba($at-brand, .1);
+        color: #000;
+        font-weight: 500;
+    }
+}
+
+// = Forms
+.o_form_view {
+    .o_form_sheet_bg > .o_form_sheet {
+        border: 1px solid $at-line;
+        border-radius: 8px;
+    }
+
+    // Same specificity as Odoo's bold label rules, loaded after them.
+    .o_form_label,
+    .o_group .o_wrap_label .o_form_label {
+        font-weight: 400;
+        color: rgba($at-ink-muted, .76);
+    }
+}

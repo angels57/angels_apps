@@ -1,6 +1,6 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
 Angels Theme - Backend Theme for Odoo 19
@@ -9,6 +9,8 @@ Angels Theme - Backend Theme for Odoo 19
 A backend theme that every app inherits without changing its views.
 
 * Brand color, radius and surfaces defined once as SCSS tokens
+* Enterprise-style layout: light navbar with the app icon, views as white
+  cards on a gray page, round search box, quieter labels
 * Restyled notebook tabs (underline or pill) with a sticky header in forms
 * Tabs show a record counter when the page holds one list
 * Each form remembers the last tab you opened
@@ -36,6 +38,7 @@ A backend theme that every app inherits without changing its views.
             "angels_theme/static/src/scss/tokens.scss",
             "angels_theme/static/src/scss/notebook.scss",
             "angels_theme/static/src/scss/density.scss",
+            "angels_theme/static/src/scss/layout.scss",
             "angels_theme/static/src/js/*.js",
             "angels_theme/static/src/xml/*.xml",
             "angels_theme/static/src/home/*.scss",
