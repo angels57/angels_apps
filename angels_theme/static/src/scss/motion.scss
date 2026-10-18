@@ -160,6 +160,15 @@ $at-ease-back: cubic-bezier(.3, 1.6, .5, 1);
     }
 }
 
+// Sample data behind an empty view stays faded: no rise, which would light
+// the ghost records up for a moment.
+.o_view_sample_data {
+    .o_list_renderer .o_data_row,
+    .o_kanban_renderer .o_kanban_record {
+        animation: none;
+    }
+}
+
 // = Errors: an invalid field shakes once when the save is refused
 .o_form_view .o_field_widget.o_field_invalid {
     animation: o_at_shake .35s;

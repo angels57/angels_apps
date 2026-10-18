@@ -4,8 +4,9 @@
 // editable lists stay bare until edited.
 
 // Only the outer input of a field: nested ones (the many2many tags input,
-// the autocomplete inside a many2one) keep Odoo's bare look.
-$at-input: ".o_input:not(.o_input .o_input):not(.o_list_renderer .o_input):not(.oe_title .o_input)";
+// the autocomplete inside a many2one) keep Odoo's bare look, and so does
+// the search box of the settings page.
+$at-input: ".o_input:not(.o_input .o_input):not(.o_list_renderer .o_input):not(.oe_title .o_input):not(.o_searchview .o_input)";
 
 .o_form_view,
 .o_datetime_picker {
