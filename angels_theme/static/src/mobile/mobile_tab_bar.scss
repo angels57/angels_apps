@@ -60,6 +60,16 @@ $at-tab-bar-gap: 12px;
         }
     }
 
+    // No bar over an open conversation either: on phones Discuss shows it
+    // full screen, with its own close button, and the bar would cover its
+    // composer.
+    body:has(.o-mail-ChatWindow.o-mobile) .o_main_navbar {
+        transform: translateY(calc(100% + #{$at-tab-bar-gap * 2}));
+        visibility: hidden;
+        pointer-events: none;
+        transition: none;
+    }
+
     // = Tabs
     .o_at_tab {
         flex: 1 1 0;
