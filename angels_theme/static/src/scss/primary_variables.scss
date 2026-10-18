@@ -1,0 +1,13 @@
+// Brand tokens. Loaded before web/primary_variables.scss, so these values
+// win over Odoo's `!default` ones and every app inherits them.
+$at-brand: #534ab7 !default;
+$at-brand-dark: #3c3489 !default;
+$at-brand-soft: #eeedfe !default;
+$at-radius: 8px !default;
+
+$o-community-color: $at-brand;
+$o-brand-odoo: $at-brand;
+$o-brand-primary: $at-brand;
+$o-border-radius: o-to-rem(6px);
+$o-border-radius-sm: o-to-rem(4px);
+$o-border-radius-lg: o-to-rem($at-radius);

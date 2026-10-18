@@ -1,0 +1,24 @@
+// Per-user density. The web client sets `o_at_density_*` on <body>.
+.o_at_density_compact {
+    --at-row-padding-y: 2px;
+    --at-field-gap: 0;
+}
+
+.o_at_density_comfortable {
+    --at-row-padding-y: 10px;
+    --at-field-gap: 8px;
+}
+
+.o_at_density_compact,
+.o_at_density_comfortable {
+    .o_list_renderer .o_list_table tbody > tr.o_data_row > td {
+        padding-top: var(--at-row-padding-y);
+        padding-bottom: var(--at-row-padding-y);
+    }
+
+    .o_form_view .o_inner_group > .o_wrap_field,
+    .o_form_view .o_inner_group > div > .o_wrap_field {
+        padding-top: var(--at-field-gap);
+        padding-bottom: var(--at-field-gap);
+    }
+}

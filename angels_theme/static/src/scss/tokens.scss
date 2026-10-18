@@ -1,0 +1,11 @@
+// Runtime tokens: the rest of the theme reads these CSS variables, so a
+// company or user override only has to redefine them on `:root`.
+:root {
+    --at-brand: #{$at-brand};
+    --at-brand-dark: #{$at-brand-dark};
+    --at-brand-soft: #{$at-brand-soft};
+    --at-radius: #{$at-radius};
+    --at-danger: #{map-get($theme-colors, 'danger')};
+    --at-row-padding-y: #{$table-cell-padding-y-sm};
+    --at-field-gap: 4px;
+}
