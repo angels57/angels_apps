@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 18:42+0000\n"
+"POT-Creation-Date: 2026-10-18 18:54+0000\n"
 "PO-Revision-Date: 2026-10-18 14:33+0000\n"
 "Last-Translator: Angels SAS\n"
 "Language-Team: \n"
@@ -203,6 +203,16 @@ msgstr "Buscar"
 #: code:addons/angels_theme/static/src/home/home_menu.js:0
 msgid "Search apps and menus..."
 msgstr "Buscar aplicaciones y menús..."
+
+#. module: angels_theme
+#: model:ir.model.fields,field_description:angels_theme.field_res_users__angels_home_show_recents
+msgid "Show Recent Apps"
+msgstr "Mostrar aplicaciones recientes"
+
+#. module: angels_theme
+#: model:ir.model.fields,help:angels_theme.field_res_users__angels_home_show_recents
+msgid "Show the last apps you opened at the top of the home screen."
+msgstr "Muestra arriba de la pantalla de inicio las últimas aplicaciones que abriste."
 
 #. module: angels_theme
 #: model:ir.model.fields,help:angels_theme.field_res_users__angels_theme_density

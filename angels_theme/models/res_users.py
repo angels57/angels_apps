@@ -1,6 +1,6 @@
 from odoo import fields, models
 
-THEME_FIELDS = ["angels_theme_density", "angels_theme_tab_style"]
+THEME_FIELDS = ["angels_theme_density", "angels_theme_tab_style", "angels_home_show_recents"]
 
 
 class ResUsers(models.Model):
@@ -25,6 +25,10 @@ class ResUsers(models.Model):
         string="Tab Style",
         default="underline",
         required=True,
+    )
+    angels_home_show_recents = fields.Boolean(
+        string="Show Recent Apps",
+        help="Show the last apps you opened at the top of the home screen.",
     )
 
     @property

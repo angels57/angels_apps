@@ -37,10 +37,20 @@ $at-tab-bar-gap: 12px;
         padding-bottom: calc(#{$at-tab-bar-height + $at-tab-bar-gap * 2} + env(safe-area-inset-bottom));
     }
 
-    // The home screen keeps the bar (with its "Home" tab active), unlike the
-    // desktop navbar that loses its app name there.
-    body.o_at_home_open .o_main_navbar {
-        background: rgba(#fff, .96);
+    // No bar on the home screen: the grid is the navigation there, and the
+    // bar comes back as soon as an app opens.
+    body.o_at_home_open {
+        // Moved out of view, like when scrolling down.
+        .o_main_navbar {
+            transform: translateY(calc(100% + #{$at-tab-bar-gap * 2}));
+            visibility: hidden;
+            pointer-events: none;
+            transition: none;
+        }
+
+        .o_action_manager {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
     }
 
     // = Tabs

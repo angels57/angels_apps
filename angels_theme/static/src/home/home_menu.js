@@ -73,6 +73,10 @@ export class HomeMenu extends Component {
     }
 
     get recentApps() {
+        // Off unless the user turns it on in their preferences.
+        if (!session.angels_theme?.home_show_recents) {
+            return [];
+        }
         return this.recentXmlids
             .map((xmlid) => this.allApps.find((app) => app.xmlid === xmlid))
             .filter(Boolean);
