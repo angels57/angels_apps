@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<template id="sign_pad" name="Easy Sign - Signature Pad">
+<template id="sign_pad" name="Angels Sign - Signature Pad">
     <div t-att-class="'es-pad ' + (pad_class or '')" t-att-data-pad="pad_name" t-att-data-frame-code="frame_code">
         <label class="es-pad-label es-i18n" t-att-data-en="pad_label" t-att-data-es="pad_label_es" t-att-for="'esPadText_' + pad_name" t-out="pad_label"/>
         <input type="text" t-att-id="'esPadText_' + pad_name" class="es-pad-text es-textarea" maxlength="60" t-att-value="pad_default or ''"/>
@@ -36,7 +36,7 @@
     </div>
 </template>
 
-<template id="sign_dialog" name="Easy Sign - Dialog">
+<template id="sign_dialog" name="Angels Sign - Dialog">
     <div t-att-id="dialog_id" class="es-dialog es-hidden" role="dialog" aria-modal="true">
         <div class="es-dialog-card">
             <div class="es-dialog-header">
@@ -48,13 +48,13 @@
     </div>
 </template>
 
-<template id="sign_page" name="Easy Sign - Sign Document">
+<template id="sign_page" name="Angels Sign - Sign Document">
 <html lang="en" id="esRoot">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="robots" content="noindex, nofollow"/>
-    <title>Sign Document - Easy Sign</title>
+    <title>Sign Document - Angels Sign</title>
     <t t-call-assets="angels_sign.assets_sign_page" t-js="false"/>
 </head>
 <body class="es-body es-sign-body">
@@ -153,7 +153,7 @@
 
     <footer class="es-actionbar">
         <span class="es-actionbar-secured">
-            <span class="es-i18n" data-en="Secured by" data-es="Protegido por">Secured by</span> <strong>Easy Sign</strong>
+            <span class="es-i18n" data-en="Secured by" data-es="Protegido por">Secured by</span> <strong>Angels Sign</strong>
         </span>
         <span id="esProgressText" class="es-progress-text"/>
         <button id="btnSign" type="button" class="es-btn-sign"
@@ -242,13 +242,13 @@
 </html>
 </template>
 
-<template id="result_layout" name="Easy Sign - Result Layout">
+<template id="result_layout" name="Angels Sign - Result Layout">
 <html lang="en" id="esRoot">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="robots" content="noindex, nofollow"/>
-    <title t-out="page_title or 'Easy Sign'"/>
+    <title t-out="page_title or 'Angels Sign'"/>
     <t t-call-assets="angels_sign.assets_sign_result" t-js="false"/>
 </head>
 <body class="es-body es-result-body">
@@ -256,7 +256,7 @@
         <t t-out="0"/>
         <div class="es-result-footer">
             <span class="es-i18n" data-en="Secured by" data-es="Protegido por">Secured by</span>
-            <strong>Easy Sign</strong>
+            <strong>Angels Sign</strong>
         </div>
     </div>
     <t t-call-assets="angels_sign.assets_sign_result" t-css="false"/>
@@ -264,8 +264,8 @@
 </html>
 </template>
 
-<template id="sign_success" name="Easy Sign - Signing Success">
-    <t t-call="angels_sign.result_layout" page_title="'Document Signed - Easy Sign'" card_class="'es-result-success'">
+<template id="sign_success" name="Angels Sign - Signing Success">
+    <t t-call="angels_sign.result_layout" page_title="'Document Signed - Angels Sign'" card_class="'es-result-success'">
         <div class="es-result-icon">&#10004;</div>
         <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title">
@@ -291,8 +291,8 @@
     </t>
 </template>
 
-<template id="sign_declined" name="Easy Sign - Signing Declined">
-    <t t-call="angels_sign.result_layout" page_title="'Signing Declined - Easy Sign'" card_class="'es-result-declined'">
+<template id="sign_declined" name="Angels Sign - Signing Declined">
+    <t t-call="angels_sign.result_layout" page_title="'Signing Declined - Angels Sign'" card_class="'es-result-declined'">
         <div class="es-result-icon">&#10005;</div>
         <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title">
@@ -309,8 +309,8 @@
     </t>
 </template>
 
-<template id="sign_invalid" name="Easy Sign - Invalid Link">
-    <t t-call="angels_sign.result_layout" page_title="'Easy Sign'" card_class="'es-result-invalid'">
+<template id="sign_invalid" name="Angels Sign - Invalid Link">
+    <t t-call="angels_sign.result_layout" page_title="'Angels Sign'" card_class="'es-result-invalid'">
         <div class="es-result-icon">&#9888;</div>
         <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title" t-out="error_title or 'Invalid Link'"/>
@@ -318,16 +318,16 @@
     </t>
 </template>
 
-<template id="sign_terms_page" name="Easy Sign - Terms &amp; Conditions">
-    <t t-call="angels_sign.result_layout" page_title="'Terms &amp; Conditions - Easy Sign'" card_class="'es-result-terms'">
+<template id="sign_terms_page" name="Angels Sign - Terms &amp; Conditions">
+    <t t-call="angels_sign.result_layout" page_title="'Terms &amp; Conditions - Angels Sign'" card_class="'es-result-terms'">
         <h2 class="es-result-title" t-out="company.name"/>
         <p class="es-info-label">Terms &amp; Conditions</p>
         <div class="es-terms" t-out="terms"/>
     </t>
 </template>
 
-<template id="verify_page" name="Easy Sign - Verify a Document">
-    <t t-call="angels_sign.result_layout" page_title="'Verify a Signed Document - Easy Sign'" card_class="'es-result-verify'">
+<template id="verify_page" name="Angels Sign - Verify a Document">
+    <t t-call="angels_sign.result_layout" page_title="'Verify a Signed Document - Angels Sign'" card_class="'es-result-verify'">
         <div class="es-result-icon">&#128269;</div>
         <button type="button" class="es-lang-btn">🌐 <span id="esLangLabel">Español</span></button>
         <h2 class="es-result-title">

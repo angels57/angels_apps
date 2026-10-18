@@ -1,9 +1,9 @@
 /** @odoo-module ignore */
 /**
- * Easy Sign — English/Spanish switch for the public signing pages.
+ * Angels Sign — English/Spanish switch for the public signing pages.
  * Texts live in data-en / data-es attributes of every .es-i18n element.
  * Without a saved choice the page follows the browser language. Scripts that
- * build texts themselves read window.EasySign.lang() and listen to "es-lang".
+ * build texts themselves read window.AngelsSign.lang() and listen to "es-lang".
  */
 (function () {
     'use strict';
@@ -45,8 +45,8 @@
         document.dispatchEvent(new CustomEvent('es-lang', { detail: lang }));
     }
 
-    window.EasySign = window.EasySign || {};
-    window.EasySign.lang = function () { return current; };
+    window.AngelsSign = window.AngelsSign || {};
+    window.AngelsSign.lang = function () { return current; };
 
     document.addEventListener('DOMContentLoaded', function () {
         applyLang(readLang(), false);

@@ -3,37 +3,37 @@
 
     <!-- Users: their own requests and everything that hangs from them. -->
     <record id="rule_sign_request_user" model="ir.rule">
-        <field name="name">Easy Sign: own requests</field>
+        <field name="name">Angels Sign: own requests</field>
         <field name="model_id" ref="model_sign_request"/>
         <field name="domain_force">[('user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
     </record>
     <record id="rule_sign_request_item_user" model="ir.rule">
-        <field name="name">Easy Sign: signers of own requests</field>
+        <field name="name">Angels Sign: signers of own requests</field>
         <field name="model_id" ref="model_sign_request_item"/>
         <field name="domain_force">[('request_id.user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
     </record>
     <record id="rule_sign_log_user" model="ir.rule">
-        <field name="name">Easy Sign: audit of own requests</field>
+        <field name="name">Angels Sign: audit of own requests</field>
         <field name="model_id" ref="model_sign_log"/>
         <field name="domain_force">[('request_id.user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
     </record>
     <record id="rule_sign_template_user" model="ir.rule">
-        <field name="name">Easy Sign: allowed templates</field>
+        <field name="name">Angels Sign: allowed templates</field>
         <field name="model_id" ref="model_sign_template"/>
         <field name="domain_force">['|', '&amp;', ('group_ids', '=', False), ('authorized_ids', '=', False), '|', ('group_ids', 'in', user.all_group_ids.ids), ('authorized_ids', 'in', [user.id])]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
     </record>
     <record id="rule_sign_document_user" model="ir.rule">
-        <field name="name">Easy Sign: documents of own requests and allowed templates</field>
+        <field name="name">Angels Sign: documents of own requests and allowed templates</field>
         <field name="model_id" ref="model_sign_document"/>
         <field name="domain_force">['|', ('request_id.user_id', '=', user.id), '&amp;', ('template_id', '!=', False), '|', '&amp;', ('template_id.group_ids', '=', False), ('template_id.authorized_ids', '=', False), '|', ('template_id.group_ids', 'in', user.all_group_ids.ids), ('template_id.authorized_ids', 'in', [user.id])]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
     </record>
     <record id="rule_sign_item_user" model="ir.rule">
-        <field name="name">Easy Sign: fields of own requests and allowed templates</field>
+        <field name="name">Angels Sign: fields of own requests and allowed templates</field>
         <field name="model_id" ref="model_sign_item"/>
         <field name="domain_force">['|', ('request_id.user_id', '=', user.id), '&amp;', ('template_id', '!=', False), '|', '&amp;', ('template_id.group_ids', '=', False), ('template_id.authorized_ids', '=', False), '|', ('template_id.group_ids', 'in', user.all_group_ids.ids), ('template_id.authorized_ids', 'in', [user.id])]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
@@ -41,7 +41,7 @@
 
     <!-- Internal signers: read the requests they have to sign. -->
     <record id="rule_sign_request_signer" model="ir.rule">
-        <field name="name">Easy Sign: requests to sign</field>
+        <field name="name">Angels Sign: requests to sign</field>
         <field name="model_id" ref="model_sign_request"/>
         <field name="domain_force">[('request_item_ids.partner_id', '=', user.partner_id.id)]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
@@ -50,7 +50,7 @@
         <field name="perm_unlink" eval="False"/>
     </record>
     <record id="rule_sign_request_item_signer" model="ir.rule">
-        <field name="name">Easy Sign: signers of requests to sign</field>
+        <field name="name">Angels Sign: signers of requests to sign</field>
         <field name="model_id" ref="model_sign_request_item"/>
         <field name="domain_force">[('request_id.request_item_ids.partner_id', '=', user.partner_id.id)]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
@@ -59,7 +59,7 @@
         <field name="perm_unlink" eval="False"/>
     </record>
     <record id="rule_sign_document_signer" model="ir.rule">
-        <field name="name">Easy Sign: documents of requests to sign</field>
+        <field name="name">Angels Sign: documents of requests to sign</field>
         <field name="model_id" ref="model_sign_document"/>
         <field name="domain_force">[('request_id.request_item_ids.partner_id', '=', user.partner_id.id)]</field>
         <field name="groups" eval="[(4, ref('group_sign_user'))]"/>
@@ -70,37 +70,37 @@
 
     <!-- Administrators: everything. -->
     <record id="rule_sign_request_manager" model="ir.rule">
-        <field name="name">Easy Sign: all requests</field>
+        <field name="name">Angels Sign: all requests</field>
         <field name="model_id" ref="model_sign_request"/>
         <field name="domain_force">[(1, '=', 1)]</field>
         <field name="groups" eval="[(4, ref('group_sign_manager'))]"/>
     </record>
     <record id="rule_sign_request_item_manager" model="ir.rule">
-        <field name="name">Easy Sign: all signers</field>
+        <field name="name">Angels Sign: all signers</field>
         <field name="model_id" ref="model_sign_request_item"/>
         <field name="domain_force">[(1, '=', 1)]</field>
         <field name="groups" eval="[(4, ref('group_sign_manager'))]"/>
     </record>
     <record id="rule_sign_log_manager" model="ir.rule">
-        <field name="name">Easy Sign: all audit</field>
+        <field name="name">Angels Sign: all audit</field>
         <field name="model_id" ref="model_sign_log"/>
         <field name="domain_force">[(1, '=', 1)]</field>
         <field name="groups" eval="[(4, ref('group_sign_manager'))]"/>
     </record>
     <record id="rule_sign_template_manager" model="ir.rule">
-        <field name="name">Easy Sign: all templates</field>
+        <field name="name">Angels Sign: all templates</field>
         <field name="model_id" ref="model_sign_template"/>
         <field name="domain_force">[(1, '=', 1)]</field>
         <field name="groups" eval="[(4, ref('group_sign_manager'))]"/>
     </record>
     <record id="rule_sign_document_manager" model="ir.rule">
-        <field name="name">Easy Sign: all documents</field>
+        <field name="name">Angels Sign: all documents</field>
         <field name="model_id" ref="model_sign_document"/>
         <field name="domain_force">[(1, '=', 1)]</field>
         <field name="groups" eval="[(4, ref('group_sign_manager'))]"/>
     </record>
     <record id="rule_sign_item_manager" model="ir.rule">
-        <field name="name">Easy Sign: all fields</field>
+        <field name="name">Angels Sign: all fields</field>
         <field name="model_id" ref="model_sign_item"/>
         <field name="domain_force">[(1, '=', 1)]</field>
         <field name="groups" eval="[(4, ref('group_sign_manager'))]"/>

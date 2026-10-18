@@ -8,7 +8,7 @@ def migrate(cr, version):
     has_name = bool(cr.fetchone())
     attachments = env["ir.attachment"].search([
         ("res_model", "=", "sign.request"),
-        ("res_field", "=", "easy_sign_legacy_document"),
+        ("res_field", "=", "angels_sign_legacy_document"),
     ])
     for attachment in attachments:
         request = env["sign.request"].browse(attachment.res_id).exists()
@@ -17,7 +17,7 @@ def migrate(cr, version):
             if has_name:
                 cr.execute("SELECT document_name FROM sign_request WHERE id = %s", [request.id])
                 name = (cr.fetchone() or [None])[0] or name
-            env["sign.document"].with_context(easy_sign_force=True).create({
+            env["sign.document"].with_context(angels_sign_force=True).create({
                 "request_id": request.id,
                 "name": name,
                 "file": attachment.datas,

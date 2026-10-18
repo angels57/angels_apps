@@ -19,8 +19,8 @@ msgstr ""
 #. module: angels_sign_sms
 #. odoo-python
 #: code:addons/angels_sign_sms/models/sign_request_item.py:0
-msgid "%(code)s is your Easy Sign code for %(doc)s. Valid 10 minutes."
-msgstr "%(code)s es tu código de Easy Sign para %(doc)s. Válido por 10 minutos."
+msgid "%(code)s is your Angels Sign code for %(doc)s. Valid 10 minutes."
+msgstr "%(code)s es tu código de Angels Sign para %(doc)s. Válido por 10 minutos."
 
 #. module: angels_sign_sms
 #: model:ir.model.fields,field_description:angels_sign_sms.field_sign_request_item__display_name

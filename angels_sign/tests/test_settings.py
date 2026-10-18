@@ -1,11 +1,11 @@
 from odoo.exceptions import UserError
 from odoo.tests import HttpCase, tagged
 
-from .common import EasySignCase, make_pdf
+from .common import AngelsSignCase, make_pdf
 from ..utils.compat import set_flag
 
 
-class TestSettings(EasySignCase):
+class TestSettings(AngelsSignCase):
 
     def _enable_terms(self, terms_type):
         settings = self.env["res.config.settings"].create({

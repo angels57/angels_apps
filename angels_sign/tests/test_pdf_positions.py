@@ -12,7 +12,7 @@ from odoo.tests import tagged
 from odoo.tools import pdf as odoo_pdf
 from odoo.tools.pdf import PdfReader
 
-from .common import EasySignCase, make_pdf, make_png
+from .common import AngelsSignCase, make_pdf, make_png
 from ..utils.compat import binary_bytes
 
 TOLERANCE = 2.0  # points
@@ -34,7 +34,7 @@ def displayed_point(x, y, llx, lly, width, height, rotation):
 
 
 @tagged("post_install", "-at_install")
-class TestPdfPositions(EasySignCase):
+class TestPdfPositions(AngelsSignCase):
 
     def _signed_text_positions(self, request):
         reader = PdfReader(io.BytesIO(binary_bytes(request.signed_document)))
@@ -46,7 +46,7 @@ class TestPdfPositions(EasySignCase):
 
             def visitor(text, cm, tm, font_dict, font_size, _geo=(llx, lly, width, height, rotation)):
                 text = (text or "").strip()
-                if text.startswith("Easy Sign ·"):
+                if text.startswith("Angels Sign ·"):
                     text = "FOOTER%d" % len([k for k in found if k.startswith("FOOTER")])
                 if text.startswith(("VAL", "FOOTER")):
                     tx, ty = tm[4], tm[5] + LEADING_FIX * font_size

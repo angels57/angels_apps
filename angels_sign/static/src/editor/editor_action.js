@@ -64,4 +64,4 @@ export class SignEditorAction extends Component {
     }
 }
 
-registry.category("actions").add("easy_sign_editor", SignEditorAction);
+registry.category("actions").add("angels_sign_editor", SignEditorAction);

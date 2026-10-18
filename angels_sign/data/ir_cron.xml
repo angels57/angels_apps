@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="cron_expire_requests" model="ir.cron">
-        <field name="name">Easy Sign: expire requests</field>
+        <field name="name">Angels Sign: expire requests</field>
         <field name="model_id" ref="model_sign_request"/>
         <field name="state">code</field>
         <field name="code">model._cron_expire_requests()</field>
@@ -9,7 +9,7 @@
         <field name="interval_type">days</field>
     </record>
     <record id="cron_send_reminders" model="ir.cron">
-        <field name="name">Easy Sign: send reminders</field>
+        <field name="name">Angels Sign: send reminders</field>
         <field name="model_id" ref="model_sign_request"/>
         <field name="state">code</field>
         <field name="code">model._cron_send_reminders()</field>

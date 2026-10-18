@@ -1,9 +1,9 @@
 {
-    "name": "Easy Sign - SMS Verification",
+    "name": "Angels Sign - SMS Verification",
     "version": "19.0.1.0.1",
-    "summary": "Verify Easy Sign signers with a one-time code sent by SMS",
+    "summary": "Verify Angels Sign signers with a one-time code sent by SMS",
     "description": """
-Adds "Email link + SMS code" as a verification method for Easy Sign signers.
+Adds "Email link + SMS code" as a verification method for Angels Sign signers.
 The code is sent with Odoo SMS (IAP): it consumes Odoo SMS credits.
     """,
     "category": "Tools/Sign",

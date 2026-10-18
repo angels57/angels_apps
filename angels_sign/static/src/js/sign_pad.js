@@ -1,8 +1,8 @@
 /** @odoo-module ignore */
 /**
- * Easy Sign — signature pad with three modes: Auto (the name in a handwriting
+ * Angels Sign — signature pad with three modes: Auto (the name in a handwriting
  * font), Draw and Load (PNG/JPEG fitted into the pad), plus an optional frame
- * "Signed with Easy Sign" (in the page language) with the document code. The pad keeps what was
+ * "Signed with Angels Sign" (in the page language) with the document code. The pad keeps what was
  * entered and redraws it, so the frame and the font can change at any time.
  * The result is always the canvas as PNG, so the server validates one format.
  */
@@ -12,13 +12,13 @@
     var INK = '#0a1a6b';
     var FRAME = '#5f97a3';
     var TEXT = {
-        en: { frame: 'Signed with Easy Sign', image: 'Use a PNG or JPEG image up to 2 MB.' },
-        es: { frame: 'Firmado con Easy Sign', image: 'Usa una imagen PNG o JPEG de hasta 2 MB.' },
+        en: { frame: 'Signed with Angels Sign', image: 'Use a PNG or JPEG image up to 2 MB.' },
+        es: { frame: 'Firmado con Angels Sign', image: 'Usa una imagen PNG o JPEG de hasta 2 MB.' },
     };
     var FONTS = ['LaBelleAurore', 'MarckScript', 'ShadowsIntoLight', 'Zeyada', 'ReenieBeanie', 'OoohBaby'];
 
     function t(key) {
-        return TEXT[window.EasySign && window.EasySign.lang && window.EasySign.lang() === 'es' ? 'es' : 'en'][key];
+        return TEXT[window.AngelsSign && window.AngelsSign.lang && window.AngelsSign.lang() === 'es' ? 'es' : 'en'][key];
     }
 
     function Pad(root, onChange) {
@@ -267,6 +267,6 @@
         return this.filled ? this.canvas.toDataURL('image/png') : '';
     };
 
-    window.EasySign = window.EasySign || {};
-    window.EasySign.Pad = Pad;
+    window.AngelsSign = window.AngelsSign || {};
+    window.AngelsSign.Pad = Pad;
 })();

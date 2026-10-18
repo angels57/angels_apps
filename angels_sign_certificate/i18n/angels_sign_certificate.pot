@@ -18,7 +18,7 @@ msgstr ""
 #. module: angels_sign_certificate
 #: model:ir.model.fields,help:angels_sign_certificate.field_res_company__signing_certificate_id
 #: model:ir.model.fields,help:angels_sign_certificate.field_res_config_settings__signing_certificate_id
-msgid "Certificate used to sign the documents completed with Easy Sign."
+msgid "Certificate used to sign the documents completed with Angels Sign."
 msgstr ""
 
 #. module: angels_sign_certificate

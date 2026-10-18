@@ -5,7 +5,7 @@
         <field name="name">sign.template.list</field>
         <field name="model">sign.template</field>
         <field name="arch" type="xml">
-            <list js_class="easy_sign_list" string="Templates">
+            <list js_class="angels_sign_list" string="Templates">
                 <field name="name"/>
                 <field name="model_id" optional="show"/>
                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" optional="show"/>

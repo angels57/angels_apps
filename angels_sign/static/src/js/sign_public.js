@@ -1,6 +1,6 @@
 /** @odoo-module ignore */
 /**
- * Easy Sign — public signing page: the document viewer (pages, zoom), the
+ * Angels Sign — public signing page: the document viewer (pages, zoom), the
  * ribbon that walks the signer through the fields, the signature / initials,
  * code and decline dialogs, and the sign / decline requests.
  */
@@ -32,7 +32,7 @@
     var ZOOMS = [0.5, 0.75, 1, 1.25, 1.5, 2];
 
     function t(key) {
-        return TEXT[window.EasySign.lang() === 'es' ? 'es' : 'en'][key];
+        return TEXT[window.AngelsSign.lang() === 'es' ? 'es' : 'en'][key];
     }
     function byId(id) { return document.getElementById(id); }
     function show(node, visible) { if (node) { node.classList.toggle('es-hidden', !visible); } }
@@ -131,7 +131,7 @@
         document.querySelectorAll('[data-pad]').forEach(function (node) {
             var kind = node.getAttribute('data-pad');
             var dialog = node.closest('.es-dialog');
-            var pad = new window.EasySign.Pad(node);
+            var pad = new window.AngelsSign.Pad(node);
             pads[kind] = pad;
             dialog.querySelectorAll('[data-adopt]').forEach(function (button) {
                 button.addEventListener('click', function () {
@@ -207,7 +207,7 @@
             return next;
         }
 
-        fields = new window.EasySign.Fields(pagesNode, {
+        fields = new window.AngelsSign.Fields(pagesNode, {
             onChange: updateProgress,
             onImage: function (field) {
                 started = true;

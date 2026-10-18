@@ -8,5 +8,5 @@ class ResCompany(models.Model):
     signing_certificate_id = fields.Many2one(
         "certificate.certificate", string="PDF Signing Certificate",
         domain="[('company_id', '=', id)]",
-        help="Certificate used to sign the documents completed with Easy Sign.",
+        help="Certificate used to sign the documents completed with Angels Sign.",
     )

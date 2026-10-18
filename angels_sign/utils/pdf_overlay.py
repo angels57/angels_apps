@@ -17,8 +17,8 @@ FONT = "Helvetica"
 _DEJAVU = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 if os.path.exists(_DEJAVU):
     try:
-        pdfmetrics.registerFont(TTFont("EasySignSans", _DEJAVU))
-        FONT = "EasySignSans"
+        pdfmetrics.registerFont(TTFont("AngelsSignSans", _DEJAVU))
+        FONT = "AngelsSignSans"
     except Exception:  # noqa: BLE001 - keep Helvetica
         pass
 

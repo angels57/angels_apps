@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 
 class SignEditorMixin(models.AbstractModel):
     _name = "sign.editor.mixin"
-    _description = "Easy Sign PDF Editor"
+    _description = "Angels Sign PDF Editor"
 
     # Implemented by each model ------------------------------------------
     def _editor_locked(self):

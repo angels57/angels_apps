@@ -37,7 +37,7 @@ def make_png():
     return out.getvalue()
 
 
-class EasySignCase(TransactionCase):
+class AngelsSignCase(TransactionCase):
 
     @classmethod
     def setUpClass(cls):
