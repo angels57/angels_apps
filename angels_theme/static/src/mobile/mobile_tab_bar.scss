@@ -22,8 +22,15 @@ $at-tab-bar-gap: 12px;
             display: none !important;
         }
 
+        // The systray items stay mounted (their menus and counters keep
+        // working) but out of sight: "More" lists and opens them.
         .o_menu_systray {
-            display: contents !important;
+            position: absolute !important;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            pointer-events: none;
         }
     }
 
@@ -102,67 +109,123 @@ $at-tab-bar-gap: 12px;
         white-space: nowrap;
     }
 
-    // Systray items keep their own toggler (icon and counter); only the
-    // spacing changes so they line up with the other tabs.
-    .o_at_tab_systray {
-        // Odoo sizes navbar entries from this variable: shrink it to the
-        // icon row so every item lines up with its label.
-        --o-navbar-height: 24px;
-
+    .o_at_tab_iconwrap {
         position: relative;
+        display: flex;
+    }
 
-        // Items with nothing to show on phones: the call menu outside a call
-        // renders an empty dropdown, and Odoo hides some items below md.
-        &:has(> .dropdown:empty),
-        &:has(> .d-none.d-md-block) {
-            display: none;
+    .o_at_badge {
+        position: absolute;
+        top: -5px;
+        left: calc(50% + 6px);
+        min-width: 17px;
+        height: 17px;
+        padding: 0 5px;
+        border-radius: 999px;
+        background: map-get($theme-colors, 'danger');
+        color: #fff;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 17px;
+        text-align: center;
+        box-shadow: 0 0 0 2px #fff;
+    }
+
+    // = "More" sheet: under the tab bar, which stays visible and active
+    .o_at_more_backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: $zindex-fixed - 2;
+        background: rgba(#000, .28);
+    }
+
+    .o_at_more_sheet {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: $zindex-fixed - 1;
+        padding: 8px 16px calc(#{$at-tab-bar-height + $at-tab-bar-gap * 2 + 8px} + env(safe-area-inset-bottom));
+        border-radius: 18px 18px 0 0;
+        background: $o-view-background-color;
+        box-shadow: 0 -8px 24px rgba(#000, .12);
+        animation: o_at_sheet_in .2s ease-out;
+    }
+
+    .o_at_more_grab {
+        width: 36px;
+        height: 4px;
+        margin: 0 auto 10px;
+        border-radius: 4px;
+        background: $at-line;
+    }
+
+    .o_at_more_title {
+        margin-bottom: 12px;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .o_at_more_grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .o_at_more_item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 14px 4px 12px;
+        border: 0;
+        border-radius: 14px;
+        background: $at-home-bg;
+        color: $body-color;
+        font-size: 12px;
+
+        &:active {
+            background: var(--at-brand-soft);
+        }
+    }
+
+    .o_at_more_icon {
+        position: relative;
+        display: flex;
+        width: 26px;
+        height: 26px;
+
+        svg {
+            width: 26px;
+            height: 26px;
+            fill: none;
+            stroke: var(--at-brand);
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
-        > :not(.o_at_tab_label) {
-            --NavBar-entry-padding-left: 0;
-            --NavBar-entry-padding-right: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 24px;
-            line-height: 1;
-            color: inherit;
+        img {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            object-fit: cover;
         }
+    }
 
-        .o_nav_entry,
-        .dropdown-toggle,
-        > div > button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 24px;
-            padding: 0 !important;
-            border: 0;
-            background: transparent !important;
-            color: $text-muted;
+    .o_at_more_label {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    @keyframes o_at_sheet_in {
+        from {
+            transform: translateY(100%);
         }
-
-        .fa {
-            font-size: 19px;
-        }
-
-        // The online dot on the avatar keeps its own small size.
-        .o-mail-ImStatus,
-        .o-mail-ImStatus .fa {
-            font-size: 8px;
-        }
-
-        img.rounded {
-            width: 22px;
-            height: 22px;
-        }
-
-        .badge {
-            position: absolute;
-            top: 4px;
-            left: calc(50% + 4px);
-            margin: 0;
-            box-shadow: 0 0 0 2px #fff;
+        to {
+            transform: none;
         }
     }
 
@@ -176,8 +239,10 @@ $at-tab-bar-gap: 12px;
         max-height: none !important;
     }
 
-    // = Current app sections: a sheet from the bottom instead of a side menu
-    .o_app_menu_sidebar {
+    // = Current app sections and the user menu ("Profile"): sheets from the
+    // bottom instead of side menus, like everything the bar opens.
+    .o_app_menu_sidebar,
+    .o_burger_menu {
         top: auto !important;
         right: 0 !important;
         left: 0 !important;
@@ -191,7 +256,9 @@ $at-tab-bar-gap: 12px;
         overflow: hidden;
 
         &.o-app-menu-sidebar-enter,
-        &.o-app-menu-sidebar-leave {
+        &.o-app-menu-sidebar-leave,
+        &.o-burger-slide-enter,
+        &.o-burger-slide-leave {
             transform: translateY(100%);
         }
 
@@ -202,8 +269,13 @@ $at-tab-bar-gap: 12px;
 
     @media (prefers-reduced-motion: reduce) {
         .o_main_navbar,
-        .o_app_menu_sidebar {
+        .o_app_menu_sidebar,
+        .o_burger_menu {
             transition: none;
+        }
+
+        .o_at_more_sheet {
+            animation: none;
         }
     }
 }

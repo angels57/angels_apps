@@ -2,8 +2,9 @@
 <templates xml:space="preserve">
     <!--
         Phones: the navbar becomes a floating tab bar at the bottom of the
-        screen (styles in mobile_tab_bar.scss). Its tabs are Home, the current
-        app, Search and the systray items, each with a label.
+        screen (styles in mobile_tab_bar.scss) with four tabs: Home, the
+        current app, Search and More. The systray items stay mounted but out
+        of sight; "More" lists them in a bottom sheet and opens them.
     -->
     <t t-inherit="web.NavBar" t-inherit-mode="extension">
         <!-- Breadcrumbs stay at the top: without this target the control
@@ -24,7 +25,8 @@
                     </svg>
                     <span class="o_at_tab_label" t-out="this.angelsLabels.home"/>
                 </button>
-                <button class="o_at_tab o_at_tab_app" t-att-class="{ 'o_at_tab_active': !this.angelsHomeOpen and currentApp }"
+                <button class="o_at_tab o_at_tab_app"
+                    t-att-class="{ 'o_at_tab_active': !this.angelsHomeOpen and currentApp and !this.angelsMoreActive }"
                     t-on-click="() => this.angelsOpenSections()">
                     <img t-if="currentApp and currentApp.webIconData" class="o_at_tab_icon" t-att-src="currentApp.webIconData" alt=""/>
                     <svg t-else="" class="o_at_tab_icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -39,22 +41,55 @@
                     </svg>
                     <span class="o_at_tab_label" t-out="this.angelsLabels.search"/>
                 </button>
+                <button class="o_at_tab" t-att-class="{ 'o_at_tab_active': this.angelsMoreActive }"
+                    t-att-aria-expanded="this.angelsBar.moreOpen ? 'true' : 'false'"
+                    t-on-click="() => this.angelsToggleMore()">
+                    <span class="o_at_tab_iconwrap">
+                        <svg class="o_at_tab_icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="5.5" cy="12" r="1.3"/>
+                            <circle cx="12" cy="12" r="1.3"/>
+                            <circle cx="18.5" cy="12" r="1.3"/>
+                        </svg>
+                        <span t-if="this.angelsBar.moreCount" class="o_at_badge" t-out="this.angelsBadge(this.angelsBar.moreCount)"/>
+                    </span>
+                    <span class="o_at_tab_label" t-out="this.angelsLabels.more"/>
+                </button>
+
+                <t t-if="this.angelsBar.moreOpen">
+                    <t t-portal="'body'">
+                        <div class="o_at_more_backdrop" t-on-click="() => this.angelsCloseMore()"/>
+                        <div class="o_at_more_sheet" role="dialog" t-att-aria-label="this.angelsLabels.more">
+                            <div class="o_at_more_grab"/>
+                            <div class="o_at_more_title" t-out="this.angelsLabels.more"/>
+                            <div class="o_at_more_grid">
+                                <button t-foreach="this.angelsBar.moreItems" t-as="entry" t-key="entry.key"
+                                    class="o_at_more_item" t-on-click="() => this.angelsOpenSystrayItem(entry.key)">
+                                    <span class="o_at_more_icon">
+                                        <img t-if="entry.icon === 'user' and entry.avatar" t-att-src="entry.avatar" alt=""/>
+                                        <svg t-else="" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path t-att-d="this.angelsIconPath(entry.icon)"/>
+                                        </svg>
+                                        <span t-if="entry.count" class="o_at_badge" t-out="this.angelsBadge(entry.count)"/>
+                                    </span>
+                                    <span class="o_at_more_label" t-out="entry.label"/>
+                                </button>
+                            </div>
+                        </div>
+                    </t>
+                </t>
             </t>
         </xpath>
 
-        <!-- Each systray item gets a label under its icon on phones; tapping
-             the label opens it too. -->
+        <!-- On phones each systray item gets a keyed wrapper, so "More" can
+             find its toggler and counter. -->
         <xpath expr="//t[@t-foreach='systrayItems']" position="replace">
             <t t-foreach="systrayItems" t-as="item" t-key="item.key">
                 <!-- This ensures the correct order of the systray items -->
                 <div t-att-data-index="item.index"/>
-                <div t-if="this.ui.isSmall" class="o_at_tab o_at_tab_systray" t-att-data-key="item.key"
-                    t-on-click="(ev) => this.angelsOnSystrayTab(ev)">
+                <div t-if="this.ui.isSmall" class="o_at_systray_item" t-att-data-key="item.key">
                     <ErrorHandler onError="error => this.handleItemError(error, item)">
                         <t t-component="item.Component" t-props="item.props"/>
                     </ErrorHandler>
-                    <span t-if="this.angelsSystrayLabel(item.key)" class="o_at_tab_label"
-                        t-out="this.angelsSystrayLabel(item.key)"/>
                 </div>
                 <ErrorHandler t-else="" onError="error => this.handleItemError(error, item)">
                     <t t-component="item.Component" t-props="item.props"/>
