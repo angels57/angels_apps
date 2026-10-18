@@ -6,14 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 18:14+0000\n"
-"PO-Revision-Date: 2026-10-18 18:14+0000\n"
+"POT-Creation-Date: 2026-10-18 18:42+0000\n"
+"PO-Revision-Date: 2026-10-18 18:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Activity"
+msgstr ""
 
 #. module: angels_theme
 #: model_terms:ir.ui.view,arch_db:angels_theme.view_company_form_angels_theme
@@ -30,6 +36,18 @@ msgstr ""
 #. module: angels_theme
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_company__angels_home_background__gradient
 msgid "Brand Gradient"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Call"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Chat"
 msgstr ""
 
 #. module: angels_theme
@@ -70,6 +88,8 @@ msgid "HTTP Routing"
 msgstr ""
 
 #. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
 #: model:ir.actions.client,name:angels_theme.action_home
 msgid "Home"
 msgstr ""
@@ -115,6 +135,18 @@ msgstr ""
 
 #. module: angels_theme
 #. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Me"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Menu"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
 #: code:addons/angels_theme/static/src/home/home_menu.xml:0
 msgid "No results"
 msgstr ""
@@ -155,6 +187,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_theme/static/src/home/home_menu.xml:0
 msgid "Reset layout"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Search"
 msgstr ""
 
 #. module: angels_theme

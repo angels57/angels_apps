@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 18:14+0000\n"
+"POT-Creation-Date: 2026-10-18 18:42+0000\n"
 "PO-Revision-Date: 2026-10-18 14:33+0000\n"
 "Last-Translator: Angels SAS\n"
 "Language-Team: \n"
@@ -15,6 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Activity"
+msgstr "Actividad"
 
 #. module: angels_theme
 #: model_terms:ir.ui.view,arch_db:angels_theme.view_company_form_angels_theme
@@ -32,6 +38,18 @@ msgstr "Fondo de la pantalla de inicio que muestra las aplicaciones."
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_company__angels_home_background__gradient
 msgid "Brand Gradient"
 msgstr "Degradado de marca"
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Call"
+msgstr "Llamar"
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Chat"
+msgstr "Chat"
 
 #. module: angels_theme
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_users__angels_theme_density__comfortable
@@ -71,6 +89,8 @@ msgid "HTTP Routing"
 msgstr "Enrutamiento HTTP"
 
 #. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
 #: model:ir.actions.client,name:angels_theme.action_home
 msgid "Home"
 msgstr "Inicio"
@@ -116,6 +136,18 @@ msgstr "Diseño de la pantalla de inicio no válido."
 
 #. module: angels_theme
 #. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Me"
+msgstr "Perfil"
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Menu"
+msgstr "Menú"
+
+#. module: angels_theme
+#. odoo-javascript
 #: code:addons/angels_theme/static/src/home/home_menu.xml:0
 msgid "No results"
 msgstr "Sin resultados"
@@ -139,7 +171,9 @@ msgstr "Fijar arriba"
 #. module: angels_theme
 #: model:ir.model.fields,help:angels_theme.field_res_users__angels_home_prefs
 msgid "Pinned apps and app order of the home screen, by menu XML id."
-msgstr "Aplicaciones fijadas y orden de las aplicaciones de la pantalla de inicio, por ID XML del menú."
+msgstr ""
+"Aplicaciones fijadas y orden de las aplicaciones de la pantalla de inicio, "
+"por ID XML del menú."
 
 #. module: angels_theme
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_company__angels_home_background__plain
@@ -157,6 +191,12 @@ msgstr "Recientes"
 #: code:addons/angels_theme/static/src/home/home_menu.xml:0
 msgid "Reset layout"
 msgstr "Restablecer diseño"
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Search"
+msgstr "Buscar"
 
 #. module: angels_theme
 #. odoo-javascript

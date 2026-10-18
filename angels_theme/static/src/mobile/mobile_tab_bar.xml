@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!--
+        Phones: the navbar becomes a floating tab bar at the bottom of the
+        screen (styles in mobile_tab_bar.scss). Its tabs are Home, the current
+        app, Search and the systray items, each with a label.
+    -->
+    <t t-inherit="web.NavBar" t-inherit-mode="extension">
+        <!-- Breadcrumbs stay at the top: without this target the control
+             panel keeps them in its own fallback slot. -->
+        <xpath expr="//div[hasclass('o_navbar_breadcrumbs')]" position="attributes">
+            <attribute name="t-if">!this.ui.isSmall</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('o_menu_systray')]" position="before">
+            <t t-if="this.ui.isSmall">
+                <button class="o_at_tab" t-att-class="{ 'o_at_tab_active': this.angelsHomeOpen }"
+                    t-on-click="() => this.angelsOpenHome()">
+                    <svg class="o_at_tab_icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="4" y="4" width="6" height="6" rx="1.5"/>
+                        <rect x="14" y="4" width="6" height="6" rx="1.5"/>
+                        <rect x="4" y="14" width="6" height="6" rx="1.5"/>
+                        <rect x="14" y="14" width="6" height="6" rx="1.5"/>
+                    </svg>
+                    <span class="o_at_tab_label" t-out="this.angelsLabels.home"/>
+                </button>
+                <button class="o_at_tab o_at_tab_app" t-att-class="{ 'o_at_tab_active': !this.angelsHomeOpen and currentApp }"
+                    t-on-click="() => this.angelsOpenSections()">
+                    <img t-if="currentApp and currentApp.webIconData" class="o_at_tab_icon" t-att-src="currentApp.webIconData" alt=""/>
+                    <svg t-else="" class="o_at_tab_icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <span class="o_at_tab_label" t-out="currentApp ? currentApp.name : this.angelsLabels.menu"/>
+                </button>
+                <button class="o_at_tab" t-on-click="() => this.angelsFocusSearch()">
+                    <svg class="o_at_tab_icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="6.5"/>
+                        <path d="M20 20l-4.2-4.2"/>
+                    </svg>
+                    <span class="o_at_tab_label" t-out="this.angelsLabels.search"/>
+                </button>
+            </t>
+        </xpath>
+
+        <!-- Each systray item gets a label under its icon on phones; tapping
+             the label opens it too. -->
+        <xpath expr="//t[@t-foreach='systrayItems']" position="replace">
+            <t t-foreach="systrayItems" t-as="item" t-key="item.key">
+                <!-- This ensures the correct order of the systray items -->
+                <div t-att-data-index="item.index"/>
+                <div t-if="this.ui.isSmall" class="o_at_tab o_at_tab_systray" t-att-data-key="item.key"
+                    t-on-click="(ev) => this.angelsOnSystrayTab(ev)">
+                    <ErrorHandler onError="error => this.handleItemError(error, item)">
+                        <t t-component="item.Component" t-props="item.props"/>
+                    </ErrorHandler>
+                    <span t-if="this.angelsSystrayLabel(item.key)" class="o_at_tab_label"
+                        t-out="this.angelsSystrayLabel(item.key)"/>
+                </div>
+                <ErrorHandler t-else="" onError="error => this.handleItemError(error, item)">
+                    <t t-component="item.Component" t-props="item.props"/>
+                </ErrorHandler>
+            </t>
+        </xpath>
+    </t>
+</templates>

@@ -28,3 +28,12 @@ $o-navbar-brand-color: $at-ink;
 
 $o-control-panel-background-color: transparent;
 $o-control-panel-border-bottom: 0 none;
+
+// Home screen: page color and the soft layered shadow of its cards.
+$at-home-bg: #f8f9fa !default;
+$at-home-shadow:
+    0 0 0 1px rgba(#000, .075),
+    0 1px 1px -.5px rgba(#2a3346, .03),
+    0 3px 3px -1.5px rgba(#2a3346, .04),
+    0 10px 10px -5px rgba(#2a3346, .03),
+    0 24px 24px -8px rgba(#2a3346, .03) !default;
