@@ -1,9 +1,10 @@
-import { Component, onMounted, onWillUnmount, useExternalListener, useState } from "@odoo/owl";
+import { Component, onMounted, onWillUnmount } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { fuzzyLookup } from "@web/core/utils/search";
 import { session } from "@web/session";
+import { useExternalListener, useState } from "@angels_theme/js/owl_compat";
 
 const GRID_COLUMNS = 6;
 
@@ -20,7 +21,7 @@ export class HomeMenu extends Component {
         this.state = useState({ query: "", focused: -1 });
         this.apps = this.menuService.getApps();
         this.entries = this.computeEntries();
-        useExternalListener(window, "keydown", this.onWindowKeydown);
+        useExternalListener(window, "keydown", this.onWindowKeydown.bind(this));
         // The background covers the whole client, navbar included.
         const bodyClasses = ["o_at_home_open", `o_at_home_bg_${this.background}`];
         onMounted(() => {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
     <t t-inherit="web.Notebook" t-inherit-mode="extension">
-        <xpath expr="//a[hasclass('nav-link')]" position="inside">
-            <t t-set="angelsCount" t-value="angelsTabCount(navItem[1])"/>
+        <xpath expr="//button[hasclass('nav-link')]" position="inside">
+            <t t-set="angelsCount" t-value="this.angelsTabCount(navItem[1])"/>
             <span t-if="angelsCount" class="o_at_tab_count" t-out="angelsCount"/>
         </xpath>
     </t>

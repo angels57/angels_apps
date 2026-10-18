@@ -1,9 +1,9 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "19.0.1.3.0",
+    "version": "20.0.1.3.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
-Angels Theme - Backend Theme for Odoo 19
+Angels Theme - Backend Theme for Odoo 20
 ========================================
 
 A backend theme that every app inherits without changing its views.

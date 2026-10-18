@@ -30,8 +30,10 @@ patch(Notebook.prototype, {
         if (!resModel || this.props.orientation !== "horizontal") {
             return null;
         }
-        const pages = this.pages.map((page) => page[0]).join(",");
-        return `angels_theme.tab:${resModel}:${pages}`;
+        // Odoo 20 turned `pages` into a computed signal.
+        const pages = typeof this.pages === "function" ? this.pages() : this.pages;
+        const ids = pages.map((page) => page[0]).join(",");
+        return `angels_theme.tab:${resModel}:${ids}`;
     },
 
     /**

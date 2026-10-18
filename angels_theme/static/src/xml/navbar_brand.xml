@@ -2,9 +2,9 @@
 <templates xml:space="preserve">
     <!-- App icon before the app name, as in Odoo Enterprise. -->
     <t t-inherit="web.NavBar" t-inherit-mode="extension">
-        <xpath expr="//DropdownItem[@t-esc='currentApp.name']" position="before">
-            <img t-if="!this.ui.isSmall and currentApp and currentApp.webIconData"
-                class="o_at_brand_icon" t-att-src="currentApp.webIconData" alt=""/>
+        <xpath expr="//DropdownItem[@t-out='this.currentApp.name']" position="before">
+            <img t-if="!this.ui.isSmall and this.currentApp and this.currentApp.webIconData"
+                class="o_at_brand_icon" t-att-src="this.currentApp.webIconData" alt=""/>
         </xpath>
     </t>
 </templates>
