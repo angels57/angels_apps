@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 14:52+0000\n"
-"PO-Revision-Date: 2026-10-18 14:52+0000\n"
+"POT-Creation-Date: 2026-10-18 18:14+0000\n"
+"PO-Revision-Date: 2026-10-18 18:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -91,6 +91,11 @@ msgid "Home Menu"
 msgstr ""
 
 #. module: angels_theme
+#: model:ir.model.fields,field_description:angels_theme.field_res_users__angels_home_prefs
+msgid "Home Screen Layout"
+msgstr ""
+
+#. module: angels_theme
 #: model:ir.model.fields,field_description:angels_theme.field_ir_http__id
 #: model:ir.model.fields,field_description:angels_theme.field_res_company__id
 #: model:ir.model.fields,field_description:angels_theme.field_res_users__id
@@ -100,6 +105,12 @@ msgstr ""
 #. module: angels_theme
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_company__angels_home_background__image
 msgid "Image"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-python
+#: code:addons/angels_theme/models/res_users_home.py:0
+msgid "Invalid home screen layout."
 msgstr ""
 
 #. module: angels_theme
@@ -119,8 +130,31 @@ msgid "Pill"
 msgstr ""
 
 #. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/home/home_menu.js:0
+msgid "Pin to the top"
+msgstr ""
+
+#. module: angels_theme
+#: model:ir.model.fields,help:angels_theme.field_res_users__angels_home_prefs
+msgid "Pinned apps and app order of the home screen, by menu XML id."
+msgstr ""
+
+#. module: angels_theme
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_company__angels_home_background__plain
 msgid "Plain"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/home/home_menu.xml:0
+msgid "Recent"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/home/home_menu.xml:0
+msgid "Reset layout"
 msgstr ""
 
 #. module: angels_theme
@@ -142,6 +176,12 @@ msgstr ""
 #. module: angels_theme
 #: model:ir.model.fields.selection,name:angels_theme.selection__res_users__angels_theme_tab_style__underline
 msgid "Underline"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/home/home_menu.js:0
+msgid "Unpin"
 msgstr ""
 
 #. module: angels_theme

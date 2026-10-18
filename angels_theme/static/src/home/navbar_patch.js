@@ -2,8 +2,17 @@ import { NavBar } from "@web/webclient/navbar/navbar";
 import { WebClient } from "@web/webclient/webclient";
 import { useService } from "@web/core/utils/hooks";
 import { patch } from "@web/core/utils/patch";
+import { HOME_ACTION, homeState } from "./home_state";
 
-export const HOME_ACTION = "angels_theme.action_home";
+export { HOME_ACTION };
+
+/** Leave the home screen for the view it was opened from, if any. */
+export function leaveHome() {
+    if (homeState.cameFromApp) {
+        homeState.cameFromApp = false;
+        window.history.back();
+    }
+}
 
 patch(NavBar.prototype, {
     setup() {
@@ -11,7 +20,13 @@ patch(NavBar.prototype, {
         this.angelsAction = useService("action");
     },
 
+    // The home button (and its hotkey) toggles the home screen.
     angelsOpenHome() {
+        if (document.body.classList.contains("o_at_home_open")) {
+            leaveHome();
+            return;
+        }
+        homeState.cameFromApp = true;
         this.angelsAction.doAction(HOME_ACTION, { clearBreadcrumbs: true });
     },
 
@@ -25,6 +40,7 @@ patch(NavBar.prototype, {
 patch(WebClient.prototype, {
     // `/odoo` without an action opens the home screen instead of the first app.
     _loadDefaultApp() {
+        homeState.cameFromApp = false;
         return this.actionService.doAction(HOME_ACTION, { clearBreadcrumbs: true });
     },
 });

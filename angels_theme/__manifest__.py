@@ -1,6 +1,6 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "19.0.1.3.0",
+    "version": "19.0.1.4.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
 Angels Theme - Backend Theme for Odoo 19
@@ -19,6 +19,8 @@ A backend theme that every app inherits without changing its views.
 * Home screen with the apps as a grid, a search box for apps and menus,
   keyboard navigation and a per-company background (dotted, brand
   gradient, plain or image)
+* Home screen layout per user: pin apps to the top, drag to reorder, a row
+  of recent apps and counters (activities due, documents to sign)
     """,
     "category": "Themes/Backend",
     "author": "Angels SAS",

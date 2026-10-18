@@ -22,17 +22,50 @@
                 <div t-if="!this.results.length" class="o_at_home_empty">No results</div>
             </div>
 
-            <div t-else="" class="o_at_home_grid">
-                <a t-foreach="this.apps" t-as="app" t-key="app.id" href="#" class="o_at_home_app"
-                    t-att-class="{ 'o_at_focus': app_index === this.state.focused }"
-                    t-att-data-menu-xmlid="app.xmlid" t-on-click.prevent="() => this.open(app)">
-                    <span class="o_at_home_tile">
+            <t t-else="">
+                <div t-if="this.recentApps.length" class="o_at_home_recents">
+                    <span class="o_at_home_section_title">Recent</span>
+                    <a t-foreach="this.recentApps" t-as="app" t-key="app.id" href="#" class="o_at_home_recent"
+                        t-att-title="app.name" t-on-click.prevent="() => this.open(app)">
                         <img t-if="app.webIconData" t-att-src="app.webIconData" alt=""/>
                         <span t-else="" class="o_at_home_initial" t-out="this.initial(app)"/>
-                    </span>
-                    <span class="o_at_home_name" t-out="app.name"/>
-                </a>
-            </div>
+                        <span class="o_at_home_recent_name" t-out="app.name"/>
+                    </a>
+                </div>
+
+                <div class="o_at_home_grid">
+                    <a t-foreach="this.apps" t-as="app" t-key="app.id" href="#" class="o_at_home_app"
+                        t-att-class="{
+                            'o_at_focus': app_index === this.state.focused,
+                            'o_at_favorite': this.isFavorite(app),
+                            'o_at_dragging': this.state.dragging === app.xmlid,
+                        }"
+                        draggable="true" t-att-data-menu-xmlid="app.xmlid"
+                        t-on-click.prevent="() => this.open(app)"
+                        t-on-dragstart="(ev) => this.onDragStart(ev, app)"
+                        t-on-dragover="(ev) => this.onDragOver(ev, app)"
+                        t-on-drop="(ev) => this.onDrop(ev, app)"
+                        t-on-dragend="() => this.onDragEnd()">
+                        <span class="o_at_home_tile">
+                            <img t-if="app.webIconData" t-att-src="app.webIconData" alt="" draggable="false"/>
+                            <span t-else="" class="o_at_home_initial" t-out="this.initial(app)"/>
+                            <span t-if="this.badge(app)" class="o_at_home_badge" t-out="this.badge(app)"/>
+                        </span>
+                        <span class="o_at_home_name" t-out="app.name"/>
+                        <span class="o_at_home_pin" role="button" t-att-title="this.pinTitle(app)"
+                            t-att-aria-label="this.pinTitle(app)"
+                            t-on-click.stop.prevent="() => this.toggleFavorite(app)">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M15 3l6 6-3 1-4 4 1 5-2 2-4-4-5 5-1-1 5-5-4-4 2-2 5 1 4-4z"/>
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+
+                <div t-if="this.hasCustomLayout" class="o_at_home_footer">
+                    <a href="#" t-on-click.prevent="() => this.resetLayout()">Reset layout</a>
+                </div>
+            </t>
         </div>
     </t>
 </templates>
