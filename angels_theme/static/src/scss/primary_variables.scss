@@ -1,0 +1,30 @@
+// Brand tokens. Loaded before web/primary_variables.scss, so these values
+// win over Odoo's `!default` ones and every app inherits them.
+$at-brand: #534ab7 !default;
+$at-brand-dark: #3c3489 !default;
+$at-brand-soft: #eeedfe !default;
+$at-radius: 8px !default;
+
+$o-community-color: $at-brand;
+$o-brand-odoo: $at-brand;
+$o-brand-primary: $at-brand;
+$o-border-radius: o-to-rem(6px);
+$o-border-radius-sm: o-to-rem(4px);
+$o-border-radius-lg: o-to-rem($at-radius);
+
+// Light navbar (Enterprise style): it blends into the page background and
+// uses dark text. These run before Odoo's navbar/control panel variables.
+$at-ink: #212529 !default;
+$at-ink-muted: #495057 !default;
+$at-line: #dee2e6 !default;
+
+$o-navbar-background: transparent;
+$o-navbar-border-bottom: 0 none;
+$o-navbar-entry-color: $at-ink;
+$o-navbar-entry-color--hover: #000;
+$o-navbar-entry-bg--hover: rgba(#000, .05);
+$o-navbar-entry-bg--active: rgba(#000, .08);
+$o-navbar-brand-color: $at-ink;
+
+$o-control-panel-background-color: transparent;
+$o-control-panel-border-bottom: 0 none;

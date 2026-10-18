@@ -1,0 +1,258 @@
+// Home screen. The background lives on <body> (`o_at_home_bg_*`) so it also
+// shows behind the navbar, which turns transparent on this screen.
+$at-home-bg: #f8f9fa;
+$at-home-shadow:
+    0 0 0 1px rgba(#000, .075),
+    0 1px 1px -.5px rgba(#2a3346, .03),
+    0 3px 3px -1.5px rgba(#2a3346, .04),
+    0 10px 10px -5px rgba(#2a3346, .03),
+    0 24px 24px -8px rgba(#2a3346, .03);
+
+body.o_at_home_open {
+    background-color: $at-home-bg;
+    background-attachment: fixed;
+
+    &.o_at_home_bg_dots {
+        // Dots that fade out towards the top and the edges.
+        background-image:
+            linear-gradient(to bottom, $at-home-bg, rgba($at-home-bg, 0) 45%),
+            radial-gradient(ellipse at center, rgba($at-home-bg, 0) 35%, $at-home-bg 90%),
+            radial-gradient(rgba(#000, .14) 1px, transparent 1.2px);
+        background-size: auto, auto, 12px 12px;
+    }
+
+    &.o_at_home_bg_gradient {
+        background-image:
+            radial-gradient(circle at 15% 10%, rgba($at-brand, .18), transparent 45%),
+            radial-gradient(circle at 85% 90%, rgba($at-brand, .30), transparent 50%),
+            linear-gradient(160deg, mix($at-brand, #fff, 6%), mix($at-brand, #fff, 22%));
+    }
+
+    &.o_at_home_bg_image {
+        background-image: var(--at-home-image, none);
+        background-size: cover;
+        background-position: center;
+    }
+
+    .o_action_manager,
+    .o_at_home {
+        background: transparent;
+    }
+
+    .o_main_navbar {
+        // The grid already lists the apps: the side menu would be empty here.
+        .o_menu_brand,
+        .o_menu_sections,
+        .o_menu_toggle,
+        .o_at_brand_icon {
+            display: none !important;
+        }
+    }
+}
+
+.o_at_home {
+    min-height: 100%;
+    padding: 24px 16px 64px;
+    overflow: auto;
+}
+
+.o_at_home_search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 560px;
+    height: 0;
+    margin: 0 auto;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: $at-home-shadow;
+    opacity: 0;
+    overflow: hidden;
+    transition: height .15s, margin .15s, opacity .15s;
+
+    // Hidden until the user types (typing anywhere focuses the input).
+    &:focus-within,
+    &.o_at_home_search_active {
+        height: 44px;
+        margin-bottom: 32px;
+        opacity: 1;
+    }
+
+    // No physical keyboard on phones: keep it visible there.
+    @include media-breakpoint-down(md) {
+        height: 44px;
+        margin-bottom: 24px;
+        opacity: 1;
+    }
+
+    input {
+        flex: 1;
+        min-width: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        font-size: 1rem;
+        color: $body-color;
+    }
+}
+
+.o_at_home_search_icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: $text-muted;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.o_at_home_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 135px);
+    justify-content: center;
+    row-gap: 16px;
+    max-width: 135px * 6;
+    margin: 32px auto 0;
+
+    @include media-breakpoint-down(sm) {
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 0;
+    }
+}
+
+.o_at_home_app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px;
+    border-radius: 8px;
+    color: $body-color;
+    text-decoration: none;
+    outline: 0;
+
+    &:hover,
+    &:focus-visible,
+    &.o_at_focus {
+        color: $body-color;
+
+        .o_at_home_tile {
+            transform: translateY(-2px);
+            box-shadow: $at-home-shadow, 0 6px 14px rgba(#2a3346, .08);
+        }
+    }
+
+    &.o_at_focus .o_at_home_tile {
+        outline: 2px solid rgba($at-brand, .5);
+        outline-offset: 2px;
+    }
+}
+
+.o_at_home_tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: $at-home-shadow;
+    transition: transform .15s ease, box-shadow .15s ease;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    // Icons that are a full colored square fill the tile edge to edge.
+    .o_at_home_initial {
+        border-radius: 6px;
+    }
+}
+
+.o_at_home_initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: var(--at-brand);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.o_at_home_name {
+    max-width: 100%;
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.o_at_home_results {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 6px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: $at-home-shadow;
+}
+
+.o_at_home_result {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: $body-color;
+    text-decoration: none;
+
+    &:hover,
+    &.o_at_focus {
+        color: $body-color;
+        background: var(--at-brand-soft);
+    }
+}
+
+.o_at_home_result_icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    font-size: .9rem;
+    object-fit: contain;
+}
+
+.o_at_home_empty {
+    padding: 12px;
+    color: $text-muted;
+    text-align: center;
+}
+
+.o_at_home_toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--o-navbar-height, 46px);
+    padding: 0 14px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+
+    &:hover {
+        background: rgba(#000, .08);
+    }
+
+    svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+    }
+}
