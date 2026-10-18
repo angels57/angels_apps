@@ -229,16 +229,6 @@ $at-tab-bar-gap: 12px;
         }
     }
 
-    // = Full screen systray menus (chat, activities): Odoo opens them under
-    // the top navbar. Without it they start at the top and stop above the
-    // tab bar, which stays visible to switch or close them.
-    body .o-mail-systrayFullscreenDropdownMenu {
-        top: 0 !important;
-        bottom: calc(#{$at-tab-bar-height + $at-tab-bar-gap * 2} + env(safe-area-inset-bottom)) !important;
-        height: auto !important;
-        max-height: none !important;
-    }
-
     // = Current app sections and the user menu ("Profile"): sheets from the
     // bottom instead of side menus, like everything the bar opens.
     .o_app_menu_sidebar,

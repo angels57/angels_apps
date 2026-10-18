@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Phones: dimmed backdrop under an open systray menu (chat, activity),
+         shown as a bottom sheet by systray_sheet.scss. Tapping it closes. -->
+    <t t-inherit="web.NavBar" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_menu_systray')]" position="after">
+            <t t-if="this.ui.isSmall and this.angelsBar.systrayOpen">
+                <t t-portal="'body'">
+                    <!-- Taps are handled in systray_sheet.js, before Odoo's. -->
+                    <div class="o_at_systray_backdrop"/>
+                </t>
+            </t>
+        </xpath>
+    </t>
+</templates>
