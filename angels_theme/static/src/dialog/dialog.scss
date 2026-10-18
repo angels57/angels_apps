@@ -198,11 +198,19 @@ $at-dialog-radius: 14px;
 // = Phones: a bottom sheet instead of a full screen page
 @include media-breakpoint-down(md) {
     .o_dialog .modal.o_modal_full {
+        // Down to the bottom edge: no room left under the sheet.
         .modal-dialog {
             display: flex;
             align-items: flex-end;
+            width: 100%;
+            max-width: none;
             height: 100%;
             margin: 0;
+            padding: 0;
+        }
+
+        .modal-content {
+            width: 100%;
         }
 
         .modal-content {
@@ -254,6 +262,11 @@ $at-dialog-radius: 14px;
                 margin: 0;
             }
         }
+    }
+
+    // The tab bar steps aside while a sheet is open.
+    body:has(.o_dialog .modal.o_modal_full) .o_main_navbar {
+        visibility: hidden;
     }
 
     @media (prefers-reduced-motion: reduce) {
