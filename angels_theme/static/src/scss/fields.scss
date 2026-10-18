@@ -42,6 +42,13 @@ $at-input: ".o_input:not(.o_input .o_input):not(.o_list_renderer .o_input):not(.
         line-height: 1.5;
     }
 
+    // A field the view sizes itself (style="width: 30px" for a day number)
+    // keeps its room for the text.
+    .o_field_widget[style*="width"] #{$at-input} {
+        padding-right: 4px;
+        padding-left: 4px;
+    }
+
     // Many2many tags: the box wraps the tags and the input.
     .o_field_tags#{$at-input} {
         gap: 4px !important;
