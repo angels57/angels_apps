@@ -62,7 +62,7 @@ class SignRequest(models.Model):
     # Signed PDF
     # ------------------------------------------------------------------
     def _footer_text(self):
-        return _("Easy Sign · %(code)s · %(hash)s", code=self.verification_code, hash=(self.document_hash or "")[:16])
+        return _("Angels Sign · %(code)s · %(hash)s", code=self.verification_code, hash=(self.document_hash or "")[:16])
 
     def _draw_field(self, overlay, field):
         signer = field.request_item_id
@@ -126,11 +126,11 @@ class SignRequest(models.Model):
                 "angels_sign.action_report_certificate", res_ids=self.ids,
             )
         except Exception:  # noqa: BLE001 - never block the signature because of the report
-            _logger.exception("Easy Sign: certificate rendering failed for %s", self.name)
+            _logger.exception("Angels Sign: certificate rendering failed for %s", self.name)
             return b""
         return pdf if pdf and pdf.startswith(b"%PDF") else b""
 
-    def _easy_sign_post_process_pdf(self, pdf_bytes):
+    def _angels_sign_post_process_pdf(self, pdf_bytes):
         """Hook for bridge modules (cryptographic signature). Returns PDF bytes."""
         return pdf_bytes
 
@@ -143,14 +143,14 @@ class SignRequest(models.Model):
                 writer.add_page(page)
         writer.add_metadata({
             "/Title": self.document_name or self.name,
-            "/Subject": _("Signed with Easy Sign - verification code %s", self.verification_code),
-            "/Creator": "Easy Sign - Odoo 20",
+            "/Subject": _("Signed with Angels Sign - verification code %s", self.verification_code),
+            "/Creator": "Angels Sign - Odoo 20",
         })
         out = io.BytesIO()
         writer.write(out)
-        final = self._easy_sign_post_process_pdf(out.getvalue())
+        final = self._angels_sign_post_process_pdf(out.getvalue())
         base_name = (self.document_ids[:1].name or "document.pdf").rsplit(".", 1)[0]
-        self.with_context(easy_sign_force=True).write({
+        self.with_context(angels_sign_force=True).write({
             "signed_document": binary_value(final),
             "signed_document_name": f"{base_name}_signed.pdf",
             "signed_document_hash": hashlib.sha256(final).hexdigest(),

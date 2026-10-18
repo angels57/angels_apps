@@ -29,7 +29,7 @@ class SignRequest(models.Model):
     subject = fields.Char(string="Email Subject")
     message = fields.Html(string="Invitation Message")
     attachment_ids = fields.Many2many(
-        "ir.attachment", "easy_sign_request_attachment_rel", "request_id", "attachment_id",
+        "ir.attachment", "angels_sign_request_attachment_rel", "request_id", "attachment_id",
         string="Email Attachments",
         help="Extra files sent with the invitation email.",
     )
@@ -63,7 +63,7 @@ class SignRequest(models.Model):
         help="Remind pending signers every N days. 0 disables reminders.",
     )
     cc_partner_ids = fields.Many2many(
-        "res.partner", "easy_sign_request_cc_rel", "request_id", "partner_id",
+        "res.partner", "angels_sign_request_cc_rel", "request_id", "partner_id",
         string="Copy To",
         help="Contacts that receive the signed document and the certificate.",
     )
@@ -237,7 +237,7 @@ class SignRequest(models.Model):
         if not record or not hasattr(record, "message_post"):
             return
         record.message_post(
-            body=_("Document signed with Easy Sign: %s", self.name),
+            body=_("Document signed with Angels Sign: %s", self.name),
             attachment_ids=self._completion_attachments().ids,
             message_type="notification",
         )
@@ -260,8 +260,8 @@ class SignRequest(models.Model):
             if rec.state not in ("cancelled", "expired"):
                 raise UserError(_("Only cancelled or expired requests can be reset to draft."))
             rec.request_item_ids._reset_for_draft()
-            rec.item_ids.with_context(easy_sign_force=True).write({"value": False})
-            rec.document_ids.with_context(easy_sign_force=True).write({"file_hash": False})
+            rec.item_ids.with_context(angels_sign_force=True).write({"value": False})
+            rec.document_ids.with_context(angels_sign_force=True).write({"file_hash": False})
             rec.write({
                 "state": "draft",
                 "document_hash": False,

@@ -3,19 +3,19 @@ import base64
 from odoo.exceptions import UserError
 from odoo.tests import tagged
 
-from .common import EasySignCase, make_pdf
+from .common import AngelsSignCase, make_pdf
 from ..utils.compat import binary_bytes
 
 
 @tagged("post_install", "-at_install")
-class TestEditor(EasySignCase):
+class TestEditor(AngelsSignCase):
 
     def _files(self, *names):
         return [{"name": name, "data": base64.b64encode(binary_bytes(make_pdf(1))).decode()} for name in names]
 
     def test_upload_creates_request_and_opens_editor(self):
         action = self.env["sign.request"].create_from_upload(self._files("a.pdf", "b.pdf"))
-        self.assertEqual(action["tag"], "easy_sign_editor")
+        self.assertEqual(action["tag"], "angels_sign_editor")
         request = self.env["sign.request"].browse(action["context"]["active_id"])
         self.assertEqual(request.document_ids.mapped("name"), ["a.pdf", "b.pdf"])
         data = request.get_editor_data()
@@ -46,7 +46,7 @@ class TestEditor(EasySignCase):
         self.assertEqual(template.editor_set_name("Renamed"), "Renamed")
         # Send from a template creates a request and opens it in the editor.
         send = template.action_send_from_editor()
-        self.assertEqual(send["tag"], "easy_sign_editor")
+        self.assertEqual(send["tag"], "angels_sign_editor")
         self.assertTrue(template.get_editor_data()["locked"])
         with self.assertRaises(UserError):
             template.editor_add_party()

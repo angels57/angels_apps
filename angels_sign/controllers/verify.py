@@ -26,7 +26,7 @@ def _rate_limited(ip):
         return False
 
 
-class EasySignVerifyController(http.Controller):
+class AngelsSignVerifyController(http.Controller):
 
     @http.route("/sign/verify", type="http", auth="public", methods=["GET"], sitemap=False)
     def verify_form(self, **kwargs):

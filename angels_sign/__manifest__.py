@@ -1,10 +1,10 @@
 {
-    "name": "Easy Sign - Electronic Signature",
+    "name": "Angels Sign - Electronic Signature",
     "version": "20.0.2.1.1",
     "summary": "Self-hosted electronic signature: place fields on PDFs, collect signatures, get a certificate",
     "description": """
-Easy Sign - Electronic Signature for Odoo 20
-=============================================
+Angels Sign - Electronic Signature for Odoo 20
+==============================================
 
 A self-hosted electronic signature solution that works 100% inside Odoo, with
 no external APIs or third-party services required.

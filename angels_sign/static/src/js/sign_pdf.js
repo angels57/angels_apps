@@ -1,6 +1,6 @@
 /** @odoo-module ignore */
 /**
- * Easy Sign — renders the PDF pages with Odoo's pdf.js and places the signer's
+ * Angels Sign — renders the PDF pages with Odoo's pdf.js and places the signer's
  * fields on top, positioned in % of the page so they follow any zoom.
  */
 (function () {
@@ -12,7 +12,7 @@
     };
 
     function label(type) {
-        var lang = window.EasySign && window.EasySign.lang && window.EasySign.lang() === 'es' ? 'es' : 'en';
+        var lang = window.AngelsSign && window.AngelsSign.lang && window.AngelsSign.lang() === 'es' ? 'es' : 'en';
         return LABELS[lang][type];
     }
     var CSS_UNITS = 96 / 72;   // pdf.js: 100% zoom shows PDF points at 96 dpi
@@ -283,6 +283,6 @@
         return next;
     };
 
-    window.EasySign = window.EasySign || {};
-    window.EasySign.Fields = Fields;
+    window.AngelsSign = window.AngelsSign || {};
+    window.AngelsSign.Fields = Fields;
 })();

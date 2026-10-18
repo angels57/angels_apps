@@ -24,6 +24,6 @@ class SignRequestItem(models.Model):
             raise UserError(_("No mobile number is set for this signer."))
         self.env["sms.sms"].sudo().create({
             "number": self.signer_phone,
-            "body": _("%(code)s is your Easy Sign code for %(doc)s. Valid 10 minutes.",
+            "body": _("%(code)s is your Angels Sign code for %(doc)s. Valid 10 minutes.",
                       code=code, doc=self.request_id.document_name or self.request_id.name),
         }).send()

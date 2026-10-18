@@ -18,7 +18,7 @@
                 <t t-call="web.basic_layout">
                     <div class="page" style="font-family:'DejaVu Sans',Arial,sans-serif;font-size:10px;color:#1e293b;">
                         <h2 style="margin:0 0 4px 0;">Certificate of Completion</h2>
-                        <div style="color:#64748b;margin-bottom:14px;">Easy Sign · <t t-out="o.company_id.name"/></div>
+                        <div style="color:#64748b;margin-bottom:14px;">Angels Sign · <t t-out="o.company_id.name"/></div>
 
                         <table style="width:100%;border-collapse:collapse;margin-bottom:14px;">
                             <tr><td style="width:30%;padding:3px 0;color:#64748b;">Reference</td><td t-out="o.name"/></tr>

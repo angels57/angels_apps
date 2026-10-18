@@ -11,7 +11,7 @@
                 <t t-out="0"/>
             </div>
             <div style="background:#f8fafc;padding:14px 28px;font-size:11px;color:#94a3b8;border-top:1px solid #e2e8f0;">
-                Easy Sign · <t t-out="sign_request.name"/>
+                Angels Sign · <t t-out="sign_request.name"/>
             </div>
         </div>
     </template>

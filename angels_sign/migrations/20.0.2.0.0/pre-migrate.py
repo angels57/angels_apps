@@ -8,6 +8,6 @@ they survive the field removal; ``post-migrate`` turns them into documents.
 def migrate(cr, version):
     cr.execute("""
         UPDATE ir_attachment
-           SET res_field = 'easy_sign_legacy_document'
+           SET res_field = 'angels_sign_legacy_document'
          WHERE res_model = 'sign.request' AND res_field = 'document'
     """)

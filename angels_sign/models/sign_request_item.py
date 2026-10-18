@@ -91,7 +91,7 @@ class SignRequestItem(models.Model):
         return super().create(vals_list)
 
     def write(self, vals):
-        forced = self.env.context.get("easy_sign_force")
+        forced = self.env.context.get("angels_sign_force")
         replaced = self.browse()
         if not forced and {"signer_name", "signer_email", "partner_id"} & set(vals):
             for item in self:
@@ -105,7 +105,7 @@ class SignRequestItem(models.Model):
             raise UserError(_("Signers can only be reconfigured while the request is a draft."))
         res = super().write(vals)
         for item in replaced:
-            item.sudo().with_context(easy_sign_force=True).write({"access_token": secrets.token_urlsafe(32)})
+            item.sudo().with_context(angels_sign_force=True).write({"access_token": secrets.token_urlsafe(32)})
             self.env["sign.log"].sudo().create({
                 "request_id": item.request_id.id,
                 "request_item_id": item.id,
@@ -123,7 +123,7 @@ class SignRequestItem(models.Model):
 
     def _reset_for_draft(self):
         for item in self:
-            item.sudo().with_context(easy_sign_force=True).write({
+            item.sudo().with_context(angels_sign_force=True).write({
                 "state": "pending",
                 "signature": False,
                 "initials": False,
@@ -241,7 +241,7 @@ class SignRequestItem(models.Model):
             vals["signature"] = self._binary_value(signature_png)
         if initials_png:
             vals["initials"] = self._binary_value(initials_png)
-        signer = self.sudo().with_context(easy_sign_force=True)
+        signer = self.sudo().with_context(angels_sign_force=True)
         signer.write(vals)
         signer.signer_hash = self._compute_signer_hash()
         self.env["sign.log"].sudo().create({

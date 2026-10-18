@@ -1,19 +1,19 @@
 id,name,model_id,group_id/id,operation,domain
-access_sign_request_user,Easy Sign: own requests,sign.request,angels_sign.group_sign_user,cru,"[('user_id', '=', user.id)]"
-access_sign_request_signer,Easy Sign: requests to sign,sign.request,angels_sign.group_sign_user,r,"[('request_item_ids.partner_id', '=', user.partner_id.id)]"
-access_sign_request_manager,Easy Sign: all requests,sign.request,angels_sign.group_sign_manager,crud,
-access_sign_request_item_user,Easy Sign: signers of own requests,sign.request.item,angels_sign.group_sign_user,crud,"[('request_id.user_id', '=', user.id)]"
-access_sign_request_item_signer,Easy Sign: signers of requests to sign,sign.request.item,angels_sign.group_sign_user,r,"[('request_id.request_item_ids.partner_id', '=', user.partner_id.id)]"
-access_sign_request_item_manager,Easy Sign: all signers,sign.request.item,angels_sign.group_sign_manager,crud,
-access_sign_document_user,Easy Sign: documents of own requests and allowed templates,sign.document,angels_sign.group_sign_user,crud,"['|', ('request_id.user_id', '=', user.id), '&', ('template_id', '!=', False), '|', '&', ('template_id.group_ids', '=', False), ('template_id.authorized_ids', '=', False), '|', ('template_id.group_ids', 'in', user.all_group_ids.ids), ('template_id.authorized_ids', 'in', [user.id])]"
-access_sign_document_signer,Easy Sign: documents of requests to sign,sign.document,angels_sign.group_sign_user,r,"[('request_id.request_item_ids.partner_id', '=', user.partner_id.id)]"
-access_sign_document_manager,Easy Sign: all documents,sign.document,angels_sign.group_sign_manager,crud,
-access_sign_item_user,Easy Sign: fields of own requests and allowed templates,sign.item,angels_sign.group_sign_user,crud,"['|', ('request_id.user_id', '=', user.id), '&', ('template_id', '!=', False), '|', '&', ('template_id.group_ids', '=', False), ('template_id.authorized_ids', '=', False), '|', ('template_id.group_ids', 'in', user.all_group_ids.ids), ('template_id.authorized_ids', 'in', [user.id])]"
-access_sign_item_manager,Easy Sign: all fields,sign.item,angels_sign.group_sign_manager,crud,
-access_sign_log_user,Easy Sign: audit of own requests,sign.log,angels_sign.group_sign_user,r,"[('request_id.user_id', '=', user.id)]"
-access_sign_log_manager,Easy Sign: all audit,sign.log,angels_sign.group_sign_manager,r,
-access_sign_template_user,Easy Sign: allowed templates,sign.template,angels_sign.group_sign_user,r,"['|', '&', ('group_ids', '=', False), ('authorized_ids', '=', False), '|', ('group_ids', 'in', user.all_group_ids.ids), ('authorized_ids', 'in', [user.id])]"
-access_sign_template_manager,Easy Sign: all templates,sign.template,angels_sign.group_sign_manager,crud,
+access_sign_request_user,Angels Sign: own requests,sign.request,angels_sign.group_sign_user,cru,"[('user_id', '=', user.id)]"
+access_sign_request_signer,Angels Sign: requests to sign,sign.request,angels_sign.group_sign_user,r,"[('request_item_ids.partner_id', '=', user.partner_id.id)]"
+access_sign_request_manager,Angels Sign: all requests,sign.request,angels_sign.group_sign_manager,crud,
+access_sign_request_item_user,Angels Sign: signers of own requests,sign.request.item,angels_sign.group_sign_user,crud,"[('request_id.user_id', '=', user.id)]"
+access_sign_request_item_signer,Angels Sign: signers of requests to sign,sign.request.item,angels_sign.group_sign_user,r,"[('request_id.request_item_ids.partner_id', '=', user.partner_id.id)]"
+access_sign_request_item_manager,Angels Sign: all signers,sign.request.item,angels_sign.group_sign_manager,crud,
+access_sign_document_user,Angels Sign: documents of own requests and allowed templates,sign.document,angels_sign.group_sign_user,crud,"['|', ('request_id.user_id', '=', user.id), '&', ('template_id', '!=', False), '|', '&', ('template_id.group_ids', '=', False), ('template_id.authorized_ids', '=', False), '|', ('template_id.group_ids', 'in', user.all_group_ids.ids), ('template_id.authorized_ids', 'in', [user.id])]"
+access_sign_document_signer,Angels Sign: documents of requests to sign,sign.document,angels_sign.group_sign_user,r,"[('request_id.request_item_ids.partner_id', '=', user.partner_id.id)]"
+access_sign_document_manager,Angels Sign: all documents,sign.document,angels_sign.group_sign_manager,crud,
+access_sign_item_user,Angels Sign: fields of own requests and allowed templates,sign.item,angels_sign.group_sign_user,crud,"['|', ('request_id.user_id', '=', user.id), '&', ('template_id', '!=', False), '|', '&', ('template_id.group_ids', '=', False), ('template_id.authorized_ids', '=', False), '|', ('template_id.group_ids', 'in', user.all_group_ids.ids), ('template_id.authorized_ids', 'in', [user.id])]"
+access_sign_item_manager,Angels Sign: all fields,sign.item,angels_sign.group_sign_manager,crud,
+access_sign_log_user,Angels Sign: audit of own requests,sign.log,angels_sign.group_sign_user,r,"[('request_id.user_id', '=', user.id)]"
+access_sign_log_manager,Angels Sign: all audit,sign.log,angels_sign.group_sign_manager,r,
+access_sign_template_user,Angels Sign: allowed templates,sign.template,angels_sign.group_sign_user,r,"['|', '&', ('group_ids', '=', False), ('authorized_ids', '=', False), '|', ('group_ids', 'in', user.all_group_ids.ids), ('authorized_ids', 'in', [user.id])]"
+access_sign_template_manager,Angels Sign: all templates,sign.template,angels_sign.group_sign_manager,crud,
 access_sign_role_user,sign.role user,sign.role,angels_sign.group_sign_user,r,
 access_sign_role_manager,sign.role manager,sign.role,angels_sign.group_sign_manager,crud,
 access_sign_tag_user,sign.tag user,sign.tag,angels_sign.group_sign_user,cru,

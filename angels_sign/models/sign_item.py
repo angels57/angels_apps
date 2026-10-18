@@ -89,7 +89,7 @@ class SignItem(models.Model):
                 raise ValidationError(_("Page %s does not exist in %s.", item.page, item.document_id.name))
 
     def _check_editable(self):
-        if self.env.context.get("easy_sign_force"):
+        if self.env.context.get("angels_sign_force"):
             return
         for item in self:
             if item.request_id and item.request_id.state != "draft":
@@ -140,7 +140,7 @@ class SignItem(models.Model):
             value = item._clean_value(raw)
             if item.required and not value and item.type not in ("strike",):
                 raise UserError(_("Please complete all the required fields."))
-            item.with_context(easy_sign_force=True).sudo().value = value or False
+            item.with_context(angels_sign_force=True).sudo().value = value or False
 
     def _update_contact(self, signer):
         """Write the values of "Update Field" fields back to the signer's contact."""

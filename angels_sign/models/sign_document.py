@@ -51,10 +51,10 @@ class SignDocument(models.Model):
 
     def _compute_file_hash(self):
         for doc in self:
-            doc.with_context(easy_sign_force=True).file_hash = hashlib.sha256(doc._get_bytes()).hexdigest()
+            doc.with_context(angels_sign_force=True).file_hash = hashlib.sha256(doc._get_bytes()).hexdigest()
 
     def _check_editable(self):
-        if self.env.context.get("easy_sign_force"):
+        if self.env.context.get("angels_sign_force"):
             return
         for doc in self:
             if doc.request_id and doc.request_id.state != "draft":

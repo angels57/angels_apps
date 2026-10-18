@@ -5,12 +5,12 @@ from odoo.tests import tagged
 from odoo.tools import mute_logger
 from odoo.tools.pdf import PdfReader
 
-from .common import EasySignCase, make_pdf, make_png
+from .common import AngelsSignCase, make_pdf, make_png
 from ..utils.compat import binary_bytes, binary_value
 
 
 @tagged("post_install", "-at_install")
-class TestRequestFlow(EasySignCase):
+class TestRequestFlow(AngelsSignCase):
 
     def test_send_and_sign_without_fields(self):
         request, _doc = self.make_request(signers=1)
@@ -102,7 +102,7 @@ class TestRequestFlow(EasySignCase):
         request.action_send()
         with self.assertRaises(UserError):
             signer.signer_email = "x@example.test"
-        signer.with_context(easy_sign_force=True).can_delegate = True
+        signer.with_context(angels_sign_force=True).can_delegate = True
         token = signer.access_token
         signer.signer_email = "new@example.test"
         self.assertNotEqual(signer.access_token, token)

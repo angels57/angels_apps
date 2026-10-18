@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="module_category_easy_sign" model="ir.module.category">
-        <field name="name">Easy Sign</field>
+    <record id="module_category_angels_sign" model="ir.module.category">
+        <field name="name">Angels Sign</field>
         <field name="sequence">60</field>
     </record>
 
-    <record id="res_groups_privilege_easy_sign" model="res.groups.privilege">
-        <field name="name">Easy Sign</field>
-        <field name="category_id" ref="module_category_easy_sign"/>
+    <record id="res_groups_privilege_angels_sign" model="res.groups.privilege">
+        <field name="name">Angels Sign</field>
+        <field name="category_id" ref="module_category_angels_sign"/>
         <field name="sequence">60</field>
     </record>
 
     <record id="group_sign_user" model="res.groups">
         <field name="name">User</field>
-        <field name="privilege_id" ref="res_groups_privilege_easy_sign"/>
+        <field name="privilege_id" ref="res_groups_privilege_angels_sign"/>
         <field name="sequence">10</field>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
 
     <record id="group_sign_manager" model="res.groups">
         <field name="name">Administrator</field>
-        <field name="privilege_id" ref="res_groups_privilege_easy_sign"/>
+        <field name="privilege_id" ref="res_groups_privilege_angels_sign"/>
         <field name="sequence">20</field>
         <field name="implied_ids" eval="[(4, ref('angels_sign.group_sign_user'))]"/>
         <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
@@ -29,7 +29,7 @@
 
     <!-- Enabled by Settings > Manage template access: shows who may use each template. -->
     <record id="group_manage_template_access" model="res.groups">
-        <field name="name">Easy Sign: manage template access</field>
+        <field name="name">Angels Sign: manage template access</field>
     </record>
 
 </odoo>

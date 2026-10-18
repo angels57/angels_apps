@@ -16,7 +16,7 @@ def _json(payload, status=200):
     )
 
 
-class EasySignController(http.Controller):
+class AngelsSignController(http.Controller):
 
     # ------------------------------------------------------------------
     # Helpers
@@ -176,7 +176,7 @@ class EasySignController(http.Controller):
             return _json({"success": False, "error": str(exc)}, 400)
         except Exception:
             request.env.cr.rollback()
-            _logger.exception("Easy Sign: error saving the signature of signer %s", signer.id)
+            _logger.exception("Angels Sign: error saving the signature of signer %s", signer.id)
             return _json({"success": False, "error": _("The signature could not be saved.")}, 500)
         return _json({"success": True, "redirect_url": sign_request.redirect_url or ""})
 
@@ -192,6 +192,6 @@ class EasySignController(http.Controller):
         except UserError as exc:
             return _json({"success": False, "error": str(exc)}, 400)
         except Exception:
-            _logger.exception("Easy Sign: error declining for signer %s", signer.id)
+            _logger.exception("Angels Sign: error declining for signer %s", signer.id)
             return _json({"success": False, "error": _("The document could not be declined.")}, 500)
         return _json({"success": True})

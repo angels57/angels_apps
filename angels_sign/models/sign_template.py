@@ -28,7 +28,7 @@ class SignTemplate(models.Model):
     redirect_url = fields.Char(string="Redirect URL")
     group_ids = fields.Many2many(
         "res.groups", string="Allowed Groups",
-        help="These groups can use the template. Empty groups and users: every Easy Sign user.",
+        help="These groups can use the template. Empty groups and users: every Angels Sign user.",
     )
     authorized_ids = fields.Many2many(
         "res.users", "sign_template_authorized_users_rel", string="Allowed Users",

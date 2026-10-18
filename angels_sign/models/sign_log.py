@@ -64,14 +64,14 @@ class SignLog(models.Model):
             )
             vals["previous_log_hash"] = previous.log_hash or ""
             log = super().create([vals])
-            log.sudo().with_context(easy_sign_log_hash=True).write({
+            log.sudo().with_context(angels_sign_log_hash=True).write({
                 "log_hash": hashlib.sha256(log._payload().encode()).hexdigest(),
             })
             logs |= log
         return logs
 
     def write(self, vals):
-        if not (self.env.context.get("easy_sign_log_hash") and set(vals) == {"log_hash"}):
+        if not (self.env.context.get("angels_sign_log_hash") and set(vals) == {"log_hash"}):
             raise UserError(_("Audit log entries cannot be modified."))
         return super().write(vals)
 

@@ -25,12 +25,12 @@ export function pickPdfFiles() {
 }
 
 /** "New" becomes "Upload PDF": the PDF opens straight in the editor. */
-export class EasySignListController extends ListController {
+export class AngelsSignListController extends ListController {
     static template = "angels_sign.ListView";
 
     setup() {
         super.setup();
-        this.easySignOrm = useService("orm");
+        this.angelsSignOrm = useService("orm");
     }
 
     async onClickUpload() {
@@ -38,7 +38,7 @@ export class EasySignListController extends ListController {
         if (!files.length) {
             return;
         }
-        const action = await this.easySignOrm.call(this.props.resModel, "create_from_upload", [files]);
+        const action = await this.angelsSignOrm.call(this.props.resModel, "create_from_upload", [files]);
         await this.actionService.doAction(action);
     }
 
@@ -47,13 +47,13 @@ export class EasySignListController extends ListController {
         if (!toEditor) {
             return super.openRecord(record, options);
         }
-        const action = await this.easySignOrm.call(this.props.resModel, "action_open_editor", [[record.resId]]);
+        const action = await this.angelsSignOrm.call(this.props.resModel, "action_open_editor", [[record.resId]]);
         return this.actionService.doAction(action);
     }
 }
 
-registry.category("views").add("easy_sign_list", {
+registry.category("views").add("angels_sign_list", {
     ...listView,
-    Controller: EasySignListController,
+    Controller: AngelsSignListController,
     buttonTemplate: "angels_sign.ListView.Buttons",
 });

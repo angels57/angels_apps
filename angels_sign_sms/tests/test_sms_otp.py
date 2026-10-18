@@ -33,6 +33,6 @@ class TestSmsOtp(SMSCase):
         self.assertIn("otp_sent", self.request.log_ids.mapped("action"))
 
     def test_missing_phone(self):
-        self.signer.with_context(easy_sign_force=True).signer_phone = False
+        self.signer.with_context(angels_sign_force=True).signer_phone = False
         with self.mockSMSGateway(), self.assertRaises(UserError):
             self.signer._send_otp()

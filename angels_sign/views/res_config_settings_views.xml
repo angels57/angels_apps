@@ -7,8 +7,8 @@
         <field name="priority" eval="90"/>
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
-                <app data-string="Easy Sign" string="Easy Sign" name="angels_sign" groups="angels_sign.group_sign_manager">
-                    <block title="Sign Settings" name="easy_sign_settings">
+                <app data-string="Angels Sign" string="Angels Sign" name="angels_sign" groups="angels_sign.group_sign_manager">
+                    <block title="Sign Settings" name="angels_sign_settings">
                         <setting id="sign_terms" string="Sign Default Terms &amp; Conditions"
                                  help="Add terms &amp; conditions to the signature request email">
                             <field name="use_sign_terms"/>
@@ -45,7 +45,7 @@
         </field>
     </record>
 
-    <record id="action_easy_sign_settings" model="ir.actions.act_window">
+    <record id="action_angels_sign_settings" model="ir.actions.act_window">
         <field name="name">Settings</field>
         <field name="res_model">res.config.settings</field>
         <field name="view_mode">form</field>

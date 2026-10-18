@@ -1,7 +1,7 @@
 {
-    "name": "Easy Sign - Certificate Signature",
+    "name": "Angels Sign - Certificate Signature",
     "version": "20.0.1.0.1",
-    "summary": "Sign the final Easy Sign PDF with the company certificate (.p12/.pfx)",
+    "summary": "Sign the final Angels Sign PDF with the company certificate (.p12/.pfx)",
     "description": """
 When a request is completed, the signed PDF is also signed cryptographically
 with the certificate configured on the company, so PDF readers show the

@@ -106,10 +106,10 @@ msgstr "<select id=\"esZoom\" class=\"es-zoom\" aria-label=\"Zoom\">\n          
 #: model_terms:ir.ui.view,arch_db:angels_sign.sign_page
 msgid ""
 "<span class=\"es-actionbar-secured\">\n"
-"            <span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Secured by</span> <strong>Easy Sign</strong>\n"
+"            <span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Secured by</span> <strong>Angels Sign</strong>\n"
 "        </span>\n"
 "        <span id=\"esProgressText\" class=\"es-progress-text\"/>"
-msgstr "<span class=\"es-actionbar-secured\">\n            <span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Protegido por</span> <strong>Easy Sign</strong>\n        </span>\n        <span id=\"esProgressText\" class=\"es-progress-text\"/>"
+msgstr "<span class=\"es-actionbar-secured\">\n            <span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Protegido por</span> <strong>Angels Sign</strong>\n        </span>\n        <span id=\"esProgressText\" class=\"es-progress-text\"/>"
 
 #. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.sign_success
@@ -214,8 +214,8 @@ msgstr "<span class=\"es-i18n\" data-en=\"Requested by\" data-es=\"Solicitado po
 #: model_terms:ir.ui.view,arch_db:angels_sign.result_layout
 msgid ""
 "<span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Secured by</span>\n"
-"            <strong>Easy Sign</strong>"
-msgstr "<span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Protegido por</span>\n            <strong>Easy Sign</strong>"
+"            <strong>Angels Sign</strong>"
+msgstr "<span class=\"es-i18n\" data-en=\"Secured by\" data-es=\"Protegido por\">Protegido por</span>\n            <strong>Angels Sign</strong>"
 
 #. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.sign_page
@@ -1000,8 +1000,8 @@ msgstr "Documento firmado por todos"
 #. module: angels_sign
 #. odoo-python
 #: code:addons/angels_sign/models/sign_request.py:0
-msgid "Document signed with Easy Sign: %s"
-msgstr "Documento firmado con Easy Sign: %s"
+msgid "Document signed with Angels Sign: %s"
+msgstr "Documento firmado con Angels Sign: %s"
 
 #. module: angels_sign
 #. odoo-javascript
@@ -1041,44 +1041,44 @@ msgid "Each event hash chains to the previous one. Check the signed file at"
 msgstr "El hash de cada evento se encadena con el anterior. Verifica el archivo firmado en"
 
 #. module: angels_sign
-#: model:ir.module.category,name:angels_sign.module_category_easy_sign
-#: model:ir.ui.menu,name:angels_sign.menu_easy_sign_root
-#: model:res.groups.privilege,name:angels_sign.res_groups_privilege_easy_sign
+#: model:ir.module.category,name:angels_sign.module_category_angels_sign
+#: model:ir.ui.menu,name:angels_sign.menu_angels_sign_root
+#: model:res.groups.privilege,name:angels_sign.res_groups_privilege_angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
-msgid "Easy Sign"
-msgstr "Easy Sign"
+msgid "Angels Sign"
+msgstr "Angels Sign"
 
 #. module: angels_sign
 #: model:ir.model,name:angels_sign.model_sign_editor_mixin
-msgid "Easy Sign PDF Editor"
-msgstr "Editor de PDF de Easy Sign"
+msgid "Angels Sign PDF Editor"
+msgstr "Editor de PDF de Angels Sign"
 
 #. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.mail_layout
 #: model_terms:ir.ui.view,arch_db:angels_sign.report_certificate
-msgid "Easy Sign ·"
-msgstr "Easy Sign ·"
+msgid "Angels Sign ·"
+msgstr "Angels Sign ·"
 
 #. module: angels_sign
 #. odoo-python
 #: code:addons/angels_sign/models/sign_request_pdf.py:0
-msgid "Easy Sign · %(code)s · %(hash)s"
-msgstr "Easy Sign · %(code)s · %(hash)s"
+msgid "Angels Sign · %(code)s · %(hash)s"
+msgstr "Angels Sign · %(code)s · %(hash)s"
 
 #. module: angels_sign
 #: model:ir.actions.server,name:angels_sign.cron_expire_requests_ir_actions_server
-msgid "Easy Sign: expire requests"
-msgstr "Easy Sign: vencer solicitudes"
+msgid "Angels Sign: expire requests"
+msgstr "Angels Sign: vencer solicitudes"
 
 #. module: angels_sign
 #: model:res.groups,name:angels_sign.group_manage_template_access
-msgid "Easy Sign: manage template access"
-msgstr "Easy Sign: gestionar el acceso a plantillas"
+msgid "Angels Sign: manage template access"
+msgstr "Angels Sign: gestionar el acceso a plantillas"
 
 #. module: angels_sign
 #: model:ir.actions.server,name:angels_sign.cron_send_reminders_ir_actions_server
-msgid "Easy Sign: send reminders"
-msgstr "Easy Sign: enviar recordatorios"
+msgid "Angels Sign: send reminders"
+msgstr "Angels Sign: enviar recordatorios"
 
 #. module: angels_sign
 #. odoo-javascript
@@ -2113,7 +2113,7 @@ msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: angels_sign
-#: model:ir.actions.act_window,name:angels_sign.action_easy_sign_settings
+#: model:ir.actions.act_window,name:angels_sign.action_angels_sign_settings
 #: model:ir.ui.menu,name:angels_sign.menu_sign_settings
 msgid "Settings"
 msgstr "Ajustes"
@@ -2302,8 +2302,8 @@ msgstr "PDF firmado (opcional, comprueba que el archivo no fue alterado)"
 #. module: angels_sign
 #. odoo-python
 #: code:addons/angels_sign/models/sign_request_pdf.py:0
-msgid "Signed with Easy Sign - verification code %s"
-msgstr "Firmado con Easy Sign - código de verificación %s"
+msgid "Signed with Angels Sign - verification code %s"
+msgstr "Firmado con Angels Sign - código de verificación %s"
 
 #. module: angels_sign
 #. odoo-python
@@ -2688,9 +2688,9 @@ msgstr "No queda nadie por invitar."
 #. module: angels_sign
 #: model:ir.model.fields,help:angels_sign.field_sign_template__group_ids
 msgid ""
-"These groups can use the template. Empty groups and users: every Easy Sign "
+"These groups can use the template. Empty groups and users: every Angels Sign "
 "user."
-msgstr "Estos grupos pueden usar la plantilla. Sin grupos ni usuarios: todos los usuarios de Easy Sign."
+msgstr "Estos grupos pueden usar la plantilla. Sin grupos ni usuarios: todos los usuarios de Angels Sign."
 
 #. module: angels_sign
 #: model:ir.model.fields,help:angels_sign.field_sign_template__authorized_ids
