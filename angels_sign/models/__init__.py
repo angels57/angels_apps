@@ -4,6 +4,7 @@ from . import sign_request
 from . import sign_request_mail
 from . import sign_request_pdf
 from . import sign_request_item
+from . import sign_request_item_home
 from . import sign_item
 from . import sign_item_type
 from . import sign_template
