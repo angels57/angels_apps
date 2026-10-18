@@ -102,6 +102,11 @@ $at-tab-bar-gap: 12px;
         border-radius: 5px;
     }
 
+    img.o_at_tab_avatar {
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
     .o_at_tab_label {
         max-width: 100%;
         overflow: hidden;
@@ -129,95 +134,6 @@ $at-tab-bar-gap: 12px;
         line-height: 17px;
         text-align: center;
         box-shadow: 0 0 0 2px #fff;
-    }
-
-    // = "More" sheet: under the tab bar, which stays visible and active
-    .o_at_more_backdrop {
-        position: fixed;
-        inset: 0;
-        z-index: $zindex-fixed - 2;
-        background: rgba(#000, .28);
-    }
-
-    .o_at_more_sheet {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: $zindex-fixed - 1;
-        padding: 8px 16px calc(#{$at-tab-bar-height + $at-tab-bar-gap * 2 + 8px} + env(safe-area-inset-bottom));
-        border-radius: 18px 18px 0 0;
-        background: $o-view-background-color;
-        box-shadow: 0 -8px 24px rgba(#000, .12);
-        animation: o_at_sheet_in .2s ease-out;
-    }
-
-    .o_at_more_grab {
-        width: 36px;
-        height: 4px;
-        margin: 0 auto 10px;
-        border-radius: 4px;
-        background: $at-line;
-    }
-
-    .o_at_more_title {
-        margin-bottom: 12px;
-        font-size: 15px;
-        font-weight: 500;
-    }
-
-    .o_at_more_grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-    }
-
-    .o_at_more_item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        padding: 14px 4px 12px;
-        border: 0;
-        border-radius: 14px;
-        background: $at-home-bg;
-        color: $body-color;
-        font-size: 12px;
-
-        &:active {
-            background: var(--at-brand-soft);
-        }
-    }
-
-    .o_at_more_icon {
-        position: relative;
-        display: flex;
-        width: 26px;
-        height: 26px;
-
-        svg {
-            width: 26px;
-            height: 26px;
-            fill: none;
-            stroke: var(--at-brand);
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        img {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-    }
-
-    .o_at_more_label {
-        max-width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
     }
 
     @keyframes o_at_sheet_in {
@@ -264,8 +180,5 @@ $at-tab-bar-gap: 12px;
             transition: none;
         }
 
-        .o_at_more_sheet {
-            animation: none;
-        }
     }
 }

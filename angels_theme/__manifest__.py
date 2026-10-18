@@ -1,6 +1,6 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "19.0.1.8.0",
+    "version": "19.0.1.9.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
 Angels Theme - Backend Theme for Odoo 19
@@ -22,9 +22,9 @@ A backend theme that every app inherits without changing its views.
 * Home screen layout per user: pin apps to the top, drag to reorder, an
   optional row of recent apps and counters (activities due, documents to sign)
 * Phones: the navbar becomes a floating tab bar at the bottom (Home, current
-  app, Search and More, which gathers Chat, Activity and Profile in one
-  sheet), hidden while scrolling down; the app tab shows its sections as an
-  accordion, and chat and activity open as bottom sheets
+  app, Search, Chat, Activity and Profile), hidden while scrolling down; the
+  app tab shows its sections as an accordion, and chat and activity open as
+  bottom sheets
     """,
     "category": "Themes/Backend",
     "author": "Angels SAS",

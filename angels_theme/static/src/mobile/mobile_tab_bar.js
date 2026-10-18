@@ -1,11 +1,11 @@
-import { onMounted, onWillUnmount, useState } from "@odoo/owl";
+import { onMounted, onPatched, onWillUnmount, useState } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
 import { NavBar } from "@web/webclient/navbar/navbar";
 
 const SCROLL_THRESHOLD = 8;
 
-/** Known systray items in the "More" sheet; others use their own title. */
+/** Known systray items of the tab bar; others use their own title. */
 const SYSTRAY_ITEMS = {
     "mail.messaging_menu": { label: () => _t("Chat"), icon: "chat" },
     "mail.activity_menu": { label: () => _t("Activity"), icon: "clock" },
@@ -28,16 +28,13 @@ patch(NavBar.prototype, {
         super.setup(...arguments);
         this.angelsBar = useState({
             homeOpen: document.body.classList.contains("o_at_home_open"),
-            moreOpen: false,
-            moreItems: [],
-            moreCount: 0,
+            systrayItems: [],
             systrayOpen: false,
         });
         this.angelsLabels = {
             home: _t("Home"),
             menu: _t("Menu"),
             search: _t("Search"),
-            more: _t("More"),
         };
         // The home screen toggles a class on <body>; follow it for the
         // active tab without coupling the two components.
@@ -45,7 +42,7 @@ patch(NavBar.prototype, {
             this.angelsBar.homeOpen = document.body.classList.contains("o_at_home_open");
         });
         bodyObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-        // Counters and open state of the (hidden) systray items, for "More".
+        // Counters and open state of the (hidden) systray items, for their tabs.
         const systrayObserver = new MutationObserver(() => this.angelsSyncSystray());
         onMounted(() => {
             const systray = document.querySelector(".o_main_navbar .o_menu_systray");
@@ -60,15 +57,15 @@ patch(NavBar.prototype, {
             }
             this.angelsSyncSystray();
         });
+        // A render may have been computed before the last systray change:
+        // set the active tabs from the togglers again once it is applied.
+        onPatched(() => this.angelsApplyActiveTabs());
         // Hide the tab bar while scrolling down, show it again when scrolling up.
         this.angelsLastScroll = new WeakMap();
         const onScroll = (ev) => this.angelsOnScroll(ev);
         document.addEventListener("scroll", onScroll, { capture: true, passive: true });
-        // A new view starts with the bar visible and the sheet closed.
-        const onViewChange = () => {
-            document.body.classList.remove("o_at_tab_bar_hidden");
-            this.angelsBar.moreOpen = false;
-        };
+        // A new view starts with the bar visible.
+        const onViewChange = () => document.body.classList.remove("o_at_tab_bar_hidden");
         this.env.bus.addEventListener("ACTION_MANAGER:UI-UPDATED", onViewChange);
         onWillUnmount(() => {
             bodyObserver.disconnect();
@@ -80,11 +77,6 @@ patch(NavBar.prototype, {
 
     get angelsHomeOpen() {
         return this.angelsBar.homeOpen;
-    },
-
-    /** "More" is active while its sheet or one of its menus is open. */
-    get angelsMoreActive() {
-        return this.angelsBar.moreOpen || this.angelsBar.systrayOpen;
     },
 
     angelsBadge(count) {
@@ -127,39 +119,58 @@ patch(NavBar.prototype, {
             return;
         }
         const entries = this.angelsSystrayEntries();
-        this.angelsBar.moreCount = entries.reduce((sum, entry) => sum + entry.count, 0);
-        this.angelsBar.systrayOpen = entries.some((entry) => entry.expanded);
-        if (this.angelsBar.moreOpen) {
-            this.angelsBar.moreItems = entries.map(({ toggler, ...entry }) => entry);
-        }
+        const open = entries.some((entry) => entry.expanded);
+        this.angelsBar.systrayItems = entries.map(({ toggler, ...entry }) => entry);
+        this.angelsBar.systrayOpen = open;
+        this.angelsApplyActiveTabs(entries);
     },
 
-    angelsToggleMore() {
-        // With one of its menus open, "More" closes that menu.
-        const open = this.angelsSystrayEntries().find((entry) => entry.expanded);
-        if (open) {
-            open.toggler.click();
+    /**
+     * Highlight the tab of the open systray menu, or the app tab, straight
+     * on the DOM: the navbar re-renders only once its systray components
+     * have (~0.3s with Discuss), which would make the highlight lag.
+     */
+    angelsApplyActiveTabs(entries = this.angelsSystrayEntries()) {
+        if (!this.ui.isSmall) {
             return;
         }
-        this.angelsBar.moreOpen = !this.angelsBar.moreOpen;
-        if (this.angelsBar.moreOpen) {
-            this.angelsBar.moreItems = this.angelsSystrayEntries().map(({ toggler, ...entry }) => entry);
+        const open = entries.some((entry) => entry.expanded);
+        for (const tab of document.querySelectorAll(".o_main_navbar .o_at_tab_systray")) {
+            const expanded = entries.some((entry) => entry.key === tab.dataset.key && entry.expanded);
+            tab.classList.toggle("o_at_tab_active", expanded);
         }
+        document
+            .querySelector(".o_main_navbar .o_at_tab_app")
+            ?.classList.toggle("o_at_tab_active", !this.angelsHomeOpen && Boolean(this.currentApp) && !open);
     },
 
-    angelsCloseMore() {
-        this.angelsBar.moreOpen = false;
+    /**
+     * Tab of a systray item: opens its menu, closes it when it is the open
+     * one, or switches from the open one to it.
+     */
+    angelsOnSystrayTab(key) {
+        const entries = this.angelsSystrayEntries();
+        const target = entries.find((entry) => entry.key === key);
+        if (!target) {
+            return;
+        }
+        if (target.expanded) {
+            this.angelsCloseSystrayMenu();
+            return;
+        }
+        entries.find((entry) => entry.expanded)?.toggler.click();
+        target.toggler.click();
     },
 
-    angelsOpenSystrayItem(key) {
-        this.angelsBar.moreOpen = false;
-        this.angelsSystrayEntries().find((entry) => entry.key === key)?.toggler.click();
+    angelsCloseSystrayMenu() {
+        this.angelsSystrayEntries()
+            .find((entry) => entry.expanded)
+            ?.toggler.click();
     },
 
     // = Tabs
 
     angelsOpenSections() {
-        this.angelsBar.moreOpen = false;
         if (!this.currentApp || this.angelsHomeOpen) {
             this.angelsOpenHome();
             return;
@@ -172,7 +183,6 @@ patch(NavBar.prototype, {
      * behind a magnifier button in the control panel: open it first.
      */
     async angelsFocusSearch() {
-        this.angelsBar.moreOpen = false;
         const homeInput = document.querySelector(".o_at_home_search input");
         if (homeInput) {
             homeInput.focus();

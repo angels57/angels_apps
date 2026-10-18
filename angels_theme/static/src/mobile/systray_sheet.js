@@ -20,15 +20,18 @@ patch(NavBar.prototype, {
         super.setup(...arguments);
         const onPointerDown = (ev) => this.angelsOnSheetPointerDown(ev);
         document.addEventListener("pointerdown", onPointerDown);
-        // A tap on the backdrop closes the sheet with its animation. Odoo
-        // closes menus on any pointerdown outside them (window, capture);
-        // this listener is registered first, so it can keep that one from
-        // closing the menu at once.
+        // Odoo closes menus on any pointerdown outside them (window,
+        // capture). This listener is registered first, so it can keep that
+        // one from closing the menu at once: a tap on the backdrop closes it
+        // with its animation, and the systray tabs decide themselves (close
+        // the open sheet, or switch to another one).
         const onBackdrop = (ev) => {
             if (ev.target.closest?.(".o_at_systray_backdrop")) {
                 ev.stopImmediatePropagation();
                 ev.preventDefault();
                 this.angelsCloseSystrayMenu();
+            } else if (this.angelsBar.systrayOpen && ev.target.closest?.(".o_main_navbar .o_at_tab_systray")) {
+                ev.stopImmediatePropagation();
             }
         };
         window.addEventListener("pointerdown", onBackdrop, { capture: true });
@@ -48,14 +51,6 @@ patch(NavBar.prototype, {
         document.body.classList.toggle("o_at_systray_open", Boolean(open));
         // Sheet title, drawn by CSS from this (translated) label.
         document.body.style.setProperty("--at-sheet-title", JSON.stringify(open ? open.label : ""));
-    },
-
-    angelsToggleMore() {
-        if (this.angelsBar.systrayOpen) {
-            this.angelsCloseSystrayMenu();
-            return;
-        }
-        super.angelsToggleMore(...arguments);
     },
 
     /** Slide the open sheet down, then close its menu. */
