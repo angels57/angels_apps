@@ -6,12 +6,13 @@ class ResCompany(models.Model):
 
     angels_home_background = fields.Selection(
         [
+            ("dots", "Dotted"),
             ("gradient", "Brand Gradient"),
             ("plain", "Plain"),
             ("image", "Image"),
         ],
         string="Home Background",
-        default="gradient",
+        default="dots",
         required=True,
         help="Background of the home screen that lists the apps.",
     )

@@ -18,7 +18,7 @@ class IrHttp(models.AbstractModel):
             info["angels_theme"] = {
                 "density": user.angels_theme_density or "normal",
                 "tab_style": user.angels_theme_tab_style or "underline",
-                "home_background": company.angels_home_background or "gradient",
+                "home_background": company.angels_home_background or "dots",
                 "home_image_url": image_url,
             }
         return info

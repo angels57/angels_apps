@@ -21,17 +21,23 @@ export class HomeMenu extends Component {
         this.apps = this.menuService.getApps();
         this.entries = this.computeEntries();
         useExternalListener(window, "keydown", this.onWindowKeydown);
-        onMounted(() => document.body.classList.add("o_at_home_open"));
-        onWillUnmount(() => document.body.classList.remove("o_at_home_open"));
+        // The background covers the whole client, navbar included.
+        const bodyClasses = ["o_at_home_open", `o_at_home_bg_${this.background}`];
+        onMounted(() => {
+            document.body.classList.add(...bodyClasses);
+            const image = session.angels_theme?.home_image_url;
+            if (this.background === "image" && image) {
+                document.body.style.setProperty("--at-home-image", `url('${image}')`);
+            }
+        });
+        onWillUnmount(() => {
+            document.body.classList.remove(...bodyClasses);
+            document.body.style.removeProperty("--at-home-image");
+        });
     }
 
     get background() {
-        return session.angels_theme?.home_background || "gradient";
-    }
-
-    get backgroundStyle() {
-        const image = session.angels_theme?.home_image_url;
-        return this.background === "image" && image ? `background-image: url('${image}')` : "";
+        return session.angels_theme?.home_background || "dots";
     }
 
     get searchPlaceholder() {

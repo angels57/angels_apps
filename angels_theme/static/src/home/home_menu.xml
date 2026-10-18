@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
     <t t-name="angels_theme.HomeMenu">
-        <div t-attf-class="o_at_home o_at_home_bg_{{ this.background }}" t-att-style="this.backgroundStyle">
+        <div class="o_at_home">
             <div class="o_at_home_search" t-att-class="{ 'o_at_home_search_active': this.state.query }">
                 <svg class="o_at_home_search_icon" viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="11" cy="11" r="7"/>

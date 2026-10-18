@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 14:47+0000\n"
+"POT-Creation-Date: 2026-10-18 14:52+0000\n"
 "PO-Revision-Date: 2026-10-18 14:33+0000\n"
 "Last-Translator: Angels SAS\n"
 "Language-Team: \n"
@@ -59,6 +59,11 @@ msgstr "Densidad"
 #: model:ir.model.fields,field_description:angels_theme.field_res_users__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
+
+#. module: angels_theme
+#: model:ir.model.fields.selection,name:angels_theme.selection__res_company__angels_home_background__dots
+msgid "Dotted"
+msgstr "Puntos"
 
 #. module: angels_theme
 #: model:ir.model,name:angels_theme.model_ir_http
