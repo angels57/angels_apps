@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="item_type_signature" model="sign.item.type">
+            <field name="name">Signature</field><field name="sequence">1</field><field name="base_type">signature</field>
+            <field name="icon">signature</field><field name="default_width">0.25</field><field name="default_height">0.06</field>
+        </record>
+        <record id="item_type_initials" model="sign.item.type">
+            <field name="name">Initials</field><field name="sequence">2</field><field name="base_type">initials</field>
+            <field name="icon">initials</field><field name="default_width">0.08</field><field name="default_height">0.04</field>
+        </record>
+        <record id="item_type_name" model="sign.item.type">
+            <field name="name">Name</field><field name="sequence">3</field><field name="base_type">text</field>
+            <field name="icon">user</field><field name="linked_field">partner_id.name</field>
+        </record>
+        <record id="item_type_email" model="sign.item.type">
+            <field name="name">Email</field><field name="sequence">4</field><field name="base_type">text</field>
+            <field name="icon">email</field><field name="linked_field">partner_id.email</field>
+        </record>
+        <record id="item_type_phone" model="sign.item.type">
+            <field name="name">Phone</field><field name="sequence">5</field><field name="base_type">text</field>
+            <field name="icon">phone</field><field name="linked_field">partner_id.phone</field><field name="default_width">0.2</field>
+        </record>
+        <record id="item_type_company" model="sign.item.type">
+            <field name="name">Company</field><field name="sequence">6</field><field name="base_type">text</field>
+            <field name="icon">company</field><field name="linked_field">partner_id.parent_id.name</field>
+        </record>
+        <record id="item_type_text" model="sign.item.type">
+            <field name="name">Text</field><field name="sequence">7</field><field name="base_type">text</field><field name="icon">text</field>
+        </record>
+        <record id="item_type_textarea" model="sign.item.type">
+            <field name="name">Multiline</field><field name="sequence">8</field><field name="base_type">textarea</field>
+            <field name="icon">multiline</field><field name="default_width">0.35</field><field name="default_height">0.08</field>
+        </record>
+        <record id="item_type_checkbox" model="sign.item.type">
+            <field name="name">Checkbox</field><field name="sequence">9</field><field name="base_type">checkbox</field>
+            <field name="icon">checkbox</field><field name="default_width">0.025</field><field name="default_height">0.02</field>
+            <field name="required" eval="False"/>
+        </record>
+        <record id="item_type_radio" model="sign.item.type">
+            <field name="name">Radio</field><field name="sequence">10</field><field name="base_type">radio</field>
+            <field name="icon">radio</field><field name="default_width">0.2</field><field name="default_height">0.08</field>
+        </record>
+        <record id="item_type_selection" model="sign.item.type">
+            <field name="name">Selection</field><field name="sequence">11</field><field name="base_type">selection</field>
+            <field name="icon">selection</field><field name="default_width">0.2</field>
+        </record>
+        <record id="item_type_date" model="sign.item.type">
+            <field name="name">Date</field><field name="sequence">12</field><field name="base_type">date</field>
+            <field name="icon">date</field><field name="default_width">0.15</field>
+        </record>
+        <record id="item_type_strike" model="sign.item.type">
+            <field name="name">Strikethrough</field><field name="sequence">13</field><field name="base_type">strike</field>
+            <field name="icon">strike</field><field name="default_width">0.3</field><field name="default_height">0.015</field>
+            <field name="required" eval="False"/>
+        </record>
+        <record id="item_type_stamp" model="sign.item.type">
+            <field name="name">Stamp</field><field name="sequence">14</field><field name="base_type">stamp</field>
+            <field name="icon">stamp</field><field name="default_width">0.15</field><field name="default_height">0.1</field>
+        </record>
+    </data>
+</odoo>
