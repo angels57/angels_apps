@@ -1,6 +1,6 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "19.0.1.11.0",
+    "version": "19.0.1.12.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
 Angels Theme - Backend Theme for Odoo 19
@@ -34,6 +34,11 @@ A backend theme that every app inherits without changing its views.
 * Motion in CSS only: buttons that lift and press, menus, dialogs and
   notifications that ease in, rows and cards that rise in, a tab underline
   that grows, an invalid field that shakes; off with reduced motion
+* Inputs as boxes with a brand focus ring, a bar on required fields and a
+  clear error state; read-only fields and editable lists stay plain
+* Menus, the many2one autocomplete and popovers with rounded corners and
+  brand hovers; notifications with an icon by type; a date picker with
+  today ringed and the selection filled
     """,
     "category": "Themes/Backend",
     "author": "Angels SAS",
@@ -55,6 +60,8 @@ A backend theme that every app inherits without changing its views.
             "angels_theme/static/src/scss/density.scss",
             "angels_theme/static/src/scss/layout.scss",
             "angels_theme/static/src/scss/controls.scss",
+            "angels_theme/static/src/scss/fields.scss",
+            "angels_theme/static/src/scss/popups.scss",
             "angels_theme/static/src/scss/motion.scss",
             "angels_theme/static/src/js/*.js",
             "angels_theme/static/src/xml/*.xml",

@@ -1,0 +1,230 @@
+// Everything that floats over a view: menus, the many2one autocomplete,
+// popovers, notifications and the date picker.
+$at-popup-shadow: 0 8px 24px rgba(#000, .1), 0 2px 6px rgba(#000, .05);
+$at-danger: map-get($theme-colors, 'danger');
+
+// = Menus
+.dropdown-menu {
+    --#{$variable-prefix}dropdown-border-color: #{$at-line};
+    --#{$variable-prefix}dropdown-border-radius: 10px;
+    --#{$variable-prefix}dropdown-padding-x: 4px;
+    --#{$variable-prefix}dropdown-padding-y: 4px;
+    --#{$variable-prefix}dropdown-link-hover-bg: #{$at-brand-soft};
+    --#{$variable-prefix}dropdown-link-hover-color: #{$at-brand-dark};
+    --#{$variable-prefix}dropdown-link-active-bg: #{$at-brand-soft};
+    --#{$variable-prefix}dropdown-link-active-color: #{$at-brand-dark};
+    --#{$variable-prefix}dropdown-divider-margin-y: 4px;
+    box-shadow: $at-popup-shadow;
+
+    .dropdown-item {
+        border-radius: 6px;
+    }
+
+    .dropdown-header {
+        padding-top: 6px;
+        padding-bottom: 2px;
+        color: $o-gray-600;
+        font-size: 11px;
+        font-weight: 400;
+    }
+
+    // The item that destroys something warns before the click.
+    .dropdown-item.text-danger:hover,
+    .dropdown-item.text-danger.focus {
+        background-color: mix($at-danger, #fff, 10%) !important;
+        color: $at-danger !important;
+    }
+}
+
+.o-dropdown--menu .dropdown-item.focus {
+    background-color: $at-brand-soft;
+    color: $at-brand-dark;
+}
+
+// = Many2one autocomplete
+.o-autocomplete--dropdown-menu {
+    .ui-menu-item > a.ui-state-active {
+        background-color: $at-brand-soft;
+        color: $at-brand-dark;
+    }
+
+    // The typed text, highlighted in each result.
+    .o-autocomplete--mark {
+        padding: 0 1px;
+        border-radius: 2px;
+        background-color: #faeeda;
+        color: #633806;
+        font-weight: 500;
+    }
+
+    // "Create…" and "Search more…" set apart from the results.
+    .ui-menu-item:not(.o_m2o_dropdown_option) + .o_m2o_dropdown_option {
+        margin-top: 4px;
+        padding-top: 4px;
+        border-top: 1px solid $o-gray-200;
+    }
+
+    .o_m2o_dropdown_option > a {
+        color: $at-brand;
+        font-weight: 500;
+    }
+}
+
+// = Popovers
+.o_popover.popover {
+    --#{$variable-prefix}popover-border-color: #{$at-line};
+    --#{$variable-prefix}popover-border-radius: 12px;
+    --#{$variable-prefix}popover-box-shadow: #{$at-popup-shadow};
+    box-shadow: $at-popup-shadow;
+}
+
+// = Notifications: a tinted icon tile by type, a title and a slim timer
+$at-notification-types: (
+    success: (map-get($theme-colors, 'success'), "<path d='M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18z'/><path d='M8.5 12.5l2.5 2.5 4.5-5'/>"),
+    warning: (map-get($theme-colors, 'warning'), "<path d='M12 4l9 16H3z'/><path d='M12 10v4M12 17v.5'/>"),
+    danger: ($at-danger, "<path d='M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18z'/><path d='M9.5 9.5l5 5M14.5 9.5l-5 5'/>"),
+    info: ($at-brand, "<path d='M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18z'/><path d='M12 11v5M12 8v.5'/>"),
+);
+
+.o_notification_manager .o_notification {
+    overflow: hidden;
+    border: 1px solid $at-line;
+    border-radius: 12px !important;
+    box-shadow: $at-popup-shadow !important;
+
+    // Odoo's colored bar on the left gives way to the icon tile.
+    > .o_notification_bar {
+        display: none;
+    }
+
+    > div {
+        padding: 10px 40px 10px 12px !important;
+        border: 0 !important;
+    }
+
+    .o_notification_body {
+        gap: 10px;
+        align-items: flex-start !important;
+
+        &::before {
+            content: "";
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+        }
+    }
+
+    .o_notification_content {
+        align-self: center;
+        color: $at-ink;
+        font-size: 13px;
+    }
+
+    .o_notification_close {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        margin: 8px 8px 0 0 !important;
+        background-size: 9px;
+    }
+
+    .o_notification_buttons .btn-link {
+        padding: 2px 10px;
+        border: 1px solid $at-line;
+        font-size: 12px;
+    }
+
+    .o_notification_progress {
+        height: 2px;
+        opacity: 1 !important;
+    }
+
+    @each $-type, $-def in $at-notification-types {
+        $-color: nth($-def, 1);
+        $-icon: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#{$-color}' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>#{nth($-def, 2)}</svg>";
+
+        &:has(> .o_notification_bar.bg-#{$-type}) .o_notification_body::before {
+            background: mix($-color, #fff, 14%) escape-svg(url("data:image/svg+xml,#{$-icon}")) no-repeat center / 16px;
+        }
+    }
+}
+
+// = Date picker: rounded squares, today ringed, the selection filled
+.o_datetime_picker {
+    .o_day_of_week_cell {
+        color: $o-gray-600;
+        font-size: 11px;
+        font-weight: 400 !important;
+    }
+
+    .o_date_item_cell {
+        --DateTimePicker__date-cell-border-color-hover: transparent;
+        border-radius: 8px;
+        transition: background-color .12s, color .12s;
+
+        &::before {
+            border-radius: 8px !important;
+        }
+
+        &:not([disabled]):hover {
+            background-color: $o-gray-100;
+        }
+    }
+
+    // Today: a brand ring, no fill.
+    .o_today {
+        font-weight: 500 !important;
+
+        > div {
+            background-color: transparent;
+            box-shadow: inset 0 0 0 1px $at-brand;
+            color: $at-brand-dark;
+        }
+    }
+
+    // A range: soft between its ends.
+    .o_date_item_cell.o_selected,
+    .o_date_item_cell.o_highlighted {
+        border-radius: 0;
+        background: $at-brand-soft;
+        color: $at-brand-dark;
+    }
+
+    // The chosen day, or the ends of a range: filled.
+    .o_date_item_cell.o_select_start,
+    .o_date_item_cell.o_select_end {
+        background: $at-brand;
+        color: #fff;
+        font-weight: 500;
+
+        > div {
+            box-shadow: none;
+            color: #fff;
+        }
+    }
+
+    .o_date_item_cell.o_select_start {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+
+    .o_date_item_cell.o_select_end {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    // Months and years.
+    .o_date_item_picker .o_datetime_button {
+        border-radius: 8px;
+
+        &.o_selected:not(.o_select_start, .o_select_end) {
+            background: $at-brand-soft;
+            color: $at-brand-dark;
+        }
+    }
+
+    .o_datetime_picker_header .o_zoom_out {
+        font-weight: 500;
+    }
+}

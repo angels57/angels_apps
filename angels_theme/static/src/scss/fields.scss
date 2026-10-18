@@ -1,0 +1,95 @@
+// Inputs of every form (and wizard): a box with a hairline, a brand focus
+// ring and a clear required and error state, instead of Odoo's underline
+// that only shows on hover. Read-only fields stay plain text, and inputs in
+// editable lists stay bare until edited.
+
+// Only the outer input of a field: nested ones (the many2many tags input,
+// the autocomplete inside a many2one) keep Odoo's bare look.
+$at-input: ".o_input:not(.o_input .o_input):not(.o_list_renderer .o_input):not(.oe_title .o_input)";
+
+.o_form_view,
+.o_datetime_picker {
+    #{$at-input} {
+        min-height: 32px;
+        padding: var(--at-input-padding-y) 10px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: $at-line;
+        border-radius: $at-radius;
+        background-color: $o-view-background-color;
+        transition: border-color .15s, box-shadow .15s, background-color .15s;
+
+        &:hover {
+            border-color: $o-gray-400;
+        }
+
+        &:focus,
+        &:focus-within {
+            border-color: $at-brand;
+            box-shadow: 0 0 0 3px rgba($at-brand, .18);
+            outline: 0;
+        }
+
+        &::placeholder {
+            color: $o-gray-500;
+        }
+    }
+
+    textarea#{$at-input} {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        line-height: 1.5;
+    }
+
+    // Many2many tags: the box wraps the tags and the input.
+    .o_field_tags#{$at-input} {
+        gap: 4px !important;
+        padding: 3px 6px;
+    }
+}
+
+.o_form_view {
+    // Required: a brand bar on the left edge.
+    .o_required_modifier #{$at-input} {
+        box-shadow: inset 3px 0 0 $at-brand;
+
+        &:focus,
+        &:focus-within {
+            box-shadow: inset 3px 0 0 $at-brand, 0 0 0 3px rgba($at-brand, .18);
+        }
+    }
+
+    // Invalid: red hairline on a light red field.
+    .o_field_invalid #{$at-input},
+    #{$at-input}.o_field_invalid {
+        border-color: map-get($theme-colors, 'danger');
+        background-color: mix(map-get($theme-colors, 'danger'), #fff, 8%);
+        box-shadow: none;
+
+        &:focus,
+        &:focus-within {
+            box-shadow: 0 0 0 3px rgba(map-get($theme-colors, 'danger'), .18);
+        }
+    }
+
+    // Carets and buttons inside the box line up with its padding.
+    .o_input_dropdown .o_dropdown_button,
+    .o_datepicker .o_datepicker_button {
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+    }
+
+    .o_input_dropdown #{$at-input} {
+        padding-right: 28px;
+    }
+
+    // Fields side by side (an address) keep a gap between their boxes.
+    .o_address_format {
+        gap: 6px;
+
+        > .o_field_widget {
+            margin-right: 0 !important;
+        }
+    }
+}

@@ -8,4 +8,5 @@
     --at-danger: #{map-get($theme-colors, 'danger')};
     --at-row-padding-y: #{$table-cell-padding-y-sm};
     --at-field-gap: 4px;
+    --at-input-padding-y: 5px;
 }
