@@ -1,13 +1,5 @@
 // Home screen. The background lives on <body> (`o_at_home_bg_*`) so it also
 // shows behind the navbar, which turns transparent on this screen.
-$at-home-bg: #f8f9fa;
-$at-home-shadow:
-    0 0 0 1px rgba(#000, .075),
-    0 1px 1px -.5px rgba(#2a3346, .03),
-    0 3px 3px -1.5px rgba(#2a3346, .04),
-    0 10px 10px -5px rgba(#2a3346, .03),
-    0 24px 24px -8px rgba(#2a3346, .03);
-
 body.o_at_home_open {
     background-color: $at-home-bg;
     background-attachment: fixed;

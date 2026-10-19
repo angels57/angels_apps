@@ -20,5 +20,7 @@ class IrHttp(models.AbstractModel):
                 "tab_style": user.angels_theme_tab_style or "underline",
                 "home_background": company.angels_home_background or "dots",
                 "home_image_url": image_url,
+                "home_show_recents": user.angels_home_show_recents,
+                "home_prefs": user.angels_home_prefs or {"favorites": [], "order": []},
             }
         return info

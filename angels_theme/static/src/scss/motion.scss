@@ -1,0 +1,227 @@
+// Motion of every app, in CSS only: short (150-350ms), never in the way
+// of a click, and off for people who ask for reduced motion.
+$at-ease-out: cubic-bezier(.2, .8, .2, 1);
+$at-ease-back: cubic-bezier(.3, 1.6, .5, 1);
+
+// Content that is already there (rows, cards, the empty state) never starts
+// fully transparent: if the browser holds the animation back (a hidden tab,
+// a print), it still reads.
+@keyframes o_at_rise {
+    from {
+        opacity: .4;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes o_at_menu_in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes o_at_dialog_in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(.96);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes o_at_fade_in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes o_at_toast_in {
+    from {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes o_at_pop {
+    0% {
+        transform: scale(.7);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes o_at_shake {
+    20%, 60% {
+        transform: translateX(-4px);
+    }
+    40%, 80% {
+        transform: translateX(4px);
+    }
+}
+
+@keyframes o_at_check_in {
+    from {
+        background-size: 0 0;
+    }
+    to {
+        background-size: 100% 100%;
+    }
+}
+
+// = Buttons: lift on hover, press on click, arrows that move forward
+.btn {
+    transition: color .15s, background-color .15s, border-color .15s, box-shadow .15s, transform .08s;
+
+    &:active:not(:disabled):not(.disabled) {
+        transform: scale(.98);
+    }
+
+    .oi-arrow-right, .fa-arrow-right, .fa-long-arrow-right {
+        transition: transform .2s $at-ease-out;
+    }
+
+    &:hover .oi-arrow-right,
+    &:hover .fa-arrow-right,
+    &:hover .fa-long-arrow-right {
+        transform: translateX(3px);
+    }
+}
+
+@media (hover: hover) {
+    .btn-primary:hover:not(:disabled):not(.disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba($at-brand, .25);
+    }
+
+    .btn-primary:active:not(:disabled):not(.disabled) {
+        transform: scale(.98);
+        box-shadow: none;
+    }
+}
+
+// = Menus, popovers and dialogs
+.o-dropdown--menu,
+.o_popover {
+    animation: o_at_menu_in .18s $at-ease-out;
+    transform-origin: top center;
+}
+
+.o-dropdown--menu .dropdown-item {
+    transition: background-color .12s, color .12s;
+}
+
+@include media-breakpoint-up(md) {
+    .o_dialog > .modal:not(.o_inactive_modal) {
+        animation: o_at_fade_in .2s ease-out;
+
+        > .modal-dialog > .modal-content {
+            animation: o_at_dialog_in .25s $at-ease-out;
+        }
+    }
+}
+
+// = Notifications slide in from the right
+.o_notification_manager .o_notification {
+    border-radius: 12px;
+    animation: o_at_toast_in .35s $at-ease-out;
+}
+
+// = Content coming in
+.o_view_nocontent .o_nocontent_help {
+    animation: o_at_rise .35s $at-ease-out backwards;
+}
+
+// New rows and cards rise in, a few at a time. Records already on screen
+// keep their element across renders, so this only plays when they come in.
+.o_list_renderer .o_data_row,
+.o_kanban_renderer .o_kanban_record:not(.o_kanban_ghost) {
+    animation: o_at_rise .3s $at-ease-out backwards;
+}
+
+@for $i from 2 through 10 {
+    .o_list_renderer .o_data_row:nth-child(#{$i}),
+    .o_kanban_renderer .o_kanban_record:nth-child(#{$i}) {
+        animation-delay: #{($i - 1) * 25}ms;
+    }
+}
+
+// Sample data behind an empty view stays faded: no rise, which would light
+// the ghost records up for a moment.
+.o_view_sample_data {
+    .o_list_renderer .o_data_row,
+    .o_kanban_renderer .o_kanban_record {
+        animation: none;
+    }
+}
+
+// = Errors: an invalid field shakes once when the save is refused
+.o_form_view .o_field_widget.o_field_invalid {
+    animation: o_at_shake .35s;
+}
+
+// = Checks: the tick grows in, the box pops. Only on the one just clicked
+// (it has the focus), not on every checked box of a list as it loads.
+.form-check-input {
+    transition: background-color .15s, border-color .15s, box-shadow .15s, background-position .3s $at-ease-back;
+
+    &[type="checkbox"]:checked:focus {
+        animation: o_at_check_in .2s $at-ease-out, o_at_pop .25s $at-ease-back;
+        background-position: center;
+    }
+
+    &[type="radio"]:checked:focus {
+        animation: o_at_pop .25s $at-ease-back;
+    }
+}
+
+// Stars: grow on hover, pop on the one just set.
+.o_priority_star {
+    transition: transform .15s $at-ease-out, color .15s;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+
+    &.fa-star:focus {
+        animation: o_at_pop .3s $at-ease-back;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn,
+    .btn-primary:hover,
+    .o-dropdown--menu,
+    .o_popover,
+    .o_dialog > .modal,
+    .o_dialog .modal-content,
+    .o_notification_manager .o_notification,
+    .o_view_nocontent .o_nocontent_help,
+    .o_list_renderer .o_data_row,
+    .o_kanban_renderer .o_kanban_record,
+    .o_form_view .o_field_widget.o_field_invalid,
+    .form-check-input,
+    .o_priority_star {
+        animation: none !important;
+        transition-property: color, background-color, border-color, opacity !important;
+        transform: none !important;
+    }
+
+    .o_notebook .nav-link::before {
+        transition: none;
+    }
+}

@@ -1,6 +1,6 @@
 {
     "name": "Angels Sign - Electronic Signature",
-    "version": "20.0.2.1.1",
+    "version": "20.0.2.1.2",
     "summary": "Self-hosted electronic signature: place fields on PDFs, collect signatures, get a certificate",
     "description": """
 Angels Sign - Electronic Signature for Odoo 20

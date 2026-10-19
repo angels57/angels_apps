@@ -1,0 +1,466 @@
+// Structure shared by the views: the control panel, lists in depth,
+// one2many lines inside a form and the settings page. The form statusbar
+// as steps lives in dialog.scss, with the wizard one.
+$at-segment-bg: $o-gray-200;
+$at-highlight-bg: #faeeda;
+$at-highlight-ink: #633806;
+
+// = Control panel
+// Breadcrumbs: the way back as a quiet brand link, the record in bold.
+.o_control_panel .o_breadcrumb {
+    .breadcrumb-item > a {
+        color: $at-brand;
+        font-weight: 400 !important;
+
+        &:hover {
+            color: $at-brand-dark;
+        }
+    }
+
+    .breadcrumb-item + .breadcrumb-item::before {
+        color: $o-gray-400;
+    }
+
+    .o_last_breadcrumb_item {
+        font-weight: 500;
+    }
+}
+
+// Pager and view switcher as segmented controls on a gray track.
+.o_pager .btn-group,
+nav.o_cp_switch_buttons.btn-group {
+    gap: 2px;
+    padding: 2px;
+    border-radius: $at-radius;
+    background-color: $at-segment-bg;
+
+    > .btn {
+        --#{$variable-prefix}btn-bg: transparent;
+        --#{$variable-prefix}btn-border-color: transparent;
+        --#{$variable-prefix}btn-hover-bg: #{$o-view-background-color};
+        --#{$variable-prefix}btn-hover-border-color: transparent;
+        --#{$variable-prefix}btn-disabled-bg: transparent;
+        --#{$variable-prefix}btn-disabled-border-color: transparent;
+        min-height: 28px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        border-radius: 6px !important;
+        color: $at-ink-muted;
+    }
+}
+
+.o_pager_counter {
+    color: $at-ink-muted;
+    font-size: 13px;
+}
+
+nav.o_cp_switch_buttons.btn-group > .btn.active {
+    background-color: $o-view-background-color;
+    box-shadow: 0 0 0 1px $at-line;
+    color: $at-brand;
+}
+
+// Search facets as brand pills.
+.o_searchview .o_searchview_facet {
+    border-radius: 999px !important;
+    background-color: $at-brand-soft !important;
+    color: $at-brand-dark;
+
+    > .position-absolute:first-child {
+        border-radius: 999px !important;
+    }
+
+    .o_searchview_facet_label {
+        padding-left: 6px !important;
+        border-radius: 999px 0 0 999px !important;
+    }
+
+    .o_facet_values {
+        border-radius: 0 999px 999px 0 !important;
+    }
+
+    .o_facet_remove {
+        color: $at-brand-dark !important;
+        opacity: .6;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+// "2 selected": a brand chip instead of Odoo's blue list item.
+.o_selection_box .list-group-item.active {
+    border-color: $at-brand-soft;
+    border-radius: $at-radius !important;
+    background-color: $at-brand-soft;
+    color: $at-brand-dark;
+
+    .o_unselect_all {
+        color: $at-brand-dark;
+    }
+}
+
+// = Lists in depth
+.o_list_renderer {
+    // Group rows: a gray band, the totals of the group in the brand ink.
+    .o_group_header {
+        > th, > td {
+            background-color: $at-home-bg;
+            border-bottom: 1px solid $at-line;
+        }
+
+        &:hover > th,
+        &:hover > td {
+            background-color: $o-gray-100;
+        }
+
+        .o_group_name {
+            font-weight: 500 !important;
+        }
+
+        .o_group_caret {
+            color: $at-brand;
+        }
+
+        > .o_list_number {
+            color: $at-brand-dark;
+        }
+    }
+
+    // Totals of the list: a firm line above them.
+    tfoot.o_list_footer > tr > td {
+        border-top: 1px solid $o-gray-400;
+        background-color: $o-view-background-color;
+        font-weight: 500;
+    }
+
+    // The row being edited: a brand bar on its left edge.
+    .o_data_row.o_selected_row > td {
+        background-color: mix($at-brand, #fff, 3%);
+
+        &:first-child {
+            box-shadow: inset 3px 0 0 $at-brand;
+        }
+    }
+
+    // The sorted column says so in the brand color.
+    th .o_list_sortable_icon:is(.fa-sort-up, .fa-sort-down, .fa-angle-up, .fa-angle-down) {
+        color: $at-brand;
+    }
+
+    // Optional columns: a quiet button that lights up on hover.
+    .o_optional_columns_dropdown .btn {
+        border-radius: 6px;
+        color: $o-gray-600;
+
+        &:hover, &.show {
+            background-color: $at-brand-soft;
+            color: $at-brand;
+        }
+    }
+}
+
+// = One2many lines: a sub-table framed inside the form card
+.o_form_view .o_field_x2many_list .o_list_renderer {
+    // Odoo bleeds the first list of a tab to the edges of the sheet; the
+    // frame keeps it inside, with its own padding.
+    --ListRenderer-margin-x: 0 !important;
+    --ListRenderer-table-padding-x: #{$table-cell-padding-x-sm} !important;
+    --ListRenderer-thead-bg-color: #{$o-gray-100};
+    margin-top: 0 !important;
+    border: 1px solid $at-line;
+    border-radius: 10px;
+
+    .o_list_table {
+        margin-bottom: 0;
+
+        thead th {
+            background-color: $o-gray-100;
+            font-size: 12px;
+        }
+
+        tr > :first-child {
+            padding-left: 10px;
+        }
+
+        // Odoo sizes the last column to 12px plus its padding, narrower
+        // than the optional columns toggle: room for it on the right.
+        th.o_list_actions_header {
+            padding-right: 8px;
+            padding-left: 0;
+        }
+
+        tbody > tr:last-child > td {
+            border-bottom: 0;
+        }
+
+        // Odoo pads short lists with empty rows: no lines through them.
+        tbody > tr:not(.o_data_row):not(:has(.o_field_x2many_list_row_add)) > td {
+            border: 0;
+        }
+    }
+
+    // Sections and notes.
+    .o_is_line_section > td {
+        background-color: $at-home-bg;
+        font-weight: 500;
+    }
+
+    .o_is_line_note > td {
+        color: $at-ink-muted;
+        font-style: italic;
+    }
+
+    // "Add a line": brand links led by a plus.
+    .o_field_x2many_list_row_add {
+        > a {
+            color: $at-brand;
+            font-weight: 500;
+
+            &:first-child::before {
+                content: "+";
+                margin-right: 4px;
+            }
+
+            &:hover {
+                color: $at-brand-dark;
+            }
+        }
+    }
+
+    .o_row_handle {
+        color: $o-gray-400;
+    }
+
+    .o_data_row:hover .o_row_handle {
+        color: $o-gray-600;
+    }
+
+    tfoot.o_list_footer > tr > td {
+        background-color: $o-gray-100;
+    }
+}
+
+// The trash of a line shows with the line, where a mouse can reach it.
+@media (hover: hover) {
+    .o_form_view .o_field_x2many_list .o_list_record_remove button {
+        opacity: 0;
+        transition: opacity .15s, color .15s;
+    }
+
+    .o_form_view .o_field_x2many_list .o_data_row:hover .o_list_record_remove button,
+    .o_form_view .o_field_x2many_list .o_list_record_remove button:focus-visible {
+        opacity: .6;
+    }
+
+    .o_form_view .o_field_x2many_list .o_list_record_remove button:hover {
+        color: map-get($theme-colors, 'danger');
+        opacity: 1;
+    }
+}
+
+// Totals under the lines (sale, purchase, invoice): a gray card with the
+// total set apart.
+.o_form_view .o_field_account-tax-totals-field > table {
+    min-width: 220px;
+    border-collapse: separate;
+    border-radius: 10px;
+    background-color: $at-home-bg;
+
+    td {
+        padding: 3px 14px;
+    }
+
+    tr:first-child > td {
+        padding-top: 10px;
+    }
+
+    tr:last-child > td {
+        padding-bottom: 10px;
+    }
+
+    .o_tax_total_label {
+        color: $at-ink-muted;
+    }
+
+    tr:has(.oe_subtotal_footer_separator) > td {
+        padding-top: 8px;
+        border-top: 1px solid $at-line;
+        font-size: 15px;
+        font-weight: 500;
+
+        .o_tax_total_label {
+            color: $at-ink;
+            font-weight: 500;
+        }
+    }
+}
+
+// = Settings (res.config.settings). Odoo's own rules start from the same
+// chain, so ours, loaded after, win.
+.o_base_settings_view .o_form_renderer .o_setting_container .settings {
+    background-color: $at-home-bg;
+
+    // Apps on the left as a list with a brand selection.
+    > .settings_tab {
+        padding: 8px 0;
+        background-color: $o-view-background-color;
+
+        > .tab {
+            margin: 1px 8px;
+            border-radius: $at-radius;
+            color: $at-ink;
+            transition: background-color .12s, color .12s;
+
+            &:hover {
+                background-color: $o-gray-100;
+            }
+
+            &.selected {
+                background-color: $at-brand-soft;
+                box-shadow: none;
+                color: $at-brand-dark;
+                font-weight: 500;
+            }
+        }
+    }
+
+    // Section titles as labels, the settings under them as one card.
+    .app_settings_block {
+        padding-bottom: 8px;
+
+        > h2 {
+            padding: 20px 24px 8px;
+            background-color: transparent;
+            color: $at-ink-muted;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        // While searching: the app the results come from.
+        > .settingSearchHeader {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            padding: 24px 24px 0;
+            background-color: transparent;
+            color: $at-ink;
+            font-size: 16px;
+            font-weight: 500;
+
+            > .icon {
+                width: 24px;
+                height: 24px;
+                margin: 0;
+                border-radius: 6px;
+            }
+        }
+
+        > .app_settings_header {
+            margin: 16px 24px 0;
+            border-radius: 12px;
+        }
+    }
+
+    .o_settings_container {
+        --#{$variable-prefix}gutter-x: 0;
+        margin: 0 24px 8px;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid $at-line;
+        border-radius: 12px;
+        background-color: $o-view-background-color;
+    }
+
+    // Each setting a row: text on the left, its switch on the right. The
+    // line between rows is a shadow, so the first row of each column (and
+    // a row hidden by the search) leaves no stray line.
+    .o_setting_box {
+        display: flex;
+        gap: 16px;
+        margin: 0;
+        padding: 14px 16px;
+        box-shadow: 0 -1px 0 $at-line;
+
+        > .o_setting_left_pane {
+            order: 2;
+            flex-shrink: 0;
+            width: auto;
+            float: none;
+        }
+
+        > .o_setting_right_pane {
+            flex: 1 1 auto;
+            min-width: 0;
+            margin-left: 0;
+            padding-left: 0;
+            border-left: 0;
+
+            > .o_form_label {
+                font-weight: 500;
+                color: $at-ink;
+            }
+
+            > .text-muted {
+                font-size: 13px;
+            }
+        }
+    }
+
+    // The checkbox of a setting reads as a switch.
+    .o_setting_left_pane .form-check {
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .o_setting_left_pane .form-check-input[type="checkbox"] {
+        width: 2.1em;
+        height: 1.2em;
+        margin: 2px 0 0;
+        border-color: $o-gray-400;
+        border-radius: 2em;
+        background-color: $o-gray-300;
+        background-image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#fff'/></svg>"));
+        background-position: left center;
+        background-size: contain;
+        transition: background-position .2s cubic-bezier(.2, .8, .2, 1), background-color .15s, border-color .15s;
+        cursor: pointer;
+        // No growing tick (motion.scss): the knob slides instead.
+        animation: none !important;
+
+        &:checked {
+            border-color: $at-brand;
+            background-color: $at-brand;
+            background-position: right center;
+        }
+
+        &:disabled {
+            cursor: default;
+        }
+    }
+
+    // Phones: the cards closer to the edges.
+    @include media-breakpoint-down(md) {
+        .app_settings_block > h2 {
+            padding: 16px 16px 8px;
+        }
+
+        .app_settings_block > .settingSearchHeader {
+            padding: 20px 16px 0;
+        }
+
+        .o_settings_container {
+            margin-right: 12px;
+            margin-left: 12px;
+        }
+    }
+
+    // What the settings search found.
+    .highlighter {
+        border-radius: 2px;
+        background-color: $at-highlight-bg;
+        color: $at-highlight-ink;
+    }
+}

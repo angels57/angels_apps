@@ -1,6 +1,6 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "20.0.1.3.0",
+    "version": "20.0.1.13.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
 Angels Theme - Backend Theme for Odoo 20
@@ -19,6 +19,30 @@ A backend theme that every app inherits without changing its views.
 * Home screen with the apps as a grid, a search box for apps and menus,
   keyboard navigation and a per-company background (dotted, brand
   gradient, plain or image)
+* Home screen layout per user: pin apps to the top, drag to reorder, an
+  optional row of recent apps and counters (activities due, documents to sign)
+* Phones: the navbar becomes a floating tab bar at the bottom (Home, current
+  app, Search, Chat, Activity and Profile), hidden while scrolling down; the
+  app tab shows its sections as an accordion, and chat and activity open as
+  bottom sheets
+* Every dialog and wizard: rounded frame, the app icon in the header, the
+  form as a card, the primary button on the right, a statusbar shown as
+  steps and, on phones, a bottom sheet
+* Controls: white secondary buttons, a brand focus ring, thin scrollbars,
+  tags and status badges as soft pills, empty states as a card, brand
+  checkboxes, radios and switches, and horizontal radios as segments
+* Motion in CSS only: buttons that lift and press, menus, dialogs and
+  notifications that ease in, rows and cards that rise in, a tab underline
+  that grows, an invalid field that shakes; off with reduced motion
+* Inputs as boxes with a brand focus ring, a bar on required fields and a
+  clear error state; read-only fields and editable lists stay plain
+* Menus, the many2one autocomplete and popovers with rounded corners and
+  brand hovers; notifications with an icon by type; a date picker with
+  today ringed and the selection filled
+* Views: breadcrumbs, pager and view switcher as segments, search facets
+  as brand pills, the form statusbar as steps, group rows and totals in
+  lists, one2many lines framed as a sub-table with a totals card, and the
+  settings page as cards of rows with switches
     """,
     "category": "Themes/Backend",
     "author": "Angels SAS",
@@ -39,11 +63,23 @@ A backend theme that every app inherits without changing its views.
             "angels_theme/static/src/scss/notebook.scss",
             "angels_theme/static/src/scss/density.scss",
             "angels_theme/static/src/scss/layout.scss",
+            "angels_theme/static/src/scss/controls.scss",
+            "angels_theme/static/src/scss/fields.scss",
+            "angels_theme/static/src/scss/compat.scss",
+            "angels_theme/static/src/scss/popups.scss",
+            "angels_theme/static/src/scss/views.scss",
+            "angels_theme/static/src/scss/motion.scss",
             "angels_theme/static/src/js/*.js",
             "angels_theme/static/src/xml/*.xml",
             "angels_theme/static/src/home/*.scss",
             "angels_theme/static/src/home/*.js",
             "angels_theme/static/src/home/*.xml",
+            "angels_theme/static/src/mobile/*.scss",
+            "angels_theme/static/src/mobile/*.js",
+            "angels_theme/static/src/mobile/*.xml",
+            "angels_theme/static/src/dialog/*.scss",
+            "angels_theme/static/src/dialog/*.js",
+            "angels_theme/static/src/dialog/*.xml",
         ],
     },
     "installable": True,

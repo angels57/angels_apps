@@ -1,0 +1,143 @@
+// Phones: accordion of the current app's sections (app_sections.xml),
+// inside the bottom sheet styled in mobile_tab_bar.scss.
+@include media-breakpoint-down(md) {
+    .o_app_menu_sidebar {
+        background: $o-view-background-color;
+
+        .o_at_sheet_grab {
+            flex-shrink: 0;
+            width: 100%;
+            height: 22px;
+            border: 0;
+            background: transparent;
+
+            &::before {
+                content: "";
+                display: block;
+                width: 36px;
+                height: 4px;
+                margin: 0 auto;
+                border-radius: 4px;
+                background: $at-line;
+            }
+        }
+
+        .o_burger_menu_content {
+            padding-bottom: calc(16px + env(safe-area-inset-bottom));
+
+            // Odoo indents and recolors every list item of this menu: these
+            // rules carry the menu's own selector to win over it.
+            li.o_at_acc_group,
+            li.o_at_acc_sub {
+                padding-left: 0;
+                margin-bottom: 0;
+                text-indent: 0;
+            }
+
+            // A section without options: a row like the group headings.
+            li.o_at_acc_top {
+                margin-bottom: 0;
+                padding: 13px 16px;
+                text-indent: 0;
+
+                &.o_at_acc_current {
+                    background: var(--at-brand-soft);
+                    color: var(--at-brand-dark);
+                }
+            }
+
+            li.o_at_acc_leaf:not(.o_at_acc_top) {
+                margin-bottom: 0;
+                padding: 10px 12px;
+                border-radius: 10px;
+                text-indent: 0;
+                color: $at-ink-muted;
+            }
+
+            li.o_at_acc_leaf.o_at_acc_current {
+                background: var(--at-brand-soft);
+                color: var(--at-brand-dark);
+                font-weight: 500;
+            }
+
+            .o_at_acc_muted .o_at_acc_title {
+                color: $text-muted;
+            }
+        }
+
+        .o_at_acc_group {
+            border-bottom: 1px solid $at-line;
+        }
+
+        .o_at_acc_head,
+        .o_at_acc_top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 13px 16px;
+            border: 0;
+            background: transparent;
+            color: $body-color;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .o_at_acc_top {
+            border-bottom: 1px solid $at-line;
+        }
+
+        .o_at_acc_meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: $text-muted;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .o_at_acc_chevron {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform .15s ease;
+
+            .o_at_acc_open & {
+                transform: rotate(180deg);
+            }
+        }
+
+        .o_at_acc_items {
+            margin: 0;
+            padding: 0 8px 10px;
+        }
+
+        .o_at_acc_leaf {
+            cursor: pointer;
+
+            &:active {
+                background: rgba(#000, .05);
+            }
+        }
+
+        .o_at_acc_subtitle {
+            padding: 8px 12px 2px;
+            color: $text-muted;
+            font-size: 12px;
+        }
+
+        .o_at_acc_sub ul {
+            padding-left: 8px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .o_app_menu_sidebar .o_at_acc_chevron {
+            transition: none;
+        }
+    }
+}

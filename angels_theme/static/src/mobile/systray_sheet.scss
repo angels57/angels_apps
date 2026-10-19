@@ -1,0 +1,138 @@
+// Phones: the full screen systray menus (chat, activity) as a bottom sheet
+// with a handle and a title, under the tab bar (systray_sheet.js).
+$at-sheet-bar-room: 58px + 12px * 2;
+
+@include media-breakpoint-down(md) {
+    // While a sheet is open the tab bar stays above it and its backdrop.
+    .o_at_systray_open .o_main_navbar {
+        z-index: $zindex-popover + 10;
+    }
+
+    .o_at_systray_backdrop {
+        position: fixed;
+        inset: 0;
+        // Below Odoo's overlay layer (1055), which holds the sheet.
+        z-index: $zindex-modal-backdrop;
+        background: rgba(#000, .3);
+        animation: o_at_fade_in .25s ease-out;
+    }
+
+    body .o-mail-systrayFullscreenDropdownMenu {
+        top: 44px !important;
+        bottom: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        padding-bottom: calc(#{$at-sheet-bar-room} + env(safe-area-inset-bottom)) !important;
+        overflow: hidden;
+        border-radius: 18px 18px 0 0;
+        background: $o-view-background-color;
+        box-shadow: 0 -8px 24px rgba(#000, .12) !important;
+        animation: o_at_sheet_in .32s cubic-bezier(.2, .8, .2, 1);
+        transition: transform .22s ease-in;
+
+        // Handle and title: the top of the sheet, which can be dragged down.
+        &::before {
+            content: var(--at-sheet-title, "");
+            order: -3;
+            flex-shrink: 0;
+            padding: 24px 16px 10px;
+            background: linear-gradient($at-line, $at-line) center 9px / 36px 4px no-repeat;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        &.o_at_sheet_dragging {
+            transition: none;
+        }
+
+        &.o_at_sheet_closing {
+            transform: translateY(100%) !important;
+        }
+
+        // = Chat: title, search, tabs, then the list
+        // Odoo's `d-flex` is !important: so is this.
+        .o-mail-MessagingMenu.o-small {
+            display: contents !important;
+        }
+
+        .o-mail-MessagingMenu-header {
+            order: -2;
+            padding: 0 12px 8px !important;
+        }
+
+        // Round search box, like the one of the views (Odoo's border
+        // utilities are !important).
+        .o-mail-DiscussSearch-inputContainer {
+            border: 0 !important;
+            border-radius: 999px 0 0 999px !important;
+            background: $gray-200 !important;
+            padding-left: 12px;
+
+            input {
+                background: transparent !important;
+            }
+        }
+
+        .o-mail-DiscussSearch .btn {
+            border-radius: 0 999px 999px 0 !important;
+        }
+
+        .o-mail-MessagingMenu-list {
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+
+        // The tabs become a segmented control at the top.
+        .o-mail-MessagingMenu-navbar {
+            order: -1;
+            flex-shrink: 0;
+            height: auto;
+            margin: 0 12px 8px;
+            padding: 3px;
+            border: 0;
+            border-radius: 10px;
+            background: $gray-200;
+            box-shadow: none;
+        }
+
+        .o-mail-MessagingMenu-tab {
+            flex-direction: row !important;
+            justify-content: center;
+            padding: 6px 0 !important;
+            border-radius: 8px;
+            color: $at-ink-muted;
+            transition: background-color .2s, box-shadow .2s, color .2s;
+
+            .o-mail-MessagingMenu-tabIcon {
+                display: none;
+            }
+
+            span {
+                font-size: 11px;
+            }
+
+            &.active {
+                background: $o-view-background-color !important;
+                box-shadow: 0 1px 2px rgba(#000, .12);
+                color: $body-color;
+                font-weight: 500;
+            }
+        }
+    }
+
+    @keyframes o_at_fade_in {
+        from {
+            opacity: 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .o_at_systray_backdrop,
+        body .o-mail-systrayFullscreenDropdownMenu {
+            animation: none;
+            transition: none;
+        }
+    }
+}

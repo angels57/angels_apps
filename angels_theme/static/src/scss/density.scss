@@ -2,11 +2,13 @@
 .o_at_density_compact {
     --at-row-padding-y: 2px;
     --at-field-gap: 0;
+    --at-input-padding-y: 2px;
 }
 
 .o_at_density_comfortable {
     --at-row-padding-y: 10px;
     --at-field-gap: 8px;
+    --at-input-padding-y: 7px;
 }
 
 .o_at_density_compact,

@@ -10,6 +10,7 @@
                     <group>
                         <field name="angels_theme_density" widget="radio" options="{'horizontal': true}" readonly="0"/>
                         <field name="angels_theme_tab_style" widget="radio" options="{'horizontal': true}" readonly="0"/>
+                        <field name="angels_home_show_recents" readonly="0"/>
                     </group>
                 </group>
             </xpath>
@@ -26,6 +27,7 @@
                     <group>
                         <field name="angels_theme_density" widget="radio" options="{'horizontal': true}"/>
                         <field name="angels_theme_tab_style" widget="radio" options="{'horizontal': true}"/>
+                        <field name="angels_home_show_recents"/>
                     </group>
                 </group>
             </xpath>

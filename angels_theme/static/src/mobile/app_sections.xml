@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!--
+        Phones: the current app's sections (the "app" tab of the tab bar) as
+        an accordion in a bottom sheet. Only the group of the current view
+        starts open, and the current option is highlighted.
+    -->
+    <t t-inherit="web.NavBar.AppsMenu.Sidebar" t-inherit-mode="extension">
+        <!-- "Home" already opens all apps: a handle replaces the top bar. -->
+        <xpath expr="//div[hasclass('o_sidebar_topbar')]" position="replace">
+            <button class="o_at_sheet_grab" t-att-aria-label="this.angelsCloseLabel"
+                t-on-click.stop="this._closeAppMenuSidebar"/>
+        </xpath>
+
+        <xpath expr="//t[@t-as='subMenu']" position="replace">
+            <t t-foreach="this.currentAppSections" t-as="section" t-key="section.id">
+                <li t-if="section.childrenTree.length" class="o_at_acc_group"
+                    t-att-class="{ 'o_at_acc_open': this.angelsIsGroupOpen(section), 'o_at_acc_muted': this.angelsIsConfigMenu(section) }">
+                    <button class="o_at_acc_head" t-att-aria-expanded="this.angelsIsGroupOpen(section) ? 'true' : 'false'"
+                        t-on-click="() => this.angelsToggleGroup(section)">
+                        <span class="o_at_acc_title" t-out="section.name"/>
+                        <span class="o_at_acc_meta">
+                            <span class="o_at_acc_count" t-out="this.angelsLeafCount(section)"/>
+                            <svg class="o_at_acc_chevron" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <ul t-if="this.angelsIsGroupOpen(section)" class="o_at_acc_items list-unstyled">
+                        <t t-foreach="section.childrenTree" t-as="entry" t-key="entry.id">
+                            <t t-call="angels_theme.AccordionEntry" entry="entry"/>
+                        </t>
+                    </ul>
+                </li>
+                <li t-else="" class="o_at_acc_leaf o_at_acc_top"
+                    t-att-class="{ 'o_at_acc_current': this.angelsIsCurrentMenu(section) }"
+                    t-att-data-menu-xmlid="section.xmlid" t-on-click="() => this._onMenuClicked(section)"
+                    t-out="section.name"/>
+            </t>
+        </xpath>
+    </t>
+
+    <!-- An option of an open group; deeper levels show as a small heading. -->
+    <t t-name="angels_theme.AccordionEntry">
+        <li t-if="entry.childrenTree.length" class="o_at_acc_sub">
+            <div class="o_at_acc_subtitle" t-out="entry.name"/>
+            <ul class="list-unstyled">
+                <t t-foreach="entry.childrenTree" t-as="entry" t-key="entry.id">
+                    <t t-call="angels_theme.AccordionEntry" entry="entry"/>
+                </t>
+            </ul>
+        </li>
+        <li t-else="" class="o_at_acc_leaf" t-att-class="{ 'o_at_acc_current': this.angelsIsCurrentMenu(entry) }"
+            t-att-data-menu-xmlid="entry.xmlid" t-on-click="() => this._onMenuClicked(entry)"
+            t-out="entry.name"/>
+    </t>
+</templates>

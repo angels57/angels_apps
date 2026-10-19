@@ -1,0 +1,16 @@
+// Rules that only exist on the 20.0 branch: what Odoo 20 draws differently
+// from Odoo 19. Keep it the only SCSS file that differs between branches.
+
+// Phones (M3 forms): Odoo frames each field cell with its floating label and
+// leaves the input bare. The boxed input of fields.scss would draw a second
+// frame inside, so it stays bare here too.
+@include media-breakpoint-down(md) {
+    .o_form_view .o_inner_group:not(.oe_subtotal_footer) :is(.o_cell, .o_cell_custom):not(.o_wrap_label):not(.o_no_box):not(:has(.o_outlined)) #{$at-input} {
+        min-height: 0;
+        padding-right: 0;
+        padding-left: 0;
+        border-width: 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
+}

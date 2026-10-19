@@ -1,0 +1,194 @@
+// Phones: the navbar is a floating tab bar at the bottom of the screen.
+$at-tab-bar-height: 58px;
+$at-tab-bar-gap: 12px;
+
+@include media-breakpoint-down(md) {
+    .o_main_navbar {
+        position: fixed;
+        left: $at-tab-bar-gap;
+        right: $at-tab-bar-gap;
+        bottom: calc(#{$at-tab-bar-gap} + env(safe-area-inset-bottom));
+        top: auto;
+        z-index: $zindex-fixed;
+        height: $at-tab-bar-height;
+        padding: 0 6px;
+        border-radius: 22px;
+        background: rgba(#fff, .96);
+        box-shadow: 0 0 0 1px rgba(#000, .07), 0 10px 26px rgba(#2a3346, .18);
+        transition: transform .25s ease, opacity .25s ease;
+
+        // The default phone toggle is replaced by the "app" tab.
+        .o_menu_toggle {
+            display: none !important;
+        }
+
+        // The systray items stay mounted (their menus and counters keep
+        // working) but out of sight: "More" lists and opens them.
+        .o_menu_systray {
+            position: absolute !important;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip-path: inset(50%);
+            pointer-events: none;
+        }
+    }
+
+    .o_at_tab_bar_hidden .o_main_navbar {
+        transform: translateY(calc(100% + #{$at-tab-bar-gap * 2}));
+        opacity: 0;
+    }
+
+    // Room for the bar under the content.
+    .o_action_manager {
+        padding-bottom: calc(#{$at-tab-bar-height + $at-tab-bar-gap * 2} + env(safe-area-inset-bottom));
+    }
+
+    // No bar on the home screen: the grid is the navigation there, and the
+    // bar comes back as soon as an app opens.
+    body.o_at_home_open {
+        // Moved out of view, like when scrolling down.
+        .o_main_navbar {
+            transform: translateY(calc(100% + #{$at-tab-bar-gap * 2}));
+            visibility: hidden;
+            pointer-events: none;
+            transition: none;
+        }
+
+        .o_action_manager {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+
+    // No bar over an open conversation either: on phones Discuss shows it
+    // full screen, with its own close button, and the bar would cover its
+    // composer.
+    body:has(.o-mail-ChatWindow.o-mobile) .o_main_navbar {
+        transform: translateY(calc(100% + #{$at-tab-bar-gap * 2}));
+        visibility: hidden;
+        pointer-events: none;
+        transition: none;
+    }
+
+    // = Tabs
+    .o_at_tab {
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        height: $at-tab-bar-height - 12px;
+        margin: 6px 0;
+        padding: 0 2px;
+        border: 0;
+        border-radius: 16px;
+        background: transparent;
+        color: $text-muted;
+        font-size: 10px;
+        line-height: 1.2;
+        transition: background-color .15s, color .15s;
+
+        &.o_at_tab_active {
+            background: var(--at-brand-soft);
+            color: var(--at-brand-dark);
+            font-weight: 500;
+        }
+    }
+
+    .o_at_tab_icon {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        object-fit: contain;
+    }
+
+    img.o_at_tab_icon {
+        border-radius: 5px;
+    }
+
+    img.o_at_tab_avatar {
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .o_at_tab_label {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .o_at_tab_iconwrap {
+        position: relative;
+        display: flex;
+    }
+
+    .o_at_badge {
+        position: absolute;
+        top: -5px;
+        left: calc(50% + 6px);
+        min-width: 17px;
+        height: 17px;
+        padding: 0 5px;
+        border-radius: 999px;
+        background: map-get($theme-colors, 'danger');
+        color: #fff;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 17px;
+        text-align: center;
+        box-shadow: 0 0 0 2px #fff;
+    }
+
+    @keyframes o_at_sheet_in {
+        from {
+            transform: translateY(100%);
+        }
+        to {
+            transform: none;
+        }
+    }
+
+    // = Current app sections and the user menu ("Profile"): sheets from the
+    // bottom instead of side menus, like everything the bar opens.
+    .o_app_menu_sidebar,
+    .o_burger_menu {
+        top: auto !important;
+        right: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        width: 100%;
+        max-height: 75vh;
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -8px 24px rgba(#000, .12);
+        padding-bottom: env(safe-area-inset-bottom);
+        transform: none;
+        overflow: hidden;
+
+        &.o-app-menu-sidebar-enter,
+        &.o-app-menu-sidebar-leave,
+        &.o-burger-slide-enter,
+        &.o-burger-slide-leave {
+            transform: translateY(100%);
+        }
+
+        .o_sidebar_topbar {
+            border-radius: 18px 18px 0 0;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .o_main_navbar,
+        .o_app_menu_sidebar,
+        .o_burger_menu {
+            transition: none;
+        }
+
+    }
+}

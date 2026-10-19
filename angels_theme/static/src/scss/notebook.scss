@@ -10,6 +10,7 @@
     }
 
     .nav-link {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 6px;
@@ -19,6 +20,18 @@
         color: $text-muted;
         background: transparent;
         transition: color .15s, box-shadow .15s, background-color .15s;
+
+        // Underline of the active tab: grows from the center when it opens.
+        &::before {
+            content: "";
+            position: absolute;
+            inset: auto 8px 0;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--at-brand);
+            transform: scaleX(0);
+            transition: transform .25s cubic-bezier(.2, .8, .2, 1);
+        }
 
         &:hover {
             color: $body-color;
@@ -30,7 +43,10 @@
                 border: 0;
                 color: var(--at-brand);
                 background: transparent;
-                box-shadow: inset 0 -2px 0 var(--at-brand);
+            }
+
+            &::before {
+                transform: none;
             }
         }
 
@@ -67,6 +83,10 @@
     .nav-link {
         border-radius: 999px;
         padding: 5px 14px;
+
+        &::before {
+            content: none;
+        }
 
         &.active {
             &, &:hover, &:focus, &:active {
