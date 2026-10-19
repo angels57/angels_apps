@@ -32,7 +32,8 @@ const DIAL_ITEMS = [
     {
         key: "search",
         label: () => _t("Search"),
-        find: (panel) => panel.querySelector(".o_control_panel_navigation > .btn:has(.fa-search)"),
+        // Odoo 19 draws the magnifier with Font Awesome, Odoo 20 with its own icons.
+        find: (panel) => panel.querySelector(".o_control_panel_navigation .btn:has(.fa-search, [data-icon='search'])"),
         closes: true,
     },
     {
@@ -386,7 +387,7 @@ patch(NavBar.prototype, {
         let input = panel.querySelector(".o_searchview_input");
         if (!input) {
             const toggler = [...panel.querySelectorAll("button")].find((button) =>
-                button.querySelector(".fa-search")
+                button.querySelector(".fa-search, [data-icon='search']")
             );
             toggler?.click();
             for (let i = 0; i < 20 && toggler && !input; i++) {
