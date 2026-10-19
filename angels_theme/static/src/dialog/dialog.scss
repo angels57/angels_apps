@@ -130,15 +130,15 @@ $at-dialog-radius: 14px;
     }
 }
 
-// = Steps: a wizard's statusbar as a stepper. Odoo lays the stages out
-// right to left, so the ones after the current stage in the DOM are the
-// ones before it on screen (done).
-.o_dialog .o_form_statusbar .o_field_statusbar {
+// = Steps: the statusbar of every form and wizard as a stepper. Odoo lays
+// the stages out right to left, so the ones after the current stage in the
+// DOM are the ones before it on screen (done).
+.o_form_statusbar .o_field_statusbar {
     flex: 0 1 420px;
     margin-left: auto;
 }
 
-.o_dialog .o_form_statusbar .o_field_statusbar > .o_statusbar_status {
+.o_form_statusbar .o_field_statusbar > .o_statusbar_status {
     flex: 1 1 auto;
     gap: 6px;
     margin-left: 0;
@@ -192,6 +192,18 @@ $at-dialog-radius: 14px;
             inset: auto 0 0;
             background-color: $at-brand;
         }
+    }
+}
+
+// Outside a dialog there is room: each step as wide as its name, so a long
+// one ("Partially available") is not cut.
+.o_action_manager .o_form_statusbar .o_field_statusbar {
+    flex: 0 1 auto;
+    min-width: 0;
+
+    > .o_statusbar_status > .o_arrow_button:not(.d-none) {
+        flex: 1 1 auto;
+        padding-right: 12px;
     }
 }
 
