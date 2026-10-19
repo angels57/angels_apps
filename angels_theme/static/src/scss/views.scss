@@ -299,32 +299,35 @@ nav.o_cp_switch_buttons.btn-group > .btn.active {
 
 // = Settings (res.config.settings). Odoo's own rules start from the same
 // chain, so ours, loaded after, win.
-.o_base_settings_view .o_form_renderer .o_setting_container .settings {
-    background-color: $at-home-bg;
 
-    // Apps on the left as a list with a brand selection.
-    > .settings_tab {
-        padding: 8px 0;
-        background-color: $o-view-background-color;
+// Apps on the left as a list with a brand selection. Odoo 19 puts the list
+// inside .settings, Odoo 20 next to it: the chain matches both.
+.o_base_settings_view .o_form_renderer .o_setting_container .settings_tab {
+    padding: 8px 0;
+    background-color: $o-view-background-color;
 
-        > .tab {
-            margin: 1px 8px;
-            border-radius: $at-radius;
-            color: $at-ink;
-            transition: background-color .12s, color .12s;
+    > .tab {
+        margin: 1px 8px;
+        border-radius: $at-radius;
+        color: $at-ink;
+        transition: background-color .12s, color .12s;
 
-            &:hover {
-                background-color: $o-gray-100;
-            }
+        &:hover {
+            background-color: $o-gray-100;
+        }
 
-            &.selected {
-                background-color: $at-brand-soft;
-                box-shadow: none;
-                color: $at-brand-dark;
-                font-weight: 500;
-            }
+        &.selected {
+            background-color: $at-brand-soft;
+            box-shadow: none;
+            color: $at-brand-dark;
+            font-weight: 500;
         }
     }
+}
+
+// The page itself.
+.o_base_settings_view .o_form_renderer .o_setting_container .settings {
+    background-color: $at-home-bg;
 
     // Section titles as labels, the settings under them as one card.
     .app_settings_block {
