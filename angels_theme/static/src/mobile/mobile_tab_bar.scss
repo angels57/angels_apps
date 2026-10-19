@@ -1,6 +1,8 @@
 // Phones: the navbar is a floating tab bar at the bottom of the screen.
 $at-tab-bar-height: 58px;
 $at-tab-bar-gap: 12px;
+$at-dial-size: 48px;
+$at-dial-item: 40px;
 
 @include media-breakpoint-down(md) {
     .o_main_navbar {
@@ -146,6 +148,183 @@ $at-tab-bar-gap: 12px;
         box-shadow: 0 0 0 2px #fff;
     }
 
+    // = Primary action of the view ("New", "Upload PDF"...): a raised round
+    // button in the middle of the bar, in reach of the thumb. The control
+    // panel keeps the original button, out of sight, and the tab clicks it.
+    .o_at_tab.o_at_tab_primary {
+        justify-content: flex-end;
+        padding-bottom: 3px;
+        color: var(--at-brand-dark);
+        font-weight: 500;
+
+        &:active .o_at_tab_primary_icon {
+            transform: scale(.94);
+        }
+    }
+
+    .o_at_tab_primary_icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        margin-top: -22px;
+        border-radius: 50%;
+        background: var(--at-brand);
+        color: #fff;
+        box-shadow: 0 0 0 4px #fff, 0 6px 14px rgba($at-brand, .35);
+        transition: transform .12s;
+
+        .o_at_tab_icon {
+            stroke-width: 2.2;
+        }
+    }
+
+    body.o_at_primary_tab .o_action_manager .o_control_panel_main_buttons > .btn-primary:first-child {
+        display: none !important;
+    }
+
+    // = Dial: search, view, pages, actions and "more" leave the top of the
+    // control panel for a round button over the bar, on the right. Open, it
+    // stacks Odoo's own controls upwards, each with its label; their
+    // dropdowns open from there.
+    .o_at_dial_toggle {
+        position: absolute;
+        right: 0;
+        bottom: calc(100% + #{$at-tab-bar-gap});
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: $at-dial-size;
+        height: $at-dial-size;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(#fff, .96);
+        box-shadow: 0 0 0 1px rgba(#000, .07), 0 6px 16px rgba(#2a3346, .18);
+        color: $at-ink;
+        transition: background-color .15s, color .15s, transform .12s;
+
+        .o_at_tab_icon {
+            stroke-width: 2.6;
+        }
+
+        &:active {
+            transform: scale(.94);
+        }
+
+        &.o_at_dial_toggle_open {
+            background: var(--at-brand);
+            color: #fff;
+
+            .o_at_tab_icon {
+                stroke-width: 2;
+            }
+        }
+    }
+
+    // Room under the content for the dial button too.
+    body.o_at_dial:not(.o_at_home_open) .o_action_manager {
+        padding-bottom: calc(#{$at-tab-bar-height + $at-tab-bar-gap * 3 + $at-dial-size} + env(safe-area-inset-bottom));
+    }
+
+    // Closed: out of sight, still mounted.
+    body.o_at_dial:not(.o_at_dial_open) .o_action_manager .o_control_panel [data-at-dial] {
+        display: none !important;
+    }
+
+    body.o_at_dial_open .o_action_manager .o_control_panel {
+        // The shade over the view; a tap on it closes the dial.
+        &::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: $zindex-fixed - 1;
+            background: rgba(#1f1f24, .3);
+            animation: o_at_dial_shade .15s ease-out;
+        }
+
+        [data-at-dial] {
+            --at-dial-step: #{$at-dial-item + 10px};
+            position: fixed;
+            right: $at-tab-bar-gap + ($at-dial-size - $at-dial-item) * .5;
+            bottom: calc(#{$at-tab-bar-height + $at-tab-bar-gap * 3 + $at-dial-size + 6px} + env(safe-area-inset-bottom) + var(--at-dial-index) * var(--at-dial-step));
+            z-index: $zindex-fixed;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            animation: o_at_dial_in .18s cubic-bezier(.2, .8, .2, 1) backwards;
+            animation-delay: calc(var(--at-dial-index) * 25ms);
+
+            // The label, on its left.
+            &::before {
+                content: attr(data-at-dial-label);
+                position: absolute;
+                top: 50%;
+                right: calc(100% + 10px);
+                transform: translateY(-50%);
+                padding: 4px 9px;
+                border-radius: 7px;
+                background: $at-ink;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 1.3;
+                white-space: nowrap;
+                pointer-events: none;
+            }
+        }
+
+        // Each control a round white button.
+        :is(button[data-at-dial], [data-at-dial] .btn) {
+            min-width: $at-dial-item;
+            height: $at-dial-item;
+            padding: 0 10px;
+            border: 0 !important;
+            border-radius: 999px !important;
+            background: #fff;
+            box-shadow: 0 0 0 1px rgba(#000, .07), 0 4px 12px rgba(#2a3346, .16);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: $at-ink;
+            font-size: 16px;
+
+            &:disabled {
+                color: $o-gray-400;
+                opacity: 1;
+            }
+        }
+
+        // The pager: its two buttons apart, on no track.
+        [data-at-dial="pager"] {
+            .o_pager,
+            .btn-group {
+                gap: 6px;
+                padding: 0;
+                background: transparent;
+            }
+        }
+    }
+
+    @keyframes o_at_dial_in {
+        from {
+            opacity: .4;
+            transform: translateY(12px) scale(.9);
+        }
+    }
+
+    @keyframes o_at_dial_shade {
+        from {
+            opacity: 0;
+        }
+    }
+
     @keyframes o_at_sheet_in {
         from {
             transform: translateY(100%);
@@ -188,6 +367,13 @@ $at-tab-bar-gap: 12px;
         .o_app_menu_sidebar,
         .o_burger_menu {
             transition: none;
+        }
+
+        body.o_at_dial_open .o_action_manager .o_control_panel {
+            &::after,
+            [data-at-dial] {
+                animation: none;
+            }
         }
 
     }

@@ -1,6 +1,6 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "20.0.1.13.0",
+    "version": "20.0.1.14.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
 Angels Theme - Backend Theme for Odoo 20
@@ -24,7 +24,10 @@ A backend theme that every app inherits without changing its views.
 * Phones: the navbar becomes a floating tab bar at the bottom (Home, current
   app, Search, Chat, Activity and Profile), hidden while scrolling down; the
   app tab shows its sections as an accordion, and chat and activity open as
-  bottom sheets
+  bottom sheets. The primary action of the view ("New", "Upload PDF"...)
+  moves from the control panel to a raised button in the middle of the bar,
+  and search, view, pages, actions and "more" to a round button over it, on
+  the right, that opens them upwards
 * Every dialog and wizard: rounded frame, the app icon in the header, the
   form as a card, the primary button on the right, a statusbar shown as
   steps and, on phones, a bottom sheet
@@ -43,6 +46,9 @@ A backend theme that every app inherits without changing its views.
   as brand pills, the form statusbar as steps, group rows and totals in
   lists, one2many lines framed as a sub-table with a totals card, and the
   settings page as cards of rows with switches
+* Kanban: cards apart with rounded corners and a hover lift, column headers
+  with a slim progress bar, a framed quick create, a guide in empty columns
+  and folded columns as a gray strip
     """,
     "category": "Themes/Backend",
     "author": "Angels SAS",
@@ -68,6 +74,7 @@ A backend theme that every app inherits without changing its views.
             "angels_theme/static/src/scss/compat.scss",
             "angels_theme/static/src/scss/popups.scss",
             "angels_theme/static/src/scss/views.scss",
+            "angels_theme/static/src/scss/kanban.scss",
             "angels_theme/static/src/scss/motion.scss",
             "angels_theme/static/src/js/*.js",
             "angels_theme/static/src/xml/*.xml",

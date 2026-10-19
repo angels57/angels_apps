@@ -1,0 +1,194 @@
+// Kanban views of every app: cards with rounded corners apart from each
+// other, columns with a clear header and a slim progress bar, a framed quick
+// create and a guide in empty columns. Only the shared Odoo classes are
+// styled: what each app draws inside its cards stays as it is.
+$at-card-radius: 12px;
+$at-card-gap: 8px;
+$at-card-shadow-hover: 0 6px 16px rgba(#000, .08);
+$at-empty-column-icon: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#{$at-brand}' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M14 3v4a1 1 0 0 0 1 1h4'/><path d='M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z'/><path d='M12 11v6M9 14h6'/></svg>";
+
+.o_kanban_renderer {
+    --Kanban-background: #{$at-home-bg};
+    --KanbanGroup-background: transparent;
+    --KanbanRecord-padding-v: 10px;
+    --KanbanRecord-padding-h: 12px;
+    --KanbanColumn__highlight-background: #{$at-brand-soft};
+    --KanbanColumn__highlight-border: #{$at-brand};
+
+    // = Cards: apart from each other instead of one stacked list.
+    .o_kanban_record:not(.o_kanban_ghost) {
+        overflow: hidden;
+        border-color: $at-line;
+        border-radius: $at-card-radius;
+        transition: box-shadow .15s, transform .15s, border-color .15s;
+
+        &:focus-visible {
+            border-color: $at-brand;
+            box-shadow: 0 0 0 3px rgba($at-brand, .18);
+            outline: 0;
+        }
+    }
+
+    // The "New" card Odoo adds at the end of an empty list stays a link.
+    .o_kanban_record.o-kanban-button-new {
+        border: 1px dashed $o-gray-400;
+        border-radius: $at-card-radius;
+        color: $at-brand;
+    }
+
+    // Being dragged: lifted, with a brand edge.
+    .o_kanban_record.o_dragged {
+        border-color: $at-brand;
+        box-shadow: 0 12px 28px rgba(#000, .14);
+    }
+
+    // = Quick create: a framed card with the brand ring.
+    .o_kanban_quick_create {
+        padding: 12px;
+        border-color: $at-brand;
+        border-radius: $at-card-radius;
+        box-shadow: 0 0 0 3px rgba($at-brand, .15) !important;
+    }
+
+    // = Column headers
+    .o_kanban_header {
+        .o_column_title {
+            align-items: baseline;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            color: $at-ink;
+
+            // The count, "(4)", quieter than the name.
+            > span:not(.text-truncate) {
+                color: $o-gray-600;
+                font-size: 12px;
+                font-weight: 400;
+            }
+        }
+
+        .o_kanban_quick_add,
+        .o_group_config .dropdown-toggle {
+            border-radius: 6px;
+            color: $o-gray-600;
+
+            &:hover, &:focus-visible {
+                background-color: $at-brand-soft;
+                color: $at-brand;
+            }
+        }
+    }
+
+    // Progress bar: slim and rounded, the total beside it.
+    .o_kanban_counter {
+        gap: 8px;
+
+        > .o_column_progress {
+            gap: 2px;
+            height: 6px;
+            border-radius: 999px;
+            background-color: $o-gray-200 !important;
+
+            > .progress-bar {
+                border: 0 !important;
+                border-radius: 999px;
+            }
+        }
+
+        .o_animated_number,
+        .o_kanban_counter_side {
+            color: $o-gray-700;
+            font-size: 12px;
+        }
+    }
+
+    // = Grouped
+    &.o_kanban_grouped {
+        .o_kanban_group {
+            border-radius: $at-card-radius;
+        }
+
+        .o_kanban_record:not(.o_kanban_ghost) {
+            margin-bottom: $at-card-gap;
+        }
+
+        // An empty column shows a drop target.
+        .o_kanban_group.o_kanban_no_records:not(.o_column_folded)::after {
+            content: "";
+            display: block;
+            height: 96px;
+            margin-top: 4px;
+            border: 1px dashed $o-gray-400;
+            border-radius: $at-card-radius;
+            background: $o-view-background-color escape-svg(url("data:image/svg+xml,#{$at-empty-column-icon}")) no-repeat center / 24px;
+        }
+
+        // Odoo draws the dragged-over column with side lines.
+        .o_kanban_group.o_kanban_hover {
+            box-shadow: inset 0 0 0 1px $at-brand;
+        }
+    }
+
+    // Folded columns: a gray strip.
+    .o_kanban_group.o_column_folded {
+        @include media-breakpoint-up(md) {
+            margin: 0 2px;
+            background-color: $o-gray-200;
+
+            &:hover {
+                background-color: $o-gray-300;
+            }
+        }
+    }
+
+    // "Add a column": a dashed brand target.
+    .o_column_quick_create.o_quick_create_folded {
+        @include media-breakpoint-up(md) {
+            margin: 8px 4px;
+            border: 1px dashed $o-gray-400;
+            border-radius: $at-card-radius;
+            color: $at-brand;
+
+            &:hover {
+                border-color: $at-brand;
+                background-color: $at-brand-soft;
+            }
+
+            .o_quick_create_button {
+                color: inherit;
+            }
+        }
+    }
+
+    .o_column_quick_create.o_quick_create_unfolded .o_kanban_muted_record {
+        border-radius: $at-card-radius;
+    }
+
+    // = Ungrouped: the cards keep their gap on phones too, where Odoo
+    // stacks them edge to edge.
+    &.o_kanban_ungrouped .o_kanban_record:not(.o_kanban_ghost) {
+        @include media-breakpoint-down(md) {
+            margin: 0 0 $at-card-gap;
+        }
+    }
+
+    &.o_kanban_ungrouped {
+        @include media-breakpoint-down(md) {
+            --Kanban-padding: #{$at-card-gap};
+        }
+    }
+}
+
+// Hover lifts the card, where a mouse can reach it.
+@media (hover: hover) {
+    .o_kanban_renderer .o_kanban_record:not(.o_kanban_ghost):not(.o_dragged):not(.o-kanban-button-new):hover {
+        border-color: $o-gray-400;
+        box-shadow: $at-card-shadow-hover;
+        transform: translateY(-2px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .o_kanban_renderer .o_kanban_record:hover {
+        transform: none !important;
+    }
+}

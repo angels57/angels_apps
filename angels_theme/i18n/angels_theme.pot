@@ -197,6 +197,12 @@ msgstr ""
 
 #. module: angels_theme
 #. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "New"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
 #: code:addons/angels_theme/static/src/home/home_menu.xml:0
 msgid "Reset layout"
 msgstr ""
@@ -247,4 +253,34 @@ msgstr ""
 #. module: angels_theme
 #: model:ir.model,name:angels_theme.model_res_users
 msgid "User"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Actions"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "More"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Options"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "Pages"
+msgstr ""
+
+#. module: angels_theme
+#. odoo-javascript
+#: code:addons/angels_theme/static/src/mobile/mobile_tab_bar.js:0
+msgid "View type"
 msgstr ""
