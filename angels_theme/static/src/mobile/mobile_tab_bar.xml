@@ -41,6 +41,30 @@
                     </svg>
                     <span class="o_at_tab_label" t-out="this.angelsLabels.search"/>
                 </button>
+                <!-- The primary action of the current view, raised in the middle
+                     of the bar. -->
+                <button t-if="this.angelsBar.primary and !this.angelsHomeOpen" class="o_at_tab o_at_tab_primary"
+                    t-att-title="this.angelsBar.primary" t-on-click="() => this.angelsOnPrimaryTab()">
+                    <span class="o_at_tab_primary_icon">
+                        <svg class="o_at_tab_icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </span>
+                    <span class="o_at_tab_label" t-out="this.angelsBar.primary"/>
+                </button>
+                <!-- The other controls of the control panel (search, view,
+                     pages, actions...): a round button over the bar, on the
+                     right, that opens them upwards. -->
+                <button t-if="this.angelsBar.dial and !this.angelsHomeOpen" class="o_at_dial_toggle"
+                    t-att-class="{ 'o_at_dial_toggle_open': this.angelsBar.dialOpen }"
+                    t-att-title="this.angelsLabels.dial" t-att-aria-label="this.angelsLabels.dial"
+                    t-att-aria-expanded="this.angelsBar.dialOpen ? 'true' : 'false'"
+                    t-on-click="() => this.angelsToggleDial()">
+                    <svg class="o_at_tab_icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path t-if="this.angelsBar.dialOpen" d="M6 6l12 12M18 6L6 18"/>
+                        <path t-else="" d="M5 12h.01M12 12h.01M19 12h.01"/>
+                    </svg>
+                </button>
                 <!-- One tab per systray item (chat, activity, profile...). -->
                 <button t-foreach="this.angelsBar.systrayItems" t-as="entry" t-key="entry.key"
                     class="o_at_tab o_at_tab_systray" t-att-class="{ 'o_at_tab_active': entry.expanded }"

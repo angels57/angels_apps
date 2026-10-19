@@ -24,7 +24,10 @@ A backend theme that every app inherits without changing its views.
 * Phones: the navbar becomes a floating tab bar at the bottom (Home, current
   app, Search, Chat, Activity and Profile), hidden while scrolling down; the
   app tab shows its sections as an accordion, and chat and activity open as
-  bottom sheets
+  bottom sheets. The primary action of the view ("New", "Upload PDF"...)
+  moves from the control panel to a raised button in the middle of the bar,
+  and search, view, pages, actions and "more" to a round button over it, on
+  the right, that opens them upwards
 * Every dialog and wizard: rounded frame, the app icon in the header, the
   form as a card, the primary button on the right, a statusbar shown as
   steps and, on phones, a bottom sheet
