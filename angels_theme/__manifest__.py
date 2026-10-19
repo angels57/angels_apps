@@ -1,6 +1,6 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "19.0.1.13.0",
+    "version": "19.0.1.14.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
 Angels Theme - Backend Theme for Odoo 19
@@ -43,6 +43,9 @@ A backend theme that every app inherits without changing its views.
   as brand pills, the form statusbar as steps, group rows and totals in
   lists, one2many lines framed as a sub-table with a totals card, and the
   settings page as cards of rows with switches
+* Kanban: cards apart with rounded corners and a hover lift, column headers
+  with a slim progress bar, a framed quick create, a guide in empty columns
+  and folded columns as a gray strip
     """,
     "category": "Themes/Backend",
     "author": "Angels SAS",
@@ -67,6 +70,7 @@ A backend theme that every app inherits without changing its views.
             "angels_theme/static/src/scss/fields.scss",
             "angels_theme/static/src/scss/popups.scss",
             "angels_theme/static/src/scss/views.scss",
+            "angels_theme/static/src/scss/kanban.scss",
             "angels_theme/static/src/scss/motion.scss",
             "angels_theme/static/src/js/*.js",
             "angels_theme/static/src/xml/*.xml",
