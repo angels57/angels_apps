@@ -1,6 +1,6 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "19.0.1.14.0",
+    "version": "19.0.1.15.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
 Angels Theme - Backend Theme for Odoo 19
@@ -88,6 +88,9 @@ A backend theme that every app inherits without changing its views.
             "angels_theme/static/src/dialog/*.xml",
         ],
     },
+    "images": [
+        "static/description/main_screenshot.png",
+    ],
     "installable": True,
     "application": False,
     "auto_install": False,
