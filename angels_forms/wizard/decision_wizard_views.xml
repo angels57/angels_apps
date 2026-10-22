@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_decision_wizard_form" model="ir.ui.view">
+        <field name="name">angels.form.decision.wizard.form</field>
+        <field name="model">angels.form.decision.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="submission_id" invisible="1"/>
+                <field name="decision" invisible="1"/>
+                <field name="comment" required="decision == 'reject'"
+                       placeholder="Add a comment for the requester"/>
+                <footer>
+                    <button name="action_confirm" type="object" string="Approve" class="btn-primary"
+                            invisible="decision != 'approve'" data-hotkey="q"/>
+                    <button name="action_confirm" type="object" string="Reject" class="btn-danger"
+                            invisible="decision != 'reject'" data-hotkey="q"/>
+                    <button special="cancel" string="Discard" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

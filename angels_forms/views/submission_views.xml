@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_submission_list" model="ir.ui.view">
+        <field name="name">angels.form.submission.list</field>
+        <field name="model">angels.form.submission</field>
+        <field name="arch" type="xml">
+            <list create="0" decoration-muted="state == 'cancelled'" decoration-bf="is_my_turn">
+                <field name="name"/>
+                <field name="title"/>
+                <field name="form_id"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="current_step_id" string="Current Step"/>
+                <field name="date_submitted" optional="show"/>
+                <field name="date_done" optional="hide"/>
+                <field name="activity_ids" widget="list_activity" optional="show"/>
+                <field name="is_my_turn" column_invisible="1"/>
+                <field name="state" widget="badge" decoration-info="state == 'pending'"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'rejected'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_submission_form" model="ir.ui.view">
+        <field name="name">angels.form.submission.form</field>
+        <field name="model">angels.form.submission</field>
+        <field name="arch" type="xml">
+            <form string="Request" create="0" edit="0">
+                <header>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary"
+                            invisible="not is_my_turn" data-hotkey="v"/>
+                    <button name="action_reject" type="object" string="Reject"
+                            invisible="not is_my_turn" data-hotkey="z"/>
+                    <button name="action_edit" type="object" string="Edit" class="btn-primary"
+                            invisible="not can_edit"/>
+                    <button name="action_submit" type="object" string="Send"
+                            invisible="not can_edit"/>
+                    <button name="action_cancel" type="object" string="Cancel Request"
+                            invisible="not can_cancel" confirm="Cancel this request?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending,approved"/>
+                </header>
+                <sheet>
+                    <field name="is_my_turn" invisible="1"/>
+                    <field name="can_cancel" invisible="1"/>
+                    <field name="can_edit" invisible="1"/>
+                    <div class="oe_title">
+                        <h1><field name="name" invisible="name == '/'"/><span invisible="name != '/'">Draft</span></h1>
+                        <h2><field name="title"/></h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="form_id" options="{'no_open': True}"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="date_submitted" invisible="not date_submitted"/>
+                        </group>
+                        <group>
+                            <field name="current_step_id" string="Current Step"
+                                   invisible="not current_step_id" options="{'no_open': True}"/>
+                            <field name="date_done" invisible="not date_done"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Answers" name="answers">
+                            <field name="answers_html" nolabel="1" class="o_af_answers_field"/>
+                        </page>
+                        <page string="Steps" name="steps" invisible="state == 'draft'">
+                            <field name="step_ids">
+                                <list decoration-muted="state in ('skipped', 'waiting')"
+                                      decoration-bf="state == 'pending'">
+                                    <field name="sequence" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="step_type"/>
+                                    <field name="user_ids" widget="many2many_avatar_user"/>
+                                    <field name="approval_rule" optional="hide"/>
+                                    <field name="decided_by_id" widget="many2one_avatar_user" optional="show"/>
+                                    <field name="date_done" optional="show"/>
+                                    <field name="comment" optional="show"/>
+                                    <field name="state" widget="badge"
+                                           decoration-info="state == 'pending'"
+                                           decoration-success="state in ('approved', 'notified')"
+                                           decoration-danger="state == 'rejected'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_submission_kanban" model="ir.ui.view">
+        <field name="name">angels.form.submission.kanban</field>
+        <field name="model">angels.form.submission</field>
+        <field name="arch" type="xml">
+            <kanban create="0" class="o_kanban_mobile">
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex justify-content-between">
+                            <field name="name" class="fw-bold"/>
+                            <field name="state" widget="label_selection"
+                                   options="{'classes': {'draft': 'default', 'pending': 'info', 'approved': 'success', 'rejected': 'danger', 'cancelled': 'default'}}"/>
+                        </div>
+                        <field name="title"/>
+                        <div class="d-flex justify-content-between mt-2">
+                            <field name="form_id" class="text-muted"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_submission_search" model="ir.ui.view">
+        <field name="name">angels.form.submission.search</field>
+        <field name="model">angels.form.submission</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="title"/>
+                <field name="form_id"/>
+                <field name="user_id"/>
+                <filter name="to_review" string="Waiting for Me" domain="[('is_my_turn', '=', True)]"/>
+                <filter name="mine" string="My Requests" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter name="draft" string="Drafts" domain="[('state', '=', 'draft')]"/>
+                <filter name="pending" string="In Review" domain="[('state', '=', 'pending')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="rejected" string="Rejected" domain="[('state', '=', 'rejected')]"/>
+                <group name="group_by">
+                    <filter name="group_form" string="Form" context="{'group_by': 'form_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_user" string="Requested By" context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_submission_to_review" model="ir.actions.act_window">
+        <field name="name">To Review</field>
+        <field name="res_model">angels.form.submission</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="domain">[('is_my_turn', '=', True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Nothing waiting for you</p>
+            <p>Requests you have to approve show up here.</p>
+        </field>
+    </record>
+
+    <record id="action_submission_mine" model="ir.actions.act_window">
+        <field name="name">My Requests</field>
+        <field name="res_model">angels.form.submission</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No request yet</p>
+            <p>Open New Request and fill a form.</p>
+        </field>
+    </record>
+
+    <record id="action_submission_all" model="ir.actions.act_window">
+        <field name="name">All Requests</field>
+        <field name="res_model">angels.form.submission</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="domain">[('state', '!=', 'draft')]</field>
+        <field name="context">{'search_default_pending': 1}</field>
+    </record>
+</odoo>

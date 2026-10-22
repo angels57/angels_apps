@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16407a"/><stop offset="1" stop-color="#14142b"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" fill="url(#bg)"/>
+  <!-- the form -->
+  <rect x="20" y="18" width="58" height="80" rx="8" fill="#ffffff"/>
+  <rect x="30" y="30" width="38" height="7" rx="3.5" fill="#16407a"/>
+  <rect x="30" y="45" width="30" height="5" rx="2.5" fill="#9aa9c2"/>
+  <rect x="30" y="56" width="38" height="5" rx="2.5" fill="#9aa9c2"/>
+  <rect x="30" y="67" width="24" height="5" rx="2.5" fill="#9aa9c2"/>
+  <circle cx="34" cy="84" r="4" fill="#2cc4ac"/>
+  <rect x="42" y="81.5" width="20" height="5" rx="2.5" fill="#9aa9c2"/>
+  <!-- routing: one line that splits in two -->
+  <path d="M78 58 H88 C 96 58, 96 40, 104 40" fill="none" stroke="#2cc4ac" stroke-width="6" stroke-linecap="round"/>
+  <path d="M88 58 C 96 58, 96 82, 104 82" fill="none" stroke="#9fe7dc" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="106" cy="40" r="7" fill="#2cc4ac"/>
+  <circle cx="106" cy="82" r="7" fill="#9fe7dc"/>
+  <path d="M102.5 40 l2.5 2.5 l4.5 -5" fill="none" stroke="#14142b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

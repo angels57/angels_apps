@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Example form: a travel request with conditional fields and routing. -->
+    <record id="form_travel" model="angels.form">
+        <field name="name">Travel Request</field>
+        <field name="description">Ask for a business trip. Your manager approves it, and Finance too when the budget is over 2,000.</field>
+        <field name="icon">fa-plane</field>
+        <field name="color">4</field>
+        <field name="company_id" eval="False"/>
+        <field name="published" eval="True"/>
+    </record>
+
+    <record id="travel_section_trip" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">10</field>
+        <field name="name">Trip</field>
+        <field name="field_type">section</field>
+    </record>
+    <record id="travel_destination" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">20</field>
+        <field name="name">Destination</field>
+        <field name="field_type">char</field>
+        <field name="placeholder">City and country</field>
+        <field name="required" eval="True"/>
+        <field name="width">half</field>
+    </record>
+    <record id="travel_type" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">30</field>
+        <field name="name">Trip Type</field>
+        <field name="field_type">selection</field>
+        <field name="options">National
+International</field>
+        <field name="required" eval="True"/>
+        <field name="width">half</field>
+    </record>
+    <record id="travel_passport" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">40</field>
+        <field name="name">Passport Number</field>
+        <field name="field_type">char</field>
+        <field name="required" eval="True"/>
+        <field name="help">Only for international trips.</field>
+    </record>
+    <record id="travel_departure" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">50</field>
+        <field name="name">Departure</field>
+        <field name="field_type">date</field>
+        <field name="required" eval="True"/>
+        <field name="width">half</field>
+    </record>
+    <record id="travel_return" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">60</field>
+        <field name="name">Return</field>
+        <field name="field_type">date</field>
+        <field name="required" eval="True"/>
+        <field name="width">half</field>
+    </record>
+    <record id="travel_reason" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">70</field>
+        <field name="name">Reason for the Trip</field>
+        <field name="field_type">text</field>
+        <field name="required" eval="True"/>
+    </record>
+    <record id="travel_manager" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">80</field>
+        <field name="name">Your Manager</field>
+        <field name="field_type">user</field>
+        <field name="required" eval="True"/>
+        <field name="help">This person approves the trip.</field>
+    </record>
+    <record id="travel_section_budget" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">90</field>
+        <field name="name">Budget and Accommodation</field>
+        <field name="field_type">section</field>
+    </record>
+    <record id="travel_budget" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">100</field>
+        <field name="name">Estimated Budget</field>
+        <field name="field_type">number</field>
+        <field name="required" eval="True"/>
+        <field name="help">Transport, hotel and meals, in the company currency.</field>
+        <field name="width">half</field>
+    </record>
+    <record id="travel_hotel" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">110</field>
+        <field name="name">I Need a Hotel</field>
+        <field name="field_type">boolean</field>
+        <field name="width">half</field>
+    </record>
+    <record id="travel_nights" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">120</field>
+        <field name="name">Hotel Nights</field>
+        <field name="field_type">number</field>
+        <field name="required" eval="True"/>
+        <field name="width">half</field>
+    </record>
+    <record id="travel_hotel_notes" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">130</field>
+        <field name="name">Hotel Preferences</field>
+        <field name="field_type">char</field>
+        <field name="placeholder">Near the office, breakfast included...</field>
+        <field name="width">half</field>
+    </record>
+    <record id="travel_files" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">140</field>
+        <field name="name">Quotes or Tickets</field>
+        <field name="field_type">file</field>
+    </record>
+
+    <!-- Show only if ... -->
+    <record id="travel_cond_passport" model="angels.form.condition">
+        <field name="field_id" ref="travel_passport"/>
+        <field name="source_field_id" ref="travel_type"/>
+        <field name="operator">=</field>
+        <field name="value">International</field>
+    </record>
+    <record id="travel_cond_nights" model="angels.form.condition">
+        <field name="field_id" ref="travel_nights"/>
+        <field name="source_field_id" ref="travel_hotel"/>
+        <field name="operator">=</field>
+        <field name="value">1</field>
+    </record>
+    <record id="travel_cond_hotel_notes" model="angels.form.condition">
+        <field name="field_id" ref="travel_hotel_notes"/>
+        <field name="source_field_id" ref="travel_hotel"/>
+        <field name="operator">=</field>
+        <field name="value">1</field>
+    </record>
+
+    <record id="form_travel" model="angels.form">
+        <field name="title_field_id" ref="travel_destination"/>
+    </record>
+
+    <!-- Routing -->
+    <record id="travel_rule_manager" model="angels.form.rule">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">10</field>
+        <field name="name">Manager Approval</field>
+        <field name="rule_type">approve</field>
+        <field name="assign_type">field</field>
+        <field name="user_field_id" ref="travel_manager"/>
+    </record>
+    <record id="travel_rule_finance" model="angels.form.rule">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">20</field>
+        <field name="name">Finance Approval</field>
+        <field name="rule_type">approve</field>
+        <field name="assign_type">group</field>
+        <field name="group_id" ref="angels_forms.group_form_manager"/>
+    </record>
+    <record id="travel_cond_finance" model="angels.form.condition">
+        <field name="rule_id" ref="travel_rule_finance"/>
+        <field name="source_field_id" ref="travel_budget"/>
+        <field name="operator">&gt;</field>
+        <field name="value">2000</field>
+    </record>
+    <record id="travel_rule_desk" model="angels.form.rule">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">30</field>
+        <field name="name">Travel Desk</field>
+        <field name="rule_type">notify_done</field>
+        <field name="assign_type">users</field>
+        <field name="user_ids" eval="[(6, 0, [ref('base.user_admin')])]"/>
+        <field name="condition_match">any</field>
+    </record>
+    <record id="travel_cond_desk_hotel" model="angels.form.condition">
+        <field name="rule_id" ref="travel_rule_desk"/>
+        <field name="source_field_id" ref="travel_hotel"/>
+        <field name="operator">=</field>
+        <field name="value">1</field>
+    </record>
+    <record id="travel_cond_desk_international" model="angels.form.condition">
+        <field name="rule_id" ref="travel_rule_desk"/>
+        <field name="source_field_id" ref="travel_type"/>
+        <field name="operator">=</field>
+        <field name="value">International</field>
+    </record>
+
+</odoo>

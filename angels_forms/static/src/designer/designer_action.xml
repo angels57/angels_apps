@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_forms.DesignerAction">
+        <div class="o_action o_af_designer">
+            <div t-if="this.data" class="o_af_topbar">
+                <div class="o_af_titles">
+                    <div class="o_af_crumbs">
+                        <t t-foreach="this.breadcrumbs" t-as="crumb" t-key="crumb_index">
+                            <a href="#" t-on-click.prevent="() => crumb.onSelected()" t-out="crumb.name"/>
+                            <span class="o_af_sep">/</span>
+                        </t>
+                        <span>Designer</span>
+                    </div>
+                    <input type="text" class="o_af_name_input" aria-label="Form name"
+                           t-att-value="this.data.form.name"
+                           t-on-change="(ev) => this.setFormProp('name', ev.target.value)"/>
+                </div>
+                <div class="o_af_tabs" role="tablist">
+                    <button type="button" role="tab" t-att-aria-selected="this.state.tab === 'fields'"
+                            t-att-class="{'active': this.state.tab === 'fields'}" t-on-click="() => this.setTab('fields')">
+                        <i class="fa fa-list-alt" aria-hidden="true"/>
+                        <span>Questions</span>
+                        <span class="o_af_count" t-out="this.questions.length"/>
+                    </button>
+                    <button type="button" role="tab" t-att-aria-selected="this.state.tab === 'routing'"
+                            t-att-class="{'active': this.state.tab === 'routing'}" t-on-click="() => this.setTab('routing')">
+                        <i class="fa fa-code-fork" aria-hidden="true"/>
+                        <span>Routing</span>
+                        <span class="o_af_count" t-out="this.rules.length"/>
+                    </button>
+                    <button type="button" role="tab" t-att-aria-selected="this.state.tab === 'preview'"
+                            t-att-class="{'active': this.state.tab === 'preview'}" t-on-click="() => this.setTab('preview')">
+                        <i class="fa fa-eye" aria-hidden="true"/>
+                        <span>Preview</span>
+                    </button>
+                </div>
+                <div class="o_af_actions">
+                    <span t-if="this.state.dirty" class="o_af_unsaved">Unsaved changes</span>
+                    <button type="button" class="btn btn-secondary" t-on-click="() => this.togglePublished()">
+                        <t t-if="this.data.form.published">
+                            <i class="fa fa-circle text-success me-1" aria-hidden="true"/>Published
+                        </t>
+                        <t t-else="">
+                            <i class="fa fa-circle-o me-1" aria-hidden="true"/>Publish
+                        </t>
+                    </button>
+                    <button type="button" class="btn btn-primary" t-att-disabled="!this.state.dirty or this.state.saving"
+                            t-on-click="() => this.save()">Save</button>
+                </div>
+            </div>
+            <div t-if="this.data" class="o_af_body">
+                <t t-if="this.state.tab === 'fields'" t-call="angels_forms.DesignerFields"/>
+                <t t-elif="this.state.tab === 'routing'" t-call="angels_forms.DesignerRouting"/>
+                <t t-else="" t-call="angels_forms.DesignerPreview"/>
+            </div>
+        </div>
+    </t>
+
+    <!-- Questions tab: palette | canvas | properties -->
+    <t t-name="angels_forms.DesignerFields">
+        <aside class="o_af_palette">
+            <h6>Add a question</h6>
+            <p class="text-muted small">Click a type, or drag it onto the form.</p>
+            <button t-foreach="this.palette" t-as="item" t-key="item.type" type="button"
+                    class="o_af_palette_item" draggable="true"
+                    t-on-dragstart="(ev) => this.onPaletteDragStart(item, ev)"
+                    t-on-click="() => this.addField(item.type)">
+                <i t-attf-class="fa fa-fw #{item.icon}" aria-hidden="true"/>
+                <span t-out="item.label"/>
+            </button>
+            <h6 class="mt-4">Form</h6>
+            <label class="form-label small" for="o_af_form_description">Description</label>
+            <textarea id="o_af_form_description" class="form-control form-control-sm" rows="3"
+                      t-att-value="this.data.form.description"
+                      t-on-change="(ev) => this.setFormProp('description', ev.target.value)"/>
+            <label class="form-label small mt-2" for="o_af_form_icon">Icon</label>
+            <div class="input-group input-group-sm">
+                <span class="input-group-text"><i t-attf-class="fa fa-fw #{this.data.form.icon or 'fa-file-text-o'}" aria-hidden="true"/></span>
+                <input id="o_af_form_icon" type="text" class="form-control" placeholder="fa-plane"
+                       t-att-value="this.data.form.icon"
+                       t-on-change="(ev) => this.setFormProp('icon', ev.target.value.trim())"/>
+            </div>
+        </aside>
+
+        <main class="o_af_canvas" t-on-dragover="(ev) => this.onCanvasDragOver(ev)"
+              t-on-drop="(ev) => this.onDrop(ev)" t-on-dragleave="(ev) => this.onDragLeave(ev)">
+            <div class="o_af_paper">
+                <div t-if="!this.fields.length" class="o_af_canvas_empty">
+                    <i class="fa fa-hand-pointer-o fa-2x mb-2" aria-hidden="true"/>
+                    <p>Drag a question type here, or click it in the palette.</p>
+                </div>
+                <t t-foreach="this.fields" t-as="field" t-key="field.id">
+                    <div t-if="this.state.dropIndex === field_index" class="o_af_drop_line"/>
+                    <div t-att-class="{
+                            'o_af_card': true,
+                            'o_af_card_section': field.type === 'section',
+                            'o_af_selected': field.id === this.state.selectedId,
+                         }"
+                         draggable="true" tabindex="0"
+                         t-on-dragstart="(ev) => this.onCardDragStart(field, ev)"
+                         t-on-dragover="(ev) => this.onCardDragOver(field_index, ev)"
+                         t-on-click="() => this.select(field)"
+                         t-on-keydown="(ev) => ev.key === 'Enter' and this.select(field)">
+                        <span class="o_af_grip" aria-hidden="true"><i class="fa fa-ellipsis-v"/><i class="fa fa-ellipsis-v"/></span>
+                        <span class="o_af_card_icon"><i t-attf-class="fa fa-fw #{this.fieldIcon(field)}" aria-hidden="true"/></span>
+                        <div class="o_af_card_body">
+                            <div class="o_af_card_title">
+                                <t t-out="field.name"/>
+                                <span t-if="field.required" class="text-danger ms-1" aria-label="Required">*</span>
+                            </div>
+                            <div class="o_af_card_meta">
+                                <span t-out="this.labels.types[field.type]"/>
+                                <span t-if="field.width === 'half' and field.type !== 'section'" class="o_af_badge">½</span>
+                                <span t-if="this.data.form.title_field_id === field.id" class="o_af_badge">
+                                    <i class="fa fa-tag me-1" aria-hidden="true"/>Title
+                                </span>
+                                <span t-if="field.conditions.length" class="o_af_badge o_af_badge_condition"
+                                      t-att-title="this.conditionsText(field)">
+                                    <i class="fa fa-code-fork me-1" aria-hidden="true"/>
+                                    <t t-out="this.conditionsText(field)"/>
+                                </span>
+                                <span t-if="this.brokenConditions(field).length" class="o_af_badge o_af_badge_warning">
+                                    <i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>Check the conditions
+                                </span>
+                            </div>
+                            <div t-if="field.type === 'selection'" class="o_af_card_options">
+                                <span t-foreach="field.options" t-as="option" t-key="option_index" t-out="option"/>
+                            </div>
+                        </div>
+                        <div class="o_af_card_tools">
+                            <button type="button" class="btn btn-sm btn-link" title="Duplicate" aria-label="Duplicate"
+                                    t-on-click.stop="() => this.duplicate(field)">
+                                <i class="fa fa-clone" aria-hidden="true"/>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-link text-danger" title="Delete" aria-label="Delete"
+                                    t-on-click.stop="() => this.removeField(field)">
+                                <i class="fa fa-trash-o" aria-hidden="true"/>
+                            </button>
+                        </div>
+                    </div>
+                </t>
+                <div t-if="this.state.dropIndex === this.fields.length and this.fields.length" class="o_af_drop_line"/>
+            </div>
+        </main>
+
+        <aside class="o_af_inspector">
+            <t t-if="this.selected">
+                <t t-set="field" t-value="this.selected"/>
+                <h6>Question</h6>
+                <label class="form-label small" for="o_af_prop_name">Label</label>
+                <input id="o_af_prop_name" type="text" class="form-control form-control-sm"
+                       t-att-value="field.name" t-on-input="(ev) => this.setProp(field, 'name', ev.target.value)"/>
+
+                <label class="form-label small mt-2" for="o_af_prop_type">Type</label>
+                <select id="o_af_prop_type" class="form-select form-select-sm"
+                        t-on-change="(ev) => this.setProp(field, 'type', ev.target.value)">
+                    <t t-foreach="this.palette" t-as="item" t-key="item.type">
+                        <option t-att-value="item.type" t-att-selected="item.type === field.type" t-out="item.label"/>
+                    </t>
+                </select>
+
+                <t t-if="field.type !== 'section'">
+                    <div class="form-check form-switch mt-3">
+                        <input id="o_af_prop_required" type="checkbox" class="form-check-input" role="switch"
+                               t-att-checked="field.required"
+                               t-on-change="(ev) => this.setProp(field, 'required', ev.target.checked)"/>
+                        <label class="form-check-label" for="o_af_prop_required">Required</label>
+                    </div>
+                    <div t-if="this.canBeTitle(field)" class="form-check form-switch">
+                        <input id="o_af_prop_title" type="checkbox" class="form-check-input" role="switch"
+                               t-att-checked="this.data.form.title_field_id === field.id"
+                               t-on-change="(ev) => this.setTitle(field, ev.target.checked)"/>
+                        <label class="form-check-label" for="o_af_prop_title">Name requests with this answer</label>
+                    </div>
+                    <div class="mt-2">
+                        <span class="form-label small d-block">Width</span>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Width">
+                            <button type="button" t-att-class="'btn ' + (field.width === 'full' ? 'btn-primary' : 'btn-secondary')"
+                                    t-on-click="() => this.setProp(field, 'width', 'full')">Full</button>
+                            <button type="button" t-att-class="'btn ' + (field.width === 'half' ? 'btn-primary' : 'btn-secondary')"
+                                    t-on-click="() => this.setProp(field, 'width', 'half')">Half</button>
+                        </div>
+                    </div>
+                </t>
+
+                <t t-if="this.hasPlaceholder(field)">
+                    <label class="form-label small mt-2" for="o_af_prop_placeholder">Placeholder</label>
+                    <input id="o_af_prop_placeholder" type="text" class="form-control form-control-sm"
+                           t-att-value="field.placeholder"
+                           t-on-input="(ev) => this.setProp(field, 'placeholder', ev.target.value)"/>
+                </t>
+                <label class="form-label small mt-2" for="o_af_prop_help">Help text</label>
+                <input id="o_af_prop_help" type="text" class="form-control form-control-sm"
+                       t-att-value="field.help" t-on-input="(ev) => this.setProp(field, 'help', ev.target.value)"/>
+
+                <t t-if="field.type === 'selection'">
+                    <h6 class="mt-4">Choices</h6>
+                    <div t-foreach="field.options" t-as="option" t-key="option_index" class="d-flex gap-1 mb-1">
+                        <input type="text" class="form-control form-control-sm" t-att-value="option"
+                               t-att-aria-label="'Choice ' + (option_index + 1)"
+                               t-on-input="(ev) => this.setOption(field, option_index, ev.target.value)"/>
+                        <button type="button" class="btn btn-sm btn-link text-danger" title="Remove choice"
+                                aria-label="Remove choice" t-on-click="() => this.removeOption(field, option_index)">
+                            <i class="fa fa-times" aria-hidden="true"/>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-secondary" t-on-click="() => this.addOption(field)">
+                        <i class="fa fa-plus me-1" aria-hidden="true"/>Add Choice
+                    </button>
+                </t>
+
+                <h6 class="mt-4">Show only if</h6>
+                <div t-if="this.brokenConditions(field).length" class="alert alert-warning small py-2">
+                    A condition uses a question that is now placed after this one. Change or remove it.
+                </div>
+                <ConditionEditor t-key="field.id" item="field" sources="this.sourcesFor(field)"
+                                 labels="this.labels.operators" operatorsByType="this.data.operators_by_type"
+                                 onChange="() => this.touch()"
+                                 emptyText.translate="Always shown."/>
+            </t>
+            <div t-else="" class="o_af_inspector_empty">
+                <i class="fa fa-mouse-pointer fa-2x mb-2" aria-hidden="true"/>
+                <p>Select a question to change its label, type, choices and conditions.</p>
+            </div>
+        </aside>
+    </t>
+
+    <!-- Routing tab -->
+    <t t-name="angels_forms.DesignerRouting">
+        <main class="o_af_canvas">
+            <div class="o_af_paper">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h5 class="mb-0">Who receives each request</h5>
+                    <button type="button" class="btn btn-primary btn-sm" t-on-click="() => this.addRule()">
+                        <i class="fa fa-plus me-1" aria-hidden="true"/>Add Rule
+                    </button>
+                </div>
+                <p class="text-muted small">
+                    Approval rules run from top to bottom, one after the other. A rule only applies when its
+                    conditions match. With no approval rule, requests are approved as soon as they are sent.
+                </p>
+                <div t-if="!this.rules.length" class="o_af_canvas_empty">
+                    <i class="fa fa-code-fork fa-2x mb-2" aria-hidden="true"/>
+                    <p>No rule yet: requests are approved when sent.</p>
+                </div>
+                <div t-foreach="this.rules" t-as="rule" t-key="rule.id" tabindex="0"
+                     t-att-class="{'o_af_card o_af_rule': true, 'o_af_selected': rule.id === this.state.selectedRuleId}"
+                     t-on-click="() => this.selectRule(rule)"
+                     t-on-keydown="(ev) => ev.key === 'Enter' and this.selectRule(rule)">
+                    <span class="o_af_rule_step" t-out="rule_index + 1"/>
+                    <span t-attf-class="o_af_card_icon o_af_rule_#{rule.rule_type}">
+                        <i t-attf-class="fa fa-fw #{this.ruleIcon(rule)}" aria-hidden="true"/>
+                    </span>
+                    <div class="o_af_card_body">
+                        <div class="o_af_card_title" t-out="rule.name"/>
+                        <div class="o_af_rule_text" t-out="this.ruleText(rule)"/>
+                    </div>
+                    <div class="o_af_card_tools">
+                        <button type="button" class="btn btn-sm btn-link" title="Move up" aria-label="Move up"
+                                t-att-disabled="rule_first" t-on-click.stop="() => this.moveRule(rule, -1)">
+                            <i class="fa fa-arrow-up" aria-hidden="true"/>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-link" title="Move down" aria-label="Move down"
+                                t-att-disabled="rule_last" t-on-click.stop="() => this.moveRule(rule, 1)">
+                            <i class="fa fa-arrow-down" aria-hidden="true"/>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-link text-danger" title="Delete" aria-label="Delete"
+                                t-on-click.stop="() => this.removeRule(rule)">
+                            <i class="fa fa-trash-o" aria-hidden="true"/>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="o_af_inspector o_af_inspector_wide">
+            <t t-if="this.selectedRule">
+                <t t-set="rule" t-value="this.selectedRule"/>
+                <h6>Rule</h6>
+                <label class="form-label small" for="o_af_rule_name">Name</label>
+                <input id="o_af_rule_name" type="text" class="form-control form-control-sm"
+                       t-att-value="rule.name" t-on-input="(ev) => this.setRuleProp(rule, 'name', ev.target.value)"/>
+
+                <span class="form-label small d-block mt-3">Action</span>
+                <div class="o_af_rule_types">
+                    <t t-foreach="['approve', 'notify_submit', 'notify_done']" t-as="type" t-key="type">
+                        <button type="button" t-att-class="{'o_af_rule_type': true, 'active': rule.rule_type === type}"
+                                t-on-click="() => this.setRuleProp(rule, 'rule_type', type)">
+                            <i t-attf-class="fa fa-fw #{this.ruleIcon({rule_type: type})}" aria-hidden="true"/>
+                            <span t-out="this.labels.rule_types[type]"/>
+                        </button>
+                    </t>
+                </div>
+
+                <label class="form-label small mt-3" for="o_af_rule_assign">Send to</label>
+                <select id="o_af_rule_assign" class="form-select form-select-sm"
+                        t-on-change="(ev) => this.setRuleProp(rule, 'assign_type', ev.target.value)">
+                    <option value="users" t-att-selected="rule.assign_type === 'users'">Specific users</option>
+                    <option value="group" t-att-selected="rule.assign_type === 'group'">Members of a group</option>
+                    <option value="field" t-att-selected="rule.assign_type === 'field'">User chosen in the form</option>
+                </select>
+                <div class="mt-2">
+                    <MultiRecordSelector t-if="rule.assign_type === 'users'" resModel="'res.users'"
+                                         resIds="rule.user_ids" domain="[['share', '=', false]]"
+                                         update="(ids) => this.setRuleUsers(rule, ids)"/>
+                    <RecordSelector t-elif="rule.assign_type === 'group'" resModel="'res.groups'"
+                                    resId="rule.group_id" update="(id) => this.setRuleGroup(rule, id)"/>
+                    <t t-else="">
+                        <select class="form-select form-select-sm" aria-label="User question"
+                                t-on-change="(ev) => this.setRuleUserField(rule, ev.target.value)">
+                            <option value="" t-att-selected="!rule.user_field_id">Choose a question</option>
+                            <t t-foreach="this.userQuestions" t-as="question" t-key="question.id">
+                                <option t-att-value="question.id" t-att-selected="question.id === rule.user_field_id"
+                                        t-out="question.name"/>
+                            </t>
+                        </select>
+                        <p t-if="!this.userQuestions.length" class="text-muted small mt-1 mb-0">
+                            Add a User question to the form first.
+                        </p>
+                    </t>
+                </div>
+                <t t-if="rule.rule_type === 'approve'">
+                    <label class="form-label small mt-3" for="o_af_rule_approval">When several people receive it</label>
+                    <select id="o_af_rule_approval" class="form-select form-select-sm"
+                            t-on-change="(ev) => this.setRuleProp(rule, 'approval_rule', ev.target.value)">
+                        <option value="any" t-att-selected="rule.approval_rule === 'any'">One person is enough</option>
+                        <option value="all" t-att-selected="rule.approval_rule === 'all'">Everyone must approve</option>
+                    </select>
+                </t>
+
+                <h6 class="mt-4">Only if</h6>
+                <ConditionEditor t-key="rule.id" item="rule" sources="this.questions"
+                                 labels="this.labels.operators" operatorsByType="this.data.operators_by_type"
+                                 onChange="() => this.touch()"
+                                 emptyText.translate="Applies to every request."/>
+                <div class="o_af_rule_summary mt-4">
+                    <i class="fa fa-info-circle me-1" aria-hidden="true"/>
+                    <t t-out="this.ruleText(rule)"/>
+                </div>
+            </t>
+            <div t-else="" class="o_af_inspector_empty">
+                <i class="fa fa-mouse-pointer fa-2x mb-2" aria-hidden="true"/>
+                <p>Select a rule to choose who receives the request and when.</p>
+            </div>
+        </aside>
+    </t>
+
+    <!-- Preview tab -->
+    <t t-name="angels_forms.DesignerPreview">
+        <div class="o_af_fill_scroll">
+            <div class="o_af_fill_card">
+                <div class="alert alert-info small py-2">
+                    <i class="fa fa-eye me-1" aria-hidden="true"/>
+                    Preview: try the conditions. Nothing is saved.
+                </div>
+                <div class="o_af_fill_header">
+                    <span class="o_af_fill_icon">
+                        <i t-attf-class="fa fa-fw #{this.data.form.icon or 'fa-file-text-o'}" aria-hidden="true"/>
+                    </span>
+                    <div>
+                        <h2 class="mb-1" t-out="this.data.form.name"/>
+                        <p t-if="this.data.form.description" class="text-muted mb-0" t-out="this.data.form.description"/>
+                    </div>
+                </div>
+                <FormRenderer t-key="this.state.previewKey" fields="this.fields" values="this.preview"/>
+            </div>
+        </div>
+    </t>
+
+</templates>

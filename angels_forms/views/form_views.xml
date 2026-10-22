@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Configuration -->
+    <record id="view_form_list" model="ir.ui.view">
+        <field name="name">angels.form.list</field>
+        <field name="model">angels.form</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="field_count" string="Questions"/>
+                <field name="rule_count" string="Rules"/>
+                <field name="submission_count" string="Requests"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                <field name="published" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_form_form" model="ir.ui.view">
+        <field name="name">angels.form.form</field>
+        <field name="model">angels.form</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <header>
+                    <button name="action_open_designer" type="object" string="Open Designer"
+                            class="btn-primary" icon="fa-pencil-square-o" invisible="not id"/>
+                    <button name="action_publish" type="object" string="Publish"
+                            invisible="published or not id"/>
+                    <button name="action_unpublish" type="object" string="Unpublish"
+                            invisible="not published"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_submissions" type="object" class="oe_stat_button"
+                                icon="fa-inbox">
+                            <field name="submission_count" widget="statinfo" string="Requests"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <widget name="web_ribbon" title="Published" bg_color="text-bg-success"
+                            invisible="not published or not active"/>
+                    <field name="active" invisible="1"/>
+                    <field name="published" invisible="1"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Travel Request"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="icon" placeholder="fa-plane"/>
+                            <field name="title_field_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="allow_self_approval"/>
+                        </group>
+                        <group>
+                            <field name="group_ids" widget="many2many_tags"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Tell users what this form is for"/>
+                    <notebook>
+                        <page string="Questions" name="questions">
+                            <p class="text-muted">Use the designer to add questions, conditions and routing.</p>
+                            <field name="field_ids" readonly="1">
+                                <list>
+                                    <field name="sequence" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="field_type"/>
+                                    <field name="required"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Routing" name="routing">
+                            <field name="rule_ids" readonly="1">
+                                <list>
+                                    <field name="sequence" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="rule_type"/>
+                                    <field name="assign_type"/>
+                                    <field name="user_ids" widget="many2many_avatar_user"/>
+                                    <field name="group_id"/>
+                                    <field name="user_field_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_form_search" model="ir.ui.view">
+        <field name="name">angels.form.search</field>
+        <field name="model">angels.form</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter name="published" string="Published" domain="[('published', '=', True)]"/>
+                <filter name="unpublished" string="Not Published" domain="[('published', '=', False)]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_form" model="ir.actions.act_window">
+        <field name="name">Forms</field>
+        <field name="res_model">angels.form</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_form_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_form_form')})]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first form</p>
+            <p>Add questions, show them only when they apply and decide who receives each request.</p>
+        </field>
+    </record>
+
+    <!-- New request: the forms a user can fill -->
+    <record id="view_form_kanban_catalog" model="ir.ui.view">
+        <field name="name">angels.form.kanban.catalog</field>
+        <field name="model">angels.form</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <kanban create="0" action="action_fill" type="object" class="o_af_catalog">
+                <field name="color"/>
+                <field name="icon"/>
+                <templates>
+                    <t t-name="card" class="flex-row align-items-center gap-3">
+                        <span t-attf-class="o_af_catalog_icon o_af_color_#{record.color.raw_value or 0}">
+                            <i t-attf-class="fa fa-fw #{record.icon.raw_value or 'fa-file-text-o'}" role="img" aria-label="Form" title="Form"/>
+                        </span>
+                        <div class="flex-grow-1 overflow-hidden">
+                            <field name="name" class="fw-bold fs-5 d-block"/>
+                            <field name="description" class="text-muted small o_af_catalog_desc"/>
+                        </div>
+                        <i class="fa fa-chevron-right text-muted" role="img" aria-label="Open" title="Open"/>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_form_catalog" model="ir.actions.act_window">
+        <field name="name">New Request</field>
+        <field name="res_model">angels.form</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_form_kanban_catalog"/>
+        <field name="domain">[('can_fill', '=', True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">No form is open for requests yet</p>
+            <p>An administrator can create and publish forms in Configuration.</p>
+        </field>
+    </record>
+
+</odoo>
