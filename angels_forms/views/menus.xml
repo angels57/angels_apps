@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_forms_root" name="Forms" sequence="62"
+              web_icon="angels_forms,static/description/icon.png"
+              groups="group_form_user"/>
+
+    <menuitem id="menu_forms_new" name="New Request" parent="menu_forms_root"
+              action="action_form_catalog" sequence="10"/>
+    <menuitem id="menu_forms_to_review" name="To Review" parent="menu_forms_root"
+              action="action_submission_to_review" sequence="20"/>
+    <menuitem id="menu_forms_mine" name="My Requests" parent="menu_forms_root"
+              action="action_submission_mine" sequence="30"/>
+    <menuitem id="menu_forms_all" name="All Requests" parent="menu_forms_root"
+              action="action_submission_all" sequence="40" groups="group_form_manager"/>
+
+    <menuitem id="menu_forms_config" name="Configuration" parent="menu_forms_root"
+              sequence="90" groups="group_form_manager"/>
+    <menuitem id="menu_forms_forms" name="Forms" parent="menu_forms_config"
+              action="action_form" sequence="10"/>
+</odoo>

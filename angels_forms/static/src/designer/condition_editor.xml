@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_forms.ConditionEditor">
+        <div class="o_af_conditions">
+            <p t-if="!this.item.conditions.length" class="text-muted small mb-2" t-out="this.props.emptyText"/>
+            <div t-if="this.item.conditions.length > 1" class="d-flex align-items-center gap-2 mb-2 small">
+                <span>Match</span>
+                <select class="form-select form-select-sm w-auto" t-on-change="(ev) => this.setMatch(ev)">
+                    <option value="all" t-att-selected="this.item.match !== 'any'" t-out="this.matchLabel.all"/>
+                    <option value="any" t-att-selected="this.item.match === 'any'" t-out="this.matchLabel.any"/>
+                </select>
+            </div>
+            <div t-foreach="this.item.conditions" t-as="condition" t-key="condition_index" class="o_af_condition">
+                <t t-set="source" t-value="this.source(condition)"/>
+                <div class="d-flex gap-1">
+                    <select class="form-select form-select-sm" aria-label="Question"
+                            t-on-change="(ev) => this.setSource(condition, ev)">
+                        <option t-if="!source" value="" selected="">Missing question</option>
+                        <t t-foreach="this.sources" t-as="option" t-key="option.id">
+                            <option t-att-value="option.id" t-att-selected="option.id === condition.source_id"
+                                    t-out="option.name"/>
+                        </t>
+                    </select>
+                    <button type="button" class="btn btn-sm btn-link text-danger" title="Remove condition"
+                            aria-label="Remove condition" t-on-click="() => this.remove(condition_index)">
+                        <i class="fa fa-trash-o" aria-hidden="true"/>
+                    </button>
+                </div>
+                <div t-if="source" class="d-flex gap-1 mt-1">
+                    <select class="form-select form-select-sm o_af_operator" aria-label="Operator"
+                            t-on-change="(ev) => this.setOperator(condition, ev)">
+                        <t t-foreach="this.operators(condition)" t-as="operator" t-key="operator">
+                            <option t-att-value="operator" t-att-selected="operator === condition.operator"
+                                    t-out="this.props.labels[operator]"/>
+                        </t>
+                    </select>
+                    <t t-if="this.needsValue(condition)">
+                        <select t-if="source.type === 'boolean'" class="form-select form-select-sm" aria-label="Value"
+                                t-on-change="(ev) => this.setValue(condition, ev.target.value)">
+                            <option value="1" t-att-selected="condition.value === '1'">Checked</option>
+                            <option value="0" t-att-selected="condition.value !== '1'">Not checked</option>
+                        </select>
+                        <select t-elif="source.type === 'selection'" class="form-select form-select-sm" aria-label="Value"
+                                t-on-change="(ev) => this.setValue(condition, ev.target.value)">
+                            <t t-foreach="source.options" t-as="option" t-key="option_index">
+                                <option t-att-value="option" t-att-selected="option === condition.value" t-out="option"/>
+                            </t>
+                        </select>
+                        <div t-elif="source.type === 'user' or source.type === 'partner'" class="flex-grow-1">
+                            <RecordSelector resModel="source.type === 'user' ? 'res.users' : 'res.partner'"
+                                            resId="this.recordValue(condition)"
+                                            update="(id) => this.setValue(condition, id)"/>
+                        </div>
+                        <input t-else="" class="form-control form-control-sm" aria-label="Value"
+                               t-att-type="source.type === 'number' ? 'number' : source.type === 'date' ? 'date' : 'text'"
+                               t-att-value="condition.value"
+                               t-on-change="(ev) => this.setValue(condition, ev.target.value)"/>
+                    </t>
+                </div>
+            </div>
+            <button type="button" class="btn btn-sm btn-secondary" t-att-disabled="!this.sources.length"
+                    t-on-click="() => this.add()">
+                <i class="fa fa-plus me-1" aria-hidden="true"/>Add Condition
+            </button>
+            <p t-if="!this.sources.length" class="text-muted small mt-1 mb-0">
+                No question can be used here yet.
+            </p>
+        </div>
+    </t>
+
+</templates>

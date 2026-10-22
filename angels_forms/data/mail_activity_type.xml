@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_activity_form_review" model="mail.activity.type">
+        <field name="name">Review Request</field>
+        <field name="icon">fa-check-square-o</field>
+        <field name="res_model">angels.form.submission</field>
+        <field name="delay_count">1</field>
+    </record>
+</odoo>

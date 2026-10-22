@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Multi-company -->
+    <record id="rule_form_company" model="ir.rule">
+        <field name="name">Form: multi-company</field>
+        <field name="model_id" ref="model_angels_form"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_submission_company" model="ir.rule">
+        <field name="name">Form request: multi-company</field>
+        <field name="model_id" ref="model_angels_form_submission"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <!-- Requests: users see their own, and the ones that reached them -->
+    <record id="rule_submission_user" model="ir.rule">
+        <field name="name">Form request: involved users</field>
+        <field name="model_id" ref="model_angels_form_submission"/>
+        <field name="domain_force">['|', ('user_id', '=', user.id), ('step_ids', 'any', [('user_ids', 'in', [user.id]), ('state', 'not in', ('waiting', 'skipped'))])]</field>
+        <field name="groups" eval="[(4, ref('group_form_user'))]"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_submission_user_unlink" model="ir.rule">
+        <field name="name">Form request: delete own drafts</field>
+        <field name="model_id" ref="model_angels_form_submission"/>
+        <field name="domain_force">[('user_id', '=', user.id), ('state', '=', 'draft')]</field>
+        <field name="groups" eval="[(4, ref('group_form_user'))]"/>
+        <field name="perm_read" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+    </record>
+
+    <record id="rule_submission_manager" model="ir.rule">
+        <field name="name">Form request: all</field>
+        <field name="model_id" ref="model_angels_form_submission"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_form_manager'))]"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_answer_user" model="ir.rule">
+        <field name="name">Form answer: involved users</field>
+        <field name="model_id" ref="model_angels_form_answer"/>
+        <field name="domain_force">['|', ('submission_id.user_id', '=', user.id), ('submission_id.step_ids', 'any', [('user_ids', 'in', [user.id]), ('state', 'not in', ('waiting', 'skipped'))])]</field>
+        <field name="groups" eval="[(4, ref('group_form_user'))]"/>
+    </record>
+
+    <record id="rule_answer_manager" model="ir.rule">
+        <field name="name">Form answer: all</field>
+        <field name="model_id" ref="model_angels_form_answer"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_form_manager'))]"/>
+    </record>
+
+    <record id="rule_step_user" model="ir.rule">
+        <field name="name">Form step: involved users</field>
+        <field name="model_id" ref="model_angels_form_step"/>
+        <field name="domain_force">['|', ('submission_id.user_id', '=', user.id), ('submission_id.step_ids', 'any', [('user_ids', 'in', [user.id]), ('state', 'not in', ('waiting', 'skipped'))])]</field>
+        <field name="groups" eval="[(4, ref('group_form_user'))]"/>
+    </record>
+
+    <record id="rule_step_manager" model="ir.rule">
+        <field name="name">Form step: all</field>
+        <field name="model_id" ref="model_angels_form_step"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_form_manager'))]"/>
+    </record>
+
+</odoo>

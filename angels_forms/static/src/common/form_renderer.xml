@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_forms.FormRenderer">
+        <div class="o_af_form row g-3">
+            <t t-foreach="this.visibleFields" t-as="field" t-key="field.id">
+                <div t-if="field.type === 'section'" class="col-12 o_af_form_section">
+                    <h4 t-out="field.name"/>
+                    <p t-if="field.help" class="text-muted mb-0" t-out="field.help"/>
+                </div>
+                <div t-else="" t-att-class="(field.width === 'half' ? 'col-12 col-md-6' : 'col-12') + ' o_af_question'"
+                     t-att-data-field-id="field.id">
+                    <label t-if="field.type !== 'boolean'" class="form-label" t-att-for="this.inputId(field)">
+                        <t t-out="field.name"/>
+                        <span t-if="field.required" class="text-danger ms-1" aria-hidden="true">*</span>
+                    </label>
+
+                    <input t-if="field.type === 'char'" type="text" class="form-control"
+                           t-att-id="this.inputId(field)" t-att-value="this.value(field)"
+                           t-att-placeholder="field.placeholder" t-att-disabled="this.props.disabled"
+                           t-on-input="(ev) => this.onText(field, ev)"/>
+
+                    <textarea t-elif="field.type === 'text'" class="form-control" rows="3"
+                              t-att-id="this.inputId(field)" t-att-value="this.value(field)"
+                              t-att-placeholder="field.placeholder" t-att-disabled="this.props.disabled"
+                              t-on-input="(ev) => this.onText(field, ev)"/>
+
+                    <input t-elif="field.type === 'number'" type="number" step="any" class="form-control"
+                           t-att-id="this.inputId(field)" t-att-value="this.value(field)"
+                           t-att-placeholder="field.placeholder" t-att-disabled="this.props.disabled"
+                           t-on-input="(ev) => this.onNumber(field, ev)"/>
+
+                    <input t-elif="field.type === 'date'" type="date" class="form-control"
+                           t-att-id="this.inputId(field)" t-att-value="this.value(field)"
+                           t-att-disabled="this.props.disabled"
+                           t-on-change="(ev) => this.onText(field, ev)"/>
+
+                    <input t-elif="field.type === 'datetime'" type="datetime-local" class="form-control"
+                           t-att-id="this.inputId(field)" t-att-value="this.datetimeValue(field)"
+                           t-att-disabled="this.props.disabled"
+                           t-on-change="(ev) => this.onDatetime(field, ev)"/>
+
+                    <div t-elif="field.type === 'boolean'" class="form-check form-switch o_af_switch">
+                        <input type="checkbox" class="form-check-input" role="switch"
+                               t-att-id="this.inputId(field)" t-att-checked="this.checked(field)"
+                               t-att-disabled="this.props.disabled"
+                               t-on-change="(ev) => this.onBoolean(field, ev)"/>
+                        <label class="form-check-label" t-att-for="this.inputId(field)">
+                            <t t-out="field.name"/>
+                            <span t-if="field.required" class="text-danger ms-1" aria-hidden="true">*</span>
+                        </label>
+                    </div>
+
+                    <t t-elif="field.type === 'selection'">
+                        <div t-if="this.useRadios(field)" class="o_af_choices" role="radiogroup"
+                             t-att-aria-label="field.name">
+                            <t t-foreach="field.options" t-as="option" t-key="option_index">
+                                <input type="radio" class="btn-check" t-att-name="this.inputId(field)"
+                                       t-att-id="this.inputId(field) + '_' + option_index"
+                                       t-att-checked="this.value(field) === option"
+                                       t-att-disabled="this.props.disabled"
+                                       t-on-change="() => this.set(field, option)"/>
+                                <label class="btn btn-outline-primary" t-att-for="this.inputId(field) + '_' + option_index"
+                                       t-out="option"/>
+                            </t>
+                        </div>
+                        <select t-else="" class="form-select" t-att-id="this.inputId(field)"
+                                t-att-disabled="this.props.disabled"
+                                t-on-change="(ev) => this.onText(field, ev)">
+                            <option value="" t-att-selected="!this.value(field)">
+                                <t t-out="field.placeholder or ''"/>
+                            </option>
+                            <t t-foreach="field.options" t-as="option" t-key="option_index">
+                                <option t-att-value="option" t-att-selected="this.value(field) === option" t-out="option"/>
+                            </t>
+                        </select>
+                    </t>
+
+                    <div t-elif="field.type === 'user' or field.type === 'partner'"
+                         t-att-class="{'o_af_disabled': this.props.disabled}">
+                        <RecordSelector resModel="field.type === 'user' ? 'res.users' : 'res.partner'"
+                                        resId="this.recordId(field)"
+                                        domain="field.type === 'user' ? [['share', '=', false]] : []"
+                                        placeholder="field.placeholder"
+                                        update="(id) => this.set(field, id)"/>
+                    </div>
+
+                    <div t-elif="field.type === 'file'" class="o_af_files">
+                        <label t-att-class="'btn btn-secondary btn-sm' + (this.props.disabled ? ' disabled' : '')">
+                            <i class="fa fa-paperclip me-1" aria-hidden="true"/>
+                            <span>Add files</span>
+                            <input type="file" multiple="" class="d-none" t-att-id="this.inputId(field)"
+                                   t-att-disabled="this.props.disabled"
+                                   t-on-change="(ev) => this.onFiles(field, ev)"/>
+                        </label>
+                        <ul t-if="this.files(field).length" class="list-unstyled mt-2 mb-0">
+                            <li t-foreach="this.files(field)" t-as="file" t-key="file_index"
+                                class="d-flex align-items-center gap-2">
+                                <i class="fa fa-file-o text-muted" aria-hidden="true"/>
+                                <a t-if="file.id" t-att-href="'/web/content/' + file.id + '?download=true'"
+                                   t-out="file.name"/>
+                                <span t-else="" t-out="file.name"/>
+                                <button type="button" class="btn btn-link btn-sm text-danger p-0"
+                                        t-att-disabled="this.props.disabled"
+                                        t-on-click="() => this.removeFile(field, file_index)"
+                                        title="Remove" aria-label="Remove">
+                                    <i class="fa fa-times" aria-hidden="true"/>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div t-if="field.help and field.type !== 'boolean'" class="form-text" t-out="field.help"/>
+                    <div t-if="field.help and field.type === 'boolean'" class="form-text ms-5" t-out="field.help"/>
+                    <div t-if="this.error(field)" class="invalid-feedback d-block" t-out="this.error(field)"/>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

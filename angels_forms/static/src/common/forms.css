@@ -1,0 +1,113 @@
+/* Shared by the fill screen, the designer preview and the request form. */
+
+.o_af_form .form-label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.o_af_form_section {
+    padding-top: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.o_af_form_section:first-child {
+    padding-top: 0;
+}
+
+.o_af_form_section h4 {
+    margin-bottom: 0.25rem;
+}
+
+.o_af_choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.o_af_choices .btn {
+    min-width: 6rem;
+}
+
+.o_af_switch {
+    padding-top: 0.4rem;
+}
+
+.o_af_disabled {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.o_af_files .btn {
+    cursor: pointer;
+}
+
+/* Answers summary on the request form */
+.o_af_answers {
+    max-width: 60rem;
+}
+
+.o_af_answers .o_af_label {
+    width: 35%;
+    color: var(--secondary-color);
+}
+
+.o_af_answers .o_af_section {
+    padding-top: 1rem;
+    font-size: 1.05em;
+    border-bottom-width: 2px;
+}
+
+.o_af_answers tr:first-child .o_af_section {
+    padding-top: 0.25rem;
+}
+
+/* New Request: one card per form */
+.o_af_catalog .o_kanban_record {
+    cursor: pointer;
+}
+
+.o_af_catalog_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+    border-radius: 0.75rem;
+    font-size: 1.4rem;
+    color: #fff;
+    background: var(--primary);
+}
+
+.o_af_catalog_desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.o_af_color_1 { background: #f06050; }
+.o_af_color_2 { background: #f4a460; }
+.o_af_color_3 { background: #e6b800; }
+.o_af_color_4 { background: #6cc1ed; }
+.o_af_color_5 { background: #814968; }
+.o_af_color_6 { background: #eb7e7f; }
+.o_af_color_7 { background: #2c8397; }
+.o_af_color_8 { background: #475577; }
+.o_af_color_9 { background: #d6145f; }
+.o_af_color_10 { background: #30c381; }
+.o_af_color_11 { background: #9365b8; }
+
+/* Breadcrumbs of the client actions */
+.o_af_crumbs {
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+}
+
+.o_af_crumbs a {
+    color: inherit;
+}
+
+.o_af_sep {
+    margin: 0 0.35rem;
+}

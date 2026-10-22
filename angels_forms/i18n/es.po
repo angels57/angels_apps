@@ -1,0 +1,2079 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* angels_forms
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-22 00:30+0000\n"
+"PO-Revision-Date: 2026-10-22 00:30+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid " and "
+msgstr " y "
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid " or "
+msgstr " o "
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_condition.py:0
+msgid ""
+"%(field)s can only depend on questions placed before it, not on %(source)s."
+msgstr ""
+"%(field)s solo puede depender de preguntas situadas antes, no de %(source)s."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_field.py:0
+msgid "%(field)s is not a valid date."
+msgstr "%(field)s no es una fecha válida."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_field.py:0
+msgid "%(field)s is not valid."
+msgstr "%(field)s no es válido."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_field.py:0
+msgid "%(field)s must be a number."
+msgstr "%(field)s debe ser un número."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_step.py:0
+msgid "%(user)s approved the step %(step)s."
+msgstr "%(user)s aprobó el paso %(step)s."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_step.py:0
+msgid "%(user)s rejected the step %(step)s."
+msgstr "%(user)s rechazó el paso %(step)s."
+
+#. module: angels_forms
+#. odoo-javascript
+#. odoo-python
+#: code:addons/angels_forms/models/form.py:0
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "%s (copy)"
+msgstr "%s (copia)"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
+msgid "%s is larger than 25 MB."
+msgstr "%s ocupa más de 25 MB."
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_kanban_catalog
+msgid ""
+"<i class=\"fa fa-chevron-right text-muted\" role=\"img\" aria-label=\"Open\""
+" title=\"Open\"/>"
+msgstr ""
+"<i class=\"fa fa-chevron-right text-muted\" role=\"img\" aria-"
+"label=\"Abrir\" title=\"Abrir\"/>"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "<span invisible=\"name != '/'\">Draft</span>"
+msgstr "<span invisible=\"name != '/'\">Borrador</span>"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_condition.py:0
+msgid "A condition belongs to one field or to one rule."
+msgstr "Una condición pertenece a un campo o a una regla."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_condition.py:0
+msgid "A condition can only test a question of the same form."
+msgstr "Una condición solo puede usar una pregunta del mismo formulario."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_condition.py:0
+msgid "A condition cannot test a section."
+msgstr "Una condición no puede usar una sección."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid ""
+"A condition uses a question that is now placed after this one. Change or "
+"remove it."
+msgstr ""
+"Una condición usa una pregunta que ahora está después de esta. Cámbiala o "
+"elimínala."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "A question has no label."
+msgstr "Una pregunta no tiene etiqueta."
+
+#. module: angels_forms
+#: model:ir.model.constraint,message:angels_forms.constraint_angels_form_answer_one_answer_per_field
+msgid "A question is answered only once per request."
+msgstr "Cada pregunta se responde una sola vez por solicitud."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__rule_type
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__step_type
+msgid "Action"
+msgstr "Acción"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__active
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono del tipo de actividad"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Add Choice"
+msgstr "Añadir opción"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+msgid "Add Condition"
+msgstr "Añadir condición"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Add Rule"
+msgstr "Añadir regla"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Add a User question to the form first."
+msgstr "Primero añade al formulario una pregunta de tipo Usuario."
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_decision_wizard_form
+msgid "Add a comment for the requester"
+msgstr "Añade un comentario para el solicitante"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Add a question"
+msgstr "Añadir una pregunta"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+msgid "Add files"
+msgstr "Añadir archivos"
+
+#. module: angels_forms
+#: model_terms:ir.actions.act_window,help:angels_forms.action_form
+msgid ""
+"Add questions, show them only when they apply and decide who receives each "
+"request."
+msgstr ""
+"Añade preguntas, muéstralas solo cuando correspondan y decide quién recibe "
+"cada solicitud."
+
+#. module: angels_forms
+#: model:res.groups,name:angels_forms.group_form_manager
+msgid "Administrator"
+msgstr "Administrador"
+
+#. module: angels_forms
+#: model:ir.actions.act_window,name:angels_forms.action_submission_all
+#: model:ir.ui.menu,name:angels_forms.menu_forms_all
+msgid "All Requests"
+msgstr "Todas las solicitudes"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__condition_match__all
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__condition_match__all
+msgid "All conditions"
+msgstr "Todas las condiciones"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__allow_self_approval
+msgid "Allow Self Approval"
+msgstr "Permitir autoaprobación"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__group_ids
+msgid "Allowed Groups"
+msgstr "Grupos permitidos"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Always shown."
+msgstr "Siempre visible."
+
+#. module: angels_forms
+#: model_terms:ir.actions.act_window,help:angels_forms.action_form_catalog
+msgid "An administrator can create and publish forms in Configuration."
+msgstr "Un administrador puede crear y publicar formularios en Configuración."
+
+#. module: angels_forms
+#: model:ir.module.category,name:angels_forms.module_category_angels_forms
+#: model:res.groups.privilege,name:angels_forms.res_groups_privilege_angels_forms
+msgid "Angels Forms"
+msgstr "Angels Forms"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__display_value
+msgid "Answer"
+msgstr "Respuesta"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__answer_ids
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Answers"
+msgstr "Respuestas"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__answers_html
+msgid "Answers Summary"
+msgstr "Resumen de respuestas"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__condition_match__any
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__condition_match__any
+msgid "Any condition"
+msgstr "Alguna condición"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Applies to every request."
+msgstr "Se aplica a todas las solicitudes."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__condition_match
+msgid "Apply When"
+msgstr "Aplicar cuando"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Approval"
+msgstr "Aprobación"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid ""
+"Approval rules run from top to bottom, one after the other. A rule only applies when its\n"
+"                    conditions match. With no approval rule, requests are approved as soon as they are sent."
+msgstr ""
+"Las reglas de aprobación se ejecutan de arriba abajo, una tras otra. Una regla solo se aplica\n"
+"                    cuando se cumplen sus condiciones. Sin reglas de aprobación, las solicitudes se aprueban al enviarse."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_decision_wizard__decision__approve
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_decision_wizard_form
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Approve"
+msgstr "Aprobar"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__approved
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_submission__state__approved
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
+msgid "Approved"
+msgstr "Aprobada"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__approved_by_ids
+msgid "Approved By"
+msgstr "Aprobado por"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Ask %s for approval"
+msgstr "Pedir aprobación a %s"
+
+#. module: angels_forms
+#: model:angels.form,description:angels_forms.form_travel
+msgid ""
+"Ask for a business trip. Your manager approves it, and Finance too when the "
+"budget is over 2,000."
+msgstr ""
+"Solicita un viaje de trabajo. Lo aprueba tu responsable, y también Finanzas "
+"si el presupuesto supera 2.000."
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__rule_type__approve
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__step_type__approve
+msgid "Ask for approval"
+msgstr "Pedir aprobación"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_section_budget
+msgid "Budget and Accommodation"
+msgstr "Presupuesto y alojamiento"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__can_cancel
+msgid "Can Cancel"
+msgstr "Puede cancelar"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__can_edit
+msgid "Can Edit"
+msgstr "Puede editar"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__can_fill
+msgid "Can Fill"
+msgstr "Puede rellenar"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Cancel Request"
+msgstr "Cancelar solicitud"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Cancel this request?"
+msgstr "¿Cancelar esta solicitud?"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_submission__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Cannot save yet"
+msgstr "Todavía no se puede guardar"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Check the conditions"
+msgstr "Revisa las condiciones"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__boolean
+msgid "Checkbox"
+msgstr "Casilla"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+msgid "Checked"
+msgstr "Marcada"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__selection
+msgid "Choice List"
+msgstr "Lista de opciones"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Choices"
+msgstr "Opciones"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_field__options
+msgid "Choices of a choice list, one per line."
+msgstr "Opciones de una lista, una por línea."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Choose a question"
+msgstr "Elige una pregunta"
+
+#. module: angels_forms
+#: model:angels.form.field,placeholder:angels_forms.travel_destination
+msgid "City and country"
+msgstr "Ciudad y país"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Click a type, or drag it onto the form."
+msgstr "Haz clic en un tipo o arrástralo al formulario."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__color
+msgid "Color"
+msgstr "Color"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__comment
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__comment
+msgid "Comment"
+msgstr "Comentario"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__company_id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: angels_forms
+#: model:ir.ui.menu,name:angels_forms.menu_forms_config
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: angels_forms
+#: model_terms:ir.actions.act_window,help:angels_forms.action_form
+msgid "Create your first form"
+msgstr "Crea tu primer formulario"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__create_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__create_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__create_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__create_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__create_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__create_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__create_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__create_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__create_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__create_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__create_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__create_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__create_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__create_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__current_step_id
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_list
+msgid "Current Step"
+msgstr "Paso actual"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__datetime
+msgid "Date and Time"
+msgstr "Fecha y hora"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__decided_by_id
+msgid "Decided By"
+msgstr "Decidido por"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__date_done
+msgid "Decided On"
+msgstr "Decidida el"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__decision
+msgid "Decision"
+msgstr "Decisión"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Delete"
+msgstr "Eliminar"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_departure
+msgid "Departure"
+msgstr "Ida"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Designer"
+msgstr "Diseñador"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_destination
+msgid "Destination"
+msgstr "Destino"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/fill/fill_action.xml:0
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_decision_wizard_form
+msgid "Discard"
+msgstr "Descartar"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__display_name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__display_name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__display_name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__display_name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__display_name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__display_name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__display_name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__date_done
+msgid "Done On"
+msgstr "Hecho el"
+
+#. module: angels_forms
+#. odoo-javascript
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+#: code:addons/angels_forms/static/src/fill/fill_action.xml:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_submission__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/fill/fill_action.js:0
+msgid "Draft saved."
+msgstr "Borrador guardado."
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
+msgid "Drafts"
+msgstr "Borradores"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Drag a question type here, or click it in the palette."
+msgstr "Arrastra aquí un tipo de pregunta o haz clic en él en la paleta."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Edit"
+msgstr "Editar"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_budget
+msgid "Estimated Budget"
+msgstr "Presupuesto estimado"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__approval_rule__all
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__approval_rule__all
+msgid "Everyone must approve"
+msgstr "Todos deben aprobar"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__field_id
+msgid "Field"
+msgstr "Campo"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__field_count
+msgid "Field Count"
+msgstr "Número de campos"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__field_ids
+msgid "Fields"
+msgstr "Campos"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__file
+msgid "File"
+msgstr "Archivo"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__attachment_ids
+msgid "Files"
+msgstr "Archivos"
+
+#. module: angels_forms
+#: model:angels.form.rule,name:angels_forms.travel_rule_finance
+msgid "Finance Approval"
+msgstr "Aprobación de Finanzas"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form__icon
+msgid "Font Awesome icon, for example fa-plane."
+msgstr "Icono de Font Awesome, por ejemplo fa-plane."
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome, p. ej. fa-tasks"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model,name:angels_forms.model_angels_form
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__form_id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__form_id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__form_id
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_kanban_catalog
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
+msgid "Form"
+msgstr "Formulario"
+
+#. module: angels_forms
+#: model:ir.model,name:angels_forms.model_angels_form_answer
+msgid "Form Answer"
+msgstr "Respuesta de formulario"
+
+#. module: angels_forms
+#: model:ir.model,name:angels_forms.model_angels_form_condition
+msgid "Form Condition"
+msgstr "Condición de formulario"
+
+#. module: angels_forms
+#: model:ir.model,name:angels_forms.model_angels_form_field
+msgid "Form Field"
+msgstr "Campo de formulario"
+
+#. module: angels_forms
+#: model:ir.model,name:angels_forms.model_angels_form_submission
+msgid "Form Request"
+msgstr "Solicitud de formulario"
+
+#. module: angels_forms
+#: model:ir.model,name:angels_forms.model_angels_form_decision_wizard
+msgid "Form Request Decision"
+msgstr "Decisión sobre solicitud"
+
+#. module: angels_forms
+#: model:ir.model,name:angels_forms.model_angels_form_step
+msgid "Form Request Step"
+msgstr "Paso de solicitud"
+
+#. module: angels_forms
+#: model:ir.model,name:angels_forms.model_angels_form_rule
+msgid "Form Routing Rule"
+msgstr "Regla de ruta del formulario"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Form name"
+msgstr "Nombre del formulario"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Form saved."
+msgstr "Formulario guardado."
+
+#. module: angels_forms
+#: model:ir.actions.act_window,name:angels_forms.action_form
+#: model:ir.ui.menu,name:angels_forms.menu_forms_forms
+#: model:ir.ui.menu,name:angels_forms.menu_forms_root
+msgid "Forms"
+msgstr "Formularios"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Full"
+msgstr "Completo"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__width__full
+msgid "Full width"
+msgstr "Ancho completo"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_step.py:0
+msgid "Give a reason for the rejection."
+msgstr "Indica el motivo del rechazo."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__group_id
+msgid "Group"
+msgstr "Grupo"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form__group_ids
+msgid "Groups allowed to fill the form. Empty means every forms user."
+msgstr ""
+"Grupos que pueden rellenar el formulario. Vacío significa todos los usuarios"
+" de formularios."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Half"
+msgstr "Mitad"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__width__half
+msgid "Half width"
+msgstr "Medio ancho"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__help
+msgid "Help Text"
+msgstr "Texto de ayuda"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Help text"
+msgstr "Texto de ayuda"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_nights
+msgid "Hotel Nights"
+msgstr "Noches de hotel"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_hotel_notes
+msgid "Hotel Preferences"
+msgstr "Preferencias de hotel"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_hotel
+msgid "I Need a Hotel"
+msgstr "Necesito hotel"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__id
+msgid "ID"
+msgstr "ID"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__icon
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono que indica una actividad con excepción."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "If %(when)s: %(action)s"
+msgstr "Si %(when)s: %(action)s"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay mensajes nuevos que requieren tu atención."
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_submission__state__pending
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
+msgid "In Review"
+msgstr "En revisión"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Inform %s when the request is approved"
+msgstr "Avisar a %s cuando se apruebe la solicitud"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Inform %s when the request is sent"
+msgstr "Avisar a %s cuando se envíe la solicitud"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__rule_type__notify_done
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__step_type__notify_done
+msgid "Inform when approved"
+msgstr "Avisar al aprobarse"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__rule_type__notify_submit
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__step_type__notify_submit
+msgid "Inform when sent"
+msgstr "Avisar al enviarse"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__notified
+msgid "Informed"
+msgstr "Avisado"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__name
+msgid "Label"
+msgstr "Etiqueta"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__write_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__write_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__write_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__write_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__write_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__write_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__write_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__write_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__write_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__write_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__write_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__write_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__write_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__write_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form__company_id
+msgid "Leave empty to use the form in every company."
+msgstr "Déjalo vacío para usar el formulario en todas las compañías."
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form__allow_self_approval
+msgid "Let the requester approve a step where they are an approver."
+msgstr "Permite que el solicitante apruebe un paso en el que sea aprobador."
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__text
+msgid "Long Text"
+msgstr "Texto largo"
+
+#. module: angels_forms
+#: model:angels.form.rule,name:angels_forms.travel_rule_manager
+msgid "Manager Approval"
+msgstr "Aprobación del responsable"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+msgid "Match"
+msgstr "Cumplir"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__assign_type__group
+msgid "Members of a group"
+msgstr "Miembros de un grupo"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+msgid "Missing question"
+msgstr "Pregunta eliminada"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Move down"
+msgstr "Bajar"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Move up"
+msgstr "Subir"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: angels_forms
+#: model:ir.actions.act_window,name:angels_forms.action_submission_mine
+#: model:ir.ui.menu,name:angels_forms.menu_forms_mine
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
+msgid "My Requests"
+msgstr "Mis solicitudes"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Name requests with this answer"
+msgstr "Nombrar las solicitudes con esta respuesta"
+
+#. module: angels_forms
+#: model:angels.form.field,placeholder:angels_forms.travel_hotel_notes
+msgid "Near the office, breakfast included..."
+msgstr "Cerca de la oficina, con desayuno..."
+
+#. module: angels_forms
+#: model:ir.actions.act_window,name:angels_forms.action_form_catalog
+#: model:ir.ui.menu,name:angels_forms.menu_forms_new
+msgid "New Request"
+msgstr "Nueva solicitud"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "New request %(request)s from %(user)s."
+msgstr "Nueva solicitud %(request)s de %(user)s."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la siguiente actividad"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de la siguiente actividad"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_answer.py:0
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "No"
+msgstr "No"
+
+#. module: angels_forms
+#: model_terms:ir.actions.act_window,help:angels_forms.action_form_catalog
+msgid "No form is open for requests yet"
+msgstr "Todavía no hay formularios abiertos"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+msgid "No question can be used here yet."
+msgstr "Todavía no hay preguntas que usar aquí."
+
+#. module: angels_forms
+#: model_terms:ir.actions.act_window,help:angels_forms.action_submission_mine
+msgid "No request yet"
+msgstr "Todavía no hay solicitudes"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "No rule yet: requests are approved when sent."
+msgstr "Sin reglas: las solicitudes se aprueban al enviarse."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Nobody can approve the step %(step)s."
+msgstr "Nadie puede aprobar el paso %(step)s."
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_search
+msgid "Not Published"
+msgstr "No publicado"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+msgid "Not checked"
+msgstr "No marcada"
+
+#. module: angels_forms
+#: model_terms:ir.actions.act_window,help:angels_forms.action_submission_to_review
+msgid "Nothing waiting for you"
+msgstr "Nada pendiente"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__number
+msgid "Number"
+msgstr "Número"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__approval_rule__any
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__approval_rule__any
+msgid "One person is enough"
+msgstr "Basta con una persona"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__condition_ids
+msgid "Only If"
+msgstr "Solo si"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Only draft requests can be changed."
+msgstr "Solo se pueden cambiar las solicitudes en borrador."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Only draft requests can be deleted. Cancel the others instead."
+msgstr "Solo se pueden eliminar borradores. Cancela las demás solicitudes."
+
+#. module: angels_forms
+#: model:angels.form.field,help:angels_forms.travel_passport
+msgid "Only for international trips."
+msgstr "Solo para viajes internacionales."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Only if"
+msgstr "Solo si"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form.py:0
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Only the requester can change a draft request."
+msgstr "Solo el solicitante puede cambiar un borrador."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Only the requester can send a draft request."
+msgstr "Solo el solicitante puede enviar un borrador."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Only the requester or an administrator can cancel %(name)s."
+msgstr "Solo el solicitante o un administrador puede cancelar %(name)s."
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+msgid "Open Designer"
+msgstr "Abrir diseñador"
+
+#. module: angels_forms
+#: model_terms:ir.actions.act_window,help:angels_forms.action_submission_mine
+msgid "Open New Request and fill a form."
+msgstr "Abre Nueva solicitud y rellena un formulario."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__operator
+msgid "Operator"
+msgstr "Operador"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Option %s"
+msgstr "Opción %s"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Option 1"
+msgstr "Opción 1"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Option 2"
+msgstr "Opción 2"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__options
+msgid "Options"
+msgstr "Opciones"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_passport
+msgid "Passport Number"
+msgstr "Número de pasaporte"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__user_ids
+msgid "People"
+msgstr "Personas"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__placeholder
+msgid "Placeholder"
+msgstr "Texto de ejemplo"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/fill/fill_action.js:0
+msgid "Please answer this question."
+msgstr "Responde esta pregunta."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Please answer: %(fields)s"
+msgstr "Falta responder: %(fields)s"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Preview"
+msgstr "Vista previa"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Preview: try the conditions. Nothing is saved."
+msgstr "Vista previa: prueba las condiciones. No se guarda nada."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+msgid "Publish"
+msgstr "Publicar"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__published
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_search
+msgid "Published"
+msgstr "Publicado"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form__published
+msgid "Published forms appear under New Request."
+msgstr "Los formularios publicados aparecen en Nueva solicitud."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__field_id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__source_field_id
+msgid "Question"
+msgstr "Pregunta"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_list
+msgid "Questions"
+msgstr "Preguntas"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_files
+msgid "Quotes or Tickets"
+msgstr "Presupuestos o billetes"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_reason
+msgid "Reason for the Trip"
+msgstr "Motivo del viaje"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__name
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_decision_wizard__decision__reject
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_decision_wizard_form
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Reject"
+msgstr "Rechazar"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__rejected
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_submission__state__rejected
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
+msgid "Rejected"
+msgstr "Rechazada"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+msgid "Remove"
+msgstr "Quitar"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Remove choice"
+msgstr "Quitar opción"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+msgid "Remove condition"
+msgstr "Quitar condición"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Request"
+msgstr "Solicitud"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Request cancelled by %(user)s."
+msgstr "Solicitud cancelada por %(user)s."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Request sent by %(user)s."
+msgstr "Solicitud enviada por %(user)s."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__user_id
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
+msgid "Requested By"
+msgstr "Solicitado por"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__submission_ids
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_list
+msgid "Requests"
+msgstr "Solicitudes"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "Requests change only through their workflow."
+msgstr "Las solicitudes solo cambian mediante su flujo."
+
+#. module: angels_forms
+#: model_terms:ir.actions.act_window,help:angels_forms.action_submission_to_review
+msgid "Requests you have to approve show up here."
+msgstr "Aquí aparecen las solicitudes que debes aprobar."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__required
+msgid "Required"
+msgstr "Obligatorio"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_return
+msgid "Return"
+msgstr "Vuelta"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_step.py:0
+msgid "Review %(request)s"
+msgstr "Revisar %(request)s"
+
+#. module: angels_forms
+#: model:mail.activity.type,name:angels_forms.mail_activity_form_review
+msgid "Review Request"
+msgstr "Revisar solicitud"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__rule_ids
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+msgid "Routing"
+msgstr "Rutas"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__rule_id
+msgid "Routing Rule"
+msgstr "Regla de ruta"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__rule_id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__approval_rule
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__approval_rule
+msgid "Rule"
+msgstr "Regla"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__rule_count
+msgid "Rule Count"
+msgstr "Número de reglas"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_list
+msgid "Rules"
+msgstr "Reglas"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Save"
+msgstr "Guardar"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/fill/fill_action.xml:0
+msgid "Save Draft"
+msgstr "Guardar borrador"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__section
+msgid "Section"
+msgstr "Sección"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Select a question to change its label, type, choices and conditions."
+msgstr ""
+"Selecciona una pregunta para cambiar su etiqueta, tipo, opciones y "
+"condiciones."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Select a rule to choose who receives the request and when."
+msgstr "Selecciona una regla para elegir quién recibe la solicitud y cuándo."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/fill/fill_action.xml:0
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Send"
+msgstr "Enviar"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__assign_type
+msgid "Send To"
+msgstr "Enviar a"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Send to"
+msgstr "Enviar a"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__date_submitted
+msgid "Sent On"
+msgstr "Enviada el"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__sequence
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__sequence
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__sequence
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__sequence
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__condition_ids
+msgid "Show Only If"
+msgstr "Mostrar solo si"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__condition_match
+msgid "Show When"
+msgstr "Mostrar cuando"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Show only if"
+msgstr "Mostrar solo si"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__skipped
+msgid "Skipped"
+msgstr "Omitido"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__assign_type__users
+msgid "Specific users"
+msgstr "Usuarios concretos"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__state
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__state
+msgid "State"
+msgstr "Estado"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado según las actividades\n"
+"Vencida: la fecha límite ya pasó\n"
+"Hoy: la actividad es hoy\n"
+"Planificada: actividades futuras."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__name
+msgid "Step"
+msgstr "Paso"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__step_ids
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Steps"
+msgstr "Pasos"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__submission_id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__submission_id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__submission_id
+msgid "Submission"
+msgstr "Solicitud"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__submission_count
+msgid "Submission Count"
+msgstr "Número de solicitudes"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+msgid "Tell users what this form is for"
+msgstr "Explica a los usuarios para qué sirve este formulario"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__char
+msgid "Text"
+msgstr "Texto"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form__title_field_id
+msgid ""
+"The answer to this question names each request, for example the destination "
+"of a trip."
+msgstr ""
+"La respuesta a esta pregunta da nombre a cada solicitud, por ejemplo el "
+"destino de un viaje."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_field.py:0
+msgid "The choice list %(field)s needs at least one choice."
+msgstr "La lista %(field)s necesita al menos una opción."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "The form %(form)s is not open for requests."
+msgstr "El formulario %(form)s no está abierto."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "The form is closed."
+msgstr "El formulario está cerrado."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "The form is open for requests."
+msgstr "El formulario está abierto."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "The form needs a name."
+msgstr "El formulario necesita un nombre."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_condition.py:0
+msgid "The operator of the condition on %(question)s does not fit its type."
+msgstr ""
+"El operador de la condición sobre %(question)s no corresponde a su tipo."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "The request %(request)s was approved."
+msgstr "La solicitud %(request)s fue aprobada."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "The request %(request)s was rejected."
+msgstr "La solicitud %(request)s fue rechazada."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_rule.py:0
+msgid "The rule %(rule)s needs a group."
+msgstr "La regla %(rule)s necesita un grupo."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_rule.py:0
+msgid "The rule %(rule)s needs a user question of the same form."
+msgstr ""
+"La regla %(rule)s necesita una pregunta de tipo Usuario del mismo "
+"formulario."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_rule.py:0
+msgid "The rule %(rule)s needs at least one user."
+msgstr "La regla %(rule)s necesita al menos un usuario."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "The rule “%s” has nobody to send to."
+msgstr "La regla “%s” no tiene destinatarios."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form.py:0
+msgid "The title must come from a question of the same form."
+msgstr "El título debe salir de una pregunta del mismo formulario."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/fill/fill_action.xml:0
+msgid "This form has no questions yet."
+msgstr "Este formulario todavía no tiene preguntas."
+
+#. module: angels_forms
+#: model:angels.form.field,help:angels_forms.travel_manager
+msgid "This person approves the trip."
+msgstr "Esta persona aprueba el viaje."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "This request is not waiting for your decision."
+msgstr "Esta solicitud no espera tu decisión."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "This request was already sent."
+msgstr "Esta solicitud ya se envió."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_step.py:0
+msgid "This step is no longer waiting for a decision."
+msgstr "Este paso ya no espera una decisión."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__title
+msgid "Title"
+msgstr "Título"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form__title_field_id
+msgid "Title From"
+msgstr "Título desde"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__pending
+msgid "To Approve"
+msgstr "Por aprobar"
+
+#. module: angels_forms
+#: model:ir.actions.act_window,name:angels_forms.action_submission_to_review
+#: model:ir.ui.menu,name:angels_forms.menu_forms_to_review
+msgid "To Review"
+msgstr "Por revisar"
+
+#. module: angels_forms
+#: model:angels.form.field,help:angels_forms.travel_budget
+msgid "Transport, hotel and meals, in the company currency."
+msgstr "Transporte, hotel y comidas, en la moneda de la compañía."
+
+#. module: angels_forms
+#: model:angels.form.rule,name:angels_forms.travel_rule_desk
+msgid "Travel Desk"
+msgstr "Agencia de viajes"
+
+#. module: angels_forms
+#: model:angels.form,name:angels_forms.form_travel
+msgid "Travel Request"
+msgstr "Solicitud de viaje"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_section_trip
+msgid "Trip"
+msgstr "Viaje"
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_type
+msgid "Trip Type"
+msgstr "Tipo de viaje"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__field_type
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__field_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad con excepción en el registro."
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+msgid "Unpublish"
+msgstr "Despublicar"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Unsaved changes"
+msgstr "Cambios sin guardar"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+msgid "Use the designer to add questions, conditions and routing."
+msgstr "Usa el diseñador para añadir preguntas, condiciones y rutas."
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__user
+#: model:res.groups,name:angels_forms.group_form_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__user_field_id
+msgid "User Question"
+msgstr "Pregunta de usuario"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_rule__assign_type__field
+msgid "User chosen in the form"
+msgstr "Usuario elegido en el formulario"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "User question"
+msgstr "Pregunta de usuario"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_rule__user_ids
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__value
+msgid "Value"
+msgstr "Valor"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__value_boolean
+msgid "Value Boolean"
+msgstr "Valor booleano"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__value_char
+msgid "Value Char"
+msgstr "Valor texto"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__value_date
+msgid "Value Date"
+msgstr "Valor fecha"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__value_datetime
+msgid "Value Datetime"
+msgstr "Valor fecha y hora"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__value_number
+msgid "Value Number"
+msgstr "Valor número"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__value_partner_id
+msgid "Value Partner"
+msgstr "Valor contacto"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__value_text
+msgid "Value Text"
+msgstr "Valor texto largo"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__value_user_id
+msgid "Value User"
+msgstr "Valor usuario"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__waiting
+msgid "Waiting"
+msgstr "En espera"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__is_my_turn
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
+msgid "Waiting for Me"
+msgstr "Esperando por mí"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "When several people receive it"
+msgstr "Cuando la reciben varias personas"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Who receives each request"
+msgstr "Quién recibe cada solicitud"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__width
+msgid "Width"
+msgstr "Ancho"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_answer.py:0
+msgid "Yes"
+msgstr "Sí"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_step.py:0
+msgid "You are not a reviewer of the step %(step)s."
+msgstr "No eres revisor del paso %(step)s."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_step.py:0
+msgid "You cannot approve or reject your own request."
+msgstr "No puedes aprobar ni rechazar tu propia solicitud."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form.py:0
+#: code:addons/angels_forms/models/form_submission.py:0
+msgid "You cannot fill the form %(form)s."
+msgstr "No puedes rellenar el formulario %(form)s."
+
+#. module: angels_forms
+#: model:angels.form.field,name:angels_forms.travel_manager
+msgid "Your Manager"
+msgstr "Tu responsable"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/fill/fill_action.js:0
+msgid "Your request was sent."
+msgstr "Tu solicitud se envió."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "a removed question"
+msgstr "una pregunta eliminada"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "checked"
+msgstr "marcada"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__contains
+msgid "contains"
+msgstr "contiene"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+msgid "e.g. Travel Request"
+msgstr "p. ej. Solicitud de viaje"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+msgid "fa-plane"
+msgstr "fa-plane"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__>=
+msgid "greater or equal"
+msgstr "mayor o igual que"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__>
+msgid "greater than"
+msgstr "mayor que"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "group %s"
+msgstr "el grupo %s"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__=
+msgid "is"
+msgstr "es"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__not_set
+msgid "is empty"
+msgstr "está vacío"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__set
+msgid "is filled"
+msgstr "está respondido"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__!=
+msgid "is not"
+msgstr "no es"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__<=
+msgid "less or equal"
+msgstr "menor o igual que"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__<
+msgid "less than"
+msgstr "menor que"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "no group yet"
+msgstr "ningún grupo todavía"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "no question yet"
+msgstr "ninguna pregunta todavía"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "nobody yet"
+msgstr "nadie todavía"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "not checked"
+msgstr "no marcada"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "the user in “%s”"
+msgstr "el usuario de “%s”"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "“%s” depends on a question placed after it."
+msgstr "“%s” depende de una pregunta situada después."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "“%s” needs at least one choice."
+msgstr "“%s” necesita al menos una opción."

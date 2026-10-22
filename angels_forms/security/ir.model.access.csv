@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_form_user,angels.form.user,model_angels_form,group_form_user,1,0,0,0
+access_form_manager,angels.form.manager,model_angels_form,group_form_manager,1,1,1,1
+access_form_field_user,angels.form.field.user,model_angels_form_field,group_form_user,1,0,0,0
+access_form_field_manager,angels.form.field.manager,model_angels_form_field,group_form_manager,1,1,1,1
+access_form_condition_user,angels.form.condition.user,model_angels_form_condition,group_form_user,1,0,0,0
+access_form_condition_manager,angels.form.condition.manager,model_angels_form_condition,group_form_manager,1,1,1,1
+access_form_rule_user,angels.form.rule.user,model_angels_form_rule,group_form_user,1,0,0,0
+access_form_rule_manager,angels.form.rule.manager,model_angels_form_rule,group_form_manager,1,1,1,1
+access_form_submission_user,angels.form.submission.user,model_angels_form_submission,group_form_user,1,0,0,1
+access_form_answer_user,angels.form.answer.user,model_angels_form_answer,group_form_user,1,0,0,0
+access_form_step_user,angels.form.step.user,model_angels_form_step,group_form_user,1,0,0,0
+access_form_decision_wizard_user,angels.form.decision.wizard.user,model_angels_form_decision_wizard,group_form_user,1,1,1,1

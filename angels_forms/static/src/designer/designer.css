@@ -1,0 +1,425 @@
+.o_af_designer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--tertiary-bg);
+}
+
+/* Top bar: name, tabs, save */
+.o_af_topbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--body-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.o_af_titles {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.o_af_name_input {
+    width: 100%;
+    max-width: 28rem;
+    padding: 0.1rem 0.35rem;
+    margin-left: -0.35rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: inherit;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+}
+
+.o_af_name_input:hover,
+.o_af_name_input:focus {
+    border-color: var(--border-color);
+    outline: none;
+}
+
+.o_af_tabs {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.2rem;
+    background: var(--tertiary-bg);
+    border-radius: 0.6rem;
+}
+
+.o_af_tabs button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.9rem;
+    color: var(--secondary-color);
+    background: transparent;
+    border: 0;
+    border-radius: 0.45rem;
+}
+
+.o_af_tabs button.active {
+    color: var(--body-color);
+    background: var(--body-bg);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.o_af_count {
+    min-width: 1.4rem;
+    padding: 0 0.35rem;
+    font-size: 0.75rem;
+    line-height: 1.3rem;
+    text-align: center;
+    background: var(--secondary-bg);
+    border-radius: 1rem;
+}
+
+.o_af_actions {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.o_af_unsaved {
+    font-size: 0.85rem;
+    color: var(--warning-text-emphasis);
+}
+
+/* Body: palette | canvas | inspector */
+.o_af_body {
+    flex: 1 1 auto;
+    display: flex;
+    min-height: 0;
+}
+
+.o_af_palette,
+.o_af_inspector {
+    flex: 0 0 15rem;
+    overflow: auto;
+    padding: 1rem;
+    background: var(--body-bg);
+}
+
+.o_af_palette {
+    border-right: 1px solid var(--border-color);
+}
+
+.o_af_inspector {
+    flex-basis: 20rem;
+    border-left: 1px solid var(--border-color);
+}
+
+.o_af_inspector_wide {
+    flex-basis: 24rem;
+}
+
+.o_af_palette h6,
+.o_af_inspector h6 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+}
+
+.o_af_palette_item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    margin-bottom: 0.3rem;
+    color: inherit;
+    text-align: left;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    cursor: grab;
+}
+
+.o_af_palette_item:hover {
+    border-color: var(--primary);
+    background: var(--primary-bg-subtle);
+}
+
+.o_af_palette_item i {
+    color: var(--primary);
+}
+
+.o_af_canvas {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 1.5rem;
+}
+
+.o_af_paper {
+    max-width: 46rem;
+    min-height: 100%;
+    margin: 0 auto;
+}
+
+.o_af_canvas_empty,
+.o_af_inspector_empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+.o_af_canvas_empty {
+    border: 2px dashed var(--border-color);
+    border-radius: 0.75rem;
+}
+
+/* Question and rule cards */
+.o_af_card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.75rem 0.75rem 0.75rem 0.4rem;
+    margin-bottom: 0.5rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.6rem;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.o_af_card:hover {
+    border-color: var(--primary-border-subtle);
+}
+
+.o_af_card.o_af_selected {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-bg-subtle);
+}
+
+.o_af_card_section {
+    margin-top: 1rem;
+    background: var(--secondary-bg);
+}
+
+.o_af_card_section .o_af_card_title {
+    font-size: 1.05rem;
+}
+
+.o_af_grip {
+    display: inline-flex;
+    padding-top: 0.45rem;
+    color: var(--tertiary-color);
+    cursor: grab;
+    letter-spacing: -0.15em;
+}
+
+.o_af_card_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 0.5rem;
+    color: var(--primary);
+    background: var(--primary-bg-subtle);
+}
+
+.o_af_card_body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.o_af_card_title {
+    font-weight: 600;
+}
+
+.o_af_card_meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.15rem;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+}
+
+.o_af_badge {
+    max-width: 100%;
+    padding: 0.05rem 0.45rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: var(--secondary-bg);
+    border-radius: 1rem;
+}
+
+.o_af_badge_condition {
+    color: var(--info-text-emphasis);
+    background: var(--info-bg-subtle);
+}
+
+.o_af_badge_warning {
+    color: var(--warning-text-emphasis);
+    background: var(--warning-bg-subtle);
+}
+
+.o_af_card_options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.4rem;
+}
+
+.o_af_card_options span {
+    padding: 0.05rem 0.5rem;
+    font-size: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+}
+
+.o_af_card_tools {
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.o_af_card:hover .o_af_card_tools,
+.o_af_card.o_af_selected .o_af_card_tools,
+.o_af_card:focus-within .o_af_card_tools {
+    opacity: 1;
+}
+
+.o_af_drop_line {
+    height: 3px;
+    margin: -0.15rem 0 0.35rem;
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+/* Conditions */
+.o_af_condition {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: var(--tertiary-bg);
+    border-radius: 0.5rem;
+}
+
+.o_af_operator {
+    flex: 0 0 45%;
+}
+
+.o_af_condition .o_record_selector {
+    min-height: calc(1.5em + 0.5rem + 2px);
+    font-size: 0.875rem;
+}
+
+/* Routing */
+.o_af_rule {
+    align-items: center;
+    padding-left: 0.75rem;
+}
+
+.o_af_rule_step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+}
+
+.o_af_rule_text {
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+}
+
+.o_af_rule_notify_submit,
+.o_af_rule_notify_done {
+    color: var(--info-text-emphasis);
+    background: var(--info-bg-subtle);
+}
+
+.o_af_rule_types {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.o_af_rule_type {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.6rem;
+    color: inherit;
+    text-align: left;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+}
+
+.o_af_rule_type.active {
+    border-color: var(--primary);
+    background: var(--primary-bg-subtle);
+}
+
+.o_af_rule_summary {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+    background: var(--tertiary-bg);
+    border-radius: 0.5rem;
+}
+
+/* The designer needs room: on small screens the panels stack. */
+@media (max-width: 991.98px) {
+    .o_af_topbar {
+        flex-wrap: wrap;
+    }
+
+    .o_af_titles {
+        flex-basis: 100%;
+    }
+
+    .o_af_body {
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    .o_af_palette,
+    .o_af_inspector,
+    .o_af_canvas {
+        flex: 0 0 auto;
+        overflow: visible;
+        border: 0;
+    }
+
+    .o_af_palette {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+    }
+
+    .o_af_palette h6,
+    .o_af_palette p,
+    .o_af_palette label,
+    .o_af_palette textarea,
+    .o_af_palette .input-group {
+        flex-basis: 100%;
+    }
+
+    .o_af_palette_item {
+        width: auto;
+        margin: 0;
+    }
+
+    .o_af_card_tools {
+        opacity: 1;
+    }
+}

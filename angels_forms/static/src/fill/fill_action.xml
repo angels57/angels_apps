@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_forms.FillAction">
+        <div class="o_action o_af_fill">
+            <div class="o_af_crumbs" t-if="this.breadcrumbs.length">
+                <t t-foreach="this.breadcrumbs" t-as="crumb" t-key="crumb_index">
+                    <a href="#" t-on-click.prevent="() => crumb.onSelected()" t-out="crumb.name"/>
+                    <span class="o_af_sep">/</span>
+                </t>
+                <span t-if="this.state.data" t-out="this.state.data.form.name"/>
+            </div>
+            <div class="o_af_fill_scroll" t-if="this.state.data">
+                <div class="o_af_fill_card">
+                    <div class="o_af_fill_header">
+                        <span class="o_af_fill_icon">
+                            <i t-attf-class="fa fa-fw #{this.state.data.form.icon or 'fa-file-text-o'}" aria-hidden="true"/>
+                        </span>
+                        <div>
+                            <h2 class="mb-1" t-out="this.state.data.form.name"/>
+                            <p t-if="this.state.data.form.description" class="text-muted mb-0"
+                               t-out="this.state.data.form.description"/>
+                            <span t-if="this.state.data.submission" class="badge text-bg-secondary mt-1">Draft</span>
+                        </div>
+                    </div>
+                    <div t-if="!this.fields.length" class="text-muted py-4">This form has no questions yet.</div>
+                    <FormRenderer t-else="" fields="this.fields" values="this.values" errors="this.errors"/>
+                    <div class="o_af_fill_footer">
+                        <button type="button" class="btn btn-primary" t-att-disabled="this.state.saving"
+                                t-on-click="() => this.save(true)">
+                            <i class="fa fa-paper-plane me-1" aria-hidden="true"/>Send
+                        </button>
+                        <button type="button" class="btn btn-secondary" t-att-disabled="this.state.saving"
+                                t-on-click="() => this.save(false)">Save Draft</button>
+                        <button type="button" class="btn btn-link" t-on-click="() => this.discard()">Discard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>
