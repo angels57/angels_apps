@@ -1,13 +1,13 @@
-import { Component, onWillStart } from "@odoo/owl";
+import { Component, onWillStart, useExternalListener } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
-import { MultiRecordSelector } from "@web/core/record_selectors/multi_record_selector";
-import { RecordSelector } from "@web/core/record_selectors/record_selector";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { useSetupAction } from "@web/search/action_hook";
-import { FormRenderer } from "../common/form_renderer";
+import { FormRenderer, WIDTH_COLS } from "../common/form_renderer";
 import { useProps, useState } from "../common/owl_compat";
 import { ConditionEditor } from "./condition_editor";
+import { FlowEditor, STAGE_TYPES } from "./flow_editor";
+import { startPointerDrag } from "./pointer_drag";
 
 export const FIELD_ICONS = {
     section: "fa-header",
@@ -22,25 +22,25 @@ export const FIELD_ICONS = {
     partner: "fa-address-book-o",
     file: "fa-paperclip",
 };
-const RULE_ICONS = { approve: "fa-check-circle", notify_submit: "fa-paper-plane", notify_done: "fa-bell" };
 const TITLE_TYPES = ["char", "selection", "date", "partner", "user"];
 const PLACEHOLDER_TYPES = ["char", "text", "number", "selection", "user", "partner"];
-const DRAG_TYPE = "application/x-angels-form-type";
-const DRAG_MOVE = "application/x-angels-form-move";
+// Widths a question snaps to while its edge is dragged, as a share of the row.
+const WIDTH_STEPS = Object.entries(WIDTH_COLS).map(([width, cols]) => ({ width, share: cols / 12 }));
 
 /**
- * Visual form designer: palette of question types on the left, the form in the
- * middle (drag to add or reorder), properties of the selection on the right.
- * A second tab holds the routing rules, a third one a live preview.
+ * Visual form designer, in three tabs:
+ * - Questions: palette on the left, the form laid out as it will look (drag to
+ *   add, move next to another question, or stretch its edge), properties on the right;
+ * - Flow: the steps a request goes through (see FlowEditor);
+ * - Preview: the form as the requester or as one of the steps sees it.
  */
 export class FormDesignerAction extends Component {
     static template = "angels_forms.DesignerAction";
-    static components = { ConditionEditor, FormRenderer, MultiRecordSelector, RecordSelector };
+    static components = { ConditionEditor, FlowEditor, FormRenderer };
 
     setup() {
         this.props = useProps();
         this.orm = useService("orm");
-        this.actionService = useService("action");
         this.notification = useService("notification");
         this.nameService = useService("name");
         this.formId = this.props.action.context?.active_id;
@@ -48,10 +48,12 @@ export class FormDesignerAction extends Component {
             data: null,
             tab: "fields",
             selectedId: false,
-            selectedRuleId: false,
             dirty: false,
             saving: false,
-            dropIndex: null,
+            drop: null,
+            resizing: null,
+            previewAs: "requester",
+            version: 0,
             previewKey: 0,
             names: { "res.users": {}, "res.groups": {} },
         });
@@ -61,6 +63,7 @@ export class FormDesignerAction extends Component {
         useSetupAction({
             beforeLeave: () => (this.state.dirty ? this.save() : true),
         });
+        useExternalListener(window, "keydown", (ev) => this.onKeyDown(ev));
     }
 
     async load() {
@@ -70,19 +73,24 @@ export class FormDesignerAction extends Component {
     setData(data) {
         this.state.data = data;
         this.state.dirty = false;
+        // Remounts the flow editor on the saved data.
+        this.state.version = (this.state.version || 0) + 1;
         this.loadNames();
     }
 
-    async loadNames() {
-        const rules = this.state.data.rules;
-        const users = [...new Set(rules.flatMap((r) => r.user_ids))];
-        const groups = [...new Set(rules.map((r) => r.group_id).filter(Boolean))];
-        const [userNames, groupNames] = await Promise.all([
-            this.nameService.loadDisplayNames("res.users", users),
-            this.nameService.loadDisplayNames("res.groups", groups),
-        ]);
-        Object.assign(this.state.names["res.users"], userNames);
-        Object.assign(this.state.names["res.groups"], groupNames);
+    async loadNames(model, ids) {
+        const nodes = this.state.data.nodes;
+        const requests = model
+            ? [[model, ids]]
+            : [
+                  ["res.users", [...new Set(nodes.flatMap((n) => n.user_ids))]],
+                  ["res.groups", [...new Set(nodes.map((n) => n.group_id).filter(Boolean))]],
+              ];
+        for (const [resModel, resIds] of requests) {
+            if (resIds.length) {
+                Object.assign(this.state.names[resModel], await this.nameService.loadDisplayNames(resModel, resIds));
+            }
+        }
     }
 
     // ------------------------------------------------------------------
@@ -98,8 +106,8 @@ export class FormDesignerAction extends Component {
     get fields() {
         return this.data.fields;
     }
-    get rules() {
-        return this.data.rules;
+    get nodes() {
+        return this.data.nodes;
     }
     get labels() {
         return this.data.labels;
@@ -114,14 +122,15 @@ export class FormDesignerAction extends Component {
     get selected() {
         return this.fields.find((f) => f.id === this.state.selectedId);
     }
-    get selectedRule() {
-        return this.rules.find((r) => r.id === this.state.selectedRuleId);
-    }
     get questions() {
         return this.fields.filter((f) => f.type !== "section");
     }
-    get userQuestions() {
-        return this.fields.filter((f) => f.type === "user");
+    /** Flow steps whose people can fill questions. */
+    get stages() {
+        return this.nodes.filter((n) => STAGE_TYPES.includes(n.type));
+    }
+    stageOf(field) {
+        return field.node_id ? this.nodes.find((n) => n.id === field.node_id) : false;
     }
     /** Questions a field may depend on: the ones placed before it. */
     sourcesFor(field) {
@@ -131,24 +140,45 @@ export class FormDesignerAction extends Component {
     fieldIcon(field) {
         return FIELD_ICONS[field.type] || "fa-question";
     }
-    ruleIcon(rule) {
-        return RULE_ICONS[rule.rule_type];
-    }
     canBeTitle(field) {
         return TITLE_TYPES.includes(field.type);
     }
     hasPlaceholder(field) {
         return PLACEHOLDER_TYPES.includes(field.type);
     }
-    /** Conditions that point at a question placed after the field (after a reorder). */
+    /** Conditions that point at a question placed after the field (after a move). */
     brokenConditions(field) {
         const allowed = new Set(this.sourcesFor(field).map((f) => f.id));
         return field.conditions.filter((c) => !allowed.has(c.source_id));
     }
-
-    // ------------------------------------------------------------------
-    // Plain-language summaries
-    // ------------------------------------------------------------------
+    cellStyle(field) {
+        const cols = field.type === "section" ? 12 : WIDTH_COLS[field.width] || 12;
+        return `width: ${(cols / 12) * 100}%;`;
+    }
+    cardClass(field) {
+        const stage = this.stageOf(field);
+        const drop = this.state.drop;
+        return {
+            o_af_card: true,
+            o_af_card_section: field.type === "section",
+            o_af_selected: field.id === this.state.selectedId,
+            o_af_card_stage: Boolean(stage),
+            [`o_af_stage_${(stage?.color || 0) % 12}`]: Boolean(stage),
+            [`o_af_drop_${drop?.side}`]: drop?.id === field.id,
+        };
+    }
+    get widthKeys() {
+        return Object.keys(this.labels.widths);
+    }
+    isPreviewAs(stage) {
+        return String(stage.id) === this.state.previewAs;
+    }
+    get resizeGuides() {
+        return WIDTH_STEPS.filter((step) => step.share < 1).map((step) => ({
+            left: `${step.share * 100}%`,
+            active: this.state.resizing?.width === step.width,
+        }));
+    }
 
     conditionText(condition) {
         const source = this.fields.find((f) => f.id === condition.source_id);
@@ -166,38 +196,12 @@ export class FormDesignerAction extends Component {
         return `${source.name} ${operator} ${value}`;
     }
     conditionsText(item) {
-        if (!item.conditions.length) {
-            return "";
-        }
         const glue = item.match === "any" ? _t(" or ") : _t(" and ");
         return item.conditions.map((c) => this.conditionText(c)).join(glue);
     }
-    recipientsText(rule) {
-        if (rule.assign_type === "users") {
-            const names = rule.user_ids.map((id) => this.state.names["res.users"][id] || "...");
-            return names.join(", ") || _t("nobody yet");
-        }
-        if (rule.assign_type === "group") {
-            return rule.group_id
-                ? _t("group %s", this.state.names["res.groups"][rule.group_id] || "...")
-                : _t("no group yet");
-        }
-        const field = this.fields.find((f) => f.id === rule.user_field_id);
-        return field ? _t("the user in “%s”", field.name) : _t("no question yet");
-    }
-    ruleText(rule) {
-        const who = this.recipientsText(rule);
-        const action = {
-            approve: _t("Ask %s for approval", who),
-            notify_submit: _t("Inform %s when the request is sent", who),
-            notify_done: _t("Inform %s when the request is approved", who),
-        }[rule.rule_type];
-        const when = this.conditionsText(rule);
-        return when ? _t("If %(when)s: %(action)s", { when, action }) : action;
-    }
 
     // ------------------------------------------------------------------
-    // Editing
+    // Editing questions
     // ------------------------------------------------------------------
 
     touch() {
@@ -205,11 +209,10 @@ export class FormDesignerAction extends Component {
     }
     setTab(tab) {
         this.state.tab = tab;
+        // On small screens the panels stack and the body scrolls: start each tab at the top.
+        document.querySelector(".o_af_designer .o_af_body")?.scrollTo(0, 0);
         if (tab === "preview") {
-            for (const key of Object.keys(this.preview)) {
-                delete this.preview[key];
-            }
-            this.state.previewKey++;
+            this.resetPreview();
         }
     }
     setFormProp(name, value) {
@@ -227,13 +230,18 @@ export class FormDesignerAction extends Component {
             placeholder: "",
             options: type === "selection" ? [_t("Option 1"), _t("Option 2")] : [],
             width: "full",
+            node_id: false,
             match: "all",
             conditions: [],
         };
     }
     addField(type, index = null) {
         const field = this.newField(type);
-        const selectedIndex = this.fields.indexOf(this.selected);
+        const selected = this.selected;
+        if (selected) {
+            field.node_id = selected.node_id;
+        }
+        const selectedIndex = this.fields.indexOf(selected);
         const at = index ?? (selectedIndex >= 0 ? selectedIndex + 1 : this.fields.length);
         this.fields.splice(at, 0, field);
         this.state.selectedId = field.id;
@@ -252,12 +260,12 @@ export class FormDesignerAction extends Component {
     removeField(field) {
         this.fields.splice(this.fields.indexOf(field), 1);
         // Forget everything that pointed at it.
-        for (const item of [...this.fields, ...this.rules]) {
+        for (const item of [...this.fields, ...this.nodes]) {
             item.conditions = item.conditions.filter((c) => c.source_id !== field.id);
         }
-        for (const rule of this.rules) {
-            if (rule.user_field_id === field.id) {
-                rule.user_field_id = false;
+        for (const node of this.nodes) {
+            if (node.user_field_id === field.id) {
+                node.user_field_id = false;
             }
         }
         if (this.data.form.title_field_id === field.id) {
@@ -268,9 +276,19 @@ export class FormDesignerAction extends Component {
     }
     moveField(field, index) {
         const from = this.fields.indexOf(field);
+        if (index === from || index === from + 1) {
+            return;
+        }
         this.fields.splice(from, 1);
         this.fields.splice(index > from ? index - 1 : index, 0, field);
         this.touch();
+    }
+    moveBy(field, delta) {
+        const from = this.fields.indexOf(field);
+        const to = from + delta;
+        if (to >= 0 && to < this.fields.length) {
+            this.moveField(field, delta > 0 ? to + 1 : to);
+        }
     }
     setProp(field, name, value) {
         field[name] = value;
@@ -286,6 +304,10 @@ export class FormDesignerAction extends Component {
             }
         }
         this.touch();
+    }
+    setStage(field, value) {
+        const stage = this.stages.find((n) => String(n.id) === value);
+        this.setProp(field, "node_id", stage ? stage.id : false);
     }
     setTitle(field, checked) {
         this.data.form.title_field_id = checked ? field.id : false;
@@ -304,102 +326,147 @@ export class FormDesignerAction extends Component {
         this.touch();
     }
 
-    // Drag and drop: from the palette (new question) or inside the canvas (move).
-    onPaletteDragStart(item, ev) {
-        ev.dataTransfer.setData(DRAG_TYPE, item.type);
-        ev.dataTransfer.effectAllowed = "copy";
-    }
-    onCardDragStart(field, ev) {
-        ev.dataTransfer.setData(DRAG_MOVE, String(field.id));
-        ev.dataTransfer.effectAllowed = "move";
-    }
-    onCardDragOver(index, ev) {
-        ev.preventDefault();
-        const rect = ev.currentTarget.getBoundingClientRect();
-        this.state.dropIndex = ev.clientY > rect.top + rect.height / 2 ? index + 1 : index;
-    }
-    onCanvasDragOver(ev) {
-        ev.preventDefault();
-        if (ev.target === ev.currentTarget) {
-            this.state.dropIndex = this.fields.length;
-        }
-    }
-    onDragLeave(ev) {
-        if (!ev.currentTarget.contains(ev.relatedTarget)) {
-            this.state.dropIndex = null;
-        }
-    }
-    onDrop(ev) {
-        ev.preventDefault();
-        const index = this.state.dropIndex ?? this.fields.length;
-        this.state.dropIndex = null;
-        const type = ev.dataTransfer.getData(DRAG_TYPE);
-        const moved = ev.dataTransfer.getData(DRAG_MOVE);
-        if (type) {
-            this.addField(type, index);
-        } else if (moved) {
-            const field = this.fields.find((f) => String(f.id) === moved);
-            if (field) {
-                this.moveField(field, index);
-            }
-        }
-    }
-
-    // Routing rules
-    addRule() {
-        const rule = {
-            id: `new_${++this.newId}`,
-            name: _t("Approval"),
-            rule_type: "approve",
-            assign_type: "users",
-            user_ids: [],
-            group_id: false,
-            user_field_id: false,
-            approval_rule: "any",
-            match: "all",
-            conditions: [],
-        };
-        this.rules.push(rule);
-        this.state.selectedRuleId = rule.id;
-        this.touch();
-    }
-    selectRule(rule) {
-        this.state.selectedRuleId = rule.id;
-    }
-    removeRule(rule) {
-        this.rules.splice(this.rules.indexOf(rule), 1);
-        this.state.selectedRuleId = false;
-        this.touch();
-    }
-    moveRule(rule, delta) {
-        const from = this.rules.indexOf(rule);
-        const to = from + delta;
-        if (to < 0 || to >= this.rules.length) {
+    onKeyDown(ev) {
+        const field = this.selected;
+        const typing = ev.target.closest?.("input, textarea, select, [contenteditable]");
+        if (this.state.tab !== "fields" || !field || typing) {
             return;
         }
-        this.rules.splice(from, 1);
-        this.rules.splice(to, 0, rule);
-        this.touch();
-    }
-    setRuleProp(rule, name, value) {
-        rule[name] = value;
-        this.touch();
-    }
-    setRuleUserField(rule, value) {
-        const question = this.userQuestions.find((f) => String(f.id) === value);
-        this.setRuleProp(rule, "user_field_id", question ? question.id : false);
-    }
-    async setRuleUsers(rule, ids) {
-        rule.user_ids = ids;
-        this.touch();
-        Object.assign(this.state.names["res.users"], await this.nameService.loadDisplayNames("res.users", ids));
-    }
-    async setRuleGroup(rule, id) {
-        rule.group_id = id;
-        this.touch();
-        if (id) {
-            Object.assign(this.state.names["res.groups"], await this.nameService.loadDisplayNames("res.groups", [id]));
+        if (ev.key === "Delete") {
+            this.removeField(field);
+        } else if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === "d") {
+            this.duplicate(field);
+        } else if (ev.altKey && ev.key === "ArrowUp") {
+            this.moveBy(field, -1);
+        } else if (ev.altKey && ev.key === "ArrowDown") {
+            this.moveBy(field, 1);
+        } else {
+            return;
         }
+        ev.preventDefault();
+    }
+
+    // Dragging, as in the Angels Sign editor: a label follows the pointer (mouse,
+    // pen or finger) and a bar shows where the question lands.
+    onPalettePointerDown(item, ev) {
+        startPointerDrag(ev, {
+            label: item.label,
+            onMove: (x, y) => this.updateDrop(x, y),
+            onDrop: () => {
+                const index = this.dropIndex();
+                this.state.drop = null;
+                if (index !== null) {
+                    this.addField(item.type, index);
+                }
+            },
+            onClick: () => this.addField(item.type),
+            onCancel: () => (this.state.drop = null),
+        });
+    }
+    onCardPointerDown(field, ev) {
+        if (ev.target.closest("button, .o_af_resize")) {
+            return;
+        }
+        this.select(field);
+        startPointerDrag(ev, {
+            label: field.name,
+            onMove: (x, y) => this.updateDrop(x, y, field),
+            onDrop: () => {
+                const index = this.dropIndex();
+                this.state.drop = null;
+                if (index !== null) {
+                    this.moveField(field, index);
+                }
+            },
+            onCancel: () => (this.state.drop = null),
+        });
+    }
+    /** Where a dragged question would land: before or after the card under the pointer. */
+    updateDrop(x, y, dragged = null) {
+        const target = document.elementFromPoint(x, y);
+        const card = target?.closest(".o_af_designer .o_af_card[data-field-id]");
+        if (card) {
+            const field = this.fields.find((f) => String(f.id) === card.dataset.fieldId);
+            if (!field || field === dragged) {
+                this.state.drop = null;
+                return;
+            }
+            const rect = card.getBoundingClientRect();
+            const fullRow = field.type === "section" || field.width === "full";
+            const side = fullRow
+                ? y < rect.top + rect.height / 2 ? "top" : "bottom"
+                : x < rect.left + rect.width / 2 ? "left" : "right";
+            this.state.drop = { id: field.id, side };
+        } else if (target?.closest(".o_af_designer .o_af_canvas")) {
+            this.state.drop = { id: "end", side: "end" };
+        } else {
+            this.state.drop = null;
+        }
+    }
+    dropIndex() {
+        const drop = this.state.drop;
+        if (!drop) {
+            return null;
+        }
+        if (drop.id === "end") {
+            return this.fields.length;
+        }
+        const index = this.fields.findIndex((f) => f.id === drop.id);
+        return ["right", "bottom"].includes(drop.side) ? index + 1 : index;
+    }
+    /** Stretch the right edge of a question: it snaps to 1/4, 1/3, 1/2, 2/3, 3/4 or the full row. */
+    onResizePointerDown(field, ev) {
+        ev.stopPropagation();
+        const paper = ev.currentTarget.closest(".o_af_layout");
+        const cell = ev.currentTarget.closest(".o_af_cell");
+        const paperRect = paper.getBoundingClientRect();
+        const left = cell.getBoundingClientRect().left;
+        this.select(field);
+        startPointerDrag(ev, {
+            immediate: true,
+            cursor: "ew-resize",
+            onMove: (x) => {
+                const share = (x - left) / paperRect.width;
+                const step = WIDTH_STEPS.reduce((best, s) =>
+                    Math.abs(s.share - share) < Math.abs(best.share - share) ? s : best
+                );
+                this.state.resizing = { id: field.id, width: step.width };
+                if (field.width !== step.width) {
+                    this.setProp(field, "width", step.width);
+                }
+            },
+            onDrop: () => (this.state.resizing = null),
+            onCancel: () => (this.state.resizing = null),
+        });
+    }
+
+    // ------------------------------------------------------------------
+    // Preview: as the requester, or as one of the steps
+    // ------------------------------------------------------------------
+
+    get previewFields() {
+        const as = this.state.previewAs;
+        return this.fields
+            .filter((f) => !f.node_id || String(f.node_id) === as)
+            .map((f) => {
+                const stage = this.stageOf(f);
+                return {
+                    ...f,
+                    editable: as === "requester" ? !f.node_id : Boolean(f.node_id),
+                    stage: stage ? stage.name : false,
+                    color: stage ? stage.color : 0,
+                };
+            });
+    }
+    setPreviewAs(value) {
+        this.state.previewAs = value;
+        this.resetPreview();
+    }
+    resetPreview() {
+        for (const key of Object.keys(this.preview)) {
+            delete this.preview[key];
+        }
+        this.state.previewKey++;
     }
 
     // ------------------------------------------------------------------
@@ -422,13 +489,17 @@ export class FormDesignerAction extends Component {
                 problems.push(_t("“%s” depends on a question placed after it.", field.name));
             }
         }
-        for (const rule of this.rules) {
+        for (const node of this.nodes) {
+            if (!node.name.trim()) {
+                problems.push(_t("A step of the flow has no name."));
+            }
+            const people = ["approve", "task", "notify"].includes(node.type);
             const missing =
-                (rule.assign_type === "users" && !rule.user_ids.length) ||
-                (rule.assign_type === "group" && !rule.group_id) ||
-                (rule.assign_type === "field" && !rule.user_field_id);
-            if (missing) {
-                problems.push(_t("The rule “%s” has nobody to send to.", rule.name));
+                (node.assign_type === "users" && !node.user_ids.length) ||
+                (node.assign_type === "group" && !node.group_id) ||
+                (node.assign_type === "field" && !node.user_field_id);
+            if (people && missing) {
+                problems.push(_t("The step “%s” has nobody to send to.", node.name));
             }
         }
         return problems;
@@ -437,22 +508,20 @@ export class FormDesignerAction extends Component {
     async save() {
         const problems = this.problems();
         if (problems.length) {
-            this.notification.add(problems.join("\n"), { type: "danger", title: _t("Cannot save yet") });
+            this.notification.add(problems.join(" "), { type: "danger", title: _t("Cannot save yet") });
             return false;
         }
         this.state.saving = true;
         try {
             const fieldIndex = this.fields.indexOf(this.selected);
-            const ruleIndex = this.rules.indexOf(this.selectedRule);
             const payload = {
                 form: this.data.form,
                 fields: this.fields.map((f) => ({ ...f, options: f.options.filter((o) => o.trim()) })),
-                rules: this.rules,
+                nodes: this.nodes,
             };
             const data = await this.orm.call("angels.form", "save_design", [[this.formId], payload]);
             this.setData(data);
             this.state.selectedId = fieldIndex >= 0 ? data.fields[fieldIndex]?.id || false : false;
-            this.state.selectedRuleId = ruleIndex >= 0 ? data.rules[ruleIndex]?.id || false : false;
             this.notification.add(_t("Form saved."), { type: "success" });
             return true;
         } finally {

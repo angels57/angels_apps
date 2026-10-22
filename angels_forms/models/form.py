@@ -2,10 +2,12 @@ from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 
 from .form_condition import OPERATORS_BY_TYPE
+from .form_node import PORT_FIELDS, PORTS
 
 SUBMISSION_MODEL = "angels.form.submission"
-FIELD_KEYS = ("name", "field_type", "required", "help", "placeholder", "width", "condition_match")
-RULE_KEYS = ("name", "rule_type", "assign_type", "approval_rule", "condition_match")
+FIELD_KEYS = ("name", "required", "help", "placeholder", "width")
+NODE_KEYS = ("name", "end_state", "assign_type", "approval_rule")
+START_POSITION = (40, 160)
 
 
 class AngelsForm(models.Model):
@@ -26,7 +28,7 @@ class AngelsForm(models.Model):
         help="Leave empty to use the form in every company.",
     )
     field_ids = fields.One2many("angels.form.field", "form_id", string="Fields", copy=True)
-    rule_ids = fields.One2many("angels.form.rule", "form_id", string="Routing")
+    node_ids = fields.One2many("angels.form.node", "form_id", string="Flow")
     title_field_id = fields.Many2one(
         "angels.form.field",
         string="Title From",
@@ -45,7 +47,7 @@ class AngelsForm(models.Model):
     submission_ids = fields.One2many(SUBMISSION_MODEL, "form_id", string="Requests")
     submission_count = fields.Integer(compute="_compute_submission_count")
     field_count = fields.Integer(compute="_compute_counts")
-    rule_count = fields.Integer(compute="_compute_counts")
+    node_count = fields.Integer(compute="_compute_counts")
 
     def _compute_submission_count(self):
         counts = dict(
@@ -72,17 +74,39 @@ class AngelsForm(models.Model):
         positive = (operator == "=") == value
         return [("id", "in" if positive else "not in", forms.ids)]
 
-    @api.depends("field_ids", "rule_ids")
+    @api.depends("field_ids", "node_ids")
     def _compute_counts(self):
         for form in self:
             form.field_count = len(form.field_ids.filtered(lambda f: f.field_type != "section"))
-            form.rule_count = len(form.rule_ids)
+            form.node_count = len(form.node_ids.filtered(lambda n: n.node_type != "start"))
 
     @api.constrains("title_field_id")
     def _check_title_field(self):
         for form in self:
             if form.title_field_id and form.title_field_id.form_id != form:
                 raise ValidationError(_("The title must come from a question of the same form."))
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        forms = super().create(vals_list)
+        forms._ensure_start()
+        return forms
+
+    def _ensure_start(self):
+        if self.env.context.get("angels_forms_no_start"):
+            return
+        for form in self.filtered(lambda f: not f.node_ids.filtered(lambda n: n.node_type == "start")):
+            self.env["angels.form.node"].create({
+                "form_id": form.id,
+                "name": _("Request Sent"),
+                "node_type": "start",
+                "pos_x": START_POSITION[0],
+                "pos_y": START_POSITION[1],
+            })
+
+    def _start_node(self):
+        self.ensure_one()
+        return self.node_ids.filtered(lambda n: n.node_type == "start")[:1]
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)
@@ -93,34 +117,43 @@ class AngelsForm(models.Model):
         return vals_list
 
     def copy(self, default=None):
-        # Conditions point at fields of the same form: rebuild them on the copy.
+        # Fields and steps point at each other: rebuild the links on the copy.
         new_forms = super().copy(default=default)
         for form, new in zip(self, new_forms):
-            mapping = dict(zip(form.field_ids, new.field_ids))
-            for field, new_field in mapping.items():
-                new_field.condition_ids = [
+            new.node_ids.unlink()
+            field_map = dict(zip(form.field_ids, new.field_ids))
+            node_map = {
+                node: node.copy({
+                    "form_id": new.id,
+                    "user_field_id": field_map.get(node.user_field_id, node.user_field_id.browse()).id,
+                    **{name: False for name in PORT_FIELDS.values()},
+                })
+                for node in form.node_ids
+            }
+
+            def conditions(items):
+                return [
                     fields.Command.create({
-                        "source_field_id": mapping[c.source_field_id].id,
+                        "source_field_id": field_map[c.source_field_id].id,
                         "operator": c.operator,
                         "value": c.value,
                     })
-                    for c in field.condition_ids
+                    for c in items
+                    if c.source_field_id in field_map
                 ]
-            for rule in form.rule_ids:
-                rule.copy({
-                    "form_id": new.id,
-                    "user_field_id": mapping.get(rule.user_field_id, rule.user_field_id).id,
-                    "condition_ids": [
-                        fields.Command.create({
-                            "source_field_id": mapping[c.source_field_id].id,
-                            "operator": c.operator,
-                            "value": c.value,
-                        })
-                        for c in rule.condition_ids
-                    ],
+
+            for node, new_node in node_map.items():
+                new_node.write({
+                    **{name: node_map.get(node[name], node[name].browse()).id for name in PORT_FIELDS.values()},
+                    "condition_ids": conditions(node.condition_ids),
                 })
-            if form.title_field_id in mapping:
-                new.title_field_id = mapping[form.title_field_id]
+            for field, new_field in field_map.items():
+                new_field.write({
+                    "node_id": node_map.get(field.node_id, field.node_id.browse()).id,
+                    "condition_ids": conditions(field.condition_ids),
+                })
+            if form.title_field_id in field_map:
+                new.title_field_id = field_map[form.title_field_id]
         return new_forms
 
     # ------------------------------------------------------------------
@@ -148,6 +181,10 @@ class AngelsForm(models.Model):
             if shown:
                 visible |= field
         return visible, values
+
+    def _requester_fields(self):
+        self.ensure_one()
+        return self.field_ids.filtered(lambda f: not f.node_id)
 
     def _can_submit(self, user=None):
         self.ensure_one()
@@ -204,6 +241,7 @@ class AngelsForm(models.Model):
     def get_design_data(self):
         self.ensure_one()
         self.check_access("write")
+        self._ensure_start()
         return {
             "form": {
                 "id": self.id,
@@ -214,13 +252,15 @@ class AngelsForm(models.Model):
                 "title_field_id": self.title_field_id.id,
             },
             "fields": [field._to_client() for field in self.field_ids],
-            "rules": [rule._to_client() for rule in self.rule_ids],
+            "nodes": [node._to_client() for node in self.node_ids],
             "labels": {
                 "types": dict(self._fields_selection("angels.form.field", "field_type")),
+                "widths": dict(self._fields_selection("angels.form.field", "width")),
                 "operators": dict(self._fields_selection("angels.form.condition", "operator")),
-                "rule_types": dict(self._fields_selection("angels.form.rule", "rule_type")),
+                "node_types": dict(self._fields_selection("angels.form.node", "node_type")),
             },
             "operators_by_type": OPERATORS_BY_TYPE,
+            "ports": PORTS,
         }
 
     def _fields_selection(self, model, field_name):
@@ -230,80 +270,102 @@ class AngelsForm(models.Model):
     def save_design(self, data):
         """Save the whole designer state.
 
-        Fields and rules that are new in the designer carry a string id
-        (``"new_3"``); conditions refer to fields by that same id.
+        Questions and steps that are new in the designer carry a string id
+        (``"new_3"``); conditions, links and "filled by" refer to them by that id.
         """
         self.ensure_one()
         self.check_access("write")
         form_data = data.get("form", {})
         Field = self.env["angels.form.field"]
-        Rule = self.env["angels.form.rule"]
+        Node = self.env["angels.form.node"]
         self.write({key: form_data[key] for key in ("name", "description", "icon") if key in form_data})
 
+        # 1. Steps first: questions refer to the step that fills them.
+        nodes_by_client_id = {}
+        current_nodes = self.node_ids
+        for item in data.get("nodes", []):
+            vals = {key: item[key] for key in NODE_KEYS if key in item}
+            vals.update({
+                "node_type": item.get("type") or "approve",
+                "pos_x": int(item.get("x") or 0),
+                "pos_y": int(item.get("y") or 0),
+                "color": int(item.get("color") or 0),
+                "condition_match": item.get("match") or "all",
+            })
+            # Recipients are written and checked in step 4, once the user questions exist.
+            node = current_nodes.filtered(lambda n, cid=item.get("id"): n.id == cid)
+            if node:
+                node.with_context(angels_forms_defer=True).write(vals)
+            else:
+                node = Node.with_context(angels_forms_defer=True).create(dict(vals, form_id=self.id))
+            nodes_by_client_id[item.get("id")] = node.with_env(self.env)
+        removed_nodes = current_nodes - Node.union(*nodes_by_client_id.values())
+
+        # 2. Questions.
         fields_by_client_id = {}
         current_fields = self.field_ids
         for index, item in enumerate(data.get("fields", [])):
             vals = {key: item[key] for key in FIELD_KEYS if key in item}
-            if "type" in item:
-                vals["field_type"] = item["type"]
-            if "match" in item:
-                vals["condition_match"] = item["match"]
-            vals["options"] = "\n".join(item.get("options") or [])
-            vals["sequence"] = (index + 1) * 10
+            vals.update({
+                "field_type": item.get("type") or "char",
+                "condition_match": item.get("match") or "all",
+                "options": "\n".join(item.get("options") or []),
+                "sequence": (index + 1) * 10,
+                "node_id": nodes_by_client_id.get(item.get("node_id"), Node).id,
+            })
             field = current_fields.filtered(lambda f, cid=item.get("id"): f.id == cid)
             if field:
                 field.write(vals)
             else:
                 field = Field.create(dict(vals, form_id=self.id))
             fields_by_client_id[item.get("id")] = field
-        kept = Field.union(*fields_by_client_id.values())
-        removed = current_fields - kept
+        removed = current_fields - Field.union(*fields_by_client_id.values())
         answered = removed.filtered(
             lambda f: self.env["angels.form.answer"].sudo().search_count([("field_id", "=", f.id)], limit=1)
         )
-        answered.write({"active": False})
+        answered.write({"active": False, "node_id": False})
         (removed - answered).unlink()
 
         def conditions(items):
             commands = []
             for item in items or []:
                 source = fields_by_client_id.get(item.get("source_id"))
-                if not source:
-                    continue
-                commands.append(fields.Command.create({
-                    "source_field_id": source.id,
-                    "operator": item.get("operator") or "=",
-                    "value": item.get("value") or False,
-                }))
+                if source:
+                    commands.append(fields.Command.create({
+                        "source_field_id": source.id,
+                        "operator": item.get("operator") or "=",
+                        "value": item.get("value") or False,
+                    }))
             return commands
 
+        # 3. "Show only if" of each question.
         for item in data.get("fields", []):
             field = fields_by_client_id[item.get("id")]
             field.condition_ids.unlink()
             field.condition_ids = conditions(item.get("conditions"))
 
-        current_rules = self.rule_ids
-        kept_rules = Rule
-        for index, item in enumerate(data.get("rules", [])):
-            vals = {key: item[key] for key in RULE_KEYS if key in item}
-            if "match" in item:
-                vals["condition_match"] = item["match"]
+        # 4. Links between steps, conditions and recipients.
+        removed_nodes.unlink()
+        for item in data.get("nodes", []):
+            node = nodes_by_client_id[item.get("id")]
+            links = item.get("links") or {}
+            vals = {name: False for name in PORT_FIELDS.values()}
+            for port in PORTS[node.node_type]:
+                target = nodes_by_client_id.get(links.get(port))
+                vals[PORT_FIELDS[port]] = target.id if target else False
             user_field = fields_by_client_id.get(item.get("user_field_id"))
+            node.condition_ids.unlink()
             vals.update({
-                "sequence": (index + 1) * 10,
+                "assign_type": item.get("assign_type") or "users",
                 "user_ids": [fields.Command.set(item.get("user_ids") or [])],
                 "group_id": item.get("group_id") or False,
                 "user_field_id": user_field.id if user_field else False,
                 "condition_ids": conditions(item.get("conditions")),
             })
-            rule = current_rules.filtered(lambda r, cid=item.get("id"): r.id == cid)
-            if rule:
-                rule.condition_ids.unlink()
-                rule.write(vals)
-            else:
-                rule = Rule.create(dict(vals, form_id=self.id))
-            kept_rules |= rule
-        (current_rules - kept_rules).unlink()
+            node.write(vals)
+        self._ensure_start()
+        if len(self.node_ids.filtered(lambda n: n.node_type == "start")) != 1:
+            raise ValidationError(_("A flow has only one Start."))
 
         title = fields_by_client_id.get(form_data.get("title_field_id"))
         self.title_field_id = title or False
@@ -315,22 +377,50 @@ class AngelsForm(models.Model):
 
     @api.model
     def get_fill_data(self, form_id, submission_id=False):
-        """Everything the fill screen needs: questions and the current answers."""
+        """Everything the fill screen needs: questions and the current answers.
+
+        The requester gets their own questions. A reviewer whose turn it is gets
+        the questions of their step to fill, and the earlier answers read-only.
+        """
         Submission = self.env[SUBMISSION_MODEL]
         values = {}
         submission_info = False
         if submission_id:
             submission = Submission.browse(submission_id)
             submission.check_access("read")
-            if submission.state != "draft" or submission.user_id != self.env.user:
-                raise UserError(_("Only the requester can change a draft request."))
             form = submission.form_id
+            if submission.can_edit and not form._can_submit():
+                raise AccessError(_("You cannot fill the form %(form)s.", form=form.name))
+            if not submission.can_edit and not submission.is_my_turn:
+                raise UserError(_("This request is not waiting for you."))
+            editable = submission._editable_fields()
+            shown = form._requester_fields() if submission.can_edit else submission._reached_fields()
             values = submission._answers_to_client()
-            submission_info = {"id": submission.id, "name": submission.name}
+            step = submission.sudo().current_step_id if not submission.can_edit else False
+            submission_info = {
+                "id": submission.id,
+                "name": submission.display_name,
+                "state": submission.state,
+                "step": step and {
+                    "name": step.name,
+                    "type": step.step_type,
+                    "color": step.node_id.color,
+                } or False,
+            }
         else:
             form = self.browse(form_id)
-        if not form._can_submit():
-            raise AccessError(_("You cannot fill the form %(form)s.", form=form.name))
+            if not form._can_submit():
+                raise AccessError(_("You cannot fill the form %(form)s.", form=form.name))
+            shown = editable = form._requester_fields()
+        fields_data = []
+        for field in form.field_ids:
+            if field in shown:
+                fields_data.append(dict(
+                    field._to_client(),
+                    editable=field in editable,
+                    color=field.node_id.color,
+                    stage=field.node_id.name or False,
+                ))
         return {
             "form": {
                 "id": form.id,
@@ -338,7 +428,7 @@ class AngelsForm(models.Model):
                 "description": form.description or "",
                 "icon": form.icon or "",
             },
-            "fields": [field._to_client() for field in form.field_ids],
+            "fields": fields_data,
             "values": values,
             "submission": submission_info,
         }

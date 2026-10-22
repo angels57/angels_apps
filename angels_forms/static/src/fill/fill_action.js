@@ -6,7 +6,11 @@ import { isSet, visibleFieldIds } from "../common/conditions";
 import { FormRenderer } from "../common/form_renderer";
 import { useProps, useState } from "../common/owl_compat";
 
-/** Fill a form: new request, or edit a draft (context: form_id, submission_id). */
+/**
+ * Fill a form (context: form_id, submission_id):
+ * - the requester: a new request, or a draft (also one sent back to be corrected);
+ * - a reviewer whose turn it is: the questions of their step, the earlier answers read-only.
+ */
 export class FormFillAction extends Component {
     static template = "angels_forms.FillAction";
     static components = { FormRenderer };
@@ -35,11 +39,21 @@ export class FormFillAction extends Component {
     get fields() {
         return this.state.data.fields;
     }
+    /** The step of the flow being completed, when a reviewer fills the form. */
+    get step() {
+        return this.state.data.submission?.step || false;
+    }
+    get editableKeys() {
+        return new Set(this.fields.filter((f) => f.editable !== false).map((f) => String(f.id)));
+    }
 
-    /** Only the answers of visible questions go to the server. */
+    /** Only the answers of visible questions the user may change go to the server. */
     payload() {
         const visible = visibleFieldIds(this.fields, this.values);
-        return Object.fromEntries(Object.entries(this.values).filter(([key]) => visible.has(key)));
+        const editable = this.editableKeys;
+        return Object.fromEntries(
+            Object.entries(this.values).filter(([key]) => visible.has(key) && editable.has(key))
+        );
     }
 
     validate() {
@@ -49,7 +63,8 @@ export class FormFillAction extends Component {
         }
         for (const field of this.fields) {
             const key = String(field.id);
-            if (field.type !== "section" && field.required && visible.has(key) && !isSet(this.values[key])) {
+            const editable = field.editable !== false;
+            if (editable && field.type !== "section" && field.required && visible.has(key) && !isSet(this.values[key])) {
                 this.errors[key] = _t("Please answer this question.");
             }
         }
@@ -69,15 +84,29 @@ export class FormFillAction extends Component {
         }
         this.state.saving = true;
         try {
-            const id = await this.orm.call("angels.form.submission", "save_from_filler", [
-                this.formId,
-                this.submissionId,
-                this.payload(),
-                submit,
-            ]);
-            this.notification.add(submit ? _t("Your request was sent.") : _t("Draft saved."), {
-                type: "success",
-            });
+            let id;
+            let message;
+            if (this.step) {
+                id = await this.orm.call("angels.form.submission", "save_step", [
+                    this.submissionId,
+                    this.payload(),
+                    submit,
+                ]);
+                message = submit
+                    ? this.step.type === "task"
+                        ? _t("Step completed.")
+                        : _t("Step approved.")
+                    : _t("Answers saved.");
+            } else {
+                id = await this.orm.call("angels.form.submission", "save_from_filler", [
+                    this.formId,
+                    this.submissionId,
+                    this.payload(),
+                    submit,
+                ]);
+                message = submit ? _t("Your request was sent.") : _t("Draft saved.");
+            }
+            this.notification.add(message, { type: "success" });
             await this.actionService.doAction(
                 {
                     type: "ir.actions.act_window",

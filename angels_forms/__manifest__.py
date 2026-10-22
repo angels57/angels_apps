@@ -1,7 +1,7 @@
 {
     "name": "Angels Forms - Forms and Flows",
-    "version": "19.0.1.0.0",
-    "summary": "Build request forms with conditional fields and route them to the right people",
+    "version": "19.0.1.1.0",
+    "summary": "Request forms with conditional fields and a visual approval flow",
     "description": """
 Angels Forms - Forms and Flows for Odoo 19
 ==========================================
@@ -12,16 +12,20 @@ the request goes to. Example included: a travel request.
 
 Features:
 ---------
-* Visual designer: palette of field types, drag to reorder, live preview
+* Visual designer: palette of question types, drag a question next to another
+  one to share the row, stretch its edge to change the width (1/4 to full),
+  live preview as the requester or as any step
 * Field types: section, text, long text, number, date, date and time,
   checkbox, choice list, user, contact and file
 * Conditional fields and sections ("show only if ...")
-* Routing rules with conditions: who approves and who is informed
+* Flow designer: steps linked by arrows on a board (condition with yes / no,
+  approval, task, notification, back to the requester, end), zoom and auto
+  arrange
+* Each approval or task step can fill its own questions, shown in its color
+  (for example Finance fills the cost center, the travel desk the booking)
 * Approvers by user list, by group or by a user chosen in the form
-* "Any approver" or "all approvers" rule per step
-* Notify people when a request is sent or when it is approved
+* "Any approver" or "all approvers" rule per step, self-approval blocked by default
 * Activities, chatter and full history on every request
-* Self-approval blocked by default
     """,
     "category": "Productivity",
     "author": "Angels SAS",

@@ -15,13 +15,17 @@ class FormCase(TransactionCase):
         )
         cls.desk = new_test_user(cls.env, "frm_desk", groups="base.group_user")
         cls.travel = cls.env.ref("angels_forms.form_travel")
-        cls.travel.rule_ids.filtered(lambda r: r.rule_type == "notify_done").user_ids = cls.desk
-        finance_rule = cls.env.ref("angels_forms.travel_rule_finance")
-        finance_rule.write({"assign_type": "users", "user_ids": [(6, 0, cls.finance.ids)]})
+        cls.n = {
+            name: cls.env.ref(f"angels_forms.travel_node_{name}")
+            for name in ("start", "manager", "back", "budget", "finance", "booking", "end")
+        }
+        cls.n["finance"].write({"assign_type": "users", "user_ids": [(6, 0, cls.finance.ids)]})
+        cls.n["booking"].user_ids = cls.desk
         cls.f = {
             name: cls.env.ref(f"angels_forms.travel_{name}")
             for name in ("destination", "type", "passport", "departure", "return", "reason",
-                         "manager", "budget", "hotel", "nights", "hotel_notes", "files")
+                         "manager", "budget", "hotel", "nights", "hotel_notes", "files",
+                         "cost_center", "approved_amount", "booking_ref", "tickets")
         }
 
     def answers(self, **overrides):
@@ -42,6 +46,12 @@ class FormCase(TransactionCase):
         Submission = self.env["angels.form.submission"].with_user(user or self.requester)
         submission_id = Submission.save_from_filler(self.travel.id, False, self.answers(**overrides), submit)
         return Submission.browse(submission_id)
+
+    def step(self, submission, user, done=True, comment=False, **answers):
+        values = {str(self.f[key].id): value for key, value in answers.items()}
+        return self.env["angels.form.submission"].with_user(user).save_step(
+            submission.id, values, done, comment,
+        )
 
     def decide(self, submission, user, decision="approve", comment=False):
         wizard = self.env["angels.form.decision.wizard"].with_user(user).create({

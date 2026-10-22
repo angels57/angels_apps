@@ -9,32 +9,86 @@ from .common import FormCase
 @tagged("post_install", "-at_install")
 class TestFormFlow(FormCase):
 
-    def test_small_trip_needs_the_manager_only(self):
+    def test_small_trip_goes_to_the_manager_then_the_travel_desk(self):
         submission = self.fill()
         self.assertEqual(submission.state, "pending")
         self.assertTrue(submission.name.startswith("REQ/"))
         self.assertEqual(submission.title, "Madrid")
-        self.assertEqual(submission.step_ids.mapped("name"), ["Manager Approval"])
+        self.assertEqual(submission.current_step_id.name, "Manager Approval")
         self.assertEqual(submission.current_step_id.user_ids, self.boss)
         self.assertTrue(submission.with_user(self.boss).is_my_turn)
         self.assertEqual(submission.activity_ids.user_id, self.boss)
         self.decide(submission, self.boss)
+        booking = submission.current_step_id
+        self.assertEqual((booking.name, booking.step_type), ("Book the Trip", "task"))
+        self.assertEqual(submission.activity_ids.user_id, self.desk)
+        with self.assertRaisesRegex(UserError, "Booking Reference"):
+            self.step(submission, self.desk)
+        self.step(submission, self.desk, booking_ref="IB-1234")
         self.assertEqual(submission.state, "approved")
+        self.assertEqual(submission.step_ids.mapped("state"), ["approved", "done"])
         self.assertFalse(submission.activity_ids)
 
-    def test_big_trip_with_hotel_goes_to_finance_and_desk(self):
-        submission = self.fill(budget=3500, hotel=True, nights=3)
-        manager, finance, desk = submission.step_ids.sorted("sequence")
-        self.assertEqual((manager.state, finance.state, desk.state), ("pending", "waiting", "waiting"))
-        self.assertEqual(desk.step_type, "notify_done")
-        with self.assertRaises(AccessError):
+    def test_big_trip_needs_finance_and_its_questions(self):
+        submission = self.fill(budget=3500)
+        self.decide(submission, self.boss)
+        self.assertEqual(submission.current_step_id.name, "Finance Approval")
+        # Approving opens the fill screen because Finance has questions to answer.
+        action = submission.with_user(self.finance).action_approve()
+        self.assertEqual(action["tag"], "angels_forms_fill")
+        with self.assertRaisesRegex(UserError, "Cost Center"):
             self.decide(submission, self.finance)
-        self.decide(submission, self.boss, comment="Fine by me")
-        self.assertEqual((manager.state, finance.state), ("approved", "pending"))
-        self.decide(submission, self.finance)
-        self.assertEqual(submission.state, "approved")
-        self.assertEqual(desk.state, "notified")
-        self.assertIn(self.desk.partner_id, submission.message_partner_ids)
+        self.step(submission, self.finance, done=False, cost_center="CC-42")
+        self.assertEqual(submission.current_step_id.name, "Finance Approval", "saved, not approved yet")
+        html = str(submission.answers_html)
+        self.assertIn("CC-42", html)
+        self.assertIn("o_af_stage", html)
+        self.assertNotIn("Booking Reference", html, "the booking step is not reached yet")
+        self.step(submission, self.finance, cost_center="CC-42", approved_amount=3000, comment="OK")
+        self.assertEqual(submission.current_step_id.name, "Book the Trip")
+        self.assertIn("Booking Reference", str(submission.answers_html))
+
+    def test_requester_cannot_answer_the_questions_of_a_step(self):
+        submission = self.fill(cost_center="hack")
+        self.assertFalse(submission.answer_ids.filtered(lambda a: a.field_id == self.f["cost_center"]))
+        with self.assertRaises(UserError):
+            self.step(submission, self.finance, cost_center="CC-1")
+        with self.assertRaises(UserError):
+            self.step(submission, self.outsider, cost_center="CC-1")
+
+    def test_step_saves_only_its_own_questions(self):
+        submission = self.fill(budget=3500)
+        self.decide(submission, self.boss)
+        self.step(submission, self.finance, done=False, cost_center="CC-9", destination="Paris")
+        self.assertEqual(submission.title, "Madrid")
+
+    def test_manager_rejection_goes_back_to_the_requester(self):
+        submission = self.fill()
+        name = submission.name
+        self.decide(submission, self.boss, "reject", comment="Wrong dates")
+        self.assertEqual(submission.state, "draft")
+        self.assertTrue(submission.with_user(self.requester).can_edit)
+        self.assertEqual(submission.activity_ids.user_id, self.requester)
+        Submission = self.env["angels.form.submission"].with_user(self.requester)
+        Submission.save_from_filler(self.travel.id, submission.id, self.answers(departure="2026-11-03"), True)
+        self.assertEqual((submission.state, submission.name), ("pending", name))
+        self.assertEqual(submission.step_ids.mapped("state"), ["rejected", "pending"])
+        self.assertEqual(submission.activity_ids.user_id, self.boss)
+
+    def test_finance_rejection_rejects_the_request(self):
+        submission = self.fill(budget=5000)
+        self.decide(submission, self.boss)
+        with self.assertRaises(UserError):
+            self.decide(submission, self.finance, "reject")
+        self.decide(submission, self.finance, "reject", comment="Too expensive")
+        self.assertEqual(submission.state, "rejected")
+        self.assertEqual(submission.step_ids.mapped("state"), ["approved", "rejected"])
+
+    def test_tasks_cannot_be_rejected(self):
+        submission = self.fill()
+        self.decide(submission, self.boss)
+        with self.assertRaises(UserError):
+            submission.current_step_id.with_user(self.desk)._decide("reject", "no")
 
     def test_international_trip_needs_passport(self):
         with self.assertRaisesRegex(UserError, "Passport Number"):
@@ -48,14 +102,34 @@ class TestFormFlow(FormCase):
         with self.assertRaisesRegex(UserError, "Hotel Nights"):
             self.fill(hotel=True)
 
-    def test_reject_needs_reason_and_skips_the_rest(self):
-        submission = self.fill(budget=5000, hotel=True, nights=1)
-        with self.assertRaises(UserError):
-            self.decide(submission, self.boss, "reject")
-        self.decide(submission, self.boss, "reject", comment="Too expensive")
-        self.assertEqual(submission.state, "rejected")
-        self.assertEqual(submission.step_ids.mapped("state"), ["rejected", "skipped", "skipped"])
-        self.assertEqual(submission.step_ids[0].comment, "Too expensive")
+    def test_notification_end_and_missing_links(self):
+        Node = self.env["angels.form.node"]
+        notify = Node.create({
+            "form_id": self.travel.id, "name": "Inform HR", "node_type": "notify",
+            "assign_type": "users", "user_ids": [(6, 0, self.outsider.ids)],
+            "next_id": self.n["manager"].id,
+        })
+        self.n["start"].next_id = notify
+        reject_end = Node.create({
+            "form_id": self.travel.id, "name": "Refused", "node_type": "end", "end_state": "rejected",
+        })
+        self.n["budget"].yes_id = reject_end
+        submission = self.fill(budget=9000)
+        self.assertEqual(submission.step_ids[0].state, "notified")
+        self.assertIn(self.outsider.partner_id, submission.message_partner_ids)
+        self.decide(submission, self.boss)
+        self.assertEqual(submission.state, "rejected", "the yes branch ends rejected")
+        # A step without a next step ends the flow approved.
+        self.n["manager"].next_id = False
+        other = self.fill()
+        self.decide(other, self.boss)
+        self.assertEqual(other.state, "approved")
+
+    def test_loops_are_reported(self):
+        self.n["budget"].no_id = self.n["budget"]
+        submission = self.fill()
+        with self.assertRaisesRegex(UserError, "circle"):
+            self.decide(submission, self.boss)
 
     def test_draft_then_edit_then_send(self):
         submission = self.fill(submit=False, destination="Lima")
@@ -63,6 +137,7 @@ class TestFormFlow(FormCase):
         self.assertFalse(submission.step_ids)
         data = self.travel.with_user(self.requester).get_fill_data(self.travel.id, submission.id)
         self.assertEqual(data["values"][str(self.f["destination"].id)], "Lima")
+        self.assertNotIn(self.f["cost_center"].id, [f["id"] for f in data["fields"]])
         self.env["angels.form.submission"].with_user(self.requester).save_from_filler(
             self.travel.id, submission.id, self.answers(destination="Quito"), True,
         )
@@ -72,27 +147,40 @@ class TestFormFlow(FormCase):
                 self.travel.id, submission.id, self.answers(), False,
             )
 
+    def test_step_fill_data(self):
+        submission = self.fill(budget=3500)
+        self.decide(submission, self.boss)
+        data = self.travel.with_user(self.finance).get_fill_data(self.travel.id, submission.id)
+        editable = {f["id"] for f in data["fields"] if f["editable"]}
+        shown = {f["id"] for f in data["fields"]}
+        self.assertIn(self.f["cost_center"].id, editable)
+        self.assertNotIn(self.f["destination"].id, editable)
+        self.assertIn(self.f["destination"].id, shown)
+        self.assertNotIn(self.f["booking_ref"].id, shown)
+        self.assertEqual(data["submission"]["step"]["name"], "Finance Approval")
+        with self.assertRaises(UserError):
+            self.travel.with_user(self.boss).get_fill_data(self.travel.id, submission.id)
+
     def test_self_approval_blocked(self):
         submission = self.fill(manager=self.requester.id)
         with self.assertRaises(UserError):
             self.decide(submission, self.requester)
         self.travel.allow_self_approval = True
         self.decide(submission, self.requester)
-        self.assertEqual(submission.state, "approved")
+        self.assertEqual(submission.current_step_id.name, "Book the Trip")
 
     def test_all_rule_needs_everyone(self):
-        rule = self.env.ref("angels_forms.travel_rule_manager")
-        rule.write({"assign_type": "users", "user_ids": [(6, 0, (self.boss | self.desk).ids)],
-                    "approval_rule": "all"})
+        self.n["manager"].write({"assign_type": "users", "user_ids": [(6, 0, (self.boss | self.outsider).ids)],
+                                 "approval_rule": "all"})
         submission = self.fill()
         self.decide(submission, self.boss)
-        self.assertEqual(submission.current_step_id.state, "pending")
+        self.assertEqual(submission.current_step_id.name, "Manager Approval")
         self.assertFalse(submission.with_user(self.boss).is_my_turn)
-        self.decide(submission, self.desk)
-        self.assertEqual(submission.state, "approved")
+        self.decide(submission, self.outsider)
+        self.assertEqual(submission.current_step_id.name, "Book the Trip")
 
-    def test_no_approval_rule_means_approved_at_once(self):
-        self.travel.rule_ids.unlink()
+    def test_empty_flow_approves_at_once(self):
+        self.n["start"].next_id = False
         submission = self.fill()
         self.assertEqual(submission.state, "approved")
 
@@ -142,3 +230,4 @@ class TestFormFlow(FormCase):
         self.assertIn("1234.5", html)
         self.assertNotIn("Hotel Nights", html)
         self.assertNotIn("Passport", html)
+        self.assertNotIn("Cost Center", html)

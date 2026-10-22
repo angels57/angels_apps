@@ -20,12 +20,29 @@
                             <h2 class="mb-1" t-out="this.state.data.form.name"/>
                             <p t-if="this.state.data.form.description" class="text-muted mb-0"
                                t-out="this.state.data.form.description"/>
-                            <span t-if="this.state.data.submission" class="badge text-bg-secondary mt-1">Draft</span>
+                            <div t-if="this.step" class="mt-2">
+                                <span t-attf-class="o_af_stage o_af_stage_#{this.step.color % 12}">
+                                    <i class="fa fa-pencil me-1" aria-hidden="true"/>
+                                    <t t-out="this.step.name"/>
+                                </span>
+                                <span class="text-muted small ms-2" t-out="this.state.data.submission.name"/>
+                            </div>
+                            <span t-elif="this.state.data.submission" class="badge text-bg-secondary mt-1">Draft</span>
                         </div>
                     </div>
                     <div t-if="!this.fields.length" class="text-muted py-4">This form has no questions yet.</div>
                     <FormRenderer t-else="" fields="this.fields" values="this.values" errors="this.errors"/>
-                    <div class="o_af_fill_footer">
+                    <div t-if="this.step" class="o_af_fill_footer">
+                        <button type="button" class="btn btn-primary" t-att-disabled="this.state.saving"
+                                t-on-click="() => this.save(true)">
+                            <t t-if="this.step.type === 'task'"><i class="fa fa-check me-1" aria-hidden="true"/>Complete</t>
+                            <t t-else=""><i class="fa fa-check me-1" aria-hidden="true"/>Approve</t>
+                        </button>
+                        <button type="button" class="btn btn-secondary" t-att-disabled="this.state.saving"
+                                t-on-click="() => this.save(false)">Save</button>
+                        <button type="button" class="btn btn-link" t-on-click="() => this.discard()">Discard</button>
+                    </div>
+                    <div t-else="" class="o_af_fill_footer">
                         <button type="button" class="btn btn-primary" t-att-disabled="this.state.saving"
                                 t-on-click="() => this.save(true)">
                             <i class="fa fa-paper-plane me-1" aria-hidden="true"/>Send

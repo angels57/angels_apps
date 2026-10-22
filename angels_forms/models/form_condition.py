@@ -36,27 +36,27 @@ def is_set(value):
 
 
 class AngelsFormCondition(models.Model):
-    """One test on an answer. Owned by a field (show it only if ...) or a rule."""
+    """One test on an answer. Owned by a field (show it only if ...) or a flow condition."""
 
     _name = "angels.form.condition"
     _description = "Form Condition"
     _order = "id"
 
     field_id = fields.Many2one("angels.form.field", ondelete="cascade", index=True)
-    rule_id = fields.Many2one("angels.form.rule", ondelete="cascade", index=True)
+    node_id = fields.Many2one("angels.form.node", string="Flow Step", ondelete="cascade", index=True)
     source_field_id = fields.Many2one(
         "angels.form.field", string="Question", required=True, ondelete="cascade",
     )
     operator = fields.Selection(OPERATORS, required=True, default="=")
     value = fields.Char()
 
-    @api.constrains("field_id", "rule_id", "source_field_id", "operator")
+    @api.constrains("field_id", "node_id", "source_field_id", "operator")
     def _check_condition(self):
         for condition in self:
-            owner_form = condition.field_id.form_id or condition.rule_id.form_id
+            owner_form = condition.field_id.form_id or condition.node_id.form_id
             source = condition.source_field_id
-            if bool(condition.field_id) == bool(condition.rule_id):
-                raise ValidationError(_("A condition belongs to one field or to one rule."))
+            if bool(condition.field_id) == bool(condition.node_id):
+                raise ValidationError(_("A condition belongs to one field or to one flow step."))
             if source.form_id != owner_form:
                 raise ValidationError(_("A condition can only test a question of the same form."))
             if source.field_type == "section":

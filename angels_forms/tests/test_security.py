@@ -13,12 +13,11 @@ class TestFormSecurity(FormCase):
         self.assertIn(submission, Submission.with_user(self.requester).search([]))
         self.assertIn(submission, Submission.with_user(self.boss).search([]))
         self.assertNotIn(submission, Submission.with_user(self.outsider).search([]))
-        # Finance only sees it once it is their turn (they are also a manager, so use a plain user).
-        self.env.ref("angels_forms.travel_rule_finance").user_ids = self.desk
-        later = self.fill(budget=3000)
-        self.assertNotIn(later, Submission.with_user(self.desk).search([]))
-        self.decide(later, self.boss)
-        self.assertIn(later, Submission.with_user(self.desk).search([]))
+        # The travel desk only sees it once the flow reaches them.
+        self.assertNotIn(submission, Submission.with_user(self.desk).search([]))
+        self.decide(submission, self.boss)
+        self.step(submission, self.finance, cost_center="CC-1")
+        self.assertIn(submission, Submission.with_user(self.desk).search([]))
         with self.assertRaises(AccessError):
             submission.with_user(self.outsider).read(["title"])
         with self.assertRaises(AccessError):

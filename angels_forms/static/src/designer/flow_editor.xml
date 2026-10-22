@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_forms.FlowEditor">
+        <aside class="o_af_palette">
+            <h6>Add a step</h6>
+            <p class="text-muted small">Drag a step onto the board, or click it to add it after the selected one.</p>
+            <button t-foreach="this.palette" t-as="item" t-key="item.type" type="button"
+                    t-attf-class="o_af_palette_item o_af_palette_#{item.type}"
+                    t-on-pointerdown="(ev) => this.onPalettePointerDown(item, ev)">
+                <i t-attf-class="fa fa-fw #{item.icon}" aria-hidden="true"/>
+                <span t-out="item.label"/>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm w-100 mt-3" t-on-click="() => this.arrange()">
+                <i class="fa fa-sitemap me-1" aria-hidden="true"/>Arrange
+            </button>
+            <h6 class="mt-4">How it works</h6>
+            <ul class="small text-muted ps-3 mb-0">
+                <li>Drag from an output dot to the next step.</li>
+                <li>Click an arrow and press Delete to remove it.</li>
+                <li>An output with no arrow ends the flow: the request is approved.</li>
+                <li>Approval and Task steps can fill their own questions (choose “Filled by” on a question).</li>
+            </ul>
+        </aside>
+
+        <main class="o_af_flow_main">
+        <div class="o_af_zoom" role="group" aria-label="Zoom">
+            <button type="button" class="btn btn-sm btn-light" title="Zoom out" aria-label="Zoom out"
+                    t-on-click="() => this.setZoom(this.state.zoom - 0.1)"><i class="fa fa-minus" aria-hidden="true"/></button>
+            <span class="o_af_zoom_label" t-out="this.zoomLabel"/>
+            <button type="button" class="btn btn-sm btn-light" title="Zoom in" aria-label="Zoom in"
+                    t-on-click="() => this.setZoom(this.state.zoom + 0.1)"><i class="fa fa-plus" aria-hidden="true"/></button>
+            <button type="button" class="btn btn-sm btn-light" title="Fit to screen" aria-label="Fit to screen"
+                    t-on-click="() => this.fit()"><i class="fa fa-arrows-alt" aria-hidden="true"/></button>
+        </div>
+        <div class="o_af_flow_scroll" t-ref="scroller">
+          <div class="o_af_flow_stage" t-att-style="this.stageStyle">
+            <div class="o_af_flow_board" t-ref="board" t-att-style="this.boardStyle"
+                 t-on-pointerdown="(ev) => this.clearSelection(ev)">
+                <svg class="o_af_flow_svg" width="100%" height="100%">
+                    <defs>
+                        <marker id="o_af_arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
+                                markerHeight="7" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" class="o_af_arrow_head"/>
+                        </marker>
+                    </defs>
+                    <t t-foreach="this.state.guides" t-as="guide" t-key="guide_index">
+                        <line t-if="guide.axis === 'x'" class="o_af_flow_guide" t-att-x1="guide.pos" y1="0"
+                              t-att-x2="guide.pos" y2="100%"/>
+                        <line t-else="" class="o_af_flow_guide" x1="0" t-att-y1="guide.pos" x2="100%"
+                              t-att-y2="guide.pos"/>
+                    </t>
+                    <t t-foreach="this.links" t-as="link" t-key="link.key">
+                        <path class="o_af_link_hit" t-att-d="link.d" t-on-pointerdown.stop="() => this.selectLink(link)"/>
+                        <path t-att-class="link.className" t-att-d="link.d" marker-end="url(#o_af_arrow)"/>
+                    </t>
+                    <path t-if="this.state.connecting" class="o_af_link o_af_link_draft" t-att-d="this.draftLink"/>
+                </svg>
+
+                <t t-foreach="this.links" t-as="link" t-key="link.key">
+                    <button t-if="link.selected" type="button" class="o_af_link_delete" title="Remove arrow"
+                            aria-label="Remove arrow" t-attf-style="left: {{link.mid.x}}px; top: {{link.mid.y}}px;"
+                            t-on-pointerdown.stop="() => {}" t-on-click="() => this.removeLink(link)">
+                        <i class="fa fa-times" aria-hidden="true"/>
+                    </button>
+                </t>
+
+                <div t-foreach="this.nodes" t-as="node" t-key="node.id" t-att-class="this.nodeClass(node)"
+                     t-att-style="this.nodeStyle(node)" t-att-data-node-id="node.id" tabindex="0"
+                     t-on-pointerdown="(ev) => this.onNodePointerDown(node, ev)"
+                     t-on-keydown="(ev) => ev.key === 'Enter' and this.select(node)">
+                    <span t-if="node.type !== 'start'" class="o_af_port_in" aria-hidden="true"/>
+                    <div class="o_af_node_head">
+                        <span class="o_af_node_icon"><i t-attf-class="fa fa-fw #{this.icon(node)}" aria-hidden="true"/></span>
+                        <span class="o_af_node_name" t-out="node.name"/>
+                        <span t-if="this.canFill(node) and this.stageFields(node).length" class="o_af_node_count"
+                              t-att-title="this.stageFieldNames(node)">
+                            <i class="fa fa-pencil me-1" aria-hidden="true"/><t t-out="this.stageFields(node).length"/>
+                        </span>
+                    </div>
+                    <div class="o_af_node_summary" t-out="this.summary(node)"/>
+                    <t t-foreach="this.ports(node)" t-as="port" t-key="port.port">
+                        <span t-attf-class="o_af_port o_af_port_#{port.port} #{port.linked ? 'o_af_port_linked' : ''}"
+                              t-attf-style="top: {{port.top}}px;" t-att-title="port.label"
+                              t-on-pointerdown="(ev) => this.onPortPointerDown(node, port.port, ev)"/>
+                        <span class="o_af_port_label" t-attf-style="top: {{port.top}}px;" t-out="port.label"/>
+                    </t>
+                </div>
+            </div>
+          </div>
+        </div>
+        </main>
+
+        <aside class="o_af_inspector o_af_inspector_wide">
+            <t t-if="this.selected">
+                <t t-set="node" t-value="this.selected"/>
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span t-attf-class="o_af_node_icon o_af_node_icon_lg o_af_node_{{node.type}} {{this.hasPeople(node) ? 'o_af_stage_' + (node.color % 12) : ''}}">
+                        <i t-attf-class="fa fa-fw #{this.icon(node)}" aria-hidden="true"/>
+                    </span>
+                    <h6 class="mb-0" t-out="this.props.labels.node_types[node.type]"/>
+                </div>
+                <label class="form-label small" for="o_af_node_name">Name</label>
+                <input id="o_af_node_name" type="text" class="form-control form-control-sm"
+                       t-att-value="node.name" t-on-input="(ev) => this.setProp(node, 'name', ev.target.value)"/>
+
+                <p t-if="node.type === 'start'" class="text-muted small mt-3">
+                    Every request starts here when the requester sends it. Drag its output to the first step.
+                </p>
+                <p t-if="node.type === 'back'" class="text-muted small mt-3">
+                    The request goes back to the requester as a draft. Once corrected and sent again, it starts
+                    the flow from the beginning. Link the “Rejected” output of an approval here.
+                </p>
+
+                <t t-if="node.type === 'end'">
+                    <label class="form-label small mt-3" for="o_af_node_end">Result</label>
+                    <select id="o_af_node_end" class="form-select form-select-sm"
+                            t-on-change="(ev) => this.setProp(node, 'end_state', ev.target.value)">
+                        <option value="approved" t-att-selected="node.end_state !== 'rejected'">Approved</option>
+                        <option value="rejected" t-att-selected="node.end_state === 'rejected'">Rejected</option>
+                    </select>
+                </t>
+
+                <t t-if="node.type === 'condition'">
+                    <h6 class="mt-4">Go to “Yes” when</h6>
+                    <ConditionEditor t-key="node.id" item="node" sources="this.questions"
+                                     labels="this.props.labels.operators" operatorsByType="this.props.operatorsByType"
+                                     onChange="() => this.changed()"
+                                     emptyText.translate="No condition yet: requests always go to “Yes”."/>
+                </t>
+
+                <t t-if="this.hasPeople(node)">
+                    <label class="form-label small mt-3" for="o_af_node_assign">Send to</label>
+                    <select id="o_af_node_assign" class="form-select form-select-sm"
+                            t-on-change="(ev) => this.setProp(node, 'assign_type', ev.target.value)">
+                        <option value="users" t-att-selected="node.assign_type === 'users'">Specific users</option>
+                        <option value="group" t-att-selected="node.assign_type === 'group'">Members of a group</option>
+                        <option value="field" t-att-selected="node.assign_type === 'field'">User chosen in the form</option>
+                    </select>
+                    <div class="mt-2">
+                        <MultiRecordSelector t-if="node.assign_type === 'users'" resModel="'res.users'"
+                                             resIds="node.user_ids" domain="[['share', '=', false]]"
+                                             update="(ids) => this.setUsers(node, ids)"/>
+                        <RecordSelector t-elif="node.assign_type === 'group'" resModel="'res.groups'"
+                                        resId="node.group_id" update="(id) => this.setGroup(node, id)"/>
+                        <t t-else="">
+                            <select class="form-select form-select-sm" aria-label="User question"
+                                    t-on-change="(ev) => this.setUserField(node, ev.target.value)">
+                                <option value="" t-att-selected="!node.user_field_id">Choose a question</option>
+                                <t t-foreach="this.userQuestions" t-as="question" t-key="question.id">
+                                    <option t-att-value="question.id" t-att-selected="question.id === node.user_field_id"
+                                            t-out="question.name"/>
+                                </t>
+                            </select>
+                            <p t-if="!this.userQuestions.length" class="text-muted small mt-1 mb-0">
+                                Add a User question to the form first.
+                            </p>
+                        </t>
+                    </div>
+                    <t t-if="node.type === 'approve'">
+                        <label class="form-label small mt-3" for="o_af_node_rule">When several people receive it</label>
+                        <select id="o_af_node_rule" class="form-select form-select-sm"
+                                t-on-change="(ev) => this.setProp(node, 'approval_rule', ev.target.value)">
+                            <option value="any" t-att-selected="node.approval_rule !== 'all'">One person is enough</option>
+                            <option value="all" t-att-selected="node.approval_rule === 'all'">Everyone must approve</option>
+                        </select>
+                    </t>
+                    <span class="form-label small d-block mt-3">Color</span>
+                    <div class="o_af_swatches" role="radiogroup" aria-label="Color">
+                        <t t-foreach="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0]" t-as="color" t-key="color">
+                            <button type="button" role="radio" t-att-aria-checked="node.color === color"
+                                    t-attf-class="o_af_swatch o_af_stage_#{color} #{node.color === color ? 'active' : ''}"
+                                    t-att-aria-label="'Color ' + color" t-on-click="() => this.setProp(node, 'color', color)"/>
+                        </t>
+                    </div>
+                </t>
+
+                <t t-if="this.canFill(node)">
+                    <h6 class="mt-4">Questions filled at this step</h6>
+                    <ul t-if="this.stageFields(node).length" class="o_af_stage_list list-unstyled mb-1">
+                        <li t-foreach="this.stageFields(node)" t-as="field" t-key="field.id"
+                            t-attf-class="o_af_stage_{{node.color % 12}}">
+                            <t t-out="field.name"/>
+                            <span t-if="field.required" class="text-danger ms-1">*</span>
+                        </li>
+                    </ul>
+                    <p class="text-muted small">
+                        In the Questions tab, choose this step in “Filled by”. Its people answer them before
+                        approving or completing the step.
+                    </p>
+                </t>
+
+                <div class="o_af_rule_summary mt-4">
+                    <i class="fa fa-info-circle me-1" aria-hidden="true"/>
+                    <t t-out="this.summary(node)"/>
+                </div>
+                <button t-if="node.type !== 'start'" type="button" class="btn btn-sm btn-outline-danger mt-3"
+                        t-on-click="() => this.removeNode(node)">
+                    <i class="fa fa-trash-o me-1" aria-hidden="true"/>Delete Step
+                </button>
+            </t>
+            <div t-else="" class="o_af_inspector_empty">
+                <i class="fa fa-mouse-pointer fa-2x mb-2" aria-hidden="true"/>
+                <p>Select a step to choose who receives the request, the conditions, and what happens next.</p>
+            </div>
+        </aside>
+    </t>
+
+</templates>

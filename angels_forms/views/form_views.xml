@@ -10,7 +10,7 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="field_count" string="Questions"/>
-                <field name="rule_count" string="Rules"/>
+                <field name="node_count" string="Flow Steps"/>
                 <field name="submission_count" string="Requests"/>
                 <field name="company_id" groups="base.group_multi_company" optional="show"/>
                 <field name="published" widget="boolean_toggle"/>
@@ -62,22 +62,22 @@
                     <field name="description" placeholder="Tell users what this form is for"/>
                     <notebook>
                         <page string="Questions" name="questions">
-                            <p class="text-muted">Use the designer to add questions, conditions and routing.</p>
+                            <p class="text-muted">Use the designer to add questions, conditions and the flow.</p>
                             <field name="field_ids" readonly="1">
                                 <list>
                                     <field name="sequence" column_invisible="1"/>
                                     <field name="name"/>
                                     <field name="field_type"/>
                                     <field name="required"/>
+                                    <field name="node_id" string="Filled By"/>
                                 </list>
                             </field>
                         </page>
-                        <page string="Routing" name="routing">
-                            <field name="rule_ids" readonly="1">
+                        <page string="Flow" name="flow">
+                            <field name="node_ids" readonly="1">
                                 <list>
-                                    <field name="sequence" column_invisible="1"/>
                                     <field name="name"/>
-                                    <field name="rule_type"/>
+                                    <field name="node_type"/>
                                     <field name="assign_type"/>
                                     <field name="user_ids" widget="many2many_avatar_user"/>
                                     <field name="group_id"/>
