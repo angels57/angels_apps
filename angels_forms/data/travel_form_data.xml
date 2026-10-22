@@ -2,9 +2,9 @@
 <odoo noupdate="1">
 
     <!-- Example form: a travel request with conditional fields and routing. -->
-    <record id="form_travel" model="angels.form">
+    <record id="form_travel" model="angels.form" context="{'angels_forms_no_start': True}">
         <field name="name">Travel Request</field>
-        <field name="description">Ask for a business trip. Your manager approves it, and Finance too when the budget is over 2,000.</field>
+        <field name="description">Ask for a business trip. Your manager approves it, Finance too when the budget is over 2,000, and the travel desk books it.</field>
         <field name="icon">fa-plane</field>
         <field name="color">4</field>
         <field name="company_id" eval="False"/>
@@ -144,49 +144,129 @@ International</field>
         <field name="title_field_id" ref="travel_destination"/>
     </record>
 
-    <!-- Routing -->
-    <record id="travel_rule_manager" model="angels.form.rule">
+    <!-- Flow: manager, Finance above 2,000, then the travel desk books the trip.
+         Defined from the end, so each step can point at the next one. -->
+    <record id="travel_node_end" model="angels.form.node">
         <field name="form_id" ref="form_travel"/>
-        <field name="sequence">10</field>
-        <field name="name">Manager Approval</field>
-        <field name="rule_type">approve</field>
-        <field name="assign_type">field</field>
-        <field name="user_field_id" ref="travel_manager"/>
+        <field name="name">Approved</field>
+        <field name="node_type">end</field>
+        <field name="end_state">approved</field>
+        <field name="pos_x">1340</field>
+        <field name="pos_y">200</field>
     </record>
-    <record id="travel_rule_finance" model="angels.form.rule">
+    <record id="travel_node_booking" model="angels.form.node">
         <field name="form_id" ref="form_travel"/>
-        <field name="sequence">20</field>
+        <field name="name">Book the Trip</field>
+        <field name="node_type">task</field>
+        <field name="assign_type">users</field>
+        <field name="user_ids" eval="[(6, 0, [ref('base.user_admin')])]"/>
+        <field name="color">3</field>
+        <field name="pos_x">1080</field>
+        <field name="pos_y">200</field>
+        <field name="next_id" ref="travel_node_end"/>
+    </record>
+    <record id="travel_node_finance" model="angels.form.node">
+        <field name="form_id" ref="form_travel"/>
         <field name="name">Finance Approval</field>
-        <field name="rule_type">approve</field>
+        <field name="node_type">approve</field>
         <field name="assign_type">group</field>
         <field name="group_id" ref="angels_forms.group_form_manager"/>
+        <field name="color">2</field>
+        <field name="pos_x">820</field>
+        <field name="pos_y">60</field>
+        <field name="next_id" ref="travel_node_booking"/>
     </record>
-    <record id="travel_cond_finance" model="angels.form.condition">
-        <field name="rule_id" ref="travel_rule_finance"/>
+    <record id="travel_node_budget" model="angels.form.node">
+        <field name="form_id" ref="form_travel"/>
+        <field name="name">Budget over 2,000?</field>
+        <field name="node_type">condition</field>
+        <field name="pos_x">560</field>
+        <field name="pos_y">200</field>
+        <field name="yes_id" ref="travel_node_finance"/>
+        <field name="no_id" ref="travel_node_booking"/>
+    </record>
+    <record id="travel_node_back" model="angels.form.node">
+        <field name="form_id" ref="form_travel"/>
+        <field name="name">Back to Requester</field>
+        <field name="node_type">back</field>
+        <field name="pos_x">300</field>
+        <field name="pos_y">380</field>
+    </record>
+    <record id="travel_node_manager" model="angels.form.node">
+        <field name="form_id" ref="form_travel"/>
+        <field name="name">Manager Approval</field>
+        <field name="node_type">approve</field>
+        <field name="assign_type">field</field>
+        <field name="user_field_id" ref="travel_manager"/>
+        <field name="color">1</field>
+        <field name="pos_x">300</field>
+        <field name="pos_y">200</field>
+        <field name="next_id" ref="travel_node_budget"/>
+        <field name="reject_id" ref="travel_node_back"/>
+    </record>
+    <record id="travel_node_start" model="angels.form.node">
+        <field name="form_id" ref="form_travel"/>
+        <field name="name">Request Sent</field>
+        <field name="node_type">start</field>
+        <field name="pos_x">40</field>
+        <field name="pos_y">200</field>
+        <field name="next_id" ref="travel_node_manager"/>
+    </record>
+    <record id="travel_cond_budget" model="angels.form.condition">
+        <field name="node_id" ref="travel_node_budget"/>
         <field name="source_field_id" ref="travel_budget"/>
         <field name="operator">&gt;</field>
         <field name="value">2000</field>
     </record>
-    <record id="travel_rule_desk" model="angels.form.rule">
+
+    <!-- Questions Finance and the travel desk fill during their step -->
+    <record id="travel_section_finance" model="angels.form.field">
         <field name="form_id" ref="form_travel"/>
-        <field name="sequence">30</field>
-        <field name="name">Travel Desk</field>
-        <field name="rule_type">notify_done</field>
-        <field name="assign_type">users</field>
-        <field name="user_ids" eval="[(6, 0, [ref('base.user_admin')])]"/>
-        <field name="condition_match">any</field>
+        <field name="sequence">150</field>
+        <field name="name">Finance</field>
+        <field name="field_type">section</field>
+        <field name="node_id" ref="travel_node_finance"/>
     </record>
-    <record id="travel_cond_desk_hotel" model="angels.form.condition">
-        <field name="rule_id" ref="travel_rule_desk"/>
-        <field name="source_field_id" ref="travel_hotel"/>
-        <field name="operator">=</field>
-        <field name="value">1</field>
+    <record id="travel_cost_center" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">160</field>
+        <field name="name">Cost Center</field>
+        <field name="field_type">char</field>
+        <field name="required" eval="True"/>
+        <field name="width">half</field>
+        <field name="node_id" ref="travel_node_finance"/>
     </record>
-    <record id="travel_cond_desk_international" model="angels.form.condition">
-        <field name="rule_id" ref="travel_rule_desk"/>
-        <field name="source_field_id" ref="travel_type"/>
-        <field name="operator">=</field>
-        <field name="value">International</field>
+    <record id="travel_approved_amount" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">170</field>
+        <field name="name">Approved Amount</field>
+        <field name="field_type">number</field>
+        <field name="width">half</field>
+        <field name="node_id" ref="travel_node_finance"/>
+    </record>
+    <record id="travel_section_booking" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">180</field>
+        <field name="name">Booking</field>
+        <field name="field_type">section</field>
+        <field name="node_id" ref="travel_node_booking"/>
+    </record>
+    <record id="travel_booking_ref" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">190</field>
+        <field name="name">Booking Reference</field>
+        <field name="field_type">char</field>
+        <field name="required" eval="True"/>
+        <field name="width">half</field>
+        <field name="node_id" ref="travel_node_booking"/>
+    </record>
+    <record id="travel_tickets" model="angels.form.field">
+        <field name="form_id" ref="form_travel"/>
+        <field name="sequence">200</field>
+        <field name="name">Tickets</field>
+        <field name="field_type">file</field>
+        <field name="width">half</field>
+        <field name="node_id" ref="travel_node_booking"/>
     </record>
 
 </odoo>

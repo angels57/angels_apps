@@ -5,45 +5,48 @@
         <div class="o_af_form row g-3">
             <t t-foreach="this.visibleFields" t-as="field" t-key="field.id">
                 <div t-if="field.type === 'section'" class="col-12 o_af_form_section">
-                    <h4 t-out="field.name"/>
+                    <h4>
+                        <t t-out="field.name"/>
+                        <span t-if="field.stage" t-attf-class="o_af_stage o_af_stage_#{field.color % 12}" t-out="field.stage"/>
+                    </h4>
                     <p t-if="field.help" class="text-muted mb-0" t-out="field.help"/>
                 </div>
-                <div t-else="" t-att-class="(field.width === 'half' ? 'col-12 col-md-6' : 'col-12') + ' o_af_question'"
-                     t-att-data-field-id="field.id">
+                <div t-else="" t-att-class="this.colClass(field)" t-att-data-field-id="field.id">
                     <label t-if="field.type !== 'boolean'" class="form-label" t-att-for="this.inputId(field)">
                         <t t-out="field.name"/>
-                        <span t-if="field.required" class="text-danger ms-1" aria-hidden="true">*</span>
+                        <span t-if="field.required and !this.isDisabled(field)" class="text-danger ms-1" aria-hidden="true">*</span>
+                        <span t-if="field.stage" t-attf-class="o_af_stage o_af_stage_#{field.color % 12} ms-1" t-out="field.stage"/>
                     </label>
 
                     <input t-if="field.type === 'char'" type="text" class="form-control"
                            t-att-id="this.inputId(field)" t-att-value="this.value(field)"
-                           t-att-placeholder="field.placeholder" t-att-disabled="this.props.disabled"
+                           t-att-placeholder="field.placeholder" t-att-disabled="this.isDisabled(field)"
                            t-on-input="(ev) => this.onText(field, ev)"/>
 
                     <textarea t-elif="field.type === 'text'" class="form-control" rows="3"
                               t-att-id="this.inputId(field)" t-att-value="this.value(field)"
-                              t-att-placeholder="field.placeholder" t-att-disabled="this.props.disabled"
+                              t-att-placeholder="field.placeholder" t-att-disabled="this.isDisabled(field)"
                               t-on-input="(ev) => this.onText(field, ev)"/>
 
                     <input t-elif="field.type === 'number'" type="number" step="any" class="form-control"
                            t-att-id="this.inputId(field)" t-att-value="this.value(field)"
-                           t-att-placeholder="field.placeholder" t-att-disabled="this.props.disabled"
+                           t-att-placeholder="field.placeholder" t-att-disabled="this.isDisabled(field)"
                            t-on-input="(ev) => this.onNumber(field, ev)"/>
 
                     <input t-elif="field.type === 'date'" type="date" class="form-control"
                            t-att-id="this.inputId(field)" t-att-value="this.value(field)"
-                           t-att-disabled="this.props.disabled"
+                           t-att-disabled="this.isDisabled(field)"
                            t-on-change="(ev) => this.onText(field, ev)"/>
 
                     <input t-elif="field.type === 'datetime'" type="datetime-local" class="form-control"
                            t-att-id="this.inputId(field)" t-att-value="this.datetimeValue(field)"
-                           t-att-disabled="this.props.disabled"
+                           t-att-disabled="this.isDisabled(field)"
                            t-on-change="(ev) => this.onDatetime(field, ev)"/>
 
                     <div t-elif="field.type === 'boolean'" class="form-check form-switch o_af_switch">
                         <input type="checkbox" class="form-check-input" role="switch"
                                t-att-id="this.inputId(field)" t-att-checked="this.checked(field)"
-                               t-att-disabled="this.props.disabled"
+                               t-att-disabled="this.isDisabled(field)"
                                t-on-change="(ev) => this.onBoolean(field, ev)"/>
                         <label class="form-check-label" t-att-for="this.inputId(field)">
                             <t t-out="field.name"/>
@@ -58,14 +61,14 @@
                                 <input type="radio" class="btn-check" t-att-name="this.inputId(field)"
                                        t-att-id="this.inputId(field) + '_' + option_index"
                                        t-att-checked="this.value(field) === option"
-                                       t-att-disabled="this.props.disabled"
+                                       t-att-disabled="this.isDisabled(field)"
                                        t-on-change="() => this.set(field, option)"/>
                                 <label class="btn btn-outline-primary" t-att-for="this.inputId(field) + '_' + option_index"
                                        t-out="option"/>
                             </t>
                         </div>
                         <select t-else="" class="form-select" t-att-id="this.inputId(field)"
-                                t-att-disabled="this.props.disabled"
+                                t-att-disabled="this.isDisabled(field)"
                                 t-on-change="(ev) => this.onText(field, ev)">
                             <option value="" t-att-selected="!this.value(field)">
                                 <t t-out="field.placeholder or ''"/>
@@ -77,7 +80,7 @@
                     </t>
 
                     <div t-elif="field.type === 'user' or field.type === 'partner'"
-                         t-att-class="{'o_af_disabled': this.props.disabled}">
+                         t-att-class="{'o_af_disabled': this.isDisabled(field)}">
                         <RecordSelector resModel="field.type === 'user' ? 'res.users' : 'res.partner'"
                                         resId="this.recordId(field)"
                                         domain="field.type === 'user' ? [['share', '=', false]] : []"
@@ -86,11 +89,11 @@
                     </div>
 
                     <div t-elif="field.type === 'file'" class="o_af_files">
-                        <label t-att-class="'btn btn-secondary btn-sm' + (this.props.disabled ? ' disabled' : '')">
+                        <label t-if="!this.isDisabled(field)" class="btn btn-secondary btn-sm">
                             <i class="fa fa-paperclip me-1" aria-hidden="true"/>
                             <span>Add files</span>
                             <input type="file" multiple="" class="d-none" t-att-id="this.inputId(field)"
-                                   t-att-disabled="this.props.disabled"
+                                   t-att-disabled="this.isDisabled(field)"
                                    t-on-change="(ev) => this.onFiles(field, ev)"/>
                         </label>
                         <ul t-if="this.files(field).length" class="list-unstyled mt-2 mb-0">
@@ -100,8 +103,7 @@
                                 <a t-if="file.id" t-att-href="'/web/content/' + file.id + '?download=true'"
                                    t-out="file.name"/>
                                 <span t-else="" t-out="file.name"/>
-                                <button type="button" class="btn btn-link btn-sm text-danger p-0"
-                                        t-att-disabled="this.props.disabled"
+                                <button t-if="!this.isDisabled(field)" type="button" class="btn btn-link btn-sm text-danger p-0"
                                         t-on-click="() => this.removeFile(field, file_index)"
                                         title="Remove" aria-label="Remove">
                                     <i class="fa fa-times" aria-hidden="true"/>

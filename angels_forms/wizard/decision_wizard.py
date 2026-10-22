@@ -9,6 +9,7 @@ class AngelsFormDecisionWizard(models.TransientModel):
     decision = fields.Selection(
         [("approve", "Approve"), ("reject", "Reject")], required=True, readonly=True
     )
+    step_type = fields.Selection(related="submission_id.current_step_type")
     comment = fields.Text()
 
     def action_confirm(self):

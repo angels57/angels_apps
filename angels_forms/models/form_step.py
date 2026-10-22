@@ -3,11 +3,17 @@ from markupsafe import Markup
 from odoo import _, fields, models
 from odoo.exceptions import AccessError, UserError
 
-from .form_rule import RULE_TYPES
+from .form_condition import is_set
+
+STEP_TYPES = [
+    ("approve", "Approval"),
+    ("task", "Task"),
+    ("notify", "Notification"),
+]
 
 
 class AngelsFormStep(models.Model):
-    """One rule applied to one request: an approval step or a notification."""
+    """One flow step reached by one request: an approval, a task or a notification."""
 
     _name = "angels.form.step"
     _description = "Form Request Step"
@@ -16,24 +22,24 @@ class AngelsFormStep(models.Model):
     submission_id = fields.Many2one(
         "angels.form.submission", required=True, ondelete="cascade", index=True, readonly=True,
     )
-    rule_id = fields.Many2one("angels.form.rule", string="Routing Rule", ondelete="set null", readonly=True)
+    node_id = fields.Many2one("angels.form.node", string="Flow Step", ondelete="set null", readonly=True)
     sequence = fields.Integer(readonly=True)
     name = fields.Char(string="Step", required=True, readonly=True)
-    step_type = fields.Selection(RULE_TYPES, string="Action", required=True, readonly=True)
+    step_type = fields.Selection(STEP_TYPES, string="Action", required=True, readonly=True)
     approval_rule = fields.Selection(
         [("any", "One person is enough"), ("all", "Everyone must approve")],
         string="Rule", required=True, default="any", readonly=True,
     )
     state = fields.Selection(
         [
-            ("waiting", "Waiting"),
-            ("pending", "To Approve"),
+            ("pending", "To Do"),
             ("approved", "Approved"),
+            ("done", "Done"),
             ("rejected", "Rejected"),
             ("notified", "Informed"),
             ("skipped", "Skipped"),
         ],
-        required=True, default="waiting", readonly=True, index=True,
+        required=True, default="pending", readonly=True, index=True,
     )
     user_ids = fields.Many2many(
         "res.users", "angels_form_step_user_rel", "step_id", "user_id",
@@ -53,18 +59,23 @@ class AngelsFormStep(models.Model):
 
     def _can_decide(self, user):
         self.ensure_one()
-        return self.state == "pending" and user in self._remaining()
+        return self.state == "pending" and self.step_type != "notify" and user in self._remaining()
+
+    def _fields_to_fill(self):
+        self.ensure_one()
+        return self.node_id.field_ids if self.node_id else self.env["angels.form.field"]
 
     def _activate(self):
         self.ensure_one()
-        self.sudo().write({"state": "pending"})
         submission = self.submission_id.sudo()
         submission.message_subscribe(partner_ids=self.user_ids.partner_id.ids)
+        if self.step_type == "task":
+            summary = _("Complete %(request)s", request=submission.display_name)
+        else:
+            summary = _("Review %(request)s", request=submission.display_name)
         for user in self.user_ids:
             submission.activity_schedule(
-                "angels_forms.mail_activity_form_review",
-                summary=_("Review %(request)s", request=submission.display_name),
-                user_id=user.id,
+                "angels_forms.mail_activity_form_review", summary=summary, user_id=user.id,
             )
 
     def _notify(self, body):
@@ -78,7 +89,19 @@ class AngelsFormStep(models.Model):
         )
         self.sudo().write({"state": "notified", "date_done": fields.Datetime.now()})
 
+    def _check_filled(self):
+        """The questions of this step that are shown and required must be answered."""
+        self.ensure_one()
+        submission = self.submission_id
+        visible, values = submission.form_id._visible_values(submission._answer_values())
+        missing = (self._fields_to_fill() & visible).filtered(
+            lambda f: f.required and f.field_type != "section" and not is_set(values.get(f.id))
+        )
+        if missing:
+            raise UserError(_("Please answer: %(fields)s", fields=", ".join(missing.mapped("name"))))
+
     def _decide(self, decision, comment=False):
+        """``decision`` is "approve" (also "done" for a task) or "reject"."""
         self.ensure_one()
         user = self.env.user
         submission = self.submission_id
@@ -88,10 +111,16 @@ class AngelsFormStep(models.Model):
             raise AccessError(_("You are not a reviewer of the step %(step)s.", step=self.name))
         if not submission.form_id.allow_self_approval and submission.user_id == user:
             raise UserError(_("You cannot approve or reject your own request."))
-        if decision == "reject" and not (comment or "").strip():
-            raise UserError(_("Give a reason for the rejection."))
+        if decision == "reject":
+            if self.step_type != "approve":
+                raise UserError(_("A task cannot be rejected."))
+            if not (comment or "").strip():
+                raise UserError(_("Give a reason for the rejection."))
+        else:
+            self._check_filled()
 
         self._close_activities(user, comment)
+        node = self.node_id
         if decision == "reject":
             self.sudo().write({
                 "state": "rejected", "decided_by_id": user.id,
@@ -103,19 +132,26 @@ class AngelsFormStep(models.Model):
                 ),
                 subtype_xmlid="mail.mt_note",
             )
-            submission._finish("rejected")
+            if node.reject_id:
+                submission._run(node.reject_id)
+            else:
+                submission._finish("rejected")
             return True
 
+        done_state = "done" if self.step_type == "task" else "approved"
+        if self.step_type == "task":
+            message = _("%(user)s completed the step %(step)s.", user=user.name, step=self.name)
+        else:
+            message = _("%(user)s approved the step %(step)s.", user=user.name, step=self.name)
         self.sudo().write({"approved_by_ids": [fields.Command.link(user.id)], "comment": comment or self.comment})
         submission.sudo().message_post(
-            body=Markup("<p>%s</p>") % _("%(user)s approved the step %(step)s.", user=user.name, step=self.name)
-            + (Markup("<p>%s</p>") % comment if comment else ""),
+            body=Markup("<p>%s</p>") % message + (Markup("<p>%s</p>") % comment if comment else ""),
             subtype_xmlid="mail.mt_note",
         )
-        if self.approval_rule == "any" or not self._remaining():
-            self.sudo().write({"state": "approved", "decided_by_id": user.id, "date_done": fields.Datetime.now()})
+        if self.step_type == "task" or self.approval_rule == "any" or not self._remaining():
+            self.sudo().write({"state": done_state, "decided_by_id": user.id, "date_done": fields.Datetime.now()})
             self._close_activities()
-            submission._advance()
+            submission._run(node.next_id)
         return True
 
     def _close_activities(self, user=None, comment=False):

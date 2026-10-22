@@ -36,6 +36,7 @@ class AngelsFormSubmission(models.Model):
     date_done = fields.Datetime(string="Decided On", readonly=True)
     answer_ids = fields.One2many("angels.form.answer", "submission_id", string="Answers")
     step_ids = fields.One2many("angels.form.step", "submission_id", string="Steps")
+    current_step_type = fields.Selection(related="current_step_id.step_type", string="Current Step Type")
     current_step_id = fields.Many2one(
         "angels.form.step", string="Current Step", compute="_compute_current_step", store=True,
     )
@@ -95,7 +96,7 @@ class AngelsFormSubmission(models.Model):
             submission.can_edit = submission.state == "draft" and mine
             submission.can_cancel = submission.state in ("draft", "pending") and (mine or is_manager)
 
-    @api.depends("answer_ids", "form_id.field_ids")
+    @api.depends("answer_ids", "step_ids", "form_id.field_ids")
     def _compute_answers_html(self):
         for submission in self:
             submission.answers_html = submission._render_answers()
@@ -105,7 +106,9 @@ class AngelsFormSubmission(models.Model):
         answers = {answer.field_id: answer for answer in self.answer_ids}
         visible, _values = self.form_id._visible_values(self._answer_values())
         # Questions archived after the request was filled are still shown.
-        questions = (visible | self.answer_ids.field_id).sorted(lambda f: f._position())
+        questions = ((visible & self._reached_fields()) | self.answer_ids.field_id).sorted(
+            lambda f: f._position()
+        )
         rows = []
         for field in questions:
             if field.field_type == "section":
@@ -120,7 +123,12 @@ class AngelsFormSubmission(models.Model):
                 value = "-"
             if field.field_type == "text" and answer:
                 value = Markup("<br/>").join(escape(line) for line in value.splitlines())
-            rows.append(Markup('<tr><td class="o_af_label">%s</td><td>%s</td></tr>') % (field.name, value))
+            label = Markup("%s") % field.name
+            if field.node_id:
+                label += Markup(' <span class="o_af_stage o_af_stage_%s">%s</span>') % (
+                    field.node_id.color % 12, field.node_id.name,
+                )
+            rows.append(Markup('<tr><td class="o_af_label">%s</td><td>%s</td></tr>') % (label, value))
         if not rows:
             return False
         return Markup('<table class="table table-sm o_af_answers"><tbody>%s</tbody></table>') % Markup("").join(rows)
@@ -136,6 +144,21 @@ class AngelsFormSubmission(models.Model):
     def _answers_to_client(self):
         self.ensure_one()
         return {str(answer.field_id.id): answer._to_client() for answer in self.sudo().answer_ids}
+
+    def _reached_fields(self):
+        """Questions of the requester and of the steps this request already reached."""
+        self.ensure_one()
+        nodes = self.sudo().step_ids.node_id
+        return self.form_id.field_ids.filtered(lambda f: not f.node_id or f.node_id in nodes)
+
+    def _editable_fields(self):
+        """Questions the current user may answer now."""
+        self.ensure_one()
+        if self.can_edit:
+            return self.form_id._requester_fields()
+        if self.is_my_turn:
+            return self.sudo().current_step_id._fields_to_fill().with_env(self.env)
+        return self.env["angels.form.field"]
 
     def _store_files(self, items):
         """Attachment ids for a file question: keep this request's files, add new uploads."""
@@ -156,19 +179,21 @@ class AngelsFormSubmission(models.Model):
                 }).id)
         return ids
 
-    def _set_answers(self, raw_values):
+    def _set_answers(self, raw_values, editable):
+        """Store the answers to the ``editable`` questions; the others stay as they are."""
         self.ensure_one()
-        if self.state != "draft":
-            raise UserError(_("Only draft requests can be changed."))
         form = self.form_id
         raw_values = dict(raw_values or {})
-        visible, values = form._visible_values(raw_values)
+        merged = self._answer_values()
+        for field in editable:
+            merged[field.id] = raw_values.get(str(field.id), raw_values.get(field.id))
+        visible, values = form._visible_values(merged)
         # Uploads to hidden questions are not stored at all.
-        for field in visible.filtered(lambda f: f.field_type == "file"):
-            values[field.id] = self._store_files(raw_values.get(str(field.id))) or False
+        for field in (visible & editable).filtered(lambda f: f.field_type == "file"):
+            values[field.id] = self._store_files(merged.get(field.id)) or False
         Answer = self.env["angels.form.answer"].sudo()
         existing = {answer.field_id: answer for answer in self.sudo().answer_ids}
-        for field in form.field_ids.filtered(lambda f: f.field_type != "section"):
+        for field in editable.filtered(lambda f: f.field_type != "section"):
             value = values.get(field.id, False)
             answer = existing.get(field, Answer)
             if not is_set(value):
@@ -198,9 +223,22 @@ class AngelsFormSubmission(models.Model):
                 "user_id": self.env.uid,
                 "company_id": company.id,
             }).with_env(self.env)
-        submission._set_answers(values)
+        submission._set_answers(values, submission.form_id._requester_fields())
         if submit:
             submission._submit()
+        return submission.id
+
+    @api.model
+    def save_step(self, submission_id, values, done=False, comment=False):
+        """Answers of the current step, from the fill screen; ``done`` also approves it."""
+        submission = self.browse(submission_id)
+        submission.check_access("read")
+        if not submission.is_my_turn:
+            raise UserError(_("This request is not waiting for your decision."))
+        step = submission.sudo().current_step_id.with_env(self.env)
+        submission._set_answers(values, step._fields_to_fill())
+        if done:
+            step._decide("approve", comment)
         return submission.id
 
     # ------------------------------------------------------------------
@@ -214,75 +252,117 @@ class AngelsFormSubmission(models.Model):
         if not self.form_id._can_submit(self.user_id):
             raise UserError(_("The form %(form)s is not open for requests.", form=self.form_id.name))
         visible, values = self.form_id._visible_values(self._answer_values())
-        missing = visible.filtered(
+        missing = (visible & self.form_id._requester_fields()).filtered(
             lambda f: f.required and f.field_type != "section" and not is_set(values.get(f.id))
         )
         if missing:
             raise UserError(_("Please answer: %(fields)s", fields=", ".join(missing.mapped("name"))))
-
-        step_vals = []
-        for rule in self.form_id.rule_ids.filtered(lambda r: r._applies(values)):
-            recipients = rule._get_recipients(values)
-            if not recipients:
-                if rule.rule_type == "approve":
-                    raise UserError(_("Nobody can approve the step %(step)s.", step=rule.name))
-                continue
-            step_vals.append({
-                "submission_id": self.id,
-                "rule_id": rule.id,
-                "sequence": rule.sequence,
-                "name": rule.name,
-                "step_type": rule.rule_type,
-                "approval_rule": rule.approval_rule,
-                "user_ids": [fields.Command.set(recipients.ids)],
-            })
-        steps = self.env["angels.form.step"].sudo().create(step_vals)
+        resent = self.name != "/"
         self.sudo().write({
-            "name": self.env["ir.sequence"].sudo().next_by_code("angels.form.submission") or "/",
+            "name": self.name if resent else (
+                self.env["ir.sequence"].sudo().next_by_code("angels.form.submission") or "/"
+            ),
             "state": "pending",
             "date_submitted": fields.Datetime.now(),
         })
+        self._close_requester_activities()
         self.sudo().message_subscribe(partner_ids=self.user_id.partner_id.ids)
-        self.sudo().message_post(
-            body=Markup("<p>%s</p>") % _("Request sent by %(user)s.", user=self.user_id.name),
-            subtype_xmlid="mail.mt_note",
-        )
-        for step in steps.filtered(lambda s: s.step_type == "notify_submit"):
-            step._notify(Markup("<p>%s</p>") % _(
-                "New request %(request)s from %(user)s.", request=self.display_name, user=self.user_id.name,
-            ))
-        self._advance()
+        if resent:
+            body = _("Request corrected and sent again by %(user)s.", user=self.user_id.name)
+        else:
+            body = _("Request sent by %(user)s.", user=self.user_id.name)
+        self.sudo().message_post(body=Markup("<p>%s</p>") % body, subtype_xmlid="mail.mt_note")
+        self._run(self.form_id._start_node().next_id)
         return True
 
-    def _advance(self):
-        """Open the next approval step, or approve the request when none is left."""
+    def _run(self, node):
+        """Walk the flow from ``node`` until a step waits for people, or the end.
+
+        A missing link ends the flow: the request is approved.
+        """
         self.ensure_one()
-        step = self.step_ids.filtered(
-            lambda s: s.step_type == "approve" and s.state == "waiting"
-        ).sorted("sequence")[:1]
-        if step:
-            step._activate()
-        else:
-            self._finish("approved")
+        values = self.form_id._visible_values(self._answer_values())[1]
+        Step = self.env["angels.form.step"].sudo()
+        seen = set()
+        while node:
+            if node.id in seen:
+                raise UserError(_("The flow of %(form)s goes round in a circle at %(step)s.",
+                                  form=self.form_id.name, step=node.name))
+            seen.add(node.id)
+            kind = node.node_type
+            if kind == "start":
+                node = node.next_id
+            elif kind == "condition":
+                node = node.yes_id if node._conditions_met(values) else node.no_id
+            elif kind == "end":
+                return self._finish(node.end_state or "approved")
+            elif kind == "back":
+                return self._send_back(node)
+            else:
+                recipients = node._get_recipients(values)
+                if not recipients:
+                    if kind == "notify":
+                        node = node.next_id
+                        continue
+                    raise UserError(_("Nobody can do the step %(step)s.", step=node.name))
+                step = Step.create({
+                    "submission_id": self.id,
+                    "node_id": node.id,
+                    "sequence": len(self.step_ids) + 1,
+                    "name": node.name,
+                    "step_type": kind,
+                    "approval_rule": node.approval_rule or "any",
+                    "user_ids": [fields.Command.set(recipients.ids)],
+                })
+                if kind == "notify":
+                    step._notify(Markup("<p>%s</p>") % _(
+                        "%(step)s: request %(request)s from %(user)s.",
+                        step=node.name, request=self.display_name, user=self.user_id.name,
+                    ))
+                    node = node.next_id
+                    continue
+                step._activate()
+                return True
+        return self._finish("approved")
+
+    def _send_back(self, node):
+        """Reopen the request so the requester corrects it and sends it again."""
+        self.ensure_one()
+        self.sudo().write({"state": "draft"})
+        self.step_ids._close_activities()
+        self.sudo().message_post(
+            body=Markup("<p>%s</p>") % _("%(step)s: the request goes back to %(user)s to be corrected.",
+                                         step=node.name, user=self.user_id.name),
+            partner_ids=self.user_id.partner_id.ids,
+            subtype_xmlid="mail.mt_comment",
+        )
+        self.sudo().activity_schedule(
+            "angels_forms.mail_activity_form_review",
+            summary=_("Correct %(request)s", request=self.display_name),
+            user_id=self.user_id.id,
+        )
+        return True
+
+    def _close_requester_activities(self):
+        activity_type = self.env.ref("angels_forms.mail_activity_form_review")
+        self.sudo().activity_ids.filtered(
+            lambda a: a.activity_type_id == activity_type and a.user_id == self.user_id
+        ).unlink()
 
     def _finish(self, state):
         self.ensure_one()
         self.sudo().write({"state": state, "date_done": fields.Datetime.now()})
-        waiting = self.step_ids.filtered(lambda s: s.state == "waiting")
-        to_notify = waiting.filtered(lambda s: s.step_type == "notify_done") if state == "approved" else waiting.browse()
-        (waiting - to_notify).sudo().write({"state": "skipped"})
         self.step_ids._close_activities()
         if state == "approved":
             body = _("The request %(request)s was approved.", request=self.display_name)
         else:
             body = _("The request %(request)s was rejected.", request=self.display_name)
-        for step in to_notify:
-            step._notify(Markup("<p>%s</p>") % body)
         self.sudo().message_post(
             body=Markup("<p>%s</p>") % body,
             partner_ids=self.user_id.partner_id.ids,
             subtype_xmlid="mail.mt_comment",
         )
+        return True
 
     def action_submit(self):
         for submission in self:
@@ -295,6 +375,9 @@ class AngelsFormSubmission(models.Model):
         self.ensure_one()
         if not self.can_edit:
             raise UserError(_("Only the requester can change a draft request."))
+        return self._fill_action()
+
+    def _fill_action(self):
         return {
             "type": "ir.actions.client",
             "tag": "angels_forms_fill",
@@ -308,9 +391,7 @@ class AngelsFormSubmission(models.Model):
                 raise AccessError(_("Only the requester or an administrator can cancel %(name)s.",
                                     name=submission.display_name))
             submission.sudo().write({"state": "cancelled", "date_done": fields.Datetime.now()})
-            submission.step_ids.filtered(lambda s: s.state in ("waiting", "pending")).sudo().write(
-                {"state": "skipped"}
-            )
+            submission.step_ids.filtered(lambda s: s.state == "pending").sudo().write({"state": "skipped"})
             submission.step_ids._close_activities()
             submission.sudo().message_post(
                 body=Markup("<p>%s</p>") % _("Request cancelled by %(user)s.", user=self.env.user.name),
@@ -332,6 +413,10 @@ class AngelsFormSubmission(models.Model):
         }
 
     def action_approve(self):
+        """Steps with questions to fill open the fill screen; the others a short dialog."""
+        self.ensure_one()
+        if self.is_my_turn and self.sudo().current_step_id._fields_to_fill():
+            return self._fill_action()
         return self._open_decision_wizard("approve")
 
     def action_reject(self):
@@ -345,5 +430,5 @@ class AngelsFormSubmission(models.Model):
 
     @api.ondelete(at_uninstall=False)
     def _unlink_only_drafts(self):
-        if any(submission.state != "draft" for submission in self):
+        if any(submission.state != "draft" or submission.step_ids for submission in self):
             raise UserError(_("Only draft requests can be deleted. Cancel the others instead."))

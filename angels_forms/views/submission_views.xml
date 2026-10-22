@@ -28,9 +28,11 @@
             <form string="Request" create="0" edit="0">
                 <header>
                     <button name="action_approve" type="object" string="Approve" class="btn-primary"
-                            invisible="not is_my_turn" data-hotkey="v"/>
+                            invisible="not is_my_turn or current_step_type == 'task'" data-hotkey="v"/>
+                    <button name="action_approve" type="object" string="Complete" class="btn-primary"
+                            invisible="not is_my_turn or current_step_type != 'task'" data-hotkey="v"/>
                     <button name="action_reject" type="object" string="Reject"
-                            invisible="not is_my_turn" data-hotkey="z"/>
+                            invisible="not is_my_turn or current_step_type == 'task'" data-hotkey="z"/>
                     <button name="action_edit" type="object" string="Edit" class="btn-primary"
                             invisible="not can_edit"/>
                     <button name="action_submit" type="object" string="Send"
@@ -41,6 +43,7 @@
                 </header>
                 <sheet>
                     <field name="is_my_turn" invisible="1"/>
+                    <field name="current_step_type" invisible="1"/>
                     <field name="can_cancel" invisible="1"/>
                     <field name="can_edit" invisible="1"/>
                     <div class="oe_title">
@@ -66,8 +69,7 @@
                         </page>
                         <page string="Steps" name="steps" invisible="state == 'draft'">
                             <field name="step_ids">
-                                <list decoration-muted="state in ('skipped', 'waiting')"
-                                      decoration-bf="state == 'pending'">
+                                <list decoration-muted="state == 'skipped'" decoration-bf="state == 'pending'">
                                     <field name="sequence" column_invisible="1"/>
                                     <field name="name"/>
                                     <field name="step_type"/>
@@ -78,7 +80,7 @@
                                     <field name="comment" optional="show"/>
                                     <field name="state" widget="badge"
                                            decoration-info="state == 'pending'"
-                                           decoration-success="state in ('approved', 'notified')"
+                                           decoration-success="state in ('approved', 'done', 'notified')"
                                            decoration-danger="state == 'rejected'"/>
                                 </list>
                             </field>

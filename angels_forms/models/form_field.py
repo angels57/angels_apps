@@ -2,6 +2,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 from .form_condition import TRUE_WORDS, is_set
+from .form_node import STAGE_TYPES
 
 FIELD_TYPES = [
     ("section", "Section"),
@@ -15,6 +16,16 @@ FIELD_TYPES = [
     ("user", "User"),
     ("partner", "Contact"),
     ("file", "File"),
+]
+
+# Share of the row a question takes; static/src/common/form_renderer.js maps them to columns.
+WIDTHS = [
+    ("quarter", "1/4"),
+    ("third", "1/3"),
+    ("half", "1/2"),
+    ("two_thirds", "2/3"),
+    ("three_quarters", "3/4"),
+    ("full", "Full width"),
 ]
 
 
@@ -34,8 +45,14 @@ class AngelsFormField(models.Model):
     placeholder = fields.Char(translate=True)
     # Not translated: conditions compare answers with these exact words.
     options = fields.Text(help="Choices of a choice list, one per line.")
-    width = fields.Selection(
-        [("full", "Full width"), ("half", "Half width")], required=True, default="full",
+    width = fields.Selection(WIDTHS, required=True, default="full")
+    node_id = fields.Many2one(
+        "angels.form.node",
+        string="Filled By",
+        ondelete="set null",
+        copy=False,
+        domain="[('form_id', '=', form_id), ('node_type', 'in', ('approve', 'task'))]",
+        help="Flow step whose people fill this question. Empty: the requester fills it.",
     )
     condition_match = fields.Selection(
         [("all", "All conditions"), ("any", "Any condition")],
@@ -44,6 +61,15 @@ class AngelsFormField(models.Model):
     condition_ids = fields.One2many(
         "angels.form.condition", "field_id", string="Show Only If", copy=False,
     )
+
+    @api.constrains("node_id", "form_id")
+    def _check_node(self):
+        for field in self.filtered("node_id"):
+            if field.node_id.form_id != field.form_id or field.node_id.node_type not in STAGE_TYPES:
+                raise ValidationError(
+                    _("%(field)s can only be filled by an approval or task step of the same form.",
+                      field=field.name)
+                )
 
     @api.constrains("field_type", "options")
     def _check_options(self):
@@ -108,6 +134,7 @@ class AngelsFormField(models.Model):
             "placeholder": self.placeholder or "",
             "options": self._option_list(),
             "width": self.width,
+            "node_id": self.node_id.id,
             "match": self.condition_match,
             "conditions": [condition._to_client() for condition in self.condition_ids],
         }

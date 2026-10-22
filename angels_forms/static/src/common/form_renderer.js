@@ -6,6 +6,8 @@ import { visibleFieldIds } from "./conditions";
 import { useProps, useState } from "./owl_compat";
 
 const { DateTime } = luxon;
+// Bootstrap columns of each width (angels.form.field.width).
+export const WIDTH_COLS = { quarter: 3, third: 4, half: 6, two_thirds: 8, three_quarters: 9, full: 12 };
 const RADIO_LIMIT = 4;
 const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
@@ -33,6 +35,13 @@ export class FormRenderer extends Component {
 
     key(field) {
         return String(field.id);
+    }
+    colClass(field) {
+        return `col-12 col-md-${WIDTH_COLS[field.width] || 12} o_af_question`;
+    }
+    /** Read-only: the whole form, or a question another step fills. */
+    isDisabled(field) {
+        return Boolean(this.props.disabled) || field.editable === false;
     }
     inputId(field) {
         return `o_af_${this.uid}_${field.id}`;

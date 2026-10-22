@@ -112,7 +112,7 @@
 }
 
 .o_af_inspector_wide {
-    flex-basis: 24rem;
+    flex-basis: 22rem;
 }
 
 .o_af_palette h6,
@@ -150,6 +150,7 @@
 
 .o_af_canvas {
     flex: 1 1 auto;
+    min-width: 0;
     overflow: auto;
     padding: 1.5rem;
 }
@@ -200,7 +201,6 @@
 }
 
 .o_af_card_section {
-    margin-top: 1rem;
     background: var(--secondary-bg);
 }
 
@@ -293,11 +293,153 @@
     opacity: 1;
 }
 
-.o_af_drop_line {
-    height: 3px;
-    margin: -0.15rem 0 0.35rem;
+/* Questions laid out as in the form: each cell takes its share of the row. */
+.o_af_layout {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -0.25rem;
+}
+
+.o_af_cell {
+    padding: 0 0.25rem 0.5rem;
+    min-width: 0;
+}
+
+.o_af_cell_section {
+    padding-top: 0.75rem;
+}
+
+.o_af_cell_section:first-child {
+    padding-top: 0;
+}
+
+.o_af_cell .o_af_card {
+    height: 100%;
+    margin: 0;
+    touch-action: pan-y;
+}
+
+.o_af_card .o_af_grip {
+    touch-action: none;
+}
+
+.o_af_card_stage {
+    border-left: 4px solid var(--af-stage);
+}
+
+/* Where a dragged question lands */
+.o_af_card::after {
+    content: "";
+    position: absolute;
+    display: none;
     background: var(--primary);
     border-radius: 3px;
+    pointer-events: none;
+}
+
+.o_af_drop_left::after,
+.o_af_drop_right::after {
+    display: block;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+}
+
+.o_af_drop_left::after { left: -0.45rem; }
+.o_af_drop_right::after { right: -0.45rem; }
+
+.o_af_drop_top::after,
+.o_af_drop_bottom::after {
+    display: block;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.o_af_drop_top::after { top: -0.45rem; }
+.o_af_drop_bottom::after { bottom: -0.45rem; }
+
+.o_af_drop_end {
+    flex: 0 0 calc(100% - 0.5rem);
+    height: 4px;
+    margin: 0 0.25rem 0.5rem;
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+/* Stretch the right edge to change the width */
+.o_af_resize {
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    right: -3px;
+    width: 8px;
+    cursor: ew-resize;
+    touch-action: none;
+    border-radius: 4px;
+}
+
+.o_af_resize::before {
+    content: "";
+    position: absolute;
+    top: 30%;
+    bottom: 30%;
+    left: 2px;
+    width: 4px;
+    border-radius: 2px;
+    background: var(--border-color);
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.o_af_card:hover .o_af_resize::before,
+.o_af_card.o_af_selected .o_af_resize::before {
+    opacity: 1;
+    background: var(--primary);
+}
+
+.o_af_width_guide {
+    position: absolute;
+    top: -0.5rem;
+    bottom: 0;
+    width: 0;
+    border-left: 1px dashed var(--primary-border-subtle);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.o_af_width_guide.active {
+    border-left: 2px solid var(--primary);
+}
+
+.o_af_widths .btn {
+    min-width: 2.4rem;
+}
+
+.o_af_shortcuts {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+/* Label that follows the pointer while dragging */
+.o_af_ghost {
+    position: fixed;
+    z-index: 2000;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.85rem;
+    color: #fff;
+    background: var(--primary);
+    border-radius: 0.4rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.o_af_palette_item {
+    touch-action: none;
 }
 
 /* Conditions */
@@ -317,59 +459,7 @@
     font-size: 0.875rem;
 }
 
-/* Routing */
-.o_af_rule {
-    align-items: center;
-    padding-left: 0.75rem;
-}
-
-.o_af_rule_step {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--secondary-color);
-    border: 1px solid var(--border-color);
-    border-radius: 50%;
-}
-
-.o_af_rule_text {
-    font-size: 0.85rem;
-    color: var(--secondary-color);
-}
-
-.o_af_rule_notify_submit,
-.o_af_rule_notify_done {
-    color: var(--info-text-emphasis);
-    background: var(--info-bg-subtle);
-}
-
-.o_af_rule_types {
-    display: grid;
-    gap: 0.35rem;
-}
-
-.o_af_rule_type {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.45rem 0.6rem;
-    color: inherit;
-    text-align: left;
-    background: var(--body-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-}
-
-.o_af_rule_type.active {
-    border-color: var(--primary);
-    background: var(--primary-bg-subtle);
-}
-
+/* Flow */
 .o_af_rule_summary {
     padding: 0.6rem 0.75rem;
     font-size: 0.85rem;
@@ -421,5 +511,290 @@
 
     .o_af_card_tools {
         opacity: 1;
+    }
+}
+
+.o_af_flow_main {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    min-width: 0;
+}
+
+.o_af_flow_scroll {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: auto;
+    background-color: var(--tertiary-bg);
+}
+
+.o_af_flow_stage {
+    position: relative;
+}
+
+.o_af_zoom {
+    position: absolute;
+    z-index: 5;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.2rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.o_af_zoom_label {
+    min-width: 3rem;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.o_af_flow_board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    background-color: var(--tertiary-bg);
+    background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.o_af_flow_svg {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+}
+
+.o_af_link {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 2;
+    pointer-events: none;
+}
+
+.o_af_link_no,
+.o_af_link_reject {
+    stroke: #ef4444;
+    stroke-dasharray: 6 4;
+}
+
+.o_af_link_selected {
+    stroke-width: 4;
+}
+
+.o_af_link_draft {
+    stroke-dasharray: 4 4;
+    opacity: 0.7;
+}
+
+.o_af_link_hit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 14;
+    cursor: pointer;
+}
+
+.o_af_arrow_head {
+    fill: var(--primary);
+}
+
+.o_af_flow_guide {
+    stroke: var(--primary);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+}
+
+.o_af_link_delete {
+    position: absolute;
+    z-index: 3;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin: -0.8rem 0 0 -0.8rem;
+    padding: 0;
+    color: #fff;
+    background: #ef4444;
+    border: 2px solid var(--body-bg);
+    border-radius: 50%;
+}
+
+/* Steps */
+.o_af_node {
+    position: absolute;
+    z-index: 2;
+    padding: 0.55rem 0.7rem 0.55rem 0.9rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--af-stage, var(--secondary-color));
+    border-radius: 0.6rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+.o_af_node.o_af_selected {
+    border-color: var(--primary);
+    border-left-color: var(--af-stage, var(--primary));
+    box-shadow: 0 0 0 3px var(--primary-bg-subtle);
+}
+
+.o_af_node_target:hover {
+    box-shadow: 0 0 0 3px var(--primary);
+}
+
+.o_af_node_start { border-left-color: #10b981; }
+.o_af_node_condition { border-left-color: #0ea5e9; border-style: dashed; border-left-style: solid; }
+.o_af_node_back { border-left-color: #f97316; }
+.o_af_node_end { border-left-color: #10b981; }
+.o_af_node_end.o_af_node_rejected { border-left-color: #ef4444; }
+
+.o_af_node_head {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+}
+
+.o_af_node_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    flex-shrink: 0;
+    border-radius: 0.4rem;
+    color: color-mix(in srgb, var(--af-stage, var(--primary)) 75%, #000);
+    background: color-mix(in srgb, var(--af-stage, var(--primary)) 16%, transparent);
+}
+
+.o_af_node_icon_lg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.o_af_node_name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.o_af_node_count {
+    flex-shrink: 0;
+    padding: 0 0.4rem;
+    font-size: 0.75rem;
+    color: color-mix(in srgb, var(--af-stage, var(--primary)) 70%, #000);
+    background: color-mix(in srgb, var(--af-stage, var(--primary)) 16%, transparent);
+    border-radius: 1rem;
+}
+
+.o_af_node_summary {
+    display: -webkit-box;
+    margin-top: 0.25rem;
+    overflow: hidden;
+    font-size: 0.78rem;
+    line-height: 1.25;
+    color: var(--secondary-color);
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.o_af_port_in,
+.o_af_port {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    background: var(--body-bg);
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+}
+
+.o_af_port_in {
+    top: 50%;
+    left: -8px;
+    border-color: var(--border-color);
+}
+
+.o_af_port {
+    right: -8px;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.o_af_port_linked {
+    background: var(--primary);
+}
+
+.o_af_port_no,
+.o_af_port_reject {
+    border-color: #ef4444;
+}
+
+.o_af_port_no.o_af_port_linked,
+.o_af_port_reject.o_af_port_linked {
+    background: #ef4444;
+}
+
+.o_af_port_label {
+    position: absolute;
+    left: calc(100% + 10px);
+    margin-top: -1.1rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--secondary-color);
+    pointer-events: none;
+}
+
+.o_af_palette_condition i { color: #0ea5e9; }
+.o_af_palette_back i { color: #f97316; }
+.o_af_palette_end i { color: #10b981; }
+
+.o_af_swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.o_af_swatch {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    background: var(--af-stage);
+    border: 2px solid var(--body-bg);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--border-color);
+}
+
+.o_af_swatch.active {
+    box-shadow: 0 0 0 2px var(--body-color);
+}
+
+.o_af_stage_list li {
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--af-stage);
+    background: var(--tertiary-bg);
+    border-radius: 0 0.3rem 0.3rem 0;
+}
+
+@media (max-width: 991.98px) {
+    .o_af_flow_main {
+        flex: 0 0 auto;
+        height: 70vh;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .o_af_cell {
+        width: 100% !important;
     }
 }
