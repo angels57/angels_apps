@@ -1,0 +1,1154 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* angels_approvals
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20261015\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-21 01:26+0000\n"
+"PO-Revision-Date: 2026-10-21 01:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/wizard/request_wizard.py:0
+msgid "%(count)s approval requests were created."
+msgstr "Se crearon %(count)s solicitudes de aprobación."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "%(record)s does not match the flow %(flow)s."
+msgstr "%(record)s no cumple las condiciones del flujo %(flow)s."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__message_needaction
+msgid "Action Needed"
+msgstr "Acción requerida"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__active
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono del tipo de actividad"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_decision_wizard_form
+msgid "Add a comment for the requester"
+msgstr "Añade un comentario para el solicitante"
+
+#. module: angels_approvals
+#: model:res.groups,name:angels_approvals.group_approval_manager
+msgid "Administrator"
+msgstr "Administrador"
+
+#. module: angels_approvals
+#: model:ir.actions.act_window,name:angels_approvals.action_approval_request_all
+#: model:ir.ui.menu,name:angels_approvals.menu_approvals_all
+msgid "All Requests"
+msgstr "Todas las solicitudes"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__allow_self_approval
+msgid "Allow Self Approval"
+msgstr "Permitir autoaprobación"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__requester_group_ids
+msgid "Allowed Requesters"
+msgstr "Solicitantes permitidos"
+
+#. module: angels_approvals
+#: model:ir.module.category,name:angels_approvals.module_category_angels_approvals
+#: model:res.groups.privilege,name:angels_approvals.res_groups_privilege_angels_approvals
+msgid "Angels Approvals"
+msgstr "Angels Approvals"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__model_id
+msgid "Applies To"
+msgstr "Se aplica a"
+
+#. module: angels_approvals
+#: model:mail.activity.type,name:angels_approvals.mail_activity_approval
+msgid "Approval"
+msgstr "Aprobación"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "Approval %(link)s was approved."
+msgstr "La aprobación %(link)s fue aprobada."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "Approval %(link)s was cancelled."
+msgstr "La aprobación %(link)s fue cancelada."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "Approval %(link)s was rejected."
+msgstr "La aprobación %(link)s fue rechazada."
+
+#. module: angels_approvals
+#: model:ir.model,name:angels_approvals.model_angels_approval_decision
+msgid "Approval Decision"
+msgstr "Decisión de aprobación"
+
+#. module: angels_approvals
+#: model:ir.model,name:angels_approvals.model_angels_approval_decision_wizard
+msgid "Approval Decision Wizard"
+msgstr "Asistente de decisión de aprobación"
+
+#. module: angels_approvals
+#: model:ir.model,name:angels_approvals.model_angels_approval_delegation
+msgid "Approval Delegation"
+msgstr "Delegación de aprobaciones"
+
+#. module: angels_approvals
+#: model:ir.model,name:angels_approvals.model_angels_approval_flow
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__flow_id
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_form
+msgid "Approval Flow"
+msgstr "Flujo de aprobación"
+
+#. module: angels_approvals
+#: model:ir.model,name:angels_approvals.model_angels_approval_step
+msgid "Approval Flow Step"
+msgstr "Paso del flujo de aprobación"
+
+#. module: angels_approvals
+#: model:ir.actions.act_window,name:angels_approvals.action_approval_flow
+#: model:ir.ui.menu,name:angels_approvals.menu_approvals_flows
+msgid "Approval Flows"
+msgstr "Flujos de aprobación"
+
+#. module: angels_approvals
+#: model:ir.model,name:angels_approvals.model_angels_approval_request
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+msgid "Approval Request"
+msgstr "Solicitud de aprobación"
+
+#. module: angels_approvals
+#: model:ir.model,name:angels_approvals.model_angels_approval_request_line
+msgid "Approval Request Step"
+msgstr "Paso de la solicitud de aprobación"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_step_form
+msgid "Approval Step"
+msgstr "Paso de aprobación"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_decision.py:0
+msgid "Approval decisions cannot be changed."
+msgstr "Las decisiones de aprobación no se pueden modificar."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_decision.py:0
+msgid "Approval decisions cannot be deleted."
+msgstr "Las decisiones de aprobación no se pueden eliminar."
+
+#. module: angels_approvals
+#: model:mail.activity.type,summary:angels_approvals.mail_activity_approval
+msgid "Approval requested"
+msgstr "Aprobación solicitada"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "Approval requested: %(link)s"
+msgstr "Aprobación solicitada: %(link)s"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "Approval requests cannot be deleted. Cancel them instead."
+msgstr "Las solicitudes de aprobación no se pueden eliminar. Cancélalas."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "Approval requests change only through their workflow."
+msgstr "Las solicitudes de aprobación solo cambian a través de su flujo."
+
+#. module: angels_approvals
+#: model:ir.actions.act_window,name:angels_approvals.action_record_requests_template
+#: model:ir.ui.menu,name:angels_approvals.menu_approvals_root
+msgid "Approvals"
+msgstr "Aprobaciones"
+
+#. module: angels_approvals
+#: model:ir.actions.server,name:angels_approvals.cron_approval_reminders_ir_actions_server
+msgid "Approvals: reminders and escalation"
+msgstr "Aprobaciones: recordatorios y escalado"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_decision_wizard__decision__approve
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_decision_wizard_form
+msgid "Approve"
+msgstr "Aprobar"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request_line.py:0
+msgid "Approve %(record)s"
+msgstr "Aprobar %(record)s"
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_decision__decision__approve
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request__state__approved
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request_line__state__approved
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_search
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__user_id
+msgid "Approver"
+msgstr "Aprobador"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_decision__on_behalf_of_id
+msgid ""
+"Approver this decision counts for. Differs from the user when acting as a "
+"delegate."
+msgstr "Aprobador por el que cuenta esta decisión. Difiere del usuario cuando actúa como delegado."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__approver_ids
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__approver_type
+msgid "Approvers"
+msgstr "Aprobadores"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__actor_ids
+msgid "Approvers and Delegates"
+msgstr "Aprobadores y delegados"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_request_line__actor_ids
+msgid ""
+"Approvers plus the users they delegated to. Grants read access to the "
+"request."
+msgstr "Aprobadores más los usuarios en los que delegaron. Da acceso de lectura a la solicitud."
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_delegation_search
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__available_flow_ids
+msgid "Available Flows"
+msgstr "Flujos disponibles"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__can_cancel
+msgid "Can Cancel"
+msgstr "Puede cancelar"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_decision_wizard_form
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_request_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+msgid "Cancel Request"
+msgstr "Cancelar solicitud"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+msgid "Cancel this approval request?"
+msgstr "¿Cancelar esta solicitud de aprobación?"
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: angels_approvals
+#: model_terms:ir.actions.act_window,help:angels_approvals.action_approval_flow
+msgid ""
+"Choose a model, add the steps and their approvers. A \"Request Approval\"\n"
+"                action then appears on those records."
+msgstr "Elige un modelo y añade los pasos y sus aprobadores. Entonces aparece la acción\n                \"Solicitar aprobación\" en esos registros."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/wizard/request_wizard.py:0
+msgid "Choose an approval flow that applies to the selected records."
+msgstr "Elige un flujo de aprobación que se aplique a los registros seleccionados."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__comment
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision_wizard__comment
+msgid "Comment"
+msgstr "Comentario"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__company_id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__condition_domain
+msgid "Condition"
+msgstr "Condición"
+
+#. module: angels_approvals
+#: model:ir.ui.menu,name:angels_approvals.menu_approvals_config
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: angels_approvals
+#: model_terms:ir.actions.act_window,help:angels_approvals.action_approval_flow
+msgid "Create your first approval flow"
+msgstr "Crea tu primer flujo de aprobación"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__create_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision_wizard__create_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__create_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__create_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__create_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__create_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__create_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__create_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision_wizard__create_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__create_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__create_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__create_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__create_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__create_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__current_line_id
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_list
+msgid "Current Step"
+msgstr "Paso actual"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_step__deadline_days
+msgid "Days the approvers have to decide. 0 means no deadline."
+msgstr "Días que tienen los aprobadores para decidir. 0 significa sin plazo."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__deadline
+msgid "Deadline"
+msgstr "Fecha límite"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__deadline_days
+msgid "Deadline (days)"
+msgstr "Plazo (días)"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__user_id
+msgid "Decided By"
+msgstr "Decidido por"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__date_done
+msgid "Decided On"
+msgstr "Decidido el"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__decision
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision_wizard__decision
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_decision_wizard_form
+msgid "Decision"
+msgstr "Decisión"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__decision_ids
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__decision_ids
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+msgid "Decisions"
+msgstr "Decisiones"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__delegate_id
+msgid "Delegate"
+msgstr "Delegado"
+
+#. module: angels_approvals
+#: model_terms:ir.actions.act_window,help:angels_approvals.action_approval_delegation
+msgid "Delegate your approvals to a colleague for a period of time."
+msgstr "Delega tus aprobaciones en un compañero durante un periodo de tiempo."
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_delegation_search
+msgid "Delegated to Me"
+msgstr "Delegadas en mí"
+
+#. module: angels_approvals
+#: model:ir.actions.act_window,name:angels_approvals.action_approval_delegation
+#: model:ir.ui.menu,name:angels_approvals.menu_approvals_delegations
+msgid "Delegations"
+msgstr "Delegaciones"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__description
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_form
+msgid "Description"
+msgstr "Descripción"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__display_name
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision_wizard__display_name
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__display_name
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__display_name
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__display_name
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__display_name
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__display_name
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__escalation_user_id
+msgid "Escalate To"
+msgstr "Escalar a"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__escalated
+msgid "Escalated"
+msgstr "Escalado"
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request_line__approval_rule__all
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_step__approval_rule__all
+msgid "Every approver must approve"
+msgstr "Todos los aprobadores deben aprobar"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_step__user_field_id
+msgid ""
+"Field of the record that holds the approver, for example the salesperson."
+msgstr "Campo del registro que contiene al aprobador, por ejemplo el vendedor."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__flow_id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__flow_id
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_search
+msgid "Flow"
+msgstr "Flujo"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__step_id
+msgid "Flow Step"
+msgstr "Paso del flujo"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_request__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome, p. ej. fa-tasks"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__date_from
+msgid "From"
+msgstr "Desde"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request_line.py:0
+msgid "Give a reason for the rejection."
+msgstr "Indica el motivo del rechazo."
+
+#. module: angels_approvals
+#: model_terms:ir.actions.act_window,help:angels_approvals.action_approval_delegation
+msgid "Going away?"
+msgstr "¿Te vas a ausentar?"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__group_id
+msgid "Group"
+msgstr "Grupo"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_flow__requester_group_ids
+msgid ""
+"Groups allowed to request this approval. Empty means every approval user."
+msgstr "Grupos que pueden solicitar esta aprobación. Vacío significa todos los usuarios de aprobaciones."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision_wizard__id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__id
+msgid "ID"
+msgstr "ID"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_request__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono que indica una actividad de excepción."
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_request__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay mensajes nuevos que requieren tu atención."
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_request__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__last_reminder
+msgid "Last Reminder"
+msgstr "Último recordatorio"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__write_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision_wizard__write_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__write_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__write_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__write_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__write_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__write_uid
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__write_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision_wizard__write_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__write_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__write_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__write_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__write_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__write_date
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_flow__company_id
+msgid "Leave empty to use the flow in every company."
+msgstr "Déjalo vacío para usar el flujo en todas las compañías."
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_flow__allow_self_approval
+msgid "Let the requester approve a step where they are an approver."
+msgstr "Permite que el solicitante apruebe un paso en el que es aprobador."
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_step__approver_type__group
+msgid "Members of a group"
+msgstr "Miembros de un grupo"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__res_model
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__res_model
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_search
+msgid "Model"
+msgstr "Modelo"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__model_name
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__model_name
+msgid "Model Name"
+msgstr "Nombre del modelo"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_delegation_search
+msgid "My Delegations"
+msgstr "Mis delegaciones"
+
+#. module: angels_approvals
+#: model:ir.actions.act_window,name:angels_approvals.action_approval_request_mine
+#: model:ir.ui.menu,name:angels_approvals.menu_approvals_mine
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_search
+msgid "My Requests"
+msgstr "Mis solicitudes"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__name
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la siguiente actividad"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de la siguiente actividad"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_request_wizard_form
+msgid "No approval flow applies to the selected records."
+msgstr "Ningún flujo de aprobación se aplica a los registros seleccionados."
+
+#. module: angels_approvals
+#: model_terms:ir.actions.act_window,help:angels_approvals.action_approval_request_mine
+msgid "No approval requests yet"
+msgstr "Todavía no hay solicitudes de aprobación"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+msgid "No reason given"
+msgstr "Sin motivo"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "No step of the flow %(flow)s applies to this record."
+msgstr "Ningún paso del flujo %(flow)s se aplica a este registro."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__note
+msgid "Note"
+msgstr "Nota"
+
+#. module: angels_approvals
+#: model_terms:ir.actions.act_window,help:angels_approvals.action_approval_request_to_approve
+msgid "Nothing waiting for your approval"
+msgstr "Nada pendiente de tu aprobación"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_request__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__approve_action_id
+msgid "On Approval"
+msgstr "Al aprobar"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__on_behalf_of_id
+msgid "On Behalf Of"
+msgstr "En nombre de"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__reject_action_id
+msgid "On Rejection"
+msgstr "Al rechazar"
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request_line__approval_rule__any
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_step__approval_rule__any
+msgid "One approver is enough"
+msgstr "Basta con un aprobador"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_flow__domain
+msgid "Only records that match this filter can use the flow."
+msgstr "Solo los registros que cumplen este filtro pueden usar el flujo."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "Only the requester or an administrator can cancel %(name)s."
+msgstr "Solo el solicitante o un administrador puede cancelar %(name)s."
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_step_form
+msgid "Only when the record matches"
+msgstr "Solo cuando el registro cumple"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+msgid "Open Record"
+msgstr "Abrir registro"
+
+#. module: angels_approvals
+#: model_terms:ir.actions.act_window,help:angels_approvals.action_approval_request_mine
+msgid "Open a record and use Actions › Request Approval."
+msgstr "Abre un registro y usa Acciones › Solicitar aprobación."
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request__state__pending
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_search
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__note
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__note
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__res_name
+msgid "Record"
+msgstr "Registro"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__record_count
+msgid "Record Count"
+msgstr "Número de registros"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__res_id
+msgid "Record ID"
+msgstr "ID del registro"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_wizard__res_ids
+msgid "Record IDs"
+msgstr "IDs de los registros"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__domain
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_request_wizard_form
+msgid "Records"
+msgstr "Registros"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__name
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_decision_wizard__decision__reject
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_decision_wizard_form
+msgid "Reject"
+msgstr "Rechazar"
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_decision__decision__reject
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request__state__rejected
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request_line__state__rejected
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_search
+msgid "Rejected"
+msgstr "Rechazado"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request_line.py:0
+msgid "Reminder: the step %(step)s is overdue."
+msgstr "Recordatorio: el paso %(step)s está vencido."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__request_id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision_wizard__request_id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__request_id
+msgid "Request"
+msgstr "Solicitud"
+
+#. module: angels_approvals
+#: model:ir.actions.act_window,name:angels_approvals.action_request_wizard_template
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_request_wizard_form
+msgid "Request Approval"
+msgstr "Solicitar aprobación"
+
+#. module: angels_approvals
+#: model:ir.model,name:angels_approvals.model_angels_approval_request_wizard
+msgid "Request Approval Wizard"
+msgstr "Asistente para solicitar aprobación"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__request_count
+msgid "Request Count"
+msgstr "Número de solicitudes"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__requested_by_id
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_search
+msgid "Requested By"
+msgstr "Solicitado por"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_list
+msgid "Requested On"
+msgstr "Solicitado el"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__request_ids
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_list
+msgid "Requests"
+msgstr "Solicitudes"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__approval_rule
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__approval_rule
+msgid "Rule"
+msgstr "Regla"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/wizard/request_wizard.py:0
+msgid "Select at least one record."
+msgstr "Selecciona al menos un registro."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__sequence
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__sequence
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_flow__approve_action_id
+msgid "Server action run on the record when the request is approved."
+msgstr "Acción de servidor que se ejecuta sobre el registro cuando se aprueba la solicitud."
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_flow__reject_action_id
+msgid "Server action run on the record when the request is rejected."
+msgstr "Acción de servidor que se ejecuta sobre el registro cuando se rechaza la solicitud."
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request_line__state__skipped
+msgid "Skipped"
+msgstr "Omitido"
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_step__approver_type__users
+msgid "Specific users"
+msgstr "Usuarios concretos"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__date_start
+msgid "Started On"
+msgstr "Iniciado el"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__state
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__state
+msgid "State"
+msgstr "Estado"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_request__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Estado según las actividades\nVencida: la fecha límite ya pasó\nHoy: la actividad es hoy\nPlanificada: actividades futuras."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_decision__line_id
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request_line__name
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+msgid "Step"
+msgstr "Paso"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_step.py:0
+msgid "Step %(step)s needs a group."
+msgstr "El paso %(step)s necesita un grupo."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_step.py:0
+msgid "Step %(step)s needs a user field of the flow model."
+msgstr "El paso %(step)s necesita un campo de usuario del modelo del flujo."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_step.py:0
+msgid "Step %(step)s needs at least one user."
+msgstr "El paso %(step)s necesita al menos un usuario."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_flow__step_ids
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__line_ids
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_form
+msgid "Steps"
+msgstr "Pasos"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_step.py:0
+msgid "The condition of step %(step)s is not valid: %(error)s"
+msgstr "La condición del paso %(step)s no es válida: %(error)s"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_step.py:0
+msgid "The deadline cannot be negative."
+msgstr "El plazo no puede ser negativo."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_delegation.py:0
+msgid "The delegate must be an internal user."
+msgstr "El delegado debe ser un usuario interno."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_delegation.py:0
+msgid "The end date must be after the start date."
+msgstr "La fecha de fin debe ser posterior a la de inicio."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_flow.py:0
+msgid "The record filter of %(flow)s is not valid: %(error)s"
+msgstr "El filtro de registros de %(flow)s no es válido: %(error)s"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "The record no longer exists."
+msgstr "El registro ya no existe."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+#: code:addons/angels_approvals/models/approval_request_line.py:0
+msgid "The step %(step)s has no approvers."
+msgstr "El paso %(step)s no tiene aprobadores."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request_line.py:0
+msgid "The step %(step)s is overdue and was escalated to %(user)s."
+msgstr "El paso %(step)s está vencido y se escaló a %(user)s."
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_step__condition_domain
+msgid "The step only runs for records that match this filter."
+msgstr "El paso solo se ejecuta para los registros que cumplen este filtro."
+
+#. module: angels_approvals
+#: model:ir.model.constraint,message:angels_approvals.constraint_angels_approval_request_one_pending_per_record
+msgid "This record already has a pending approval request."
+msgstr "Este registro ya tiene una solicitud de aprobación pendiente."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request.py:0
+msgid "This request is not waiting for your decision."
+msgstr "Esta solicitud no está pendiente de tu decisión."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request_line.py:0
+msgid "This step is no longer waiting for a decision."
+msgstr "Este paso ya no está pendiente de una decisión."
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_delegation__date_to
+msgid "To"
+msgstr "Hasta"
+
+#. module: angels_approvals
+#: model:ir.actions.act_window,name:angels_approvals.action_approval_request_to_approve
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request_line__state__pending
+#: model:ir.ui.menu,name:angels_approvals.menu_approvals_to_approve
+msgid "To Approve"
+msgstr "Por aprobar"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_request__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de la actividad de excepción en el registro."
+
+#. module: angels_approvals
+#: model:res.groups,name:angels_approvals.group_approval_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__user_field_id
+msgid "User Field"
+msgstr "Campo de usuario"
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_step__approver_type__field
+msgid "User set on the record"
+msgstr "Usuario indicado en el registro"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_step__user_ids
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: angels_approvals
+#: model:ir.model.fields.selection,name:angels_approvals.selection__angels_approval_request_line__state__waiting
+msgid "Waiting"
+msgstr "En espera"
+
+#. module: angels_approvals
+#: model:ir.model.fields,field_description:angels_approvals.field_angels_approval_request__is_my_turn
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_request_search
+msgid "Waiting for Me"
+msgstr "Pendientes de mí"
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_form
+msgid "When should people use this flow?"
+msgstr "¿Cuándo se debe usar este flujo?"
+
+#. module: angels_approvals
+#: model:ir.model.fields,help:angels_approvals.field_angels_approval_step__escalation_user_id
+msgid "When the deadline passes, this user is added as an approver."
+msgstr "Cuando vence el plazo, este usuario se añade como aprobador."
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_request_wizard_form
+msgid "Why do you need this approval?"
+msgstr "¿Por qué necesitas esta aprobación?"
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request_line.py:0
+msgid "You are not an approver of the step %(step)s."
+msgstr "No eres aprobador del paso %(step)s."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_request_line.py:0
+msgid "You cannot approve or reject your own request."
+msgstr "No puedes aprobar ni rechazar tu propia solicitud."
+
+#. module: angels_approvals
+#. odoo-python
+#: code:addons/angels_approvals/models/approval_delegation.py:0
+msgid "You cannot delegate to yourself."
+msgstr "No puedes delegar en ti mismo."
+
+#. module: angels_approvals
+#: model_terms:ir.ui.view,arch_db:angels_approvals.view_approval_flow_form
+msgid "e.g. Purchases over 5,000"
+msgstr "p. ej. Compras de más de 5.000"

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Multi-company -->
+    <record id="rule_approval_flow_company" model="ir.rule">
+        <field name="name">Approval flow: multi-company</field>
+        <field name="model_id" ref="model_angels_approval_flow"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_approval_request_company" model="ir.rule">
+        <field name="name">Approval request: multi-company</field>
+        <field name="model_id" ref="model_angels_approval_request"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <!-- Requests: users see what they requested, what they decide and what they decided -->
+    <record id="rule_approval_request_user" model="ir.rule">
+        <field name="name">Approval request: involved users</field>
+        <field name="model_id" ref="model_angels_approval_request"/>
+        <field name="domain_force">['|', '|', ('requested_by_id', '=', user.id), ('line_ids.actor_ids', 'in', [user.id]), ('decision_ids.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_approval_user'))]"/>
+    </record>
+
+    <record id="rule_approval_request_manager" model="ir.rule">
+        <field name="name">Approval request: all</field>
+        <field name="model_id" ref="model_angels_approval_request"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_approval_manager'))]"/>
+    </record>
+
+    <record id="rule_approval_line_user" model="ir.rule">
+        <field name="name">Approval step: involved users</field>
+        <field name="model_id" ref="model_angels_approval_request_line"/>
+        <field name="domain_force">['|', '|', ('request_id.requested_by_id', '=', user.id), ('request_id.line_ids.actor_ids', 'in', [user.id]), ('request_id.decision_ids.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_approval_user'))]"/>
+    </record>
+
+    <record id="rule_approval_line_manager" model="ir.rule">
+        <field name="name">Approval step: all</field>
+        <field name="model_id" ref="model_angels_approval_request_line"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_approval_manager'))]"/>
+    </record>
+
+    <record id="rule_approval_decision_user" model="ir.rule">
+        <field name="name">Approval decision: involved users</field>
+        <field name="model_id" ref="model_angels_approval_decision"/>
+        <field name="domain_force">['|', '|', ('request_id.requested_by_id', '=', user.id), ('request_id.line_ids.actor_ids', 'in', [user.id]), ('request_id.decision_ids.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_approval_user'))]"/>
+    </record>
+
+    <record id="rule_approval_decision_manager" model="ir.rule">
+        <field name="name">Approval decision: all</field>
+        <field name="model_id" ref="model_angels_approval_decision"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_approval_manager'))]"/>
+    </record>
+
+    <!-- Delegations: read own and received, change only own -->
+    <record id="rule_approval_delegation_read" model="ir.rule">
+        <field name="name">Approval delegation: own and received</field>
+        <field name="model_id" ref="model_angels_approval_delegation"/>
+        <field name="domain_force">['|', ('user_id', '=', user.id), ('delegate_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_approval_user'))]"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="rule_approval_delegation_write" model="ir.rule">
+        <field name="name">Approval delegation: change own</field>
+        <field name="model_id" ref="model_angels_approval_delegation"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_approval_user'))]"/>
+        <field name="perm_read" eval="False"/>
+    </record>
+
+    <record id="rule_approval_delegation_manager" model="ir.rule">
+        <field name="name">Approval delegation: all</field>
+        <field name="model_id" ref="model_angels_approval_delegation"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_approval_manager'))]"/>
+    </record>
+
+</odoo>

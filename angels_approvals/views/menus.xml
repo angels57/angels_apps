@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_approvals_root" name="Approvals" sequence="61"
+              web_icon="angels_approvals,static/description/icon.png"
+              groups="group_approval_user"/>
+
+    <menuitem id="menu_approvals_to_approve" name="To Approve" parent="menu_approvals_root"
+              action="action_approval_request_to_approve" sequence="10"
+              groups="group_approval_user"/>
+    <menuitem id="menu_approvals_mine" name="My Requests" parent="menu_approvals_root"
+              action="action_approval_request_mine" sequence="20"
+              groups="group_approval_user"/>
+    <menuitem id="menu_approvals_all" name="All Requests" parent="menu_approvals_root"
+              action="action_approval_request_all" sequence="30"
+              groups="group_approval_manager"/>
+    <menuitem id="menu_approvals_delegations" name="Delegations" parent="menu_approvals_root"
+              action="action_approval_delegation" sequence="40"
+              groups="group_approval_user"/>
+
+    <menuitem id="menu_approvals_config" name="Configuration" parent="menu_approvals_root"
+              sequence="90" groups="group_approval_manager"/>
+    <menuitem id="menu_approvals_flows" name="Approval Flows" parent="menu_approvals_config"
+              action="action_approval_flow" sequence="10" groups="group_approval_manager"/>
+</odoo>

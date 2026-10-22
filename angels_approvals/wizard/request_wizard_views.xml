@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_request_wizard_form" model="ir.ui.view">
+        <field name="name">angels.approval.request.wizard.form</field>
+        <field name="model">angels.approval.request.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Request Approval">
+                <field name="res_model" invisible="1"/>
+                <field name="res_ids" invisible="1"/>
+                <field name="available_flow_ids" invisible="1"/>
+                <div class="alert alert-warning" role="alert" invisible="available_flow_ids">
+                    No approval flow applies to the selected records.
+                </div>
+                <group>
+                    <field name="record_count" string="Records" invisible="record_count &lt; 2"/>
+                    <field name="flow_id" options="{'no_create': True, 'no_open': True}"
+                           required="1"/>
+                    <field name="note" placeholder="Why do you need this approval?"/>
+                </group>
+                <footer>
+                    <button name="action_submit" type="object" string="Request Approval"
+                            class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Template copied by approval flows and bound to each target model. -->
+    <record id="action_request_wizard_template" model="ir.actions.act_window">
+        <field name="name">Request Approval</field>
+        <field name="res_model">angels.approval.request.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="group_ids" eval="[(4, ref('group_approval_user'))]"/>
+    </record>
+</odoo>

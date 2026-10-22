@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_activity_approval" model="mail.activity.type">
+        <field name="name">Approval</field>
+        <field name="summary">Approval requested</field>
+        <field name="icon">fa-check-square-o</field>
+        <field name="res_model">angels.approval.request</field>
+        <field name="delay_count">0</field>
+    </record>
+</odoo>

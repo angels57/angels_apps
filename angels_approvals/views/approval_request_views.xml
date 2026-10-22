@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_approval_request_list" model="ir.ui.view">
+        <field name="name">angels.approval.request.list</field>
+        <field name="model">angels.approval.request</field>
+        <field name="arch" type="xml">
+            <list create="0" delete="0" decoration-muted="state == 'cancelled'"
+                  decoration-bf="is_my_turn">
+                <field name="name"/>
+                <field name="res_name"/>
+                <field name="flow_id"/>
+                <field name="requested_by_id" widget="many2one_avatar_user"/>
+                <field name="current_line_id" string="Current Step"/>
+                <field name="create_date" string="Requested On" optional="show"/>
+                <field name="date_done" optional="hide"/>
+                <field name="activity_ids" widget="list_activity" optional="show"/>
+                <field name="is_my_turn" column_invisible="1"/>
+                <field name="state" widget="badge" decoration-info="state == 'pending'"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'rejected'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_approval_request_form" model="ir.ui.view">
+        <field name="name">angels.approval.request.form</field>
+        <field name="model">angels.approval.request</field>
+        <field name="arch" type="xml">
+            <form string="Approval Request" create="0" delete="0" edit="0">
+                <header>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary"
+                            invisible="not is_my_turn" data-hotkey="v"/>
+                    <button name="action_reject" type="object" string="Reject"
+                            invisible="not is_my_turn" data-hotkey="z"/>
+                    <button name="action_cancel" type="object" string="Cancel Request"
+                            invisible="not can_cancel" confirm="Cancel this approval request?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_record" type="object" class="oe_stat_button"
+                                icon="fa-external-link" string="Open Record"/>
+                    </div>
+                    <field name="is_my_turn" invisible="1"/>
+                    <field name="can_cancel" invisible="1"/>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <h2><field name="res_name"/></h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="flow_id" options="{'no_open': True}"/>
+                            <field name="requested_by_id" widget="many2one_avatar_user"/>
+                            <field name="create_date" string="Requested On"/>
+                        </group>
+                        <group>
+                            <field name="current_line_id" string="Current Step"
+                                   invisible="not current_line_id" options="{'no_open': True}"/>
+                            <field name="date_done" invisible="not date_done"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="No reason given" nolabel="1"/>
+                    <notebook>
+                        <page string="Steps" name="steps">
+                            <field name="line_ids">
+                                <list decoration-muted="state in ('skipped', 'waiting')"
+                                      decoration-bf="state == 'pending'">
+                                    <field name="sequence" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="approver_ids" widget="many2many_avatar_user"/>
+                                    <field name="approval_rule"/>
+                                    <field name="deadline"/>
+                                    <field name="state" widget="badge"
+                                           decoration-info="state == 'pending'"
+                                           decoration-success="state == 'approved'"
+                                           decoration-danger="state == 'rejected'"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Decisions" name="decisions">
+                            <field name="decision_ids">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="line_id" string="Step"/>
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                    <field name="on_behalf_of_id" widget="many2one_avatar_user"/>
+                                    <field name="decision" widget="badge"
+                                           decoration-success="decision == 'approve'"
+                                           decoration-danger="decision == 'reject'"/>
+                                    <field name="comment"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_approval_request_search" model="ir.ui.view">
+        <field name="name">angels.approval.request.search</field>
+        <field name="model">angels.approval.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="res_name"/>
+                <field name="flow_id"/>
+                <field name="requested_by_id"/>
+                <filter name="to_approve" string="Waiting for Me" domain="[('is_my_turn', '=', True)]"/>
+                <filter name="my_requests" string="My Requests"
+                        domain="[('requested_by_id', '=', uid)]"/>
+                <separator/>
+                <filter name="pending" string="Pending" domain="[('state', '=', 'pending')]"/>
+                <filter name="approved" string="Approved" domain="[('state', '=', 'approved')]"/>
+                <filter name="rejected" string="Rejected" domain="[('state', '=', 'rejected')]"/>
+                <group name="group_by">
+                    <filter name="group_flow" string="Flow" context="{'group_by': 'flow_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_requester" string="Requested By"
+                            context="{'group_by': 'requested_by_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_approval_request_to_approve" model="ir.actions.act_window">
+        <field name="name">To Approve</field>
+        <field name="res_model">angels.approval.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_approval_request_search"/>
+        <field name="context">{'search_default_to_approve': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Nothing waiting for your approval</p>
+        </field>
+    </record>
+
+    <record id="action_approval_request_mine" model="ir.actions.act_window">
+        <field name="name">My Requests</field>
+        <field name="res_model">angels.approval.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_approval_request_search"/>
+        <field name="context">{'search_default_my_requests': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No approval requests yet</p>
+            <p>Open a record and use Actions › Request Approval.</p>
+        </field>
+    </record>
+
+    <record id="action_approval_request_all" model="ir.actions.act_window">
+        <field name="name">All Requests</field>
+        <field name="res_model">angels.approval.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_approval_request_search"/>
+        <field name="context">{'search_default_pending': 1}</field>
+    </record>
+
+    <!-- Template copied by approval flows and bound to each target model. -->
+    <record id="action_record_requests_template" model="ir.actions.act_window">
+        <field name="name">Approvals</field>
+        <field name="res_model">angels.approval.request</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('res_model', '=', active_model), ('res_id', '=', active_id)]</field>
+        <field name="context">{}</field>
+        <field name="binding_view_types">form</field>
+        <field name="group_ids" eval="[(4, ref('group_approval_user'))]"/>
+    </record>
+</odoo>

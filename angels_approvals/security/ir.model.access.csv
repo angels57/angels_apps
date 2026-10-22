@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_approval_flow_user,angels.approval.flow.user,model_angels_approval_flow,group_approval_user,1,0,0,0
+access_approval_flow_manager,angels.approval.flow.manager,model_angels_approval_flow,group_approval_manager,1,1,1,1
+access_approval_step_user,angels.approval.step.user,model_angels_approval_step,group_approval_user,1,0,0,0
+access_approval_step_manager,angels.approval.step.manager,model_angels_approval_step,group_approval_manager,1,1,1,1
+access_approval_request_user,angels.approval.request.user,model_angels_approval_request,group_approval_user,1,0,0,0
+access_approval_request_manager,angels.approval.request.manager,model_angels_approval_request,group_approval_manager,1,1,0,0
+access_approval_line_user,angels.approval.request.line.user,model_angels_approval_request_line,group_approval_user,1,0,0,0
+access_approval_decision_user,angels.approval.decision.user,model_angels_approval_decision,group_approval_user,1,0,0,0
+access_approval_delegation_user,angels.approval.delegation.user,model_angels_approval_delegation,group_approval_user,1,1,1,0
+access_approval_request_wizard_user,angels.approval.request.wizard.user,model_angels_approval_request_wizard,group_approval_user,1,1,1,1
+access_approval_decision_wizard_user,angels.approval.decision.wizard.user,model_angels_approval_decision_wizard,group_approval_user,1,1,1,1
+access_approval_ir_model_manager,ir.model.approval.manager,base.model_ir_model,group_approval_manager,1,0,0,0
+access_approval_ir_model_fields_manager,ir.model.fields.approval.manager,base.model_ir_model_fields,group_approval_manager,1,0,0,0

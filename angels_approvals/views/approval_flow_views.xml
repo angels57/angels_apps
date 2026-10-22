@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_approval_step_list" model="ir.ui.view">
+        <field name="name">angels.approval.step.list</field>
+        <field name="model">angels.approval.step</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="approver_type"/>
+                <field name="approval_rule"/>
+                <field name="deadline_days"/>
+                <field name="escalation_user_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_approval_step_form" model="ir.ui.view">
+        <field name="name">angels.approval.step.form</field>
+        <field name="model">angels.approval.step</field>
+        <field name="arch" type="xml">
+            <form string="Approval Step">
+                <field name="model_name" invisible="1"/>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="approver_type" widget="radio"/>
+                        <field name="user_ids" widget="many2many_tags"
+                               invisible="approver_type != 'users'" required="approver_type == 'users'"/>
+                        <field name="group_id" invisible="approver_type != 'group'"
+                               required="approver_type == 'group'"/>
+                        <field name="user_field_id" invisible="approver_type != 'field'"
+                               required="approver_type == 'field'"
+                               options="{'no_create': True}"/>
+                        <field name="approval_rule" widget="radio"/>
+                    </group>
+                    <group>
+                        <field name="deadline_days"/>
+                        <field name="escalation_user_id" invisible="not deadline_days"/>
+                    </group>
+                </group>
+                <separator string="Only when the record matches"/>
+                <field name="condition_domain" widget="domain" options="{'model': 'model_name'}"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_approval_flow_list" model="ir.ui.view">
+        <field name="name">angels.approval.flow.list</field>
+        <field name="model">angels.approval.flow</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="request_count" string="Requests"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_approval_flow_form" model="ir.ui.view">
+        <field name="name">angels.approval.flow.form</field>
+        <field name="model">angels.approval.flow</field>
+        <field name="arch" type="xml">
+            <form string="Approval Flow">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_requests" type="object" class="oe_stat_button"
+                                icon="fa-check-square-o">
+                            <field name="request_count" widget="statinfo" string="Requests"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <field name="active" invisible="1"/>
+                    <field name="model_name" invisible="1"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Purchases over 5,000"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_id" options="{'no_create': True}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="requester_group_ids" widget="many2many_tags"/>
+                            <field name="allow_self_approval"/>
+                        </group>
+                        <group groups="base.group_system">
+                            <field name="approve_action_id" options="{'no_create': True}"/>
+                            <field name="reject_action_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Steps" name="steps">
+                            <field name="step_ids" context="{'default_flow_id': id}"/>
+                        </page>
+                        <page string="Records" name="records" invisible="not model_name">
+                            <field name="domain" widget="domain" options="{'model': 'model_name'}"/>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description" placeholder="When should people use this flow?"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_approval_flow_search" model="ir.ui.view">
+        <field name="name">angels.approval.flow.search</field>
+        <field name="model">angels.approval.flow</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="model_id"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group name="group_by">
+                    <filter name="group_model" string="Model" context="{'group_by': 'model_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_approval_flow" model="ir.actions.act_window">
+        <field name="name">Approval Flows</field>
+        <field name="res_model">angels.approval.flow</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_approval_flow_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first approval flow</p>
+            <p>Choose a model, add the steps and their approvers. A "Request Approval"
+                action then appears on those records.</p>
+        </field>
+    </record>
+</odoo>

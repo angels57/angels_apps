@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_approval_delegation_list" model="ir.ui.view">
+        <field name="name">angels.approval.delegation.list</field>
+        <field name="model">angels.approval.delegation</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" delete="0">
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="delegate_id" widget="many2one_avatar_user"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="note"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_approval_delegation_search" model="ir.ui.view">
+        <field name="name">angels.approval.delegation.search</field>
+        <field name="model">angels.approval.delegation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="delegate_id"/>
+                <filter name="mine" string="My Delegations" domain="[('user_id', '=', uid)]"/>
+                <filter name="received" string="Delegated to Me" domain="[('delegate_id', '=', uid)]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_approval_delegation" model="ir.actions.act_window">
+        <field name="name">Delegations</field>
+        <field name="res_model">angels.approval.delegation</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_approval_delegation_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Going away?</p>
+            <p>Delegate your approvals to a colleague for a period of time.</p>
+        </field>
+    </record>
+</odoo>
