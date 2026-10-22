@@ -281,91 +281,349 @@
     border-radius: 1rem;
 }
 
-.o_af_card_tools {
+/* Design / Test switch above the canvas */
+.o_af_canvas {
     display: flex;
-    opacity: 0;
-    transition: opacity 0.15s;
+    flex-direction: column;
+    padding: 0;
 }
 
-.o_af_card:hover .o_af_card_tools,
-.o_af_card.o_af_selected .o_af_card_tools,
-.o_af_card:focus-within .o_af_card_tools {
-    opacity: 1;
-}
-
-/* Questions laid out as in the form: each cell takes its share of the row. */
-.o_af_layout {
-    position: relative;
+.o_af_canvas_bar {
+    position: sticky;
+    top: 0;
+    z-index: 6;
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -0.25rem;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    background: var(--tertiary-bg);
+    border-bottom: 1px solid var(--border-color);
 }
 
-.o_af_cell {
-    padding: 0 0.25rem 0.5rem;
+.o_af_mode {
+    display: flex;
+    gap: 0.2rem;
+    padding: 0.2rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.6rem;
+}
+
+.o_af_mode button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem;
+    color: var(--secondary-color);
+    background: transparent;
+    border: 0;
+    border-radius: 0.45rem;
+}
+
+.o_af_mode button.active {
+    color: #fff;
+    background: var(--primary);
+}
+
+.o_af_canvas .o_af_paper {
+    width: 100%;
+    max-width: 52rem;
+    /* Room above the first row for the toolbar of the selected question */
+    padding: 3rem 1.5rem 2rem;
+}
+
+.o_af_test {
+    padding: 1.5rem 1rem 3rem;
+}
+
+/* The 12-column grid of the questions */
+.o_af_grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    gap: 12px;
+    min-height: 8rem;
+}
+
+.o_af_grid_cols {
+    position: absolute;
+    inset: -0.5rem 0;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 12px;
+    pointer-events: none;
+}
+
+.o_af_grid_cols span {
+    background: color-mix(in srgb, var(--primary) 4%, transparent);
+    border-left: 1px dashed color-mix(in srgb, var(--primary) 14%, transparent);
+    border-right: 1px dashed color-mix(in srgb, var(--primary) 14%, transparent);
+    border-radius: 3px;
+    transition: background 0.15s;
+}
+
+.o_af_grid_dragging .o_af_grid_cols span {
+    background: color-mix(in srgb, var(--primary) 9%, transparent);
+    border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
+.o_af_grid .o_af_card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 4.5rem;
+    gap: 0.35rem;
     min-width: 0;
-}
-
-.o_af_cell_section {
-    padding-top: 0.75rem;
-}
-
-.o_af_cell_section:first-child {
-    padding-top: 0;
-}
-
-.o_af_cell .o_af_card {
-    height: 100%;
     margin: 0;
+    padding: 0.6rem 0.75rem 0.65rem 0.6rem;
     touch-action: pan-y;
 }
 
-.o_af_card .o_af_grip {
+.o_af_grid .o_af_card.o_af_selected {
+    z-index: 3;
+}
+
+.o_af_card_moving {
+    opacity: 0.45;
+}
+
+.o_af_card_head {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+}
+
+.o_af_card_head .o_af_grip {
+    padding-top: 0;
     touch-action: none;
+}
+
+.o_af_card_head .o_af_card_icon {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.o_af_card_head .o_af_card_title {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.o_af_title_input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.05rem 0.3rem;
+    margin-left: -0.3rem;
+    font-weight: 600;
+    color: inherit;
+    background: transparent;
+    border: 1px dashed var(--primary-border-subtle);
+    border-radius: 0.3rem;
+}
+
+.o_af_title_input:focus {
+    outline: none;
+    border-style: solid;
+    border-color: var(--primary);
+    background: var(--body-bg);
+}
+
+.o_af_grid .o_af_card_section {
+    min-height: 0;
+    justify-content: center;
+}
+
+.o_af_card_meta {
+    margin-left: 2.6rem;
+}
+
+.o_af_card_section .o_af_card_title,
+.o_af_card_section .o_af_title_input {
+    font-size: 1.05rem;
+}
+
+.o_af_card_meta:empty {
+    display: none;
 }
 
 .o_af_card_stage {
     border-left: 4px solid var(--af-stage);
 }
 
-/* Where a dragged question lands */
-.o_af_card::after {
-    content: "";
+/* How the input will look */
+.o_af_mock {
+    padding-left: 2.6rem;
+}
+
+.o_af_mock_input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    height: 1.9rem;
+    padding: 0 0.6rem;
+    overflow: hidden;
+    font-size: 0.85rem;
+    color: var(--tertiary-color);
+    white-space: nowrap;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.35rem;
+}
+
+.o_af_mock_area {
+    align-items: flex-start;
+    height: 3.6rem;
+    padding-top: 0.35rem;
+}
+
+.o_af_mock_switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+}
+
+.o_af_mock_toggle {
+    width: 2rem;
+    height: 1.1rem;
+    background: var(--secondary-bg);
+    border-radius: 1rem;
+    box-shadow: inset 0.2rem 0 0 0.15rem var(--body-bg);
+}
+
+.o_af_mock_choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.o_af_mock_choices span {
+    padding: 0.15rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--primary);
+    border: 1px solid var(--primary-border-subtle);
+    border-radius: 0.35rem;
+}
+
+.o_af_mock_file {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    background: var(--secondary-bg);
+    border-radius: 0.35rem;
+}
+
+.o_af_mock_help {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--secondary-color);
+}
+
+/* Options on the selected question */
+.o_af_toolbar {
     position: absolute;
-    display: none;
+    left: 0;
+    bottom: calc(100% + 6px);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.2rem;
+    white-space: nowrap;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+}
+
+/* Questions in the right half open their toolbar towards the left. */
+.o_af_toolbar_end {
+    left: auto;
+    right: 0;
+}
+
+.o_af_tool {
+    min-width: 1.9rem;
+    height: 1.9rem;
+    padding: 0 0.4rem;
+    font-size: 0.8rem;
+    color: var(--body-color);
+    background: transparent;
+    border: 0;
+    border-radius: 0.35rem;
+}
+
+.o_af_tool:hover {
+    background: var(--tertiary-bg);
+}
+
+.o_af_tool.active {
+    color: #fff;
     background: var(--primary);
-    border-radius: 3px;
+}
+
+.o_af_tool_danger {
+    color: #ef4444;
+}
+
+.o_af_tool_group {
+    display: flex;
+    padding: 0 0.15rem;
+    margin: 0 0.15rem;
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+}
+
+.o_af_tool_select {
+    height: 1.9rem;
+    min-width: 7.5rem;
+    max-width: 9rem;
+    padding: 0 0.3rem;
+    font-size: 0.8rem;
+    color: var(--body-color);
+    background: var(--tertiary-bg);
+    border: 0;
+    border-radius: 0.35rem;
+}
+
+/* Where a dragged question lands */
+.o_af_target {
+    z-index: 2;
     pointer-events: none;
+    background: color-mix(in srgb, var(--primary) 18%, transparent);
+    border: 2px dashed var(--primary);
+    border-radius: 0.6rem;
 }
 
-.o_af_drop_left::after,
-.o_af_drop_right::after {
-    display: block;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-}
-
-.o_af_drop_left::after { left: -0.45rem; }
-.o_af_drop_right::after { right: -0.45rem; }
-
-.o_af_drop_top::after,
-.o_af_drop_bottom::after {
-    display: block;
+.o_af_target_line {
+    position: absolute;
     left: 0;
     right: 0;
     height: 4px;
+    margin-top: -2px;
+    background: var(--primary);
+    border: 0;
+    border-radius: 3px;
 }
 
-.o_af_drop_top::after { top: -0.45rem; }
-.o_af_drop_bottom::after { bottom: -0.45rem; }
-
-.o_af_drop_end {
-    flex: 0 0 calc(100% - 0.5rem);
-    height: 4px;
-    margin: 0 0.25rem 0.5rem;
-    background: var(--primary);
-    border-radius: 3px;
+.o_af_end_row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    font-size: 0.85rem;
+    color: var(--primary);
+    border: 2px dashed var(--primary-border-subtle);
+    border-radius: 0.6rem;
 }
 
 /* Stretch the right edge to change the width */
@@ -399,26 +657,12 @@
     background: var(--primary);
 }
 
-.o_af_width_guide {
-    position: absolute;
-    top: -0.5rem;
-    bottom: 0;
-    width: 0;
-    border-left: 1px dashed var(--primary-border-subtle);
-    pointer-events: none;
-    z-index: 1;
-}
-
-.o_af_width_guide.active {
-    border-left: 2px solid var(--primary);
-}
-
 .o_af_widths .btn {
     min-width: 2.4rem;
 }
 
 .o_af_shortcuts {
-    margin-top: 1rem;
+    margin-top: 1.25rem;
     font-size: 0.8rem;
     text-align: center;
     color: var(--secondary-color);
@@ -509,9 +753,6 @@
         margin: 0;
     }
 
-    .o_af_card_tools {
-        opacity: 1;
-    }
 }
 
 .o_af_flow_main {
@@ -794,7 +1035,18 @@
 }
 
 @media (max-width: 575.98px) {
-    .o_af_cell {
-        width: 100% !important;
+    .o_af_grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .o_af_grid .o_af_card,
+    .o_af_grid .o_af_target {
+        grid-row: auto !important;
+        grid-column: 1 !important;
+    }
+
+    .o_af_grid_cols,
+    .o_af_toolbar .o_af_tool_group {
+        display: none;
     }
 }

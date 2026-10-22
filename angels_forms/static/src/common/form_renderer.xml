@@ -3,7 +3,9 @@
 
     <t t-name="angels_forms.FormRenderer">
         <div class="o_af_form row g-3">
-            <t t-foreach="this.visibleFields" t-as="field" t-key="field.id">
+            <t t-foreach="this.items" t-as="item" t-key="item.field.id">
+                <t t-set="field" t-value="item.field"/>
+                <div t-if="item.breakBefore and field.type !== 'section'" class="w-100 m-0 p-0"/>
                 <div t-if="field.type === 'section'" class="col-12 o_af_form_section">
                     <h4>
                         <t t-out="field.name"/>
@@ -11,7 +13,7 @@
                     </h4>
                     <p t-if="field.help" class="text-muted mb-0" t-out="field.help"/>
                 </div>
-                <div t-else="" t-att-class="this.colClass(field)" t-att-data-field-id="field.id">
+                <div t-else="" t-att-class="this.colClass(item)" t-att-data-field-id="field.id">
                     <label t-if="field.type !== 'boolean'" class="form-label" t-att-for="this.inputId(field)">
                         <t t-out="field.name"/>
                         <span t-if="field.required and !this.isDisabled(field)" class="text-danger ms-1" aria-hidden="true">*</span>

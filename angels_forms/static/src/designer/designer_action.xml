@@ -29,11 +29,6 @@
                         <span>Flow</span>
                         <span class="o_af_count" t-out="this.nodes.length - 1"/>
                     </button>
-                    <button type="button" role="tab" t-att-aria-selected="this.state.tab === 'preview'"
-                            t-att-class="{'active': this.state.tab === 'preview'}" t-on-click="() => this.setTab('preview')">
-                        <i class="fa fa-eye" aria-hidden="true"/>
-                        <span>Preview</span>
-                    </button>
                 </div>
                 <div class="o_af_actions">
                     <span t-if="this.state.dirty" class="o_af_unsaved">Unsaved changes</span>
@@ -51,12 +46,11 @@
             </div>
             <div t-if="this.data" class="o_af_body">
                 <t t-if="this.state.tab === 'fields'" t-call="angels_forms.DesignerFields"/>
-                <FlowEditor t-elif="this.state.tab === 'flow'" t-key="this.state.version"
+                <FlowEditor t-else="" t-key="this.state.version"
                             nodes="this.data.nodes" fields="this.data.fields" labels="this.labels"
                             ports="this.data.ports" operatorsByType="this.data.operators_by_type"
                             names="this.state.names" loadNames="(model, ids) => this.loadNames(model, ids)"
                             conditionsText="(item) => this.conditionsText(item)" onChange="() => this.touch()"/>
-                <t t-else="" t-call="angels_forms.DesignerPreview"/>
             </div>
         </div>
     </t>
@@ -86,73 +80,136 @@
         </aside>
 
         <main class="o_af_canvas">
-            <div class="o_af_paper">
+            <div class="o_af_canvas_bar">
+                <div class="o_af_mode" role="tablist" aria-label="Mode">
+                    <button type="button" role="tab" t-att-aria-selected="this.state.mode === 'design'"
+                            t-att-class="{'active': this.state.mode === 'design'}" t-on-click="() => this.setMode('design')">
+                        <i class="fa fa-pencil" aria-hidden="true"/><span>Design</span>
+                    </button>
+                    <button type="button" role="tab" t-att-aria-selected="this.state.mode === 'test'"
+                            t-att-class="{'active': this.state.mode === 'test'}" t-on-click="() => this.setMode('test')">
+                        <i class="fa fa-play" aria-hidden="true"/><span>Test</span>
+                    </button>
+                </div>
+                <t t-if="this.state.mode === 'test'">
+                    <label class="small text-muted ms-2" for="o_af_preview_as">As</label>
+                    <select id="o_af_preview_as" class="form-select form-select-sm w-auto"
+                            t-on-change="(ev) => this.setPreviewAs(ev.target.value)">
+                        <option value="requester" t-att-selected="this.state.previewAs === 'requester'">The requester</option>
+                        <t t-foreach="this.stages" t-as="stage" t-key="stage.id">
+                            <option t-att-value="stage.id" t-att-selected="this.isPreviewAs(stage)" t-out="stage.name"/>
+                        </t>
+                    </select>
+                    <button type="button" class="btn btn-sm btn-light" t-on-click="() => this.resetPreview()">
+                        <i class="fa fa-undo me-1" aria-hidden="true"/>Clear Answers
+                    </button>
+                    <span class="small text-muted ms-auto">Try the conditions. Nothing is saved.</span>
+                </t>
+                <span t-else="" class="small text-muted ms-auto">Drag questions anywhere on the grid.</span>
+            </div>
+
+            <div t-if="this.state.mode === 'design'" class="o_af_paper">
                 <div t-if="!this.fields.length" class="o_af_canvas_empty">
                     <i class="fa fa-hand-pointer-o fa-2x mb-2" aria-hidden="true"/>
                     <p>Drag a question type here, or click it in the palette.</p>
                 </div>
-                <div class="o_af_layout">
-                    <t t-if="this.state.resizing">
-                        <div t-foreach="this.resizeGuides" t-as="guide" t-key="guide_index"
-                             t-attf-class="o_af_width_guide #{guide.active ? 'active' : ''}" t-attf-style="left: {{guide.left}};"/>
-                    </t>
-                    <div t-foreach="this.fields" t-as="field" t-key="field.id"
-                         t-attf-class="o_af_cell #{field.type === 'section' ? 'o_af_cell_section' : ''}"
-                         t-att-style="this.cellStyle(field)">
+                <div t-ref="grid" t-attf-class="o_af_grid #{this.state.dragging or this.state.target ? 'o_af_grid_dragging' : ''}">
+                    <div class="o_af_grid_cols" aria-hidden="true">
+                        <span t-foreach="this.columns" t-as="column" t-key="column"/>
+                    </div>
+                    <div t-foreach="this.fields" t-as="field" t-key="field.id" t-att-class="this.cardClass(field)"
+                         t-att-style="this.cardStyle(field)" t-att-data-field-id="field.id" t-att-data-row="field.row"
+                         tabindex="0" t-on-pointerdown="(ev) => this.onCardPointerDown(field, ev)"
+                         t-on-keydown="(ev) => ev.key === 'Enter' and this.select(field)">
                         <t t-set="stage" t-value="this.stageOf(field)"/>
-                        <div t-att-class="this.cardClass(field)" t-att-data-field-id="field.id" tabindex="0"
-                             t-on-pointerdown="(ev) => this.onCardPointerDown(field, ev)"
-                             t-on-keydown="(ev) => ev.key === 'Enter' and this.select(field)">
+                        <t t-set="isSelected" t-value="field.id === this.state.selectedId"/>
+                        <div t-if="isSelected" t-attf-class="o_af_toolbar #{field.col >= 6 ? 'o_af_toolbar_end' : ''}"
+                             role="toolbar" aria-label="Question options">
+                            <button t-if="field.type !== 'section'" type="button"
+                                    t-attf-class="o_af_tool #{field.required ? 'active' : ''}" title="Required"
+                                    aria-label="Required" t-on-click="() => this.setProp(field, 'required', !field.required)">
+                                <i class="fa fa-asterisk" aria-hidden="true"/>
+                            </button>
+                            <div t-if="field.type !== 'section'" class="o_af_tool_group" role="group" aria-label="Width">
+                                <t t-foreach="this.widthKeys" t-as="width" t-key="width">
+                                    <button type="button" t-attf-class="o_af_tool #{field.width === width ? 'active' : ''}"
+                                            t-att-title="this.labels.widths[width]"
+                                            t-on-click="() => this.setWidth(field, width)" t-out="this.widthLabel(width)"/>
+                                </t>
+                            </div>
+                            <select class="o_af_tool_select" aria-label="Type"
+                                    t-on-change="(ev) => this.setProp(field, 'type', ev.target.value)">
+                                <t t-foreach="this.palette" t-as="item" t-key="item.type">
+                                    <option t-att-value="item.type" t-att-selected="item.type === field.type" t-out="item.label"/>
+                                </t>
+                            </select>
+                            <button type="button" t-attf-class="o_af_tool #{field.conditions.length ? 'active' : ''}"
+                                    title="Show only if" aria-label="Show only if" t-on-click="() => this.showConditions()">
+                                <i class="fa fa-code-fork" aria-hidden="true"/>
+                            </button>
+                            <button type="button" class="o_af_tool" title="Duplicate" aria-label="Duplicate"
+                                    t-on-click="() => this.duplicate(field)">
+                                <i class="fa fa-clone" aria-hidden="true"/>
+                            </button>
+                            <button type="button" class="o_af_tool o_af_tool_danger" title="Delete" aria-label="Delete"
+                                    t-on-click="() => this.removeField(field)">
+                                <i class="fa fa-trash-o" aria-hidden="true"/>
+                            </button>
+                        </div>
+                        <div class="o_af_card_head">
                             <span class="o_af_grip" aria-hidden="true"><i class="fa fa-ellipsis-v"/><i class="fa fa-ellipsis-v"/></span>
                             <span class="o_af_card_icon"><i t-attf-class="fa fa-fw #{this.fieldIcon(field)}" aria-hidden="true"/></span>
-                            <div class="o_af_card_body">
-                                <div class="o_af_card_title">
-                                    <t t-out="field.name"/>
-                                    <span t-if="field.required" class="text-danger ms-1" aria-label="Required">*</span>
-                                </div>
-                                <div class="o_af_card_meta">
-                                    <span t-out="this.labels.types[field.type]"/>
-                                    <span t-if="field.type !== 'section' and field.width !== 'full'" class="o_af_badge"
-                                          t-out="this.labels.widths[field.width]"/>
-                                    <span t-if="stage" t-attf-class="o_af_stage o_af_stage_#{stage.color % 12}">
-                                        <i class="fa fa-pencil me-1" aria-hidden="true"/><t t-out="stage.name"/>
-                                    </span>
-                                    <span t-if="this.data.form.title_field_id === field.id" class="o_af_badge">
-                                        <i class="fa fa-tag me-1" aria-hidden="true"/>Title
-                                    </span>
-                                    <span t-if="field.conditions.length" class="o_af_badge o_af_badge_condition"
-                                          t-att-title="this.conditionsText(field)">
-                                        <i class="fa fa-code-fork me-1" aria-hidden="true"/>
-                                        <t t-out="this.conditionsText(field)"/>
-                                    </span>
-                                    <span t-if="this.brokenConditions(field).length" class="o_af_badge o_af_badge_warning">
-                                        <i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>Check the conditions
-                                    </span>
-                                </div>
-                                <div t-if="field.type === 'selection'" class="o_af_card_options">
-                                    <span t-foreach="field.options" t-as="option" t-key="option_index" t-out="option"/>
-                                </div>
-                            </div>
-                            <div class="o_af_card_tools">
-                                <button type="button" class="btn btn-sm btn-link" title="Duplicate" aria-label="Duplicate"
-                                        t-on-click.stop="() => this.duplicate(field)">
-                                    <i class="fa fa-clone" aria-hidden="true"/>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-link text-danger" title="Delete" aria-label="Delete"
-                                        t-on-click.stop="() => this.removeField(field)">
-                                    <i class="fa fa-trash-o" aria-hidden="true"/>
-                                </button>
-                            </div>
-                            <span t-if="field.type !== 'section'" class="o_af_resize" title="Drag to change the width"
-                                  t-on-pointerdown="(ev) => this.onResizePointerDown(field, ev)"/>
+                            <input t-if="isSelected" type="text" class="o_af_title_input" aria-label="Label"
+                                   t-att-value="field.name" t-on-input="(ev) => this.setProp(field, 'name', ev.target.value)"/>
+                            <span t-else="" class="o_af_card_title" t-out="field.name"/>
+                            <span t-if="field.required" class="text-danger" aria-label="Required">*</span>
                         </div>
+                        <t t-call="angels_forms.FieldMock"/>
+                        <div class="o_af_card_meta">
+                            <span t-if="stage" t-attf-class="o_af_stage o_af_stage_#{stage.color % 12}">
+                                <i class="fa fa-pencil me-1" aria-hidden="true"/><t t-out="stage.name"/>
+                            </span>
+                            <span t-if="this.data.form.title_field_id === field.id" class="o_af_badge">
+                                <i class="fa fa-tag me-1" aria-hidden="true"/>Title
+                            </span>
+                            <span t-if="field.conditions.length" class="o_af_badge o_af_badge_condition"
+                                  t-att-title="this.conditionsText(field)">
+                                <i class="fa fa-code-fork me-1" aria-hidden="true"/>
+                                <t t-out="this.conditionsText(field)"/>
+                            </span>
+                            <span t-if="this.brokenConditions(field).length" class="o_af_badge o_af_badge_warning">
+                                <i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>Check the conditions
+                            </span>
+                        </div>
+                        <span t-if="field.type !== 'section'" class="o_af_resize" title="Drag to change the width"
+                              t-on-pointerdown="(ev) => this.onResizePointerDown(field, ev)"/>
                     </div>
-                    <div t-if="this.state.drop and this.state.drop.id === 'end'" class="o_af_drop_end"/>
+                    <div t-if="this.state.target" t-attf-class="o_af_target #{this.state.target.insert ? 'o_af_target_line' : ''}"
+                         t-att-style="this.targetStyle"/>
+                    <div t-if="this.state.dragging" class="o_af_end_row"
+                         t-att-style="this.endRowStyle">
+                        <i class="fa fa-plus me-1" aria-hidden="true"/>New row
+                    </div>
                 </div>
                 <p t-if="this.fields.length" class="o_af_shortcuts">
-                    Drag a question next to another one to share the row, or stretch its right edge.
-                    Shortcuts: Delete, Ctrl+D to duplicate, Alt+↑ / Alt+↓ to move.
+                    Drop a question beside another one to share the row, between rows for a new row, or leave
+                    empty columns. Stretch its right edge to resize it. Keys: arrows to move, Delete, Ctrl+D to duplicate.
                 </p>
+            </div>
+
+            <div t-else="" class="o_af_test">
+                <div class="o_af_fill_card">
+                    <div class="o_af_fill_header">
+                        <span class="o_af_fill_icon">
+                            <i t-attf-class="fa fa-fw #{this.data.form.icon or 'fa-file-text-o'}" aria-hidden="true"/>
+                        </span>
+                        <div>
+                            <h2 class="mb-1" t-out="this.data.form.name"/>
+                            <p t-if="this.data.form.description" class="text-muted mb-0" t-out="this.data.form.description"/>
+                        </div>
+                    </div>
+                    <FormRenderer t-key="this.state.previewKey" fields="this.previewFields" values="this.preview"/>
+                </div>
             </div>
         </main>
 
@@ -190,8 +247,8 @@
                         <div class="btn-group btn-group-sm o_af_widths" role="group" aria-label="Width">
                             <t t-foreach="this.widthKeys" t-as="width" t-key="width">
                                 <button type="button" t-att-class="'btn ' + (field.width === width ? 'btn-primary' : 'btn-secondary')"
-                                        t-on-click="() => this.setProp(field, 'width', width)"
-                                        t-out="width === 'full' ? '1' : this.labels.widths[width]"/>
+                                        t-on-click="() => this.setWidth(field, width)"
+                                        t-out="this.widthLabel(width)"/>
                             </t>
                         </div>
                     </div>
@@ -235,7 +292,7 @@
                     </button>
                 </t>
 
-                <h6 class="mt-4">Show only if</h6>
+                <h6 class="mt-4 o_af_conditions_anchor">Show only if</h6>
                 <div t-if="this.brokenConditions(field).length" class="alert alert-warning small py-2">
                     A condition uses a question that is now placed after this one. Change or remove it.
                 </div>
@@ -251,33 +308,23 @@
         </aside>
     </t>
 
-    <!-- Preview tab -->
-    <t t-name="angels_forms.DesignerPreview">
-        <div class="o_af_fill_scroll">
-            <div class="o_af_fill_card">
-                <div class="alert alert-info small py-2 d-flex flex-wrap align-items-center gap-2">
-                    <span><i class="fa fa-eye me-1" aria-hidden="true"/>Preview: try the conditions. Nothing is saved.</span>
-                    <label class="ms-auto" for="o_af_preview_as">As</label>
-                    <select id="o_af_preview_as" class="form-select form-select-sm w-auto"
-                            t-on-change="(ev) => this.setPreviewAs(ev.target.value)">
-                        <option value="requester" t-att-selected="this.state.previewAs === 'requester'">The requester</option>
-                        <t t-foreach="this.stages" t-as="stage" t-key="stage.id">
-                            <option t-att-value="stage.id" t-att-selected="this.isPreviewAs(stage)"
-                                    t-out="stage.name"/>
-                        </t>
-                    </select>
-                </div>
-                <div class="o_af_fill_header">
-                    <span class="o_af_fill_icon">
-                        <i t-attf-class="fa fa-fw #{this.data.form.icon or 'fa-file-text-o'}" aria-hidden="true"/>
-                    </span>
-                    <div>
-                        <h2 class="mb-1" t-out="this.data.form.name"/>
-                        <p t-if="this.data.form.description" class="text-muted mb-0" t-out="this.data.form.description"/>
-                    </div>
-                </div>
-                <FormRenderer t-key="this.state.previewKey" fields="this.previewFields" values="this.preview"/>
+    <!-- How a question will look, drawn on its card in the designer -->
+    <t t-name="angels_forms.FieldMock">
+        <t t-set="kind" t-value="this.mockKind(field)"/>
+        <div t-if="kind" class="o_af_mock" aria-hidden="true">
+            <div t-if="kind === 'input' or kind === 'select'" class="o_af_mock_input">
+                <span t-out="this.mockHint(field)"/>
+                <i t-attf-class="fa #{kind === 'select' ? 'fa-caret-down' : this.fieldIcon(field)}"/>
             </div>
+            <div t-elif="kind === 'area'" class="o_af_mock_input o_af_mock_area">
+                <span t-out="field.placeholder"/>
+            </div>
+            <div t-elif="kind === 'switch'" class="o_af_mock_switch"><span class="o_af_mock_toggle"/><span>Yes / No</span></div>
+            <div t-elif="kind === 'choices'" class="o_af_mock_choices">
+                <span t-foreach="field.options" t-as="option" t-key="option_index" t-out="option"/>
+            </div>
+            <div t-elif="kind === 'file'" class="o_af_mock_file"><i class="fa fa-paperclip me-1"/>Add files</div>
+            <div t-if="field.help" class="o_af_mock_help" t-out="field.help"/>
         </div>
     </t>
 

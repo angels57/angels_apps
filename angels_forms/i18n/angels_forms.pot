@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 01:31+0000\n"
-"PO-Revision-Date: 2026-10-22 01:31+0000\n"
+"POT-Creation-Date: 2026-10-22 23:42+0000\n"
+"PO-Revision-Date: 2026-10-22 23:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -265,6 +265,7 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Add files"
 msgstr ""
 
@@ -542,13 +543,37 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Choose"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Choose a contact"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
 msgid "Choose a question"
 msgstr ""
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Choose a user"
+msgstr ""
+
+#. module: angels_forms
 #: model:angels.form.field,placeholder:angels_forms.travel_destination
 msgid "City and country"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Clear Answers"
 msgstr ""
 
 #. module: angels_forms
@@ -574,6 +599,11 @@ msgstr ""
 #. module: angels_forms
 #: model:ir.model.fields,help:angels_forms.field_angels_form_node__color
 msgid "Color of the step and of the questions it fills."
+msgstr ""
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__col
+msgid "Column"
 msgstr ""
 
 #. module: angels_forms
@@ -675,6 +705,8 @@ msgid "Current Step Type"
 msgstr ""
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__date
 msgid "Date"
 msgstr ""
@@ -682,6 +714,12 @@ msgstr ""
 #. module: angels_forms
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__datetime
 msgid "Date and Time"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Date and time"
 msgstr ""
 
 #. module: angels_forms
@@ -721,6 +759,12 @@ msgstr ""
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__description
 msgid "Description"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Design"
 msgstr ""
 
 #. module: angels_forms
@@ -788,14 +832,6 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
-msgid ""
-"Drag a question next to another one to share the row, or stretch its right edge.\n"
-"                    Shortcuts: Delete, Ctrl+D to duplicate, Alt+↑ / Alt+↓ to move."
-msgstr ""
-
-#. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Drag a question type here, or click it in the palette."
 msgstr ""
 
@@ -815,7 +851,21 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Drag questions anywhere on the grid."
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Drag to change the width"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid ""
+"Drop a question beside another one to share the row, between rows for a new row, or leave\n"
+"                    empty columns. Stretch its right edge to resize it. Keys: arrows to move, Delete, Ctrl+D to duplicate."
 msgstr ""
 
 #. module: angels_forms
@@ -1253,6 +1303,12 @@ msgid "Missing question"
 msgstr ""
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Mode"
+msgstr ""
+
+#. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
@@ -1287,6 +1343,12 @@ msgstr ""
 #: model:ir.actions.act_window,name:angels_forms.action_form_catalog
 #: model:ir.ui.menu,name:angels_forms.menu_forms_new
 msgid "New Request"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "New row"
 msgstr ""
 
 #. module: angels_forms
@@ -1525,18 +1587,6 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
-msgid "Preview"
-msgstr ""
-
-#. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
-msgid "Preview: try the conditions. Nothing is saved."
-msgstr ""
-
-#. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 msgid "Publish"
 msgstr ""
@@ -1562,6 +1612,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__field_id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__source_field_id
 msgid "Question"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Question options"
 msgstr ""
 
 #. module: angels_forms
@@ -1732,6 +1788,11 @@ msgid "Review Request"
 msgstr ""
 
 #. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__row
+msgid "Row"
+msgstr ""
+
+#. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__approval_rule
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__approval_rule
 msgid "Rule"
@@ -1897,6 +1958,12 @@ msgstr ""
 #. module: angels_forms
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 msgid "Tell users what this form is for"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Test"
 msgstr ""
 
 #. module: angels_forms
@@ -2120,6 +2187,12 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Try the conditions. Nothing is saved."
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__field_type
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__field_type
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__node_type
@@ -2259,6 +2332,12 @@ msgstr ""
 #: code:addons/angels_forms/models/form_answer.py:0
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 msgid "Yes"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Yes / No"
 msgstr ""
 
 #. module: angels_forms

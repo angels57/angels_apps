@@ -67,6 +67,20 @@ class TestDesigner(FormCase):
         self.assertFalse(notes.node_id)
         self.assertFalse(nodes["Long?"].yes_id)
 
+    def test_grid_places_are_saved(self):
+        data = self.form.get_design_data()
+        data["fields"] = [
+            {"id": "new_1", "name": "A", "type": "char", "width": "half", "row": 0, "col": 6,
+             "match": "all", "conditions": []},
+            {"id": "new_2", "name": "B", "type": "char", "width": "quarter", "row": 1, "col": 40,
+             "match": "all", "conditions": []},
+        ]
+        result = self.form.save_design(data)
+        a, b = self.form.field_ids
+        self.assertEqual((a.row, a.col, a.width), (0, 6, "half"))
+        self.assertEqual((b.row, b.col), (1, 11), "the column stays on the grid")
+        self.assertEqual((result["fields"][0]["row"], result["fields"][0]["col"]), (0, 6))
+
     def test_switch_recipients(self):
         data = self.travel.with_user(self.finance).get_design_data()
         manager = next(n for n in data["nodes"] if n["name"] == "Manager Approval")

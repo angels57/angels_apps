@@ -3,11 +3,10 @@ import { _t } from "@web/core/l10n/translation";
 import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
 import { RecordSelector } from "@web/core/record_selectors/record_selector";
 import { visibleFieldIds } from "./conditions";
+import { layoutItems, spanOf } from "./layout";
 import { useProps, useState } from "./owl_compat";
 
 const { DateTime } = luxon;
-// Bootstrap columns of each width (angels.form.field.width).
-export const WIDTH_COLS = { quarter: 3, third: 4, half: 6, two_thirds: 8, three_quarters: 9, full: 12 };
 const RADIO_LIMIT = 4;
 const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
@@ -28,16 +27,18 @@ export class FormRenderer extends Component {
         this.uid = Math.random().toString(36).slice(2, 8);
     }
 
-    get visibleFields() {
+    /** Visible questions, placed on the grid (rows, gaps). */
+    get items() {
         const visible = visibleFieldIds(this.fields, this.values);
-        return this.fields.filter((f) => visible.has(String(f.id)));
+        return layoutItems(this.fields.filter((f) => visible.has(String(f.id))));
     }
 
     key(field) {
         return String(field.id);
     }
-    colClass(field) {
-        return `col-12 col-md-${WIDTH_COLS[field.width] || 12} o_af_question`;
+    colClass(item) {
+        const offset = item.offset ? ` offset-md-${item.offset}` : "";
+        return `col-12 col-md-${spanOf(item.field)}${offset} o_af_question`;
     }
     /** Read-only: the whole form, or a question another step fills. */
     isDisabled(field) {
