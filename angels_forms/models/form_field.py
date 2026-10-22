@@ -46,6 +46,9 @@ class AngelsFormField(models.Model):
     # Not translated: conditions compare answers with these exact words.
     options = fields.Text(help="Choices of a choice list, one per line.")
     width = fields.Selection(WIDTHS, required=True, default="full")
+    # Place on the 12-column grid of the designer; questions of a row share it.
+    row = fields.Integer()
+    col = fields.Integer(string="Column")
     node_id = fields.Many2one(
         "angels.form.node",
         string="Filled By",
@@ -134,6 +137,8 @@ class AngelsFormField(models.Model):
             "placeholder": self.placeholder or "",
             "options": self._option_list(),
             "width": self.width,
+            "row": self.row,
+            "col": self.col,
             "node_id": self.node_id.id,
             "match": self.condition_match,
             "conditions": [condition._to_client() for condition in self.condition_ids],

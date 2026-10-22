@@ -311,6 +311,8 @@ class AngelsForm(models.Model):
                 "condition_match": item.get("match") or "all",
                 "options": "\n".join(item.get("options") or []),
                 "sequence": (index + 1) * 10,
+                "row": max(0, int(item.get("row") or 0)),
+                "col": min(11, max(0, int(item.get("col") or 0))),
                 "node_id": nodes_by_client_id.get(item.get("node_id"), Node).id,
             })
             field = current_fields.filtered(lambda f, cid=item.get("id"): f.id == cid)

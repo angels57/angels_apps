@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 01:31+0000\n"
-"PO-Revision-Date: 2026-10-22 01:31+0000\n"
+"POT-Creation-Date: 2026-10-22 23:42+0000\n"
+"PO-Revision-Date: 2026-10-22 23:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -275,6 +275,7 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Add files"
 msgstr "Añadir archivos"
 
@@ -558,14 +559,38 @@ msgstr "Opciones de una lista, una por línea."
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Choose"
+msgstr "Elegir"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Choose a contact"
+msgstr "Elige un contacto"
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
 msgid "Choose a question"
 msgstr "Elige una pregunta"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Choose a user"
+msgstr "Elige un usuario"
+
+#. module: angels_forms
 #: model:angels.form.field,placeholder:angels_forms.travel_destination
 msgid "City and country"
 msgstr "Ciudad y país"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Clear Answers"
+msgstr "Borrar respuestas"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -591,6 +616,11 @@ msgstr "Color"
 #: model:ir.model.fields,help:angels_forms.field_angels_form_node__color
 msgid "Color of the step and of the questions it fills."
 msgstr "Color del paso y de las preguntas que rellena."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__col
+msgid "Column"
+msgstr "Columna"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__comment
@@ -691,6 +721,8 @@ msgid "Current Step Type"
 msgstr "Tipo del paso actual"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__date
 msgid "Date"
 msgstr "Fecha"
@@ -698,6 +730,12 @@ msgstr "Fecha"
 #. module: angels_forms
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__datetime
 msgid "Date and Time"
+msgstr "Fecha y hora"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Date and time"
 msgstr "Fecha y hora"
 
 #. module: angels_forms
@@ -738,6 +776,12 @@ msgstr "Ida"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__description
 msgid "Description"
 msgstr "Descripción"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Design"
+msgstr "Diseñar"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -804,16 +848,6 @@ msgstr "Borradores"
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
-msgid ""
-"Drag a question next to another one to share the row, or stretch its right edge.\n"
-"                    Shortcuts: Delete, Ctrl+D to duplicate, Alt+↑ / Alt+↓ to move."
-msgstr ""
-"Arrastra una pregunta junto a otra para compartir la fila, o estira su borde derecho.\n"
-"                    Atajos: Supr, Ctrl+D para duplicar, Alt+↑ / Alt+↓ para mover."
-
-#. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Drag a question type here, or click it in the palette."
 msgstr "Arrastra aquí un tipo de pregunta o haz clic en él en la paleta."
 
@@ -835,8 +869,24 @@ msgstr "Arrastra desde un punto de salida hasta el siguiente paso."
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Drag questions anywhere on the grid."
+msgstr "Arrastra las preguntas a cualquier lugar de la cuadrícula."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Drag to change the width"
 msgstr "Arrastra para cambiar el ancho"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid ""
+"Drop a question beside another one to share the row, between rows for a new row, or leave\n"
+"                    empty columns. Stretch its right edge to resize it. Keys: arrows to move, Delete, Ctrl+D to duplicate."
+msgstr ""
+"Suelta una pregunta junto a otra para compartir la fila, entre filas para crear una fila nueva, o deja\n"
+"                    columnas vacías. Estira su borde derecho para cambiar el ancho. Teclas: flechas para mover, Supr, Ctrl+D para duplicar."
 
 #. module: angels_forms
 #. odoo-javascript
@@ -1281,6 +1331,12 @@ msgid "Missing question"
 msgstr "Pregunta eliminada"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Mode"
+msgstr "Modo"
+
+#. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Fecha límite de mi actividad"
@@ -1316,6 +1372,12 @@ msgstr "Cerca de la oficina, con desayuno..."
 #: model:ir.ui.menu,name:angels_forms.menu_forms_new
 msgid "New Request"
 msgstr "Nueva solicitud"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "New row"
+msgstr "Fila nueva"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_date_deadline
@@ -1553,18 +1615,6 @@ msgstr "Posición Y"
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
-msgid "Preview"
-msgstr "Vista previa"
-
-#. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
-msgid "Preview: try the conditions. Nothing is saved."
-msgstr "Vista previa: prueba las condiciones. No se guarda nada."
-
-#. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 msgid "Publish"
 msgstr "Publicar"
@@ -1591,6 +1641,12 @@ msgstr "Los formularios publicados aparecen en Nueva solicitud."
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__source_field_id
 msgid "Question"
 msgstr "Pregunta"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Question options"
+msgstr "Opciones de la pregunta"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -1758,6 +1814,11 @@ msgstr "Revisar %(request)s"
 #: model:mail.activity.type,name:angels_forms.mail_activity_form_review
 msgid "Review Request"
 msgstr "Revisar solicitud"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__row
+msgid "Row"
+msgstr "Fila"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__approval_rule
@@ -1934,6 +1995,12 @@ msgstr "Tarea"
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 msgid "Tell users what this form is for"
 msgstr "Explica a los usuarios para qué sirve este formulario"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Test"
+msgstr "Probar"
 
 #. module: angels_forms
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__char
@@ -2162,6 +2229,12 @@ msgstr "Tipo de viaje"
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Try the conditions. Nothing is saved."
+msgstr "Prueba las condiciones. No se guarda nada."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__field_type
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__field_type
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__node_type
@@ -2302,6 +2375,12 @@ msgstr "Ancho"
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 msgid "Yes"
 msgstr "Sí"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Yes / No"
+msgstr "Sí / No"
 
 #. module: angels_forms
 #. odoo-python

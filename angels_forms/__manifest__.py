@@ -1,6 +1,6 @@
 {
     "name": "Angels Forms - Forms and Flows",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.2.0",
     "summary": "Request forms with conditional fields and a visual approval flow",
     "description": """
 Angels Forms - Forms and Flows for Odoo 19
@@ -12,9 +12,10 @@ the request goes to. Example included: a travel request.
 
 Features:
 ---------
-* Visual designer: palette of question types, drag a question next to another
-  one to share the row, stretch its edge to change the width (1/4 to full),
-  live preview as the requester or as any step
+* Visual designer: drag questions anywhere on a 12-column grid, stretch their
+  edge to change the width (1/4 to full), edit them in place with the toolbar
+  on the question, and switch the same view to a live preview (as the
+  requester or as any step)
 * Field types: section, text, long text, number, date, date and time,
   checkbox, choice list, user, contact and file
 * Conditional fields and sections ("show only if ...")
