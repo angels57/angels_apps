@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 01:24+0000\n"
-"PO-Revision-Date: 2026-10-23 01:24+0000\n"
+"POT-Creation-Date: 2026-10-23 09:50+0000\n"
+"PO-Revision-Date: 2026-10-23 09:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -129,6 +129,12 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "%s pending"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/common/form_renderer.xml:0
 msgid "(optional)"
 msgstr ""
@@ -137,6 +143,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/record_editor.xml:0
 msgid "+ Answer..."
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "1 pending"
 msgstr ""
 
 #. module: angels_forms
@@ -181,6 +193,12 @@ msgstr ""
 msgid ""
 "A condition uses a question that is now placed after this one. Change or "
 "remove it."
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+msgid "A field has no question"
 msgstr ""
 
 #. module: angels_forms
@@ -334,7 +352,7 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
 msgid "All of them"
 msgstr ""
 
@@ -414,7 +432,7 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
 msgid "Any of them"
 msgstr ""
 
@@ -452,7 +470,6 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
-#: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
 #: model:angels.form.node,name:angels_forms.travel_node_end
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__end_state__approved
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__approved
@@ -516,6 +533,12 @@ msgstr ""
 #: model:angels.form.node,name:angels_forms.travel_node_back
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__node_type__back
 msgid "Back to Requester"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Before saving"
 msgstr ""
 
 #. module: angels_forms
@@ -1087,7 +1110,7 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__approval_rule__all
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__approval_rule__all
 msgid "Everyone must approve"
@@ -1307,6 +1330,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/angels_forms/models/form_step.py:0
 msgid "Give a reason for the rejection."
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Go"
 msgstr ""
 
 #. module: angels_forms
@@ -1570,7 +1599,7 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__assign_type__group
 msgid "Members of a group"
 msgstr ""
@@ -1617,6 +1646,12 @@ msgstr ""
 #. module: angels_forms
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__multi
 msgid "Multiple Choice"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+msgid "Must fill: %s"
 msgstr ""
 
 #. module: angels_forms
@@ -1732,6 +1767,12 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "No name"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
 msgid "No question can be used here yet."
 msgstr ""
@@ -1739,6 +1780,7 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
 msgid "No record type yet"
 msgstr ""
 
@@ -1757,6 +1799,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/angels_forms/models/form_submission.py:0
 msgid "Nobody can do the step %(step)s."
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Nobody to send to"
 msgstr ""
 
 #. module: angels_forms
@@ -1842,7 +1890,7 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__approval_rule__any
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__approval_rule__any
 msgid "One person is enough"
@@ -2111,7 +2159,6 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
-#: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__end_state__rejected
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__rejected
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_submission__state__rejected
@@ -2398,7 +2445,7 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__assign_type__users
 msgid "Specific users"
 msgstr ""
@@ -2861,6 +2908,12 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+msgid "Unknown {%s}"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 msgid "Unpublish"
@@ -2890,7 +2943,7 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__assign_type__field
 msgid "User chosen in the form"
 msgstr ""

@@ -1675,3 +1675,130 @@
     border-color: var(--af-brand);
     box-shadow: 0 0 0 3px var(--af-brand-soft);
 }
+
+/* A step that blocks saving: red ring, a count badge, and the reason instead of the summary. */
+.o_af_node.o_af_node_invalid {
+    border-color: color-mix(in srgb, var(--danger) 45%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 14%, transparent);
+}
+
+.o_af_node.o_af_node_invalid.o_af_selected {
+    border-color: var(--danger);
+}
+
+.o_af_node_badge {
+    position: absolute;
+    top: -0.55rem;
+    right: -0.55rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.3rem;
+    height: 1.3rem;
+    padding: 0 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--danger);
+    border-radius: 1rem;
+    box-shadow: 0 0 0 2px var(--body-bg);
+}
+
+.o_af_node_summary.o_af_node_problem {
+    font-weight: 500;
+    color: var(--danger);
+}
+
+/* Pending items, next to Save: a red pill that opens the list. */
+.o_af_pending {
+    position: relative;
+}
+
+.o_af_pending_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--danger);
+    background: color-mix(in srgb, var(--danger) 9%, var(--body-bg));
+    border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent);
+    border-radius: 999px;
+}
+
+.o_af_pending_btn:hover {
+    background: color-mix(in srgb, var(--danger) 14%, var(--body-bg));
+}
+
+.o_af_pending_backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+}
+
+.o_af_pending_list {
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    right: 0;
+    z-index: 21;
+    width: min(22rem, calc(100vw - 2rem));
+    max-height: 60vh;
+    overflow: auto;
+    padding: 0.35rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--af-radius) + 4px);
+    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.14);
+}
+
+.o_af_pending_list h6 {
+    margin: 0.4rem 0.5rem 0.3rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+}
+
+.o_af_pending_item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.82rem;
+    text-align: left;
+    color: var(--body-color);
+    background: transparent;
+    border: 0;
+    border-radius: var(--af-radius);
+}
+
+.o_af_pending_item:hover,
+.o_af_pending_item:focus-visible {
+    outline: 0;
+    background: var(--af-brand-soft);
+}
+
+.o_af_pending_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 1.7rem;
+    height: 1.7rem;
+    color: var(--danger);
+    background: color-mix(in srgb, var(--danger) 10%, transparent);
+    border-radius: 0.45rem;
+}
+
+.o_af_pending_text {
+    flex: 1;
+    min-width: 0;
+}
+
+.o_af_pending_go {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    color: var(--af-brand);
+}

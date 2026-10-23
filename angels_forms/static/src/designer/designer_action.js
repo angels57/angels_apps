@@ -18,7 +18,7 @@ import {
 } from "../common/layout";
 import { useProps, useState } from "../common/owl_compat";
 import { ConditionEditor } from "./condition_editor";
-import { FlowEditor, STAGE_TYPES } from "./flow_editor";
+import { FlowEditor, NODE_ICONS, STAGE_TYPES } from "./flow_editor";
 import { recordProblems } from "./record_editor";
 import { IconPicker } from "./icon_picker";
 import { startPointerDrag } from "./pointer_drag";
@@ -77,6 +77,8 @@ export class FormDesignerAction extends Component {
             restrictGroups: false,
             previewAs: "requester",
             version: 0,
+            pendingOpen: false,
+            focusNodeId: false,
             previewKey: 0,
             names: { "res.users": {}, "res.groups": {} },
         });
@@ -789,25 +791,31 @@ export class FormDesignerAction extends Component {
     // Saving
     // ------------------------------------------------------------------
 
+    /**
+     * What blocks saving, as {text, short, tab, nodeId | fieldId}: the full sentence for the
+     * notification and the list of pending items, the short one for the step on the diagram.
+     */
     problems() {
         const problems = [];
         if (!this.data.form.name.trim()) {
-            problems.push(_t("The form needs a name."));
+            problems.push({ text: _t("The form needs a name."), tab: "settings" });
         }
         for (const field of this.fields) {
+            const add = (text) => problems.push({ text, tab: "fields", fieldId: field.id });
             if (!field.name.trim()) {
-                problems.push(_t("A question has no label."));
+                add(_t("A question has no label."));
             }
             if (["selection", "multi"].includes(field.type) && !field.options.some((o) => o.trim())) {
-                problems.push(_t("“%s” needs at least one choice.", field.name));
+                add(_t("“%s” needs at least one choice.", field.name));
             }
             if (this.brokenConditions(field).length) {
-                problems.push(_t("“%s” depends on a question placed after it.", field.name));
+                add(_t("“%s” depends on a question placed after it.", field.name));
             }
         }
         for (const node of this.nodes) {
+            const add = (problem) => problems.push({ ...problem, tab: "flow", nodeId: node.id });
             if (!node.name.trim()) {
-                problems.push(_t("A step of the flow has no name."));
+                add({ text: _t("A step of the flow has no name."), short: _t("No name") });
             }
             const people = ["approve", "task", "notify"].includes(node.type);
             const missing =
@@ -815,19 +823,56 @@ export class FormDesignerAction extends Component {
                 (node.assign_type === "group" && !node.group_id) ||
                 (node.assign_type === "field" && !node.user_field_id);
             if (people && missing) {
-                problems.push(_t("The step “%s” has nobody to send to.", node.name));
+                add({ text: _t("The step “%s” has nobody to send to.", node.name), short: _t("Nobody to send to") });
             }
             if (node.type === "record") {
-                problems.push(...recordProblems(node, this.fields.filter((f) => f.type !== "section")));
+                recordProblems(node, this.fields.filter((f) => f.type !== "section")).forEach(add);
             }
         }
         return problems;
+    }
+    /** Problems of each step of the flow, by step id, for the diagram. */
+    get nodeProblems() {
+        const byNode = {};
+        for (const problem of this.problems()) {
+            if (problem.nodeId) {
+                (byNode[problem.nodeId] ||= []).push(problem);
+            }
+        }
+        return byNode;
+    }
+    pendingLabel(problems) {
+        return problems.length === 1 ? _t("1 pending") : _t("%s pending", problems.length);
+    }
+    problemIcon(problem) {
+        if (problem.nodeId) {
+            return NODE_ICONS[this.nodes.find((n) => n.id === problem.nodeId)?.type] || "fa-code-fork";
+        }
+        return problem.fieldId ? "fa-list-alt" : "fa-sliders";
+    }
+    clearFocus() {
+        this.state.focusNodeId = false;
+    }
+    togglePending() {
+        this.state.pendingOpen = !this.state.pendingOpen;
+    }
+    /** Open the tab of a pending item and select its question or step. */
+    goToProblem(problem) {
+        this.state.pendingOpen = false;
+        if (problem.nodeId) {
+            this.state.focusNodeId = problem.nodeId;
+            this.state.version = (this.state.version || 0) + 1;
+        } else if (problem.fieldId) {
+            this.state.selectedId = problem.fieldId;
+        }
+        this.setTab(problem.tab);
     }
 
     async save() {
         const problems = this.problems();
         if (problems.length) {
-            this.notification.add(problems.join(" "), { type: "danger", title: _t("Cannot save yet") });
+            this.notification.add(problems.map((p) => p.text).join(" "), { type: "danger", title: _t("Cannot save yet") });
+            this.state.pendingOpen = true;
             return false;
         }
         this.state.saving = true;

@@ -79,7 +79,14 @@
                             <i class="fa fa-pencil me-1" aria-hidden="true"/><t t-out="this.stageFields(node).length"/>
                         </span>
                     </div>
-                    <div class="o_af_node_summary" t-out="this.summary(node)"/>
+                    <t t-set="nodeProblems" t-value="this.problemsOf(node)"/>
+                    <t t-if="nodeProblems.length">
+                        <span class="o_af_node_badge" t-att-title="this.problemsText(node)" t-out="nodeProblems.length"/>
+                        <div class="o_af_node_summary o_af_node_problem" t-att-title="this.problemsText(node)">
+                            <i class="fa fa-exclamation-circle me-1" aria-hidden="true"/><t t-out="nodeProblems[0].short"/>
+                        </div>
+                    </t>
+                    <div t-else="" class="o_af_node_summary" t-out="this.summary(node)"/>
                     <t t-foreach="this.ports(node)" t-as="port" t-key="port.port">
                         <span t-attf-class="o_af_port o_af_port_#{port.port} #{port.linked ? 'o_af_port_linked' : ''}"
                               t-attf-style="top: {{port.top}}px;" t-att-title="port.label"

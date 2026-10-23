@@ -9,7 +9,7 @@ import { RecordEditor } from "./record_editor";
 
 export const STAGE_TYPES = ["approve", "task"];
 const PEOPLE_TYPES = ["approve", "task", "notify"];
-const NODE_ICONS = {
+export const NODE_ICONS = {
     start: "fa-play",
     condition: "fa-code-fork",
     approve: "fa-check-circle",
@@ -42,17 +42,25 @@ export class FlowEditor extends Component {
     static components = { ConditionEditor, MultiRecordSelector, RecordEditor, RecordSelector };
 
     setup() {
-        // nodes, fields, labels, ports, operatorsByType, names, loadNames, conditionsText, onChange
+        // nodes, fields, labels, ports, operatorsByType, names, loadNames, conditionsText, onChange,
+        // problems (by step id), focusNodeId (step to select when opened), onFocused
         this.props = useProps();
         this.nodes = useState(this.props.nodes);
         this.fields = useState(this.props.fields);
         this.names = useState(this.props.names);
-        this.state = useState({ selectedId: false, link: null, connecting: null, guides: [], zoom: 1 });
+        this.state = useState({ selectedId: this.props.focusNodeId || false, link: null, connecting: null, guides: [], zoom: 1 });
         this.board = useRef("board");
         this.scroller = useRef("scroller");
         this.newId = 0;
         useExternalListener(window, "keydown", (ev) => this.onKeyDown(ev));
-        onMounted(() => this.fit());
+        onMounted(() => {
+            this.fit();
+            if (this.props.focusNodeId) {
+                this.board.el.querySelector(`[data-node-id="${this.props.focusNodeId}"]`)
+                    ?.scrollIntoView({ block: "center", inline: "center" });
+                this.props.onFocused();
+            }
+        });
     }
 
     // ------------------------------------------------------------------
@@ -126,8 +134,15 @@ export class FlowEditor extends Component {
             [`o_af_node_${node.end_state}`]: node.type === "end",
             [`o_af_stage_${(node.color || 0) % 12}`]: people,
             o_af_selected: node.id === this.state.selectedId,
+            o_af_node_invalid: this.problemsOf(node).length > 0,
             o_af_node_target: this.state.connecting && node.type !== "start",
         };
+    }
+    problemsOf(node) {
+        return this.props.problems?.[node.id] || [];
+    }
+    problemsText(node) {
+        return this.problemsOf(node).map((p) => p.text).join("\n");
     }
     icon(node) {
         return NODE_ICONS[node.type];
