@@ -19,8 +19,10 @@ Features:
   of chosen fields, every N hours / days / weeks / months, or around a date
   field; only on the records that match a filter, once per record or again
 * Steps: condition on the fields of the record with yes / no, approval, task,
-  notification, wait (hours or days), end; other modules add their own
-  (Angels Forms adds Create Record)
+  notification, wait (hours or days), update record (fixed values, today + N
+  days, who started the run, empty), run an action (a button of the record
+  or a server action), end; other modules add their own (Angels Forms adds
+  Create Record, Angels Flow - Sales sends quotations by email)
 * Approvers by user list, by group or by a user field of the record
 * Approvers by user list or by group, "any approver" or "all approvers" rule
 * Activities and chatter messages for every step, self-approval blocked by

@@ -23,7 +23,7 @@ AUTOMATION_TRIGGERS = ("on_create", "on_create_or_write", "on_time")
 INTERVALS = [("hours", "Hours"), ("days", "Days"), ("weeks", "Weeks"), ("months", "Months")]
 # No flow on the models of flows, nor on technical models.
 BLOCKED_PREFIXES = ("angels.flow", "ir.", "base.automation", "mail.", "bus.", "res.groups", "res.users.")
-NODE_KEYS = ("name", "end_state", "assign_type", "approval_rule", "wait_amount", "wait_unit")
+NODE_KEYS = ("name", "end_state", "assign_type", "approval_rule", "wait_amount", "wait_unit", "action_ref")
 
 
 class AngelsFlow(models.Model):
@@ -315,6 +315,14 @@ class AngelsFlow(models.Model):
                 source["options"] = [{"value": key, "label": label} for key, label in selection]
             sources.append(source)
         users = [{"id": s["id"], "name": s["name"]} for s in sources if s["type"] == "user"]
+        update_fields = []
+        for field in self._update_fields():
+            item = {"id": field.id, "name": field.field_description, "type": field.ttype,
+                    "relation": field.relation or False, "required": field.required}
+            if field.ttype == "selection" and field.name in Model._fields:
+                item["options"] = [{"value": key, "label": label}
+                                   for key, label in Model._fields[field.name]._description_selection(self.env)]
+            update_fields.append(item)
         return {
             "flow": {
                 "id": self.id, "name": self.name, "model": self.model_id.name, "trigger": self.trigger,
@@ -324,6 +332,9 @@ class AngelsFlow(models.Model):
             "ports": self.env["angels.flow.node"]._flow_ports(),
             "sources": sources,
             "user_sources": users,
+            "update_fields": update_fields,
+            "action_choices": self._flow_action_choices(),
+            "update_sources": dict(self.env["angels.flow.update"]._fields["source"]._description_selection(self.env)),
             "operators_by_type": OPERATORS_BY_TYPE,
             "labels": {
                 "node_types": dict(self.env["angels.flow.node"]._fields["node_type"]._description_selection(self.env)),
@@ -372,12 +383,19 @@ class AngelsFlow(models.Model):
                                        "value": c.get("value") or False})
                 for c in conditions
             ] if node.node_type == "condition" else [fields.Command.clear()]
+            allowed = {f.id for f in self._update_fields()}
+            vals["update_ids"] = [fields.Command.clear()] + [
+                fields.Command.create({"sequence": index, "field_id": u["field_id"], "source": u.get("source") or "value",
+                                       "value": u.get("value") or False, "days": int(u.get("days") or 0)})
+                for index, u in enumerate(item.get("updates") or []) if u.get("field_id") in allowed
+            ] if node.node_type == "update" else [fields.Command.clear()]
             node.write(vals)
         if len(self.node_ids.filtered(lambda n: n.node_type == "start")) != 1:
             raise ValidationError(_("A flow has exactly one Start."))
         # Every check that waited for the whole flow.
         self.node_ids._check_recipients()
         self.node_ids._check_step_settings()
+        self.node_ids._check_action()
         return self.get_design_data()
 
 

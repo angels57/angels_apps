@@ -9,3 +9,5 @@ access_flow_run_user,angels.flow.run.user,model_angels_flow_run,group_flow_user,
 access_flow_run_manager,angels.flow.run.manager,model_angels_flow_run,group_flow_manager,1,0,0,1
 access_flow_run_step_user,angels.flow.run.step.user,model_angels_flow_run_step,group_flow_user,1,0,0,0
 access_flow_decision_wizard_user,angels.flow.decision.wizard.user,model_angels_flow_decision_wizard,group_flow_user,1,1,1,1
+access_flow_update_user,angels.flow.update.user,model_angels_flow_update,group_flow_user,1,0,0,0
+access_flow_update_manager,angels.flow.update.manager,model_angels_flow_update,group_flow_manager,1,1,1,1

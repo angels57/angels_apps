@@ -157,6 +157,57 @@ class TestFlows(TransactionCase):
         self.assertFalse(flow.automation_id)
         self.assertFalse(automation.exists())
 
+    def test_update_record_and_server_action(self):
+        flow = self.make_flow(trigger="manual", domain="[]")
+        approve = flow.node_ids.filtered(lambda n: n.node_type == "approve")
+        field = self.env["ir.model.fields"]._get
+        server = self.env["ir.actions.server"].create({
+            "name": "Mark as Checked", "model_id": self.partner_model.id, "state": "code",
+            "code": "record.write({'ref': 'CHECKED'})",
+        })
+        choices = {c["key"]: c for c in flow._flow_action_choices()}
+        self.assertIn(f"server:{server.id}", choices)
+        self.assertNotIn(f"server:{flow.action_id.id}", choices, "not the flow's own start action")
+        Node = self.env["angels.flow.node"]
+        action = Node.create({"flow_id": flow.id, "name": "Check", "node_type": "action",
+                              "action_ref": f"server:{server.id}", "next_id": approve.next_id.id})
+        update = Node.create({
+            "flow_id": flow.id, "name": "Fill", "node_type": "update", "next_id": action.id,
+            "update_ids": [
+                fields.Command.create({"field_id": field("res.partner", "comment").id, "value": "Checked by the flow"}),
+                fields.Command.create({"field_id": field("res.partner", "user_id").id, "source": "starter"}),
+                fields.Command.create({"field_id": field("res.partner", "is_company").id, "value": "true"}),
+                fields.Command.create({"field_id": field("res.partner", "website").id, "source": "empty"}),
+            ],
+        })
+        approve.next_id = update
+        partner = self.env["res.partner"].create({"name": "Gil", "website": "https://gil.example.com"})
+        run = flow.with_user(self.seller)._start(partner)
+        run.with_user(self.boss).current_step_id._decide("approve")
+        self.assertEqual(run.state, "approved")
+        self.assertIn("Checked by the flow", partner.comment)
+        self.assertEqual((partner.user_id, partner.is_company, partner.website, partner.ref),
+                         (self.seller, True, False, "CHECKED"))
+        deadline = self.env["angels.flow.update"].new({
+            "field_id": field("mail.activity", "date_deadline").id, "source": "today", "days": 7,
+        })
+        self.assertEqual(deadline._compute_value(run), fields.Date.context_today(run) + timedelta(days=7))
+
+    def test_failing_action_stops_with_the_step_name(self):
+        flow = self.make_flow(trigger="manual", domain="[]")
+        server = self.env["ir.actions.server"].create({
+            "name": "Fail", "model_id": self.partner_model.id, "state": "code",
+            "code": "raise UserError('No way')",
+        })
+        action = self.env["angels.flow.node"].create({"flow_id": flow.id, "name": "Try", "node_type": "action",
+                                                      "action_ref": f"server:{server.id}"})
+        flow._start_node().next_id = action
+        partner = self.env["res.partner"].create({"name": "Hal"})
+        with self.assertRaisesRegex(UserError, "Try could not finish: No way"):
+            flow._start(partner)
+        with self.assertRaises(ValidationError):
+            action.action_ref = "button:unlink"
+
     def test_technical_models_are_refused(self):
         for model in ("ir.config_parameter", "angels.flow.run", "res.users.log"):
             with self.assertRaises(ValidationError, msg=model):

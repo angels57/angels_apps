@@ -40,6 +40,7 @@
                     <t t-set-slot="help">
                         <li>Conditions and “User in a field” read the fields of the record.</li>
                         <li>Wait pauses the run for some hours or days, then it goes on.</li>
+                        <li>Update Record sets fields; Run an Action presses a button of the record.</li>
                     </t>
                     <t t-set-slot="inspector" t-slot-scope="scope">
                         <div t-if="scope.node.type === 'wait'" class="o_af_settings mt-3">
@@ -64,6 +65,30 @@
                                     </span>
                                 </span>
                             </div>
+                        </div>
+                        <UpdateEditor t-if="scope.node.type === 'update'" t-key="scope.node.id" node="scope.node"
+                                      fields="this.data.update_fields" sources="this.data.update_sources"
+                                      onChange="() => this.touch()"/>
+                        <div t-if="scope.node.type === 'action'" class="o_af_settings mt-3">
+                            <div class="o_af_setting">
+                                <i class="fa fa-fw fa-bolt" aria-hidden="true"/>
+                                <span class="o_af_setting_body">
+                                    <small id="o_afl_action">What to do on the record</small>
+                                    <select class="form-select form-select-sm mt-1" aria-labelledby="o_afl_action"
+                                            t-on-change="(ev) => this.setAction(scope.node, ev.target.value)">
+                                        <option value="" t-att-selected="!scope.node.action_ref">Choose an action...</option>
+                                        <optgroup t-foreach="this.actionGroups" t-as="group" t-key="group.group" t-att-label="group.group">
+                                            <option t-foreach="group.choices" t-as="choice" t-key="choice.key"
+                                                    t-att-value="choice.key" t-att-selected="choice.key === scope.node.action_ref"
+                                                    t-out="choice.label"/>
+                                        </optgroup>
+                                    </select>
+                                </span>
+                            </div>
+                            <p class="text-muted small mt-2 mb-0">
+                                It runs with full rights, like an automation rule. A button that opens a window to fill
+                                cannot run by itself.
+                            </p>
                         </div>
                         <p t-if="scope.node.type === 'start'" class="text-muted small mt-3">
                             Every run starts here: by hand, when a record is created or updated, on a schedule or

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_flow.UpdateEditor">
+        <div class="o_afl_updates">
+            <h6 class="mt-4">Set these fields</h6>
+            <p t-if="!this.node.updates.length" class="text-muted small mb-2">No field yet.</p>
+            <div t-foreach="this.node.updates" t-as="update" t-key="update_index" class="o_afl_update">
+                <t t-set="field" t-value="this.fieldOf(update)"/>
+                <div class="o_afl_update_head">
+                    <span class="o_afl_update_field" t-out="field ? field.name : '?'"/>
+                    <button type="button" class="btn btn-link btn-sm ms-auto p-0 text-muted" title="Remove"
+                            aria-label="Remove" t-on-click="() => this.remove(update)">
+                        <i class="fa fa-times" aria-hidden="true"/>
+                    </button>
+                </div>
+                <t t-if="field">
+                    <t t-set="kind" t-value="this.valueKind(field)"/>
+                    <select class="form-select form-select-sm" aria-label="Where the value comes from"
+                            t-on-change="(ev) => this.setSource(update, ev.target.value)">
+                        <option t-foreach="this.sourcesFor(field)" t-as="source" t-key="source.key"
+                                t-att-value="source.key" t-att-selected="update.source === source.key" t-out="source.label"/>
+                    </select>
+                    <div t-if="update.source === 'today'" class="d-flex align-items-center gap-2 mt-1 small">
+                        <span>+</span>
+                        <input type="number" class="form-control form-control-sm o_afl_days" aria-label="Days"
+                               t-att-value="update.days" t-on-change="(ev) => this.setDays(update, ev.target.value)"/>
+                        <span>days</span>
+                    </div>
+                    <div t-elif="update.source === 'value'" class="mt-1">
+                        <div t-if="kind === 'boolean'" class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" t-att-id="'o_afl_update_' + update_index"
+                                   t-att-checked="update.value === 'true'"
+                                   t-on-change="(ev) => this.setValue(update, ev.target.checked ? 'true' : '')"/>
+                            <label class="form-check-label small" t-att-for="'o_afl_update_' + update_index">Yes</label>
+                        </div>
+                        <select t-elif="kind === 'selection'" class="form-select form-select-sm" aria-label="Value"
+                                t-on-change="(ev) => this.setValue(update, ev.target.value)">
+                            <option value="" t-att-selected="!update.value">Choose...</option>
+                            <option t-foreach="field.options" t-as="option" t-key="option.value" t-att-value="option.value"
+                                    t-att-selected="update.value === option.value" t-out="option.label"/>
+                        </select>
+                        <RecordSelector t-elif="kind === 'many2one'" resModel="field.relation"
+                                        resId="this.recordId(update)" update="(id) => this.setValue(update, id)"/>
+                        <input t-else="" class="form-control form-control-sm" aria-label="Value"
+                               t-att-type="kind === 'datetime' ? 'datetime-local' : kind" t-att-value="this.inputValue(update, kind)"
+                               t-on-change="(ev) => this.setInput(update, kind, ev.target.value)"/>
+                    </div>
+                </t>
+            </div>
+            <select t-if="this.state.adding" class="form-select form-select-sm mt-2" aria-label="Field to set"
+                    t-on-change="(ev) => this.add(ev.target.value)">
+                <option value="">Choose a field...</option>
+                <option t-foreach="this.freeFields" t-as="free" t-key="free.id" t-att-value="free.id" t-out="free.name"/>
+            </select>
+            <button t-else="" type="button" class="btn btn-sm btn-link px-0 mt-1" t-on-click="() => this.startAdding()">
+                <i class="fa fa-plus me-1" aria-hidden="true"/>Add a field
+            </button>
+        </div>
+    </t>
+
+</templates>

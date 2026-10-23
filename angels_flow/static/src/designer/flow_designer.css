@@ -87,3 +87,32 @@
     --af-brand-soft: var(--at-brand-soft, var(--primary-bg-subtle));
     --af-radius: var(--at-radius, 0.5rem);
 }
+
+/* Update Record: one card per field, "Field ← its new value". */
+.o_afl_update {
+    padding: 0.5rem 0.6rem;
+    margin-bottom: 0.5rem;
+    background: var(--tertiary-bg);
+    border-left: 3px solid #0f766e;
+    border-radius: 0 0.4rem 0.4rem 0;
+}
+
+.o_afl_update_head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.o_afl_days {
+    width: 4.5rem;
+}
+
+.o_af_node_update { border-left-color: #0f766e; }
+.o_af_node_action { border-left-color: #d97706; }
+.o_af_node_update .o_af_node_kind { color: #0f766e; }
+.o_af_node_action .o_af_node_kind { color: #b45309; }
+.o_af_palette_update i { color: #0f766e; }
+.o_af_palette_action i { color: #d97706; }
+.o_af_palette_wait i { color: #6366f1; }

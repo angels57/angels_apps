@@ -111,6 +111,12 @@ class AngelsFlowRun(models.Model):
                 subtype_xmlid="mail.mt_note",
             )
             return True
+        if node.node_type == "update":
+            node._flow_apply_updates(self)
+            return node.next_id
+        if node.node_type == "action":
+            node._flow_run_action(self)
+            return node.next_id
         return super()._flow_run_node(node, values)
 
     def _flow_start(self, start):

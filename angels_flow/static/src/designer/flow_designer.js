@@ -6,6 +6,7 @@ import { useSetupAction } from "@web/search/action_hook";
 import { useProps, useState } from "../common/owl_compat";
 import { FlowEditor } from "../flow_editor/flow_editor";
 import { nodeTypes } from "../flow_editor/node_types";
+import { UpdateEditor } from "./update_editor";
 
 const PEOPLE_TYPES = ["approve", "task", "notify"];
 
@@ -27,6 +28,43 @@ nodeTypes.add("wait", {
     pills: (node) => [{ icon: "fa-clock-o", text: waitText(node) }],
 });
 
+// Update Record and Action; their summaries need the designer's data, set when it loads.
+const designerData = { updateFields: [], actionChoices: [] };
+
+function updateSummary(node) {
+    const names = node.updates
+        .map((u) => designerData.updateFields.find((f) => f.id === u.field_id)?.name)
+        .filter(Boolean);
+    return names.length ? _t("Sets %s", names.join(", ")) : _t("No field yet");
+}
+function actionLabel(node) {
+    return designerData.actionChoices.find((c) => c.key === node.action_ref)?.label || "";
+}
+
+nodeTypes.add("update", {
+    icon: "fa-pencil-square-o",
+    sequence: 46,
+    palette: true,
+    defaults: { updates: [] },
+    summary: updateSummary,
+    pills: (node) =>
+        node.updates.length
+            ? [{
+                  icon: "fa-pencil",
+                  text: node.updates.length === 1 ? _t("1 field") : _t("%s fields", node.updates.length),
+                  title: updateSummary(node),
+              }]
+            : [],
+});
+nodeTypes.add("action", {
+    icon: "fa-bolt",
+    sequence: 47,
+    palette: true,
+    defaults: { action_ref: false },
+    summary: (node) => actionLabel(node) || _t("No action yet"),
+    pills: (node) => (actionLabel(node) ? [{ icon: "fa-bolt", text: actionLabel(node) }] : []),
+});
+
 /**
  * Designer of a flow on records: the flow editor, with the fields of the
  * flow's model as what conditions test and as users a step can go to.
@@ -34,7 +72,7 @@ nodeTypes.add("wait", {
  */
 export class FlowDesignerAction extends Component {
     static template = "angels_flow.FlowDesignerAction";
-    static components = { FlowEditor };
+    static components = { FlowEditor, UpdateEditor };
 
     setup() {
         this.props = useProps();
@@ -61,6 +99,8 @@ export class FlowDesignerAction extends Component {
         this.setData(await this.orm.call("angels.flow", "get_design_data", [[this.flowId]]));
     }
     setData(data) {
+        designerData.updateFields = data.update_fields;
+        designerData.actionChoices = data.action_choices;
         this.state.data = data;
         this.state.dirty = false;
         // Remounts the flow editor on the saved data.
@@ -104,6 +144,22 @@ export class FlowDesignerAction extends Component {
     clearFocus() {
         this.state.focusNodeId = false;
     }
+    /** Choices of the Action step, by group: [{group, choices}]. */
+    get actionGroups() {
+        const groups = [];
+        for (const choice of this.data.action_choices) {
+            let group = groups.find((g) => g.group === choice.group);
+            if (!group) {
+                groups.push((group = { group: choice.group, choices: [] }));
+            }
+            group.choices.push(choice);
+        }
+        return groups;
+    }
+    setAction(node, key) {
+        node.action_ref = key || false;
+        this.touch();
+    }
     setWait(node, name, value) {
         node[name] = name === "wait_amount" ? Math.max(1, parseInt(value, 10) || 1) : value;
         this.touch();
@@ -146,6 +202,12 @@ export class FlowDesignerAction extends Component {
                 (node.assign_type === "field" && !node.user_field_id);
             if (PEOPLE_TYPES.includes(node.type) && missing) {
                 add(_t("The step “%s” has nobody to send to.", node.name), _t("Nobody to send to"));
+            }
+            if (node.type === "action" && !node.action_ref) {
+                add(_t("The step “%s” needs an action.", node.name), _t("No action yet"));
+            }
+            if (node.type === "update" && !node.updates.length) {
+                add(_t("The step “%s” sets no field.", node.name), _t("No field yet"));
             }
         }
         return problems;
