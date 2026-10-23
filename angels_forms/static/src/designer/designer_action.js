@@ -16,12 +16,13 @@ import {
     spanOf,
     widthFitting,
 } from "../common/layout";
-import { useProps, useState } from "../common/owl_compat";
-import { ConditionEditor } from "./condition_editor";
-import { FlowEditor, NODE_ICONS, STAGE_TYPES } from "./flow_editor";
-import { recordProblems } from "./record_editor";
+import { useProps, useState } from "@angels_flow/common/owl_compat";
+import { startPointerDrag } from "@angels_flow/common/pointer_drag";
+import { ConditionEditor } from "@angels_flow/flow_editor/condition_editor";
+import { FlowEditor } from "@angels_flow/flow_editor/flow_editor";
+import { nodeIcon } from "@angels_flow/flow_editor/node_types";
 import { IconPicker } from "./icon_picker";
-import { startPointerDrag } from "./pointer_drag";
+import { RecordEditor, recordProblems } from "./record_editor";
 
 export const FIELD_ICONS = {
     section: "fa-header",
@@ -37,6 +38,8 @@ export const FIELD_ICONS = {
     partner: "fa-address-book-o",
     file: "fa-paperclip",
 };
+// Kinds of flow step whose people fill questions.
+export const STAGE_TYPES = ["approve", "task"];
 const TITLE_TYPES = ["char", "selection", "date", "partner", "user"];
 const PLACEHOLDER_TYPES = ["char", "text", "number", "selection", "user", "partner"];
 // Space between grid cells, in pixels; kept in sync with .o_af_grid in designer.css.
@@ -54,7 +57,15 @@ const GAP = 12;
  */
 export class FormDesignerAction extends Component {
     static template = "angels_forms.DesignerAction";
-    static components = { ConditionEditor, FlowEditor, FormRenderer, IconPicker, MultiRecordSelector, RecordSelector };
+    static components = {
+        ConditionEditor,
+        FlowEditor,
+        FormRenderer,
+        IconPicker,
+        MultiRecordSelector,
+        RecordEditor,
+        RecordSelector,
+    };
 
     setup() {
         this.props = useProps();
@@ -171,6 +182,30 @@ export class FormDesignerAction extends Component {
     /** Flow steps whose people can fill questions. */
     get stages() {
         return this.nodes.filter((n) => STAGE_TYPES.includes(n.type));
+    }
+    get userQuestions() {
+        return this.fields.filter((f) => f.type === "user");
+    }
+    /** Questions the people of a flow step fill. */
+    stageFields(node) {
+        return this.fields.filter((f) => f.node_id === node.id);
+    }
+    canFill(node) {
+        return STAGE_TYPES.includes(node.type);
+    }
+    /** On a flow step: how many questions its people fill. */
+    nodePills(node) {
+        const fields = this.canFill(node) ? this.stageFields(node) : [];
+        if (!fields.length) {
+            return [];
+        }
+        return [{ icon: "fa-pencil", text: String(fields.length), title: fields.map((f) => f.name).join(", "), stage: true }];
+    }
+    /** A removed flow step: its questions go back to the requester. */
+    releaseStageFields(node) {
+        for (const field of this.stageFields(node)) {
+            field.node_id = false;
+        }
     }
     get widthKeys() {
         return Object.keys(WIDTH_COLS);
@@ -846,7 +881,7 @@ export class FormDesignerAction extends Component {
     }
     problemIcon(problem) {
         if (problem.nodeId) {
-            return NODE_ICONS[this.nodes.find((n) => n.id === problem.nodeId)?.type] || "fa-code-fork";
+            return nodeIcon(this.nodes.find((n) => n.id === problem.nodeId)?.type);
         }
         return problem.fieldId ? "fa-list-alt" : "fa-sliders";
     }

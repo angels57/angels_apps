@@ -1,0 +1,933 @@
+/* Angels Flow: the flow designer. The --af-* tokens follow the Angels theme when it is installed. */
+
+/* Colors of the flow steps, and of the questions each one fills (as in Angels Sign). */
+.o_af_stage_0 { --af-stage: #94a3b8; }
+.o_af_stage_1 { --af-stage: #8b5cf6; }
+.o_af_stage_2 { --af-stage: #10b981; }
+.o_af_stage_3 { --af-stage: #f59e0b; }
+.o_af_stage_4 { --af-stage: #06b6d4; }
+.o_af_stage_5 { --af-stage: #ec4899; }
+.o_af_stage_6 { --af-stage: #f97316; }
+.o_af_stage_7 { --af-stage: #0ea5e9; }
+.o_af_stage_8 { --af-stage: #6366f1; }
+.o_af_stage_9 { --af-stage: #ef4444; }
+.o_af_stage_10 { --af-stage: #84cc16; }
+.o_af_stage_11 { --af-stage: #eab308; }
+
+/* Body: palette | canvas | inspector */
+.o_af_body {
+    flex: 1 1 auto;
+    display: flex;
+    min-height: 0;
+}
+
+.o_af_palette,
+.o_af_inspector {
+    flex: 0 0 15rem;
+    overflow: auto;
+    padding: 1rem;
+    background: var(--body-bg);
+}
+
+.o_af_palette {
+    border-right: 1px solid var(--border-color);
+}
+
+.o_af_inspector {
+    flex-basis: 20rem;
+    border-left: 1px solid var(--border-color);
+}
+
+.o_af_inspector_wide {
+    flex-basis: 22rem;
+}
+
+.o_af_palette h6,
+.o_af_inspector h6 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+}
+
+.o_af_palette_item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.45rem 0.6rem;
+    margin-bottom: 0.3rem;
+    color: inherit;
+    text-align: left;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    cursor: grab;
+}
+
+.o_af_palette_item:hover {
+    border-color: var(--primary);
+    background: var(--primary-bg-subtle);
+}
+
+.o_af_palette_item i {
+    color: var(--primary);
+}
+
+.o_af_canvas_empty,
+.o_af_inspector_empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+.o_af_palette_item {
+    touch-action: none;
+}
+
+/* Inspector controls, in the look of the Angels theme (its tokens when installed). */
+.o_af_designer,
+.o_af_body {
+    --af-brand: var(--at-brand, var(--primary));
+    --af-brand-soft: var(--at-brand-soft, var(--primary-bg-subtle));
+    --af-radius: var(--at-radius, 0.5rem);
+}
+
+.o_af_inspector_head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Segmented control: gray track, the chosen item as a white chip. */
+.o_af_segment {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    max-width: 100%;
+    padding: 2px;
+    background: color-mix(in srgb, var(--body-color) 7%, transparent);
+    border-radius: var(--af-radius);
+}
+
+.o_af_segment_wrap {
+    display: flex;
+}
+
+.o_af_segment_item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 2.4rem;
+    justify-content: center;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    background: transparent;
+    border: 0;
+    border-radius: calc(var(--af-radius) - 2px);
+    transition: background-color 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.o_af_segment_item:hover {
+    color: var(--body-color);
+}
+
+.o_af_segment_item.active {
+    font-weight: 500;
+    color: var(--body-color);
+    background: var(--body-bg);
+    box-shadow: 0 0 0 1px var(--border-color), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.o_af_segment_item:focus-visible,
+.o_af_type_tile:focus-visible,
+.o_af_pill:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--af-brand) 25%, transparent);
+}
+
+/* Conditions: each one reads as a sentence of pills. */
+.o_af_condition {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 1.6rem 0.5rem 0.55rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--af-radius);
+}
+
+.o_af_condition_lead {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+}
+
+.o_af_pill {
+    display: inline-block;
+    flex: 0 1 auto;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0.15rem 1.4rem 0.15rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--body-color);
+    background: color-mix(in srgb, var(--body-color) 6%, transparent) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") no-repeat right 0.45rem center / 0.6rem;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    appearance: none;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    /* Each pill as wide as its value, so a condition reads as one sentence. */
+    field-sizing: content;
+}
+
+.o_af_pill:hover {
+    border-color: var(--af-brand);
+}
+
+.o_af_pill_strong,
+.o_af_pill_value {
+    font-weight: 600;
+    color: var(--af-brand);
+    background-color: var(--af-brand-soft);
+}
+
+.o_af_pill_input {
+    min-width: 4rem;
+    padding-right: 0.6rem;
+    background-image: none;
+    cursor: text;
+}
+
+.o_af_pill_input::placeholder {
+    font-weight: 400;
+    color: var(--secondary-color);
+}
+
+.o_af_condition_remove {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.35rem;
+    padding: 0 0.25rem;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    background: none;
+    border: 0;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s;
+}
+
+.o_af_condition:hover .o_af_condition_remove,
+.o_af_condition_remove:focus-visible {
+    opacity: 1;
+}
+
+.o_af_condition_remove:hover {
+    color: var(--danger);
+}
+
+.o_af_condition_glue {
+    margin: 0.2rem 0 0.2rem 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+}
+
+.o_af_add_condition {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--af-brand);
+    background: none;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--af-radius);
+}
+
+.o_af_add_condition:hover:not(:disabled) {
+    background: var(--af-brand-soft);
+    border-color: var(--af-brand);
+}
+
+.o_af_add_condition:disabled {
+    color: var(--secondary-color);
+}
+
+.o_af_condition_summary {
+    margin: 0.5rem 0 0;
+    font-size: 0.78rem;
+    color: var(--secondary-color);
+}
+
+/* Flow */
+.o_af_rule_summary {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+    background: var(--tertiary-bg);
+    border-radius: 0.5rem;
+}
+
+.o_af_flow_main {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    min-width: 0;
+}
+
+.o_af_flow_scroll {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: auto;
+    background-color: var(--tertiary-bg);
+}
+
+.o_af_flow_stage {
+    position: relative;
+}
+
+.o_af_zoom {
+    position: absolute;
+    z-index: 5;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.2rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.o_af_zoom_label {
+    min-width: 3rem;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.o_af_flow_board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    background-color: var(--tertiary-bg);
+    background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.o_af_flow_svg {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+}
+
+.o_af_link {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 2;
+    pointer-events: none;
+}
+
+.o_af_link_no,
+.o_af_link_reject {
+    stroke: #ef4444;
+    stroke-dasharray: 6 4;
+}
+
+.o_af_link_selected {
+    stroke-width: 4;
+}
+
+.o_af_link_draft {
+    stroke-dasharray: 4 4;
+    opacity: 0.7;
+}
+
+.o_af_link_hit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 14;
+    cursor: pointer;
+}
+
+.o_af_arrow_head {
+    fill: var(--primary);
+}
+
+.o_af_flow_guide {
+    stroke: var(--primary);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+}
+
+/* Steps */
+.o_af_node {
+    position: absolute;
+    z-index: 2;
+    padding: 0.55rem 0.7rem 0.55rem 0.9rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--af-stage, var(--secondary-color));
+    border-radius: 0.6rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+.o_af_node.o_af_selected {
+    border-color: var(--primary);
+    border-left-color: var(--af-stage, var(--primary));
+    box-shadow: 0 0 0 3px var(--primary-bg-subtle);
+}
+
+.o_af_node_target:hover {
+    box-shadow: 0 0 0 3px var(--primary);
+}
+
+.o_af_node_start { border-left-color: #10b981; }
+
+.o_af_node_condition { border-left-color: #0ea5e9; border-style: dashed; border-left-style: solid; }
+
+.o_af_node_back { border-left-color: #f97316; }
+
+.o_af_node_end { border-left-color: #10b981; }
+
+.o_af_node_end.o_af_node_rejected { border-left-color: #ef4444; }
+
+.o_af_node_head {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+}
+
+.o_af_node_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    flex-shrink: 0;
+    border-radius: 0.4rem;
+    color: color-mix(in srgb, var(--af-stage, var(--primary)) 75%, #000);
+    background: color-mix(in srgb, var(--af-stage, var(--primary)) 16%, transparent);
+}
+
+.o_af_node_icon_lg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.o_af_node_name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.o_af_node_meta {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
+    margin-top: 0.45rem;
+    padding-top: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--secondary-color);
+    border-top: 1px solid color-mix(in srgb, var(--border-color) 60%, transparent);
+}
+
+.o_af_port_in,
+.o_af_port {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    background: var(--body-bg);
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+}
+
+.o_af_port_in {
+    top: 50%;
+    left: -8px;
+    border-color: var(--border-color);
+}
+
+.o_af_port {
+    right: -8px;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.o_af_port_linked {
+    background: var(--primary);
+}
+
+.o_af_port_no,
+.o_af_port_reject {
+    border-color: #ef4444;
+}
+
+.o_af_port_no.o_af_port_linked,
+.o_af_port_reject.o_af_port_linked {
+    background: #ef4444;
+}
+
+.o_af_palette_condition i { color: #0ea5e9; }
+
+.o_af_palette_back i { color: #f97316; }
+
+.o_af_palette_end i { color: #10b981; }
+
+.o_af_swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.o_af_swatch {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    background: var(--af-stage);
+    border: 2px solid var(--body-bg);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--border-color);
+}
+
+.o_af_swatch.active {
+    box-shadow: 0 0 0 2px var(--body-color);
+}
+
+.o_af_stage_list li {
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--af-stage);
+    background: var(--tertiary-bg);
+    border-radius: 0 0.3rem 0.3rem 0;
+}
+
+/* Settings tab */
+.o_af_settings {
+    flex: 1 1 auto;
+    overflow: auto;
+    padding: 1.5rem 1rem 3rem;
+}
+
+/* Step settings: a white card, one row per setting with an icon. */
+.o_af_settings {
+    margin-bottom: 0.25rem;
+    padding: 0 0.75rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--af-radius) + 4px);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.o_af_setting {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin: 0 -0.75rem;
+    padding: 0.6rem 0.75rem;
+    transition: box-shadow 0.15s;
+}
+
+.o_af_setting + .o_af_setting {
+    border-top: 1px solid var(--border-color);
+}
+
+.o_af_setting:focus-within {
+    box-shadow: inset 3px 0 0 var(--af-brand);
+}
+
+.o_af_setting > i {
+    margin-top: 0.15rem;
+    color: var(--af-brand);
+}
+
+.o_af_setting_body {
+    display: block;
+    flex: 1;
+    min-width: 0;
+}
+
+.o_af_setting_body > small {
+    display: block;
+    margin-bottom: 0.1rem;
+    font-size: 0.72rem;
+    color: var(--secondary-color);
+}
+
+.o_af_setting_input {
+    width: 100%;
+    padding: 0;
+    font-weight: 600;
+    color: var(--body-color);
+    background: transparent;
+    border: 0;
+}
+
+.o_af_setting_input:focus {
+    outline: 0;
+}
+
+.o_af_setting_value {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.o_af_setting_value:empty {
+    display: none;
+}
+
+.o_af_chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.3rem;
+}
+
+.o_af_chip {
+    padding: 0.2rem 0.7rem;
+    font-size: 0.78rem;
+    color: var(--body-color);
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.o_af_chip:hover {
+    border-color: var(--af-brand);
+}
+
+.o_af_chip.active {
+    font-weight: 600;
+    color: var(--af-brand);
+    background: var(--af-brand-soft);
+    border-color: var(--af-brand);
+}
+
+.o_af_chip:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--af-brand) 25%, transparent);
+}
+
+/* The other inputs of the panels: rounded, with a border that shows on gray. */
+.o_af_inspector .form-control,
+.o_af_inspector .form-select {
+    border-color: color-mix(in srgb, var(--body-color) 18%, transparent);
+    border-radius: var(--af-radius);
+}
+
+.o_af_inspector .form-control:focus,
+.o_af_inspector .form-select:focus {
+    border-color: var(--af-brand);
+    box-shadow: 0 0 0 3px var(--af-brand-soft);
+}
+
+/* A step that blocks saving: red ring, a count badge, and the reason instead of the summary. */
+.o_af_node.o_af_node_invalid {
+    border-color: color-mix(in srgb, var(--danger) 45%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 14%, transparent);
+}
+
+.o_af_node.o_af_node_invalid.o_af_selected {
+    border-color: var(--danger);
+}
+
+.o_af_node_badge {
+    position: absolute;
+    top: -0.55rem;
+    right: -0.55rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.3rem;
+    height: 1.3rem;
+    padding: 0 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--danger);
+    border-radius: 1rem;
+    box-shadow: 0 0 0 2px var(--body-bg);
+}
+
+.o_af_node_meta.o_af_node_problem {
+    font-weight: 500;
+    color: var(--danger);
+}
+
+/* Step card: the kind in small capitals above the name, then who receives it and small facts. */
+.o_af_node_title {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+    line-height: 1.2;
+}
+
+.o_af_node_kind {
+    overflow: hidden;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: color-mix(in srgb, var(--af-stage, var(--secondary-color)) 70%, var(--body-color));
+}
+
+.o_af_node_start .o_af_node_kind,
+.o_af_node_end .o_af_node_kind { color: #059669; }
+
+.o_af_node_end.o_af_node_rejected .o_af_node_kind { color: #dc2626; }
+
+.o_af_node_condition .o_af_node_kind { color: #0284c7; }
+
+.o_af_node_back .o_af_node_kind { color: #ea580c; }
+
+.o_af_node_head .o_af_node_icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+}
+
+.o_af_node_meta_text {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.o_af_node_meta_icon {
+    flex-shrink: 0;
+    color: color-mix(in srgb, var(--af-stage, var(--secondary-color)) 75%, var(--body-color));
+}
+
+.o_af_avatars {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.o_af_avatar {
+    width: 1.35rem;
+    height: 1.35rem;
+    margin-left: -0.35rem;
+    object-fit: cover;
+    border: 2px solid var(--body-bg);
+    border-radius: 50%;
+}
+
+.o_af_avatar:first-child {
+    margin-left: 0;
+}
+
+.o_af_avatar_more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--body-color);
+    background: var(--tertiary-bg);
+}
+
+.o_af_node_pill {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.25rem;
+    max-width: 8rem;
+    padding: 0 0.45rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #6d28d9;
+    background: color-mix(in srgb, #8b5cf6 13%, transparent);
+    border-radius: 1rem;
+}
+
+.o_af_node_pill_muted {
+    color: var(--secondary-color);
+    background: var(--tertiary-bg);
+}
+
+.o_af_node_pill_stage {
+    margin-left: auto;
+    color: color-mix(in srgb, var(--af-stage, var(--primary)) 70%, #000);
+    background: color-mix(in srgb, var(--af-stage, var(--primary)) 16%, transparent);
+}
+
+/* Arrows: the output as a colored pill on the arrow; the arrows of the step under the mouse stand out. */
+.o_af_link_lit {
+    stroke-width: 3;
+}
+
+.o_af_flow_dim .o_af_link:not(.o_af_link_lit):not(.o_af_link_draft) {
+    opacity: 0.25;
+}
+
+.o_af_link,
+.o_af_link_pill {
+    transition: opacity 0.15s, stroke-width 0.15s;
+}
+
+.o_af_link_pill {
+    position: absolute;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.05rem 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--secondary-color);
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.o_af_link_pill_yes {
+    color: #047857;
+    background: color-mix(in srgb, #10b981 12%, var(--body-bg));
+    border-color: color-mix(in srgb, #10b981 40%, transparent);
+}
+
+.o_af_link_pill_no {
+    color: #b91c1c;
+    background: color-mix(in srgb, #ef4444 10%, var(--body-bg));
+    border-color: color-mix(in srgb, #ef4444 40%, transparent);
+}
+
+.o_af_link_pill.selected {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--af-brand) 25%, transparent);
+}
+
+.o_af_flow_board:has(.o_af_flow_dim) .o_af_link_pill:not(.lit) {
+    opacity: 0.35;
+}
+
+.o_af_link_remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    margin-right: -0.35rem;
+    padding: 0;
+    font-size: 0.6rem;
+    color: #fff;
+    background: #ef4444;
+    border: 0;
+    border-radius: 50%;
+}
+
+/* Free output: "+ Approved" next to the port; a click opens the kinds of step. */
+.o_af_port_add {
+    position: absolute;
+    left: calc(100% + 14px);
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.05rem 0.5rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--af-brand);
+    background: var(--body-bg);
+    border: 1px dashed color-mix(in srgb, var(--af-brand) 55%, transparent);
+    border-radius: 1rem;
+    transform: translateY(-50%);
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.o_af_port_add_no {
+    color: #dc2626;
+    border-color: color-mix(in srgb, #ef4444 55%, transparent);
+}
+
+.o_af_port_add:hover {
+    color: #fff;
+    background: var(--af-brand);
+    border-style: solid;
+}
+
+.o_af_port_add_no:hover {
+    background: #ef4444;
+}
+
+.o_af_add_menu {
+    position: absolute;
+    z-index: 10;
+    width: 13rem;
+    padding: 0.35rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--af-radius) + 4px);
+    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.15);
+}
+
+.o_af_add_menu h6 {
+    margin: 0.35rem 0.5rem 0.25rem;
+    font-size: 0.68rem;
+}
+
+.o_af_add_menu_item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.82rem;
+    text-align: left;
+    color: var(--body-color);
+    background: transparent;
+    border: 0;
+    border-radius: var(--af-radius);
+}
+
+.o_af_add_menu_item:hover,
+.o_af_add_menu_item:focus-visible {
+    outline: 0;
+    background: var(--af-brand-soft);
+}
+
+.o_af_pill_record {
+    flex: 1 1 8rem;
+    padding: 0 0.5rem;
+    background-image: none;
+    cursor: default;
+}
+
+.o_af_pill_record .o_record_selector,
+.o_af_pill_record input {
+    min-height: 1.6rem;
+    font-size: 0.8rem;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}

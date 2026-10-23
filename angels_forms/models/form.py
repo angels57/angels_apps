@@ -1,8 +1,9 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 
+from odoo.addons.angels_flow.models.flow_node import DEFER, PORT_FIELDS
+
 from .form_condition import OPERATORS_BY_TYPE
-from .form_node import PORT_FIELDS, PORTS
 from .form_record import PLACEHOLDER, record_field_allowed, record_model_allowed
 
 SUBMISSION_MODEL = "angels.form.submission"
@@ -289,7 +290,7 @@ class AngelsForm(models.Model):
                 "sources": dict(self._fields_selection("angels.form.mapping", "source")),
             },
             "operators_by_type": OPERATORS_BY_TYPE,
-            "ports": PORTS,
+            "ports": self.env["angels.form.node"]._flow_ports(),
         }
 
     @api.model
@@ -375,9 +376,9 @@ class AngelsForm(models.Model):
             # Recipients are written and checked in step 4, once the user questions exist.
             node = current_nodes.filtered(lambda n, cid=item.get("id"): n.id == cid)
             if node:
-                node.with_context(angels_forms_defer=True).write(vals)
+                node.with_context(**{DEFER: True}).write(vals)
             else:
-                node = Node.with_context(angels_forms_defer=True).create(dict(vals, form_id=self.id))
+                node = Node.with_context(**{DEFER: True}).create(dict(vals, form_id=self.id))
             nodes_by_client_id[item.get("id")] = node.with_env(self.env)
         removed_nodes = current_nodes - Node.union(*nodes_by_client_id.values())
 
@@ -428,11 +429,12 @@ class AngelsForm(models.Model):
 
         # 4. Links between steps, conditions and recipients.
         removed_nodes.unlink()
+        ports = Node._flow_ports()
         for item in data.get("nodes", []):
             node = nodes_by_client_id[item.get("id")]
             links = item.get("links") or {}
             vals = {name: False for name in PORT_FIELDS.values()}
-            for port in PORTS[node.node_type]:
+            for port in ports[node.node_type]:
                 target = nodes_by_client_id.get(links.get(port))
                 vals[PORT_FIELDS[port]] = target.id if target else False
             user_field = fields_by_client_id.get(item.get("user_field_id"))

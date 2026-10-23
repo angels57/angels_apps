@@ -4,7 +4,7 @@ import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
 import { RecordSelector } from "@web/core/record_selectors/record_selector";
 import { isSet, visibleFieldIds } from "./conditions";
 import { layoutItems, spanOf } from "./layout";
-import { useProps, useState } from "./owl_compat";
+import { useProps, useState } from "@angels_flow/common/owl_compat";
 
 const { DateTime } = luxon;
 // Up to this many choices show as cards; more get a search box.

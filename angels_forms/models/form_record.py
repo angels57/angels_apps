@@ -7,6 +7,8 @@ from psycopg2 import Error as DatabaseError
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 
+from odoo.addons.angels_flow.models.flow_node import DEFER
+
 from .form_condition import TRUE_WORDS, is_set
 
 SOURCES = [
@@ -259,6 +261,9 @@ class AngelsFormLink(models.Model):
 class AngelsFormNodeRecord(models.Model):
     _inherit = "angels.form.node"
 
+    node_type = fields.Selection(
+        selection_add=[("notify",), ("record", "Create Record")], ondelete={"record": "cascade"},
+    )
     record_model = fields.Char(
         string="Record Type", help="Odoo model of the record to create, for example res.partner.",
     )
@@ -267,6 +272,10 @@ class AngelsFormNodeRecord(models.Model):
         help="Copy the files of the request onto the new record.",
     )
     mapping_ids = fields.One2many("angels.form.mapping", "node_id", string="Fields to Fill", copy=False)
+
+    @api.model
+    def _flow_ports(self):
+        return {**super()._flow_ports(), "record": ("next",)}
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -292,7 +301,7 @@ class AngelsFormNodeRecord(models.Model):
 
     @api.constrains("node_type", "record_model")
     def _check_record_model(self):
-        if self.env.context.get("angels_forms_defer"):
+        if self.env.context.get(DEFER):
             return
         for node in self.filtered(lambda n: n.node_type == "record"):
             if not record_model_allowed(self.env, node.record_model):

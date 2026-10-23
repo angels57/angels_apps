@@ -5,20 +5,13 @@ from odoo.exceptions import AccessError, UserError
 
 from .form_condition import is_set
 
-STATES = [
-    ("draft", "Draft"),
-    ("pending", "In Review"),
-    ("approved", "Approved"),
-    ("rejected", "Rejected"),
-    ("cancelled", "Cancelled"),
-]
 TITLE_LENGTH = 80
 
 
 class AngelsFormSubmission(models.Model):
     _name = "angels.form.submission"
     _description = "Form Request"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _inherit = ["angels.flow.document.mixin", "mail.thread", "mail.activity.mixin"]
     _order = "id desc"
     # Reviewers only read the request; they still discuss it in the chatter.
     _mail_post_access = "read"
@@ -31,9 +24,7 @@ class AngelsFormSubmission(models.Model):
         default=lambda self: self.env.user,
     )
     company_id = fields.Many2one("res.company", readonly=True, index=True)
-    state = fields.Selection(STATES, required=True, default="draft", readonly=True, tracking=True, index=True)
     date_submitted = fields.Datetime(string="Sent On", readonly=True)
-    date_done = fields.Datetime(string="Decided On", readonly=True)
     answer_ids = fields.One2many("angels.form.answer", "submission_id", string="Answers")
     step_ids = fields.One2many("angels.form.step", "submission_id", string="Steps")
     current_step_type = fields.Selection(related="current_step_id.step_type", string="Current Step Type")
@@ -278,107 +269,34 @@ class AngelsFormSubmission(models.Model):
             "state": "pending",
             "date_submitted": fields.Datetime.now(),
         })
-        self._close_requester_activities()
+        self._flow_close_requester_activities()
         self.sudo().message_subscribe(partner_ids=self.user_id.partner_id.ids)
         if resent:
             body = _("Request corrected and sent again by %(user)s.", user=self.user_id.name)
         else:
             body = _("Request sent by %(user)s.", user=self.user_id.name)
         self.sudo().message_post(body=Markup("<p>%s</p>") % body, subtype_xmlid="mail.mt_note")
-        self._run(self.form_id._start_node().next_id)
+        self._flow_run(self.form_id._start_node().next_id)
         return True
 
-    def _run(self, node):
-        """Walk the flow from ``node`` until a step waits for people, or the end.
+    # What the flow reads from a request
+    def _flow_values(self):
+        return self.form_id._visible_values(self._answer_values())[1]
 
-        A missing link ends the flow: the request is approved.
-        """
-        self.ensure_one()
-        values = self.form_id._visible_values(self._answer_values())[1]
-        Step = self.env["angels.form.step"].sudo()
-        seen = set()
-        while node:
-            if node.id in seen:
-                raise UserError(_("The flow of %(form)s goes round in a circle at %(step)s.",
-                                  form=self.form_id.name, step=node.name))
-            seen.add(node.id)
-            kind = node.node_type
-            if kind == "start":
-                node = node.next_id
-            elif kind == "condition":
-                node = node.yes_id if node._conditions_met(values) else node.no_id
-            elif kind == "end":
-                return self._finish(node.end_state or "approved")
-            elif kind == "back":
-                return self._send_back(node)
-            elif kind == "record":
-                node._create_record(self, values)
-                node = node.next_id
-            else:
-                recipients = node._get_recipients(values)
-                if not recipients:
-                    if kind == "notify":
-                        node = node.next_id
-                        continue
-                    raise UserError(_("Nobody can do the step %(step)s.", step=node.name))
-                step = Step.create({
-                    "submission_id": self.id,
-                    "node_id": node.id,
-                    "sequence": len(self.step_ids) + 1,
-                    "name": node.name,
-                    "step_type": kind,
-                    "approval_rule": node.approval_rule or "any",
-                    "user_ids": [fields.Command.set(recipients.ids)],
-                })
-                if kind == "notify":
-                    step._notify(Markup("<p>%s</p>") % _(
-                        "%(step)s: request %(request)s from %(user)s.",
-                        step=node.name, request=self.display_name, user=self.user_id.name,
-                    ))
-                    node = node.next_id
-                    continue
-                step._activate()
-                return True
-        return self._finish("approved")
+    def _flow_requester(self):
+        return self.user_id
 
-    def _send_back(self, node):
-        """Reopen the request so the requester corrects it and sends it again."""
-        self.ensure_one()
-        self.sudo().write({"state": "draft"})
-        self.step_ids._close_activities()
-        self.sudo().message_post(
-            body=Markup("<p>%s</p>") % _("%(step)s: the request goes back to %(user)s to be corrected.",
-                                         step=node.name, user=self.user_id.name),
-            partner_ids=self.user_id.partner_id.ids,
-            subtype_xmlid="mail.mt_comment",
-        )
-        self.sudo().activity_schedule(
-            "angels_forms.mail_activity_form_review",
-            summary=_("Correct %(request)s", request=self.display_name),
-            user_id=self.user_id.id,
-        )
-        return True
+    def _flow_allow_self_approval(self):
+        return self.form_id.allow_self_approval
 
-    def _close_requester_activities(self):
-        activity_type = self.env.ref("angels_forms.mail_activity_form_review")
-        self.sudo().activity_ids.filtered(
-            lambda a: a.activity_type_id == activity_type and a.user_id == self.user_id
-        ).unlink()
+    def _flow_activity_type(self):
+        return self.env.ref("angels_forms.mail_activity_form_review")
 
-    def _finish(self, state):
-        self.ensure_one()
-        self.sudo().write({"state": state, "date_done": fields.Datetime.now()})
-        self.step_ids._close_activities()
-        if state == "approved":
-            body = _("The request %(request)s was approved.", request=self.display_name)
-        else:
-            body = _("The request %(request)s was rejected.", request=self.display_name)
-        self.sudo().message_post(
-            body=Markup("<p>%s</p>") % body,
-            partner_ids=self.user_id.partner_id.ids,
-            subtype_xmlid="mail.mt_comment",
-        )
-        return True
+    def _flow_run_node(self, node, values):
+        if node.node_type == "record":
+            node._create_record(self, values)
+            return node.next_id
+        return super()._flow_run_node(node, values)
 
     def action_submit(self):
         for submission in self:
@@ -418,9 +336,7 @@ class AngelsFormSubmission(models.Model):
             if not submission.can_cancel:
                 raise AccessError(_("Only the requester or an administrator can cancel %(name)s.",
                                     name=submission.display_name))
-            submission.sudo().write({"state": "cancelled", "date_done": fields.Datetime.now()})
-            submission.step_ids.filtered(lambda s: s.state == "pending").sudo().write({"state": "skipped"})
-            submission.step_ids._close_activities()
+            submission._flow_cancel()
             submission.sudo().message_post(
                 body=Markup("<p>%s</p>") % _("Request cancelled by %(user)s.", user=self.env.user.name),
                 subtype_xmlid="mail.mt_note",

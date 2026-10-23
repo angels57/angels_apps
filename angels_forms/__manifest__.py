@@ -1,6 +1,6 @@
 {
     "name": "Angels Forms - Forms and Flows",
-    "version": "19.0.1.5.0",
+    "version": "19.0.2.0.0",
     "summary": "Request forms with conditional fields and a visual approval flow",
     "description": """
 Angels Forms - Forms and Flows for Odoo 19
@@ -38,12 +38,13 @@ Features:
   requester, fixed values or a text such as "Trip to {Destination}", and its
   files; the request links to what it created
 * Activities, chatter and full history on every request
+* Built on Angels Flow, the flow engine and designer it shares with other modules
     """,
     "category": "Productivity",
     "author": "Angels SAS",
     "maintainer": "Angels SAS",
     "license": "LGPL-3",
-    "depends": ["mail", "web"],
+    "depends": ["angels_flow", "mail", "web"],
     "data": [
         "security/groups.xml",
         "security/ir.model.access.csv",

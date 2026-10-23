@@ -5,7 +5,7 @@ import { useProps, useState } from "../common/owl_compat";
 
 /** "Only if" rows of a question or a rule. Mutates ``props.item`` in place. */
 export class ConditionEditor extends Component {
-    static template = "angels_forms.ConditionEditor";
+    static template = "angels_flow.ConditionEditor";
     static components = { RecordSelector };
 
     setup() {

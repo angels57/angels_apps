@@ -3,7 +3,7 @@ import { _t } from "@web/core/l10n/translation";
 import { MultiRecordSelector } from "@web/core/record_selectors/multi_record_selector";
 import { RecordSelector } from "@web/core/record_selectors/record_selector";
 import { useService } from "@web/core/utils/hooks";
-import { useProps, useState } from "../common/owl_compat";
+import { useProps, useState } from "@angels_flow/common/owl_compat";
 
 // Kinds of question each kind of Odoo field accepts. Kept in sync with models/form_record.py.
 const AS_TEXT = ["char", "text", "number", "date", "datetime", "boolean", "selection", "multi", "user", "partner"];

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="angels_forms.FlowEditor">
+    <t t-name="angels_flow.FlowEditor">
         <aside class="o_af_palette">
             <h6>Add a step</h6>
             <p class="text-muted small">Drag a step onto the board, or click it to add it after the selected one.</p>
@@ -19,8 +19,7 @@
                 <li>Drag from an output dot to the next step.</li>
                 <li>Click an arrow and press Delete to remove it.</li>
                 <li>An output with no arrow ends the flow: the request is approved.</li>
-                <li>Approval and Task steps can fill their own questions (choose “Filled by” on a question).</li>
-                <li>Create Record makes a record in Odoo (a contact, a task, an event...) with the answers.</li>
+                <t t-slot="help"/>
             </ul>
         </aside>
 
@@ -102,7 +101,7 @@
                             <i t-else="" t-attf-class="fa fa-fw #{this.recipientsIcon(node)} o_af_node_meta_icon" aria-hidden="true"/>
                             <span class="o_af_node_meta_text" t-out="this.recipientsText(node)"/>
                         </t>
-                        <span t-elif="node.type !== 'record' or !node.record_model" class="o_af_node_meta_text"
+                        <span t-elif="!this.kindPills(node).length" class="o_af_node_meta_text"
                               t-out="this.summary(node)"/>
                         <span t-foreach="this.pills(node)" t-as="pill" t-key="pill_index" t-att-title="pill.title"
                               t-attf-class="o_af_node_pill #{pill.muted ? 'o_af_node_pill_muted' : ''} #{pill.stage ? 'o_af_node_pill_stage' : ''}">
@@ -188,12 +187,12 @@
                                         <select class="form-select form-select-sm" aria-label="User question"
                                                 t-on-change="(ev) => this.setUserField(node, ev.target.value)">
                                             <option value="" t-att-selected="!node.user_field_id">Choose a question</option>
-                                            <t t-foreach="this.userQuestions" t-as="question" t-key="question.id">
+                                            <t t-foreach="this.userSources" t-as="question" t-key="question.id">
                                                 <option t-att-value="question.id" t-att-selected="question.id === node.user_field_id"
                                                         t-out="question.name"/>
                                             </t>
                                         </select>
-                                        <p t-if="!this.userQuestions.length" class="text-muted small mt-1 mb-0">
+                                        <p t-if="!this.userSources.length" class="text-muted small mt-1 mb-0">
                                             Add a User question to the form first.
                                         </p>
                                     </t>
@@ -226,14 +225,12 @@
 
                 <t t-if="node.type === 'condition'">
                     <h6 class="mt-4">Go to “Yes” when</h6>
-                    <ConditionEditor t-key="node.id" item="node" sources="this.questions"
+                    <ConditionEditor t-key="node.id" item="node" sources="this.props.sources"
                                      labels="this.props.labels.operators" operatorsByType="this.props.operatorsByType"
                                      onChange="() => this.changed()" lead.translate="If"
                                      emptyText.translate="No condition yet: requests always go to “Yes”."/>
                 </t>
 
-                <RecordEditor t-if="node.type === 'record'" t-key="node.id" node="node" questions="this.questions"
-                              sources="this.props.labels.sources" onChange="() => this.changed()"/>
 
                 <t t-if="this.hasPeople(node)">
                     <h6 class="mt-4">Color</h6>
@@ -246,20 +243,7 @@
                     </div>
                 </t>
 
-                <t t-if="this.canFill(node)">
-                    <h6 class="mt-4">Questions filled at this step</h6>
-                    <ul t-if="this.stageFields(node).length" class="o_af_stage_list list-unstyled mb-1">
-                        <li t-foreach="this.stageFields(node)" t-as="field" t-key="field.id"
-                            t-attf-class="o_af_stage_{{node.color % 12}}">
-                            <t t-out="field.name"/>
-                            <span t-if="field.required" class="text-danger ms-1">*</span>
-                        </li>
-                    </ul>
-                    <p class="text-muted small">
-                        In the Questions tab, choose this step in “Filled by”. Its people answer them before
-                        approving or completing the step.
-                    </p>
-                </t>
+                <t t-slot="inspector" node="node"/>
 
                 <div class="o_af_rule_summary mt-4">
                     <i class="fa fa-info-circle me-1" aria-hidden="true"/>
