@@ -111,6 +111,20 @@ class AngelsFormNode(models.Model):
                     _("The step %(step)s needs a user question of the same form.", step=node.name)
                 )
 
+    @api.model
+    def _translate_default_names(self):
+        """Start and End steps created with an English name get it in every installed language."""
+        langs = [code for code, _name in self.env["res.lang"].get_installed() if code != "en_US"]
+        defaults = ("Request Sent", "Approved", "Rejected")
+        for node in self.with_context(lang="en_US").search([("node_type", "in", ("start", "end"))]):
+            source = node.name
+            if source not in defaults:
+                continue
+            for lang in langs:
+                localized = node.with_context(lang=lang)
+                if localized.name == source:
+                    localized.name = localized.env._(source)
+
     def _conditions_met(self, values):
         self.ensure_one()
         if not self.condition_ids:

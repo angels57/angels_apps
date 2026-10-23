@@ -67,6 +67,37 @@ class TestDesigner(FormCase):
         self.assertFalse(notes.node_id)
         self.assertFalse(nodes["Long?"].yes_id)
 
+    def test_new_form_opens_the_designer(self):
+        action = self.env["angels.form"].with_user(self.finance).action_new_form()
+        self.assertEqual(action["tag"], "angels_forms_designer")
+        self.assertTrue(action["context"]["angels_forms_new"])
+        form = self.env["angels.form"].browse(action["context"]["active_id"])
+        self.assertEqual([n.node_type for n in form.node_ids], ["start"])
+
+    def test_settings_are_saved(self):
+        group = self.env.ref("base.group_system")
+        data = self.form.get_design_data()
+        data["form"].update(icon="fa-truck", color=7, group_ids=group.ids, company_id=False,
+                            allow_self_approval=True, description="Couriers")
+        result = self.form.save_design(data)
+        self.assertEqual((self.form.icon, self.form.color, self.form.description), ("fa-truck", 7, "Couriers"))
+        self.assertEqual(self.form.group_ids, group)
+        self.assertFalse(self.form.company_id)
+        self.assertTrue(self.form.allow_self_approval)
+        self.assertEqual(result["form"]["group_ids"], group.ids)
+        data["form"]["group_ids"] = []
+        self.form.save_design(data)
+        self.assertFalse(self.form.group_ids)
+
+    def test_default_step_names_are_translated(self):
+        self.env["res.lang"]._activate_lang("es_ES")
+        start = self.form.node_ids
+        start.with_context(lang="en_US").name = "Request Sent"
+        start.with_context(lang="es_ES").name = "Request Sent"
+        self.env["angels.form.node"]._translate_default_names()
+        self.assertEqual(start.with_context(lang="en_US").name, "Request Sent")
+        self.assertNotEqual(start.with_context(lang="es_ES").name, "Request Sent")
+
     def test_grid_places_are_saved(self):
         data = self.form.get_design_data()
         data["fields"] = [

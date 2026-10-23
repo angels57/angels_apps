@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_forms.IconPicker">
+        <div class="o_af_icon_picker">
+            <div class="o_af_icon_search">
+                <i class="fa fa-search" aria-hidden="true"/>
+                <input type="search" class="form-control form-control-sm" placeholder="Search: plane, money, mail..."
+                       aria-label="Search icons" t-att-value="this.state.query" t-att-autofocus="this.props.autofocus"
+                       t-on-input="(ev) => this.setQuery(ev.target.value)"/>
+            </div>
+            <div class="o_af_icon_groups">
+                <div t-foreach="this.groups" t-as="group" t-key="group.label" class="o_af_icon_group">
+                    <span class="o_af_icon_group_label" t-out="group.label"/>
+                    <div class="o_af_icon_grid" role="listbox" t-att-aria-label="group.label">
+                        <button t-foreach="group.icons" t-as="icon" t-key="icon" type="button" role="option"
+                                t-attf-class="o_af_icon_choice #{icon === this.props.icon ? 'active o_af_color_' + (this.props.color or 0) : ''}"
+                                t-att-aria-selected="icon === this.props.icon" t-att-title="icon"
+                                t-on-click="() => this.pickIcon(icon)">
+                            <i t-attf-class="fa fa-fw #{icon}" aria-hidden="true"/>
+                        </button>
+                    </div>
+                </div>
+                <p t-if="!this.groups.length" class="text-muted small mb-0">No icon matches this search.</p>
+            </div>
+            <div class="o_af_icon_colors" role="radiogroup" aria-label="Color">
+                <button t-foreach="this.colors" t-as="color" t-key="color" type="button" role="radio"
+                        t-attf-class="o_af_color_dot o_af_color_#{color} #{color === (this.props.color or 0) ? 'active' : ''}"
+                        t-att-aria-checked="color === (this.props.color or 0)" t-att-aria-label="'Color ' + color"
+                        t-on-click="() => this.pickColor(color)"/>
+            </div>
+        </div>
+    </t>
+
+</templates>
