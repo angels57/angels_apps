@@ -1,5 +1,7 @@
-import { Component, onWillStart, useExternalListener, useRef } from "@odoo/owl";
+import { Component, onMounted, onWillStart, useExternalListener, useRef } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
+import { MultiRecordSelector } from "@web/core/record_selectors/multi_record_selector";
+import { RecordSelector } from "@web/core/record_selectors/record_selector";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { useSetupAction } from "@web/search/action_hook";
@@ -17,6 +19,7 @@ import {
 import { useProps, useState } from "../common/owl_compat";
 import { ConditionEditor } from "./condition_editor";
 import { FlowEditor, STAGE_TYPES } from "./flow_editor";
+import { IconPicker } from "./icon_picker";
 import { startPointerDrag } from "./pointer_drag";
 
 export const FIELD_ICONS = {
@@ -38,23 +41,27 @@ const PLACEHOLDER_TYPES = ["char", "text", "number", "selection", "user", "partn
 const GAP = 12;
 
 /**
- * Visual form designer, in two tabs:
+ * Visual form designer, where a form is set up from end to end. Tabs:
  * - Questions: palette on the left, the form on a 12-column grid in the
  *   middle (drag a question anywhere, stretch its edge, edit it in place with
  *   the toolbar on it), properties on the right. A switch above the grid turns
  *   the same view into a live preview of the form.
- * - Flow: the steps a request goes through (see FlowEditor).
+ * - Flow: the steps a request goes through (see FlowEditor);
+ * - Settings: who can fill the form, company, title, self-approval.
+ * The icon and color are picked from the icon next to the name.
  */
 export class FormDesignerAction extends Component {
     static template = "angels_forms.DesignerAction";
-    static components = { ConditionEditor, FlowEditor, FormRenderer };
+    static components = { ConditionEditor, FlowEditor, FormRenderer, IconPicker, MultiRecordSelector, RecordSelector };
 
     setup() {
         this.props = useProps();
         this.orm = useService("orm");
         this.notification = useService("notification");
         this.nameService = useService("name");
+        this.actionService = useService("action");
         this.formId = this.props.action.context?.active_id;
+        this.isNew = Boolean(this.props.action.context?.angels_forms_new);
         this.state = useState({
             data: null,
             tab: "fields",
@@ -64,6 +71,8 @@ export class FormDesignerAction extends Component {
             saving: false,
             target: null,
             dragging: false,
+            iconOpen: false,
+            restrictGroups: false,
             previewAs: "requester",
             version: 0,
             previewKey: 0,
@@ -77,6 +86,17 @@ export class FormDesignerAction extends Component {
             beforeLeave: () => (this.state.dirty ? this.save() : true),
         });
         useExternalListener(window, "keydown", (ev) => this.onKeyDown(ev));
+        useExternalListener(window, "pointerdown", (ev) => {
+            if (this.state.iconOpen && !ev.target.closest?.(".o_af_icon_popover, .o_af_form_icon")) {
+                this.state.iconOpen = false;
+            }
+        });
+        // A new form: type its name right away.
+        onMounted(() => {
+            if (this.isNew) {
+                document.querySelector(".o_af_designer .o_af_name_input")?.select();
+            }
+        });
     }
 
     async load() {
@@ -427,6 +447,47 @@ export class FormDesignerAction extends Component {
     setFormProp(name, value) {
         this.data.form[name] = value;
         this.touch();
+    }
+    setLook(values) {
+        Object.assign(this.data.form, values);
+        this.touch();
+    }
+    toggleIconPicker() {
+        this.state.iconOpen = !this.state.iconOpen;
+    }
+
+    // ------------------------------------------------------------------
+    // Settings tab
+    // ------------------------------------------------------------------
+
+    get titleQuestions() {
+        return this.fields.filter((f) => this.canBeTitle(f));
+    }
+    get restricted() {
+        return this.data.form.group_ids.length > 0 || this.state.restrictGroups;
+    }
+    setRestricted(restricted) {
+        this.state.restrictGroups = restricted;
+        if (!restricted) {
+            this.setFormProp("group_ids", []);
+        }
+    }
+    setTitleQuestion(value) {
+        const field = this.titleQuestions.find((f) => String(f.id) === value);
+        this.setFormProp("title_field_id", field ? field.id : false);
+    }
+    /** The plain Odoo form of the form, for anything the designer does not show. */
+    async openClassicForm() {
+        if (this.state.dirty && !(await this.save())) {
+            return;
+        }
+        await this.actionService.doAction({
+            type: "ir.actions.act_window",
+            res_model: "angels.form",
+            res_id: this.formId,
+            views: [[false, "form"]],
+            target: "current",
+        });
     }
 
     newField(type) {

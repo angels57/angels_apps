@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 23:42+0000\n"
-"PO-Revision-Date: 2026-10-22 23:42+0000\n"
+"POT-Creation-Date: 2026-10-23 00:22+0000\n"
+"PO-Revision-Date: 2026-10-23 00:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -607,6 +607,7 @@ msgstr "Haz clic en una flecha y pulsa Supr para quitarla."
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
+#: code:addons/angels_forms/static/src/designer/icon_picker.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__color
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__color
 msgid "Color"
@@ -629,6 +630,14 @@ msgid "Comment"
 msgstr "Comentario"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/icon_picker.js:0
+msgid "Communication"
+msgstr "Comunicación"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__company_id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__company_id
 msgid "Company"
@@ -815,6 +824,12 @@ msgstr "Nombre mostrado"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/icon_picker.js:0
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__done
 msgid "Done"
@@ -908,6 +923,18 @@ msgstr "Fin"
 #: model:angels.form.field,name:angels_forms.travel_budget
 msgid "Estimated Budget"
 msgstr "Presupuesto estimado"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Every company"
+msgstr "Todas las compañías"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Every forms user"
+msgstr "Todos los usuarios de formularios"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -1032,6 +1059,10 @@ msgstr "Icono de Font Awesome, p. ej. fa-tasks"
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "For example the destination of a trip: “REQ/0001 - Madrid”."
+msgstr "Por ejemplo, el destino de un viaje: “REQ/0001 - Madrid”."
+
+#. module: angels_forms
 #: model:ir.model,name:angels_forms.model_angels_form
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__form_id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__form_id
@@ -1158,6 +1189,12 @@ msgid "How it works"
 msgstr "Cómo funciona"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "How the form appears under New Request."
+msgstr "Cómo aparece el formulario en Nueva solicitud."
+
+#. module: angels_forms
 #: model:angels.form.field,name:angels_forms.travel_hotel
 msgid "I Need a Hotel"
 msgstr "Necesito hotel"
@@ -1175,12 +1212,16 @@ msgid "ID"
 msgstr "ID"
 
 #. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__icon
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_exception_icon
 msgid "Icon"
 msgstr "Icono"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Icon and color"
+msgstr "Icono y color"
 
 #. module: angels_forms
 #: model:ir.model.fields,help:angels_forms.field_angels_form_submission__activity_exception_icon
@@ -1281,6 +1322,12 @@ msgid "Leave empty to use the form in every company."
 msgstr "Déjalo vacío para usar el formulario en todas las compañías."
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Let requesters approve their own requests"
+msgstr "Permitir que el solicitante apruebe sus propias solicitudes"
+
+#. module: angels_forms
 #: model:ir.model.fields,help:angels_forms.field_angels_form__allow_self_approval
 msgid "Let the requester approve a step where they are an approver."
 msgstr "Permite que el solicitante apruebe un paso en el que sea aprobador."
@@ -1289,6 +1336,12 @@ msgstr "Permite que el solicitante apruebe un paso en el que sea aprobador."
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__text
 msgid "Long Text"
 msgstr "Texto largo"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Look"
+msgstr "Aspecto"
 
 #. module: angels_forms
 #: model:angels.form.node,name:angels_forms.travel_node_manager
@@ -1337,6 +1390,12 @@ msgid "Mode"
 msgstr "Modo"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/icon_picker.js:0
+msgid "Money"
+msgstr "Dinero"
+
+#. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Fecha límite de mi actividad"
@@ -1359,6 +1418,12 @@ msgstr "Nombre"
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Name each request with"
+msgstr "Nombrar cada solicitud con"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Name requests with this answer"
 msgstr "Nombrar las solicitudes con esta respuesta"
 
@@ -1366,6 +1431,17 @@ msgstr "Nombrar las solicitudes con esta respuesta"
 #: model:angels.form.field,placeholder:angels_forms.travel_hotel_notes
 msgid "Near the office, breakfast included..."
 msgstr "Cerca de la oficina, con desayuno..."
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_list
+msgid "New"
+msgstr "Nuevo"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form.py:0
+msgid "New Form"
+msgstr "Nuevo formulario"
 
 #. module: angels_forms
 #: model:ir.actions.act_window,name:angels_forms.action_form_catalog
@@ -1422,6 +1498,12 @@ msgstr "Todavía no hay formularios abiertos"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/icon_picker.xml:0
+msgid "No icon matches this search."
+msgstr "Ningún icono coincide con la búsqueda."
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
 msgid "No question can be used here yet."
 msgstr "Todavía no hay preguntas que usar aquí."
@@ -1458,6 +1540,12 @@ msgstr "No publicado"
 #: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
 msgid "Not checked"
 msgstr "No marcada"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Not published: only administrators see it."
+msgstr "No publicado: solo lo ven los administradores."
 
 #. module: angels_forms
 #: model_terms:ir.actions.act_window,help:angels_forms.action_submission_to_review
@@ -1497,6 +1585,16 @@ msgstr "Número de mensajes con error de entrega"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid ""
+"Off by default: when the requester is also an approver, someone else "
+"decides."
+msgstr ""
+"Desactivado por defecto: si el solicitante también es aprobador, decide otra"
+" persona."
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__approval_rule__any
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__approval_rule__any
@@ -1513,6 +1611,12 @@ msgstr "Solo se pueden eliminar borradores. Cancela las demás solicitudes."
 #: model:angels.form.field,help:angels_forms.travel_passport
 msgid "Only for international trips."
 msgstr "Solo para viajes internacionales."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Only members of these groups"
+msgstr "Solo los miembros de estos grupos"
 
 #. module: angels_forms
 #. odoo-python
@@ -1541,6 +1645,12 @@ msgstr "Abrir diseñador"
 #: model_terms:ir.actions.act_window,help:angels_forms.action_submission_mine
 msgid "Open New Request and fill a form."
 msgstr "Abre Nueva solicitud y rellena un formulario."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Open the classic form view"
+msgstr "Abrir la ficha clásica"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -1578,6 +1688,8 @@ msgid "Passport Number"
 msgstr "Número de pasaporte"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/icon_picker.js:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__user_ids
 msgid "People"
 msgstr "Personas"
@@ -1615,6 +1727,18 @@ msgstr "Posición Y"
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Preview"
+msgstr "Vista previa"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Publication"
+msgstr "Publicación"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 msgid "Publish"
 msgstr "Publicar"
@@ -1632,6 +1756,12 @@ msgstr "Publicado"
 #: model:ir.model.fields,help:angels_forms.field_angels_form__published
 msgid "Published forms appear under New Request."
 msgstr "Los formularios publicados aparecen en Nueva solicitud."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Published: users find it under New Request."
+msgstr "Publicado: los usuarios lo encuentran en Nueva solicitud."
 
 #. module: angels_forms
 #. odoo-javascript
@@ -1763,6 +1893,8 @@ msgid "Requested By"
 msgstr "Solicitado por"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__submission_ids
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_list
@@ -1840,6 +1972,18 @@ msgid "Save Draft"
 msgstr "Guardar borrador"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/icon_picker.xml:0
+msgid "Search icons"
+msgstr "Buscar iconos"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/icon_picker.xml:0
+msgid "Search: plane, money, mail..."
+msgstr "Buscar: avión, dinero, correo..."
+
+#. module: angels_forms
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__section
 msgid "Section"
 msgstr "Sección"
@@ -1892,6 +2036,12 @@ msgstr "Enviada el"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__sequence
 msgid "Sequence"
 msgstr "Secuencia"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Settings"
+msgstr "Ajustes"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__condition_ids
@@ -1992,6 +2142,8 @@ msgid "Task"
 msgstr "Tarea"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 msgid "Tell users what this form is for"
 msgstr "Explica a los usuarios para qué sirve este formulario"
@@ -2045,6 +2197,12 @@ msgstr "El formulario está cerrado."
 #: code:addons/angels_forms/static/src/designer/designer_action.js:0
 msgid "The form is open for requests."
 msgstr "El formulario está abierto."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "The form name"
+msgstr "El nombre del formulario"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -2212,6 +2370,12 @@ msgid "Transport, hotel and meals, in the company currency."
 msgstr "Transporte, hotel y comidas, en la moneda de la compañía."
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/icon_picker.js:0
+msgid "Travel"
+msgstr "Viajes"
+
+#. module: angels_forms
 #: model:angels.form,name:angels_forms.form_travel
 msgid "Travel Request"
 msgstr "Solicitud de viaje"
@@ -2247,6 +2411,8 @@ msgid "Type of the exception activity on record."
 msgstr "Tipo de actividad con excepción en el registro."
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 msgid "Unpublish"
 msgstr "Despublicar"
@@ -2364,9 +2530,21 @@ msgstr "A dónde va una solicitud rechazada. Vacío: la solicitud se rechaza."
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Who can fill it"
+msgstr "Quién puede rellenarlo"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__width
 msgid "Width"
 msgstr "Ancho"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/icon_picker.js:0
+msgid "Work"
+msgstr "Trabajo"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -2453,8 +2631,6 @@ msgid "e.g. Travel Request"
 msgstr "p. ej. Solicitud de viaje"
 
 #. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
 msgid "fa-plane"
 msgstr "fa-plane"

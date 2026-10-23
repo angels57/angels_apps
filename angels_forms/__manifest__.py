@@ -1,6 +1,6 @@
 {
     "name": "Angels Forms - Forms and Flows",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "summary": "Request forms with conditional fields and a visual approval flow",
     "description": """
 Angels Forms - Forms and Flows for Odoo 19
@@ -12,6 +12,9 @@ the request goes to. Example included: a travel request.
 
 Features:
 ---------
+* Everything in the designer: open a form and you land in it, with a
+  Settings tab (who can fill it, company, title, self-approval) and an
+  icon and color picker
 * Visual designer: drag questions anywhere on a 12-column grid, stretch their
   edge to change the width (1/4 to full), edit them in place with the toolbar
   on the question, and switch the same view to a live preview (as the

@@ -6,7 +6,11 @@
         <field name="name">angels.form.list</field>
         <field name="model">angels.form</field>
         <field name="arch" type="xml">
-            <list>
+            <list action="action_open_designer" type="object" create="0">
+                <header>
+                    <button name="action_new_form" type="object" string="New" class="btn-primary"
+                            display="always"/>
+                </header>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="field_count" string="Questions"/>
@@ -78,10 +82,13 @@
                                 <list>
                                     <field name="name"/>
                                     <field name="node_type"/>
-                                    <field name="assign_type"/>
-                                    <field name="user_ids" widget="many2many_avatar_user"/>
-                                    <field name="group_id"/>
-                                    <field name="user_field_id"/>
+                                    <field name="assign_type" invisible="node_type not in ('approve', 'task', 'notify')"/>
+                                    <field name="user_ids" widget="many2many_avatar_user"
+                                           invisible="node_type not in ('approve', 'task', 'notify') or assign_type != 'users'"/>
+                                    <field name="group_id"
+                                           invisible="node_type not in ('approve', 'task', 'notify') or assign_type != 'group'"/>
+                                    <field name="user_field_id"
+                                           invisible="node_type not in ('approve', 'task', 'notify') or assign_type != 'field'"/>
                                 </list>
                             </field>
                         </page>

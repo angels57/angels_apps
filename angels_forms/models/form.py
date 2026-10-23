@@ -6,6 +6,7 @@ from .form_node import PORT_FIELDS, PORTS
 
 SUBMISSION_MODEL = "angels.form.submission"
 FIELD_KEYS = ("name", "required", "help", "placeholder", "width")
+SETTING_KEYS = ("name", "description", "icon", "color", "allow_self_approval")
 NODE_KEYS = ("name", "end_state", "assign_type", "approval_rule")
 START_POSITION = (40, 160)
 
@@ -201,6 +202,16 @@ class AngelsForm(models.Model):
     # Actions
     # ------------------------------------------------------------------
 
+    def action_new_form(self):
+        """New button of the list: create a form and open it in the designer.
+
+        Header buttons pass the selected rows (usually none); they are ignored.
+        """
+        form = self.browse().create({"name": _("New Form")})
+        action = form.action_open_designer()
+        action["context"]["angels_forms_new"] = True
+        return action
+
     def action_open_designer(self):
         self.ensure_one()
         return {
@@ -250,7 +261,12 @@ class AngelsForm(models.Model):
                 "icon": self.icon or "",
                 "published": self.published,
                 "title_field_id": self.title_field_id.id,
+                "color": self.color,
+                "group_ids": self.group_ids.ids,
+                "company_id": self.company_id.id,
+                "allow_self_approval": self.allow_self_approval,
             },
+            "multi_company": self.env.user.has_group("base.group_multi_company"),
             "fields": [field._to_client() for field in self.field_ids],
             "nodes": [node._to_client() for node in self.node_ids],
             "labels": {
@@ -278,7 +294,12 @@ class AngelsForm(models.Model):
         form_data = data.get("form", {})
         Field = self.env["angels.form.field"]
         Node = self.env["angels.form.node"]
-        self.write({key: form_data[key] for key in ("name", "description", "icon") if key in form_data})
+        vals = {key: form_data[key] for key in SETTING_KEYS if key in form_data}
+        if "group_ids" in form_data:
+            vals["group_ids"] = [fields.Command.set(form_data["group_ids"] or [])]
+        if "company_id" in form_data:
+            vals["company_id"] = form_data["company_id"] or False
+        self.write(vals)
 
         # 1. Steps first: questions refer to the step that fills them.
         nodes_by_client_id = {}

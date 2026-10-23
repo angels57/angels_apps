@@ -86,6 +86,7 @@
     overflow: hidden;
 }
 
+.o_af_color_0 { background: var(--primary); }
 .o_af_color_1 { background: #f06050; }
 .o_af_color_2 { background: #f4a460; }
 .o_af_color_3 { background: #e6b800; }

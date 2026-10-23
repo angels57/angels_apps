@@ -12,9 +12,20 @@
                         </t>
                         <span>Designer</span>
                     </div>
-                    <input type="text" class="o_af_name_input" aria-label="Form name"
-                           t-att-value="this.data.form.name"
-                           t-on-change="(ev) => this.setFormProp('name', ev.target.value)"/>
+                    <div class="o_af_name_row">
+                        <button type="button" t-attf-class="o_af_form_icon o_af_color_#{this.data.form.color or 0}"
+                                title="Icon and color" aria-label="Icon and color" t-att-aria-expanded="this.state.iconOpen"
+                                t-on-click="() => this.toggleIconPicker()">
+                            <i t-attf-class="fa fa-fw #{this.data.form.icon or 'fa-file-text-o'}" aria-hidden="true"/>
+                        </button>
+                        <input type="text" class="o_af_name_input" aria-label="Form name"
+                               t-att-value="this.data.form.name"
+                               t-on-change="(ev) => this.setFormProp('name', ev.target.value)"/>
+                        <div t-if="this.state.iconOpen" class="o_af_icon_popover">
+                            <IconPicker icon="this.data.form.icon" color="this.data.form.color"
+                                        onChange="(values) => this.setLook(values)" autofocus="true"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="o_af_tabs" role="tablist">
                     <button type="button" role="tab" t-att-aria-selected="this.state.tab === 'fields'"
@@ -28,6 +39,11 @@
                         <i class="fa fa-code-fork" aria-hidden="true"/>
                         <span>Flow</span>
                         <span class="o_af_count" t-out="this.nodes.length - 1"/>
+                    </button>
+                    <button type="button" role="tab" t-att-aria-selected="this.state.tab === 'settings'"
+                            t-att-class="{'active': this.state.tab === 'settings'}" t-on-click="() => this.setTab('settings')">
+                        <i class="fa fa-sliders" aria-hidden="true"/>
+                        <span>Settings</span>
                     </button>
                 </div>
                 <div class="o_af_actions">
@@ -46,6 +62,7 @@
             </div>
             <div t-if="this.data" class="o_af_body">
                 <t t-if="this.state.tab === 'fields'" t-call="angels_forms.DesignerFields"/>
+                <t t-elif="this.state.tab === 'settings'" t-call="angels_forms.DesignerSettings"/>
                 <FlowEditor t-else="" t-key="this.state.version"
                             nodes="this.data.nodes" fields="this.data.fields" labels="this.labels"
                             ports="this.data.ports" operatorsByType="this.data.operators_by_type"
@@ -65,18 +82,6 @@
                 <i t-attf-class="fa fa-fw #{item.icon}" aria-hidden="true"/>
                 <span t-out="item.label"/>
             </button>
-            <h6 class="mt-4">Form</h6>
-            <label class="form-label small" for="o_af_form_description">Description</label>
-            <textarea id="o_af_form_description" class="form-control form-control-sm" rows="3"
-                      t-att-value="this.data.form.description"
-                      t-on-change="(ev) => this.setFormProp('description', ev.target.value)"/>
-            <label class="form-label small mt-2" for="o_af_form_icon">Icon</label>
-            <div class="input-group input-group-sm">
-                <span class="input-group-text"><i t-attf-class="fa fa-fw #{this.data.form.icon or 'fa-file-text-o'}" aria-hidden="true"/></span>
-                <input id="o_af_form_icon" type="text" class="form-control" placeholder="fa-plane"
-                       t-att-value="this.data.form.icon"
-                       t-on-change="(ev) => this.setFormProp('icon', ev.target.value.trim())"/>
-            </div>
         </aside>
 
         <main class="o_af_canvas">
@@ -113,7 +118,7 @@
                     <i class="fa fa-hand-pointer-o fa-2x mb-2" aria-hidden="true"/>
                     <p>Drag a question type here, or click it in the palette.</p>
                 </div>
-                <div t-ref="grid" t-attf-class="o_af_grid #{this.state.dragging or this.state.target ? 'o_af_grid_dragging' : ''}">
+                <div t-ref="grid" t-attf-class="o_af_grid #{this.state.dragging or this.state.target ? 'o_af_grid_dragging' : ''} #{this.fields.length ? '' : 'o_af_grid_empty'}">
                     <div class="o_af_grid_cols" aria-hidden="true">
                         <span t-foreach="this.columns" t-as="column" t-key="column"/>
                     </div>
@@ -306,6 +311,101 @@
                 <p>Select a question to change its label, type, choices and conditions.</p>
             </div>
         </aside>
+    </t>
+
+    <!-- Settings tab: everything about the form itself -->
+    <t t-name="angels_forms.DesignerSettings">
+        <main class="o_af_settings">
+            <div class="o_af_settings_inner">
+                <section class="o_af_settings_card">
+                    <h5>Look</h5>
+                    <p class="text-muted small">How the form appears under New Request.</p>
+                    <div class="o_af_look">
+                        <IconPicker icon="this.data.form.icon" color="this.data.form.color"
+                                    onChange="(values) => this.setLook(values)"/>
+                        <div class="o_af_look_preview">
+                            <span class="small text-muted">Preview</span>
+                            <div class="o_af_look_card">
+                                <span t-attf-class="o_af_catalog_icon o_af_color_#{this.data.form.color or 0}">
+                                    <i t-attf-class="fa fa-fw #{this.data.form.icon or 'fa-file-text-o'}" aria-hidden="true"/>
+                                </span>
+                                <div class="overflow-hidden">
+                                    <div class="fw-bold fs-5 text-truncate" t-out="this.data.form.name"/>
+                                    <div class="text-muted small o_af_catalog_desc" t-out="this.data.form.description"/>
+                                </div>
+                            </div>
+                            <label class="form-label small mt-3" for="o_af_form_description">Description</label>
+                            <textarea id="o_af_form_description" class="form-control" rows="3"
+                                      placeholder="Tell users what this form is for"
+                                      t-att-value="this.data.form.description"
+                                      t-on-input="(ev) => this.setFormProp('description', ev.target.value)"/>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="o_af_settings_card">
+                    <h5>Who can fill it</h5>
+                    <div class="form-check">
+                        <input id="o_af_who_all" class="form-check-input" type="radio" name="o_af_who"
+                               t-att-checked="!this.restricted" t-on-change="() => this.setRestricted(false)"/>
+                        <label class="form-check-label" for="o_af_who_all">Every forms user</label>
+                    </div>
+                    <div class="form-check">
+                        <input id="o_af_who_groups" class="form-check-input" type="radio" name="o_af_who"
+                               t-att-checked="this.restricted" t-on-change="() => this.setRestricted(true)"/>
+                        <label class="form-check-label" for="o_af_who_groups">Only members of these groups</label>
+                    </div>
+                    <div t-if="this.restricted" class="mt-2 ms-4">
+                        <MultiRecordSelector resModel="'res.groups'" resIds="this.data.form.group_ids"
+                                             update="(ids) => this.setFormProp('group_ids', ids)"/>
+                    </div>
+                    <t t-if="this.data.multi_company">
+                        <span class="form-label d-block mt-3">Company</span>
+                        <RecordSelector resModel="'res.company'" resId="this.data.form.company_id"
+                                        placeholder.translate="Every company"
+                                        update="(id) => this.setFormProp('company_id', id)"/>
+                    </t>
+                </section>
+
+                <section class="o_af_settings_card">
+                    <h5>Requests</h5>
+                    <label class="form-label" for="o_af_title">Name each request with</label>
+                    <select id="o_af_title" class="form-select" t-on-change="(ev) => this.setTitleQuestion(ev.target.value)">
+                        <option value="" t-att-selected="!this.data.form.title_field_id">The form name</option>
+                        <t t-foreach="this.titleQuestions" t-as="question" t-key="question.id">
+                            <option t-att-value="question.id" t-att-selected="question.id === this.data.form.title_field_id"
+                                    t-out="question.name"/>
+                        </t>
+                    </select>
+                    <div class="form-text">For example the destination of a trip: “REQ/0001 - Madrid”.</div>
+                    <div class="form-check form-switch mt-3">
+                        <input id="o_af_self" class="form-check-input" type="checkbox" role="switch"
+                               t-att-checked="this.data.form.allow_self_approval"
+                               t-on-change="(ev) => this.setFormProp('allow_self_approval', ev.target.checked)"/>
+                        <label class="form-check-label" for="o_af_self">Let requesters approve their own requests</label>
+                    </div>
+                    <div class="form-text">Off by default: when the requester is also an approver, someone else decides.</div>
+                </section>
+
+                <section class="o_af_settings_card">
+                    <h5>Publication</h5>
+                    <div class="d-flex align-items-center flex-wrap gap-3">
+                        <span t-if="this.data.form.published" class="text-success">
+                            <i class="fa fa-circle me-1" aria-hidden="true"/>Published: users find it under New Request.
+                        </span>
+                        <span t-else="" class="text-muted">
+                            <i class="fa fa-circle-o me-1" aria-hidden="true"/>Not published: only administrators see it.
+                        </span>
+                        <button type="button" class="btn btn-secondary btn-sm" t-on-click="() => this.togglePublished()">
+                            <t t-if="this.data.form.published">Unpublish</t><t t-else="">Publish</t>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-link btn-sm px-0 mt-3" t-on-click="() => this.openClassicForm()">
+                        <i class="fa fa-external-link me-1" aria-hidden="true"/>Open the classic form view
+                    </button>
+                </section>
+            </div>
+        </main>
     </t>
 
     <!-- How a question will look, drawn on its card in the designer -->
