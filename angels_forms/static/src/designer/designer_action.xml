@@ -87,12 +87,36 @@
                 <t t-if="this.state.tab === 'fields'" t-call="angels_forms.DesignerFields"/>
                 <t t-elif="this.state.tab === 'settings'" t-call="angels_forms.DesignerSettings"/>
                 <FlowEditor t-else="" t-key="this.state.version"
-                            nodes="this.data.nodes" fields="this.data.fields" labels="this.labels"
-                            ports="this.data.ports" operatorsByType="this.data.operators_by_type"
+                            nodes="this.data.nodes" sources="this.questions" userSources="this.userQuestions"
+                            labels="this.labels" ports="this.data.ports" operatorsByType="this.data.operators_by_type"
                             names="this.state.names" loadNames="(model, ids) => this.loadNames(model, ids)"
                             conditionsText="(item) => this.conditionsText(item)" onChange="() => this.touch()"
+                            onRemoveNode="(node) => this.releaseStageFields(node)" nodePills="(node) => this.nodePills(node)"
                             problems="this.nodeProblems" focusNodeId="this.state.focusNodeId"
-                            onFocused="() => this.clearFocus()"/>
+                            onFocused="() => this.clearFocus()">
+                    <t t-set-slot="help">
+                        <li>Approval and Task steps can fill their own questions (choose “Filled by” on a question).</li>
+                        <li>Create Record makes a record in Odoo (a contact, a task, an event...) with the answers.</li>
+                    </t>
+                    <t t-set-slot="inspector" t-slot-scope="scope">
+                        <RecordEditor t-if="scope.node.type === 'record'" t-key="scope.node.id" node="scope.node"
+                                      questions="this.questions" sources="this.labels.sources" onChange="() => this.touch()"/>
+                        <t t-if="this.canFill(scope.node)">
+                            <h6 class="mt-4">Questions filled at this step</h6>
+                            <ul t-if="this.stageFields(scope.node).length" class="o_af_stage_list list-unstyled mb-1">
+                                <li t-foreach="this.stageFields(scope.node)" t-as="field" t-key="field.id"
+                                    t-attf-class="o_af_stage_{{scope.node.color % 12}}">
+                                    <t t-out="field.name"/>
+                                    <span t-if="field.required" class="text-danger ms-1">*</span>
+                                </li>
+                            </ul>
+                            <p class="text-muted small">
+                                In the Questions tab, choose this step in “Filled by”. Its people answer them before
+                                approving or completing the step.
+                            </p>
+                        </t>
+                    </t>
+                </FlowEditor>
             </div>
         </div>
     </t>

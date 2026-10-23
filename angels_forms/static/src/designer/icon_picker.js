@@ -1,6 +1,6 @@
 import { Component } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
-import { useProps, useState } from "../common/owl_compat";
+import { useProps, useState } from "@angels_flow/common/owl_compat";
 
 /**
  * Font Awesome 4 icons offered for a form, by theme. The words help the

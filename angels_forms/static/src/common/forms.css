@@ -513,19 +513,6 @@
     margin: 0 0.35rem;
 }
 
-/* Colors of the flow steps, and of the questions each one fills (as in Angels Sign). */
-.o_af_stage_0 { --af-stage: #94a3b8; }
-.o_af_stage_1 { --af-stage: #8b5cf6; }
-.o_af_stage_2 { --af-stage: #10b981; }
-.o_af_stage_3 { --af-stage: #f59e0b; }
-.o_af_stage_4 { --af-stage: #06b6d4; }
-.o_af_stage_5 { --af-stage: #ec4899; }
-.o_af_stage_6 { --af-stage: #f97316; }
-.o_af_stage_7 { --af-stage: #0ea5e9; }
-.o_af_stage_8 { --af-stage: #6366f1; }
-.o_af_stage_9 { --af-stage: #ef4444; }
-.o_af_stage_10 { --af-stage: #84cc16; }
-.o_af_stage_11 { --af-stage: #eab308; }
 
 span.o_af_stage {
     display: inline-block;

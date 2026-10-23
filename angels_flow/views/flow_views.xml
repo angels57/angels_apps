@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_flow_list" model="ir.ui.view">
+        <field name="name">angels.flow.list</field>
+        <field name="model">angels.flow</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="model_id" options="{'no_create': True}"/>
+                <field name="trigger"/>
+                <field name="running_count" string="Running"/>
+                <field name="run_count" string="Runs" optional="hide"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_flow_form" model="ir.ui.view">
+        <field name="name">angels.flow.form</field>
+        <field name="model">angels.flow</field>
+        <field name="arch" type="xml">
+            <form string="Flow">
+                <header>
+                    <button name="action_open_designer" type="object" string="Design the Flow" class="btn-primary"
+                            invisible="not id" data-hotkey="d"/>
+                    <button name="action_start_now" type="object" string="Start Now"
+                            invisible="not id or not active"
+                            confirm="Start the flow now on every record it applies to?"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_runs" type="object" class="oe_stat_button" icon="fa-code-fork"
+                                invisible="not id">
+                            <field name="run_count" widget="statinfo" string="Runs"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="active" invisible="1"/>
+                    <field name="model_name" invisible="1"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Big Quotation Approval"/></h1>
+                    </div>
+                    <group>
+                        <group string="On">
+                            <field name="model_id" options="{'no_create': True, 'no_open': True}"
+                                   readonly="run_count" placeholder="e.g. Sales Order"/>
+                            <field name="filter_domain" widget="domain" options="{'model': 'model_name'}"
+                                   invisible="not model_id"/>
+                            <field name="once_per_record"/>
+                            <field name="allow_self_approval"/>
+                        </group>
+                        <group string="Starts">
+                            <field name="trigger" widget="radio"/>
+                            <field name="trigger_field_ids" widget="many2many_tags"
+                                   invisible="trigger != 'on_create_or_write'" options="{'no_create': True}"/>
+                            <label for="interval_number" string="Every" invisible="trigger != 'scheduled'"/>
+                            <div class="o_row" invisible="trigger != 'scheduled'">
+                                <field name="interval_number" class="oe_inline"/>
+                                <field name="interval_type" class="oe_inline"/>
+                            </div>
+                            <field name="next_run" invisible="trigger != 'scheduled'"/>
+                            <field name="date_field_id" invisible="trigger != 'on_time'"
+                                   required="trigger == 'on_time'" options="{'no_create': True}"/>
+                            <label for="date_range" string="When" invisible="trigger != 'on_time'"/>
+                            <div class="o_row" invisible="trigger != 'on_time'">
+                                <field name="date_range" class="oe_inline"/>
+                                <field name="date_range_type" class="oe_inline"/>
+                                <field name="date_range_mode" class="oe_inline"/>
+                            </div>
+                        </group>
+                    </group>
+                    <div class="text-muted small mb-3">
+                        <span invisible="trigger != 'manual'">Start it from the Action menu of a record, or with Start Now.</span>
+                        <span invisible="trigger not in ('on_create', 'on_create_or_write')">
+                            It starts by itself on the records that match. It can also be started from the Action menu.
+                        </span>
+                        <span invisible="trigger != 'scheduled'">
+                            At each run, it starts on every record that matches, unless it is already running on it.
+                        </span>
+                        <span invisible="trigger != 'on_time'">
+                            Checked several times a day: each record starts it around its date.
+                        </span>
+                    </div>
+                    <field name="run_count" invisible="1"/>
+                    <field name="description" placeholder="What this flow is for..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_flow_search" model="ir.ui.view">
+        <field name="name">angels.flow.search</field>
+        <field name="model">angels.flow</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="model_id"/>
+                <filter name="automatic" string="Automatic" domain="[('trigger', '!=', 'manual')]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="by_model" string="Model" context="{'group_by': 'model_id'}"/>
+                    <filter name="by_trigger" string="Starts" context="{'group_by': 'trigger'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_flow" model="ir.actions.act_window">
+        <field name="name">Flows</field>
+        <field name="res_model">angels.flow</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first flow</p>
+            <p>A flow runs on the records of one model: quotations, invoices, contacts...
+               It starts by hand, when a record is created or updated, on a schedule or around a date.</p>
+        </field>
+    </record>
+
+    <record id="action_flow_designer" model="ir.actions.client">
+        <field name="name">Flow Designer</field>
+        <field name="tag">angels_flow_designer</field>
+    </record>
+</odoo>

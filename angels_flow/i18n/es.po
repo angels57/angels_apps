@@ -1,0 +1,2379 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* angels_flow
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-23 00:35+0000\n"
+"PO-Revision-Date: 2026-10-23 00:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_document.py:0
+msgid "%(step)s: request %(request)s from %(user)s."
+msgstr "%(step)s: solicitud %(request)s de %(user)s."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_document.py:0
+msgid "%(step)s: the request goes back to %(user)s to be corrected."
+msgstr "%(step)s: la solicitud vuelve a %(user)s para que la corrija."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "%(user)s approved the step %(step)s."
+msgstr "%(user)s aprobó el paso %(step)s."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "%(user)s completed the step %(step)s."
+msgstr "%(user)s completó el paso %(step)s."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "%(user)s rejected the step %(step)s."
+msgstr "%(user)s rechazó el paso %(step)s."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "%s completes it"
+msgstr "%s la completa"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_node.py:0
+msgid "A flow has only one Start."
+msgstr "Un flujo solo tiene un Inicio."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_node.py:0
+msgid "A step can only lead to a step of the same flow."
+msgstr "Un paso solo puede llevar a un paso del mismo flujo."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "A task cannot be rejected."
+msgstr "Una tarea no se puede rechazar."
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__action_ref
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__step_type
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__step_type
+msgid "Action"
+msgstr "Acción"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_needaction
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__activity_ids
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__activity_exception_decoration
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__activity_state
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__activity_type_icon
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono del tipo de actividad"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "Add Condition"
+msgstr "Añadir condición"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "Add a User question to the form first."
+msgstr "Primero añade al formulario una pregunta de tipo Usuario."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Add a step"
+msgstr "Añadir un paso"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "After “%s”"
+msgstr "Después de “%s”"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__condition_match__all
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__condition_match__all
+msgid "All conditions"
+msgstr "Todas las condiciones"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "All of them"
+msgstr "Todas"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "An output with no arrow ends the flow: the request is approved."
+msgstr "Una salida sin flecha termina el flujo: la solicitud se aprueba."
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__condition_match__any
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__condition_match__any
+msgid "Any condition"
+msgstr "Alguna condición"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "Any of them"
+msgstr "Alguna"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__approve
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__approve
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__step_type__approve
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__step_type__approve
+msgid "Approval"
+msgstr "Aprobación"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "Approval by %s"
+msgstr "Aprobación de %s"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_document_mixin__state__approved
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__end_state__approved
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__end_state__approved
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__approved
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__approved
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__approved
+msgid "Approved"
+msgstr "Aprobada"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Arrange"
+msgstr "Ordenar"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_attachment_count
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__back
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__back
+msgid "Back to Requester"
+msgstr "Devolver al solicitante"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_document_mixin__state__cancelled
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__cancelled
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "Checked"
+msgstr "Marcada"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "Choose a question"
+msgstr "Elige una pregunta"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Click an arrow and press Delete to remove it."
+msgstr "Haz clic en una flecha y pulsa Supr para quitarla."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__color
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__color
+msgid "Color"
+msgstr "Color"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_node__color
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_node_mixin__color
+msgid "Color of the step."
+msgstr "Color del paso."
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__comment
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__comment
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__comment
+msgid "Comment"
+msgstr "Comentario"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "Complete %(request)s"
+msgstr "Completar %(request)s"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__condition
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__condition
+msgid "Condition"
+msgstr "Condición"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_document.py:0
+msgid "Correct %(request)s"
+msgstr "Corregir %(request)s"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__decided_by_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__decided_by_id
+msgid "Decided By"
+msgstr "Decidido por"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__date_done
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__date_done
+msgid "Decided On"
+msgstr "Decidida el"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Delete Step"
+msgstr "Eliminar paso"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__display_name
+#: model:ir.model.fields,field_description:angels_flow.field_ir_actions_server__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__done
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__done
+msgid "Done"
+msgstr "Hecho"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__date_done
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__date_done
+msgid "Done On"
+msgstr "Hecho el"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_document_mixin__state__draft
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid ""
+"Drag a step onto the board, or click it to add it after the selected one."
+msgstr ""
+"Arrastra un paso al tablero o haz clic para añadirlo después del "
+"seleccionado."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Drag from an output dot to the next step."
+msgstr "Arrastra desde un punto de salida hasta el siguiente paso."
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__end
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__end
+msgid "End"
+msgstr "Fin"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid ""
+"Every request starts here when the requester sends it. Drag its output to "
+"the first step."
+msgstr ""
+"Cada solicitud empieza aquí cuando el solicitante la envía. Arrastra su "
+"salida al primer paso."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "Everyone"
+msgstr "Todos"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__approval_rule__all
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__approval_rule__all
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__approval_rule__all
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__approval_rule__all
+msgid "Everyone must approve"
+msgstr "Todos deben aprobar"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Fit to screen"
+msgstr "Ajustar a la pantalla"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_angels_flow_document_mixin
+msgid "Flow Document"
+msgstr "Documento del flujo"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_angels_flow_step_mixin
+msgid "Flow Document Step"
+msgstr "Paso del documento"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_angels_flow_node
+#: model:ir.model,name:angels_flow.model_angels_flow_node_mixin
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__node_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__node_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__node_id
+#: model:mail.activity.type,name:angels_flow.mail_activity_flow_step
+msgid "Flow Step"
+msgstr "Paso del flujo"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_follower_ids
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_partner_ids
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (contactos)"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__activity_type_icon
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono de Font Awesome, p. ej. fa-tasks"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "Give a reason for the rejection."
+msgstr "Indica el motivo del rechazo."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Go to “Yes” when"
+msgstr "Ir a “Sí” cuando"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__group_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__group_id
+msgid "Group"
+msgstr "Grupo"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__has_message
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "How it works"
+msgstr "Cómo funciona"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__id
+#: model:ir.model.fields,field_description:angels_flow.field_ir_actions_server__id
+msgid "ID"
+msgstr "ID"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__activity_exception_icon
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__activity_exception_icon
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono que indica una actividad con excepción."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "If"
+msgstr "Si"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__message_needaction
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay mensajes nuevos que requieren tu atención."
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__message_has_error
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__message_has_sms_error
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__message_has_error
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_document_mixin__state__pending
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__pending
+msgid "In Review"
+msgstr "En revisión"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "Inform %s"
+msgstr "Avisar a %s"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__notified
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__notified
+msgid "Informed"
+msgstr "Avisado"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_is_follower
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__condition_match
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__condition_match
+msgid "Match"
+msgstr "Cumplir"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__assign_type__group
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__assign_type__group
+msgid "Members of a group"
+msgstr "Miembros de un grupo"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_has_error
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega del mensaje"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_ids
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "Missing question"
+msgstr "Pregunta eliminada"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__my_activity_date_deadline
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Fecha límite de mi actividad"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__activity_date_deadline
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de la siguiente actividad"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__activity_summary
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__activity_type_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de la siguiente actividad"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "No"
+msgstr "No"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "No condition yet"
+msgstr "Todavía sin condición"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "No condition yet: requests always go to “Yes”."
+msgstr "Todavía sin condición: las solicitudes siempre van a “Sí”."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "No question can be used here yet."
+msgstr "Todavía no hay preguntas que usar aquí."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_node.py:0
+msgid "No step can lead back to Start."
+msgstr "Ningún paso puede volver al Inicio."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_document.py:0
+msgid "Nobody can do the step %(step)s."
+msgstr "Nadie puede hacer el paso %(step)s."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "Not checked"
+msgstr "No marcada"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__notify
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__notify
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__step_type__notify
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__step_type__notify
+msgid "Notification"
+msgstr "Aviso"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_needaction_counter
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_has_error_counter
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__message_needaction_counter
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__message_has_error_counter
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__approval_rule__any
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__approval_rule__any
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__approval_rule__any
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__approval_rule__any
+msgid "One person is enough"
+msgstr "Basta con una persona"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__operator
+msgid "Operator"
+msgstr "Operador"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__pos_x
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__pos_x
+msgid "Pos X"
+msgstr "Posición X"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__pos_y
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__pos_y
+msgid "Pos Y"
+msgstr "Posición Y"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "Question"
+msgstr "Pregunta"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_document_mixin__state__rejected
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__end_state__rejected
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__end_state__rejected
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__rejected
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__rejected
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__rejected
+msgid "Rejected"
+msgstr "Rechazada"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Remove arrow"
+msgstr "Quitar flecha"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "Remove condition"
+msgstr "Quitar condición"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__activity_user_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__end_state
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__end_state
+msgid "Result"
+msgstr "Resultado"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "Review %(request)s"
+msgstr "Revisar %(request)s"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__approval_rule
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__approval_rule
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__approval_rule
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__approval_rule
+msgid "Rule"
+msgstr "Regla"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid ""
+"Select a step to choose who receives the request, the conditions, and what "
+"happens next."
+msgstr ""
+"Selecciona un paso para elegir quién recibe la solicitud, las condiciones y "
+"qué pasa después."
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__assign_type
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__assign_type
+msgid "Send To"
+msgstr "Enviar a"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Send to"
+msgstr "Enviar a"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__sequence
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__sequence
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__sequence
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__skipped
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__skipped
+msgid "Skipped"
+msgstr "Omitido"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__assign_type__users
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__assign_type__users
+msgid "Specific users"
+msgstr "Usuarios concretos"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__start
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__start
+msgid "Start"
+msgstr "Inicio"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__state
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__state
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__state
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__state
+msgid "State"
+msgstr "Estado"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__activity_state
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado según las actividades\n"
+"Vencida: la fecha límite ya pasó\n"
+"Hoy: la actividad es hoy\n"
+"Planificada: actividades futuras."
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__name
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__name
+msgid "Step"
+msgstr "Paso"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__task
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__task
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__step_type__task
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__step_type__task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_document.py:0
+msgid "The flow goes round in a circle at %(step)s."
+msgstr "El flujo da vueltas en círculo en %(step)s."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_document.py:0
+msgid "The request %(request)s was approved."
+msgstr "La solicitud %(request)s fue aprobada."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_document.py:0
+msgid "The request %(request)s was rejected."
+msgstr "La solicitud %(request)s fue rechazada."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid ""
+"The request goes back to the requester as a draft. Once corrected and sent again, it starts\n"
+"                    the flow from the beginning. Link the “Rejected” output of an approval here."
+msgstr ""
+"La solicitud vuelve al solicitante como borrador. Cuando la corrige y la envía de nuevo, empieza\n"
+"                    el flujo desde el principio. Conecta aquí la salida “Rechazada” de una aprobación."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "The request is approved"
+msgstr "La solicitud se aprueba"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "The request is rejected"
+msgstr "La solicitud se rechaza"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "The requester corrects it and sends it again"
+msgstr "El solicitante la corrige y la envía de nuevo"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+#: code:addons/angels_flow/models/flow_document.py:0
+msgid "The step %(step)s cannot run."
+msgstr "El paso %(step)s no se puede ejecutar."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_node.py:0
+msgid "The step %(step)s needs a group."
+msgstr "El paso %(step)s necesita un grupo."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_node.py:0
+msgid "The step %(step)s needs at least one user."
+msgstr "El paso %(step)s necesita al menos un usuario."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__next_id
+msgid "Then"
+msgstr "Después"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "This step is no longer waiting for a decision."
+msgstr "Este paso ya no espera una decisión."
+
+#. module: angels_flow
+#: model:ir.actions.act_window,name:angels_flow.action_run_to_do
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__pending
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__pending
+#: model:ir.ui.menu,name:angels_flow.menu_flow_to_do
+msgid "To Do"
+msgstr "Por hacer"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__node_type
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__node_type
+#: model:ir.model.fields,field_description:angels_flow.field_ir_actions_server__state
+#: model:ir.model.fields,field_description:angels_flow.field_ir_cron__state
+msgid "Type"
+msgstr "Tipo"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__activity_exception_decoration
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad con excepción en el registro."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "User chosen in the form"
+msgstr "Usuario elegido en el formulario"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__user_ids
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__user_ids
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__value
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__value
+msgid "Value"
+msgstr "Valor"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "When several people receive it"
+msgstr "Cuando la reciben varias personas"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "When the requester sends the form"
+msgstr "Cuando el solicitante envía el formulario"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "Yes"
+msgstr "Sí"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "You are not a reviewer of the step %(step)s."
+msgstr "No eres revisor del paso %(step)s."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "You cannot approve or reject your own request."
+msgstr "No puedes aprobar ni rechazar tu propia solicitud."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Zoom"
+msgstr "Zoom"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Zoom in"
+msgstr "Acercar"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "Zoom out"
+msgstr "Alejar"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.js:0
+msgid "and"
+msgstr "y"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "group %s"
+msgstr "el grupo %s"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "no group yet"
+msgstr "ningún grupo todavía"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "no question yet"
+msgstr "ninguna pregunta todavía"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "nobody yet"
+msgstr "nadie todavía"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.js:0
+msgid "or"
+msgstr "o"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "the user in “%s”"
+msgstr "el usuario de “%s”"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
+msgid "value"
+msgstr "valor"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid " and "
+msgstr " y "
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid " or "
+msgstr " o "
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "%(step)s: the flow goes on after %(date)s."
+msgstr "%(step)s: el flujo sigue después del %(date)s."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "%s (copy)"
+msgstr "%s (copia)"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "%s days"
+msgstr "%s días"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "%s hours"
+msgstr "%s horas"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
+msgid "<span class=\"o_stat_text\">Open the Record</span>"
+msgstr "<span class=\"o_stat_text\">Abrir el registro</span>"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid ""
+"<span invisible=\"trigger != 'manual'\">Start it from the Action menu of a record, or with Start Now.</span>\n"
+"                        <span invisible=\"trigger not in ('on_create', 'on_create_or_write')\">\n"
+"                            It starts by itself on the records that match. It can also be started from the Action menu.\n"
+"                        </span>\n"
+"                        <span invisible=\"trigger != 'scheduled'\">\n"
+"                            At each run, it starts on every record that matches, unless it is already running on it.\n"
+"                        </span>\n"
+"                        <span invisible=\"trigger != 'on_time'\">\n"
+"                            Checked several times a day: each record starts it around its date.\n"
+"                        </span>"
+msgstr ""
+"<span invisible=\"trigger != 'manual'\">Inícialo desde el menú Acción de un registro o con Iniciar ahora.</span>\n"
+"                        <span invisible=\"trigger not in ('on_create', 'on_create_or_write')\">\n"
+"                            Se inicia solo en los registros que cumplen el filtro. También se puede iniciar desde el menú Acción.\n"
+"                        </span>\n"
+"                        <span invisible=\"trigger != 'scheduled'\">\n"
+"                            En cada ejecución, se inicia en todos los registros que cumplen el filtro, salvo si ya está en curso en ellos.\n"
+"                        </span>\n"
+"                        <span invisible=\"trigger != 'on_time'\">\n"
+"                            Se revisa varias veces al día: cada registro lo inicia alrededor de su fecha.\n"
+"                        </span>"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_condition.py:0
+msgid "A condition can only test a field of the flow's model."
+msgstr "Una condición solo puede comprobar un campo del modelo del flujo."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "A flow has exactly one Start."
+msgstr "Un flujo tiene exactamente un Inicio."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "A flow on records has no step back to a requester."
+msgstr "Un flujo sobre registros no tiene paso de devolver al solicitante."
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_flow
+msgid ""
+"A flow runs on the records of one model: quotations, invoices, contacts...\n"
+"               It starts by hand, when a record is created or updated, on a schedule or around a date."
+msgstr ""
+"Un flujo se ejecuta sobre los registros de un modelo: presupuestos, "
+"facturas, contactos... Empieza a mano, al crear o modificar un registro, de "
+"forma programada o alrededor de una fecha."
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow__once_per_record
+msgid ""
+"A record goes through this flow only once. Otherwise it can start again once"
+" the last run is over."
+msgstr ""
+"Un registro pasa por este flujo una sola vez. Si no, puede volver a empezar "
+"cuando termine la última ejecución."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "A scheduled flow runs at least every 1 %(unit)s."
+msgstr "Un flujo programado se ejecuta como mucho cada 1 %(unit)s."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "A step of the flow has no name."
+msgstr "Un paso del flujo no tiene nombre."
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_decision_wizard_form
+msgid "Add a comment"
+msgstr "Añade un comentario"
+
+#. module: angels_flow
+#: model:res.groups,name:angels_flow.group_flow_manager
+msgid "Administrator"
+msgstr "Administrador"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__date_range_mode__after
+msgid "After"
+msgstr "Después"
+
+#. module: angels_flow
+#: model:ir.module.category,name:angels_flow.module_category_angels_flow
+#: model:res.groups.privilege,name:angels_flow.res_groups_privilege_angels_flow
+msgid "Angels Flow"
+msgstr "Angels Flow"
+
+#. module: angels_flow
+#: model:ir.actions.server,name:angels_flow.ir_cron_flow_run_ir_actions_server
+msgid "Angels Flow: scheduled flows and waiting runs"
+msgstr "Angels Flow: flujos programados y ejecuciones en espera"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__model_id
+msgid "Applies To"
+msgstr "Se aplica a"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_decision_wizard__decision__approve
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_decision_wizard_form
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
+msgid "Approve"
+msgstr "Aprobar"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__approved_by_ids
+msgid "Approved By"
+msgstr "Aprobado por"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_search
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__trigger__on_time
+msgid "Around a date of the record"
+msgstr "Alrededor de una fecha del registro"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_search
+msgid "Automatic"
+msgstr "Automático"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__automation_id
+msgid "Automation Rule"
+msgstr "Regla de automatización"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__date_range_mode__before
+msgid "Before"
+msgstr "Antes"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
+msgid "Cancel Run"
+msgstr "Cancelar ejecución"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
+msgid "Cancel this run?"
+msgstr "¿Cancelar esta ejecución?"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Cannot save yet"
+msgstr "Todavía no se puede guardar"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Choose a field"
+msgstr "Elige un campo"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
+msgid "Complete"
+msgstr "Completar"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__condition_ids
+msgid "Conditions"
+msgstr "Condiciones"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Conditions and “User in a field” read the fields of the record."
+msgstr "Las condiciones y «Usuario en un campo» leen los campos del registro."
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_flow
+msgid "Create your first flow"
+msgstr "Crea tu primer flujo"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__create_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__create_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__create_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__create_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__create_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__create_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__create_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__create_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__create_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__create_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__create_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__create_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__current_step_id
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_list
+msgid "Current Step"
+msgstr "Paso actual"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__step_type
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__current_step_type
+msgid "Current Step Type"
+msgstr "Tipo de paso actual"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__date_field_id
+msgid "Date Field"
+msgstr "Campo de fecha"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__days
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__date_range_type__day
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__interval_type__days
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__wait_unit__days
+msgid "Days"
+msgstr "Días"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__decision
+msgid "Decision"
+msgstr "Decisión"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__date_range
+msgid "Delay"
+msgstr "Retraso"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__date_range_mode
+msgid "Delay Mode"
+msgstr "Modo de retraso"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__date_range_type
+msgid "Delay Unit"
+msgstr "Unidad de retraso"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid "Design the Flow"
+msgstr "Diseñar el flujo"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Designer"
+msgstr "Diseñador"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_decision_wizard_form
+msgid "Discard"
+msgstr "Descartar"
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_run_all
+msgid ""
+"Each time a record starts a flow, its run shows here with its steps and "
+"history."
+msgstr ""
+"Cada vez que un registro inicia un flujo, su ejecución aparece aquí con sus "
+"pasos e historial."
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__interval_number
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid "Every"
+msgstr "Cada"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid ""
+"Every run starts here: by hand, when a record is created or updated, on a schedule or\n"
+"                            around a date, as set in the Settings of the flow."
+msgstr ""
+"Cada ejecución empieza aquí: a mano, al crear o modificar un registro, de "
+"forma programada o alrededor de una fecha, según los Ajustes del flujo."
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__field_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__field_id
+msgid "Field"
+msgstr "Campo"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__flow_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__flow_id
+#: model:ir.model.fields,field_description:angels_flow.field_ir_actions_server__angels_flow_id
+#: model:ir.model.fields,field_description:angels_flow.field_ir_cron__angels_flow_id
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_search
+msgid "Flow"
+msgstr "Flujo"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_angels_flow_condition
+msgid "Flow Condition"
+msgstr "Condición del flujo"
+
+#. module: angels_flow
+#: model:ir.actions.client,name:angels_flow.action_flow_designer
+msgid "Flow Designer"
+msgstr "Diseñador de flujos"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_angels_flow_run
+msgid "Flow Run"
+msgstr "Ejecución del flujo"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_angels_flow_decision_wizard
+msgid "Flow Run Decision"
+msgstr "Decisión de la ejecución"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_angels_flow_run_step
+msgid "Flow Run Step"
+msgstr "Paso de la ejecución"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Flow saved."
+msgstr "Flujo guardado."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "Flow: %s"
+msgstr "Flujo: %s"
+
+#. module: angels_flow
+#: model:ir.actions.act_window,name:angels_flow.action_flow
+#: model:ir.ui.menu,name:angels_flow.menu_flow_flows
+#: model:ir.ui.menu,name:angels_flow.menu_flow_root
+msgid "Flows"
+msgstr "Flujos"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__date_range_type__hour
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__interval_type__hours
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__wait_unit__hours
+msgid "Hours"
+msgstr "Horas"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__no_id
+msgid "If No"
+msgstr "Si no"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__reject_id
+msgid "If Rejected"
+msgstr "Si se rechaza"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__yes_id
+msgid "If Yes"
+msgstr "Si sí"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__write_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__write_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__write_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__write_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__write_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__write_uid
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__write_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_condition__write_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__write_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__write_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__write_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__write_date
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__trigger__manual
+msgid "Manually"
+msgstr "A mano"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_decision_wizard_form
+msgid "Mark as Done"
+msgstr "Marcar como hecho"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__res_model
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_search
+msgid "Model"
+msgstr "Modelo"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__model_name
+msgid "Model Name"
+msgstr "Nombre del modelo"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__interval_type__months
+msgid "Months"
+msgstr "Meses"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__next_run
+msgid "Next Run"
+msgstr "Próxima ejecución"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_condition.py:0
+msgid "No condition can test the field %(field)s."
+msgstr "Ninguna condición puede comprobar el campo %(field)s."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "No flow can run on %(model)s."
+msgstr "Ningún flujo puede ejecutarse sobre %(model)s."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "No name"
+msgstr "Sin nombre"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "No record can start the flow now."
+msgstr "Ningún registro puede iniciar el flujo ahora."
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_run_all
+msgid "No run yet"
+msgstr "Todavía no hay ejecuciones"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Nobody to send to"
+msgstr "Sin destinatarios"
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_run_to_do
+msgid "Nothing waits for you"
+msgstr "Nada te espera"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid "On"
+msgstr "Sobre"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__trigger__scheduled
+msgid "On a schedule"
+msgstr "Programado"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__once_per_record
+msgid "Once per Record"
+msgstr "Una vez por registro"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__filter_domain
+msgid "Only Records"
+msgstr "Solo los registros"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "Only who started %(run)s or an administrator can cancel it."
+msgstr "Solo quien inició %(run)s o un administrador puede cancelarla."
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_search
+msgid "Over"
+msgstr "Terminadas"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__user_ids
+msgid "People"
+msgstr "Personas"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__record_name
+msgid "Record"
+msgstr "Registro"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__res_id
+msgid "Record ID"
+msgstr "ID del registro"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__name
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_decision_wizard__decision__reject
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_decision_wizard_form
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
+msgid "Reject"
+msgstr "Rechazar"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_decision_wizard__run_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__run_id
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
+msgid "Run"
+msgstr "Ejecución"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__run_count
+msgid "Run Count"
+msgstr "Número de ejecuciones"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "Run cancelled by %(user)s."
+msgstr "Ejecución cancelada por %(user)s."
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_list
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_search
+msgid "Running"
+msgstr "En curso"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__running_count
+msgid "Running Count"
+msgstr "En curso"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+#: model:ir.actions.act_window,name:angels_flow.action_run_all
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__run_ids
+#: model:ir.ui.menu,name:angels_flow.menu_flow_runs
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_list
+msgid "Runs"
+msgstr "Ejecuciones"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "Runs change only through their flow."
+msgstr "Las ejecuciones solo cambian a través de su flujo."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Save"
+msgstr "Guardar"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__allow_self_approval
+msgid "Self-Approval"
+msgstr "Autoaprobación"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_ir_actions_server
+msgid "Server Action"
+msgstr "Acción de servidor"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Settings"
+msgstr "Ajustes"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__action_id
+msgid "Start Action"
+msgstr "Acción de inicio"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid "Start Now"
+msgstr "Iniciar ahora"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__ir_actions_server__state__angels_flow
+msgid "Start a Flow"
+msgstr "Iniciar un flujo"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "Start the flow %s"
+msgstr "Iniciar el flujo %s"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid "Start the flow now on every record it applies to?"
+msgstr "¿Iniciar el flujo ahora en todos los registros a los que se aplica?"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__user_id
+msgid "Started By"
+msgstr "Iniciado por"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__date_start
+msgid "Started On"
+msgstr "Iniciado el"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__trigger
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_search
+msgid "Starts"
+msgstr "Empieza"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__node_ids
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__step_ids
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
+msgid "Steps"
+msgstr "Pasos"
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_run_to_do
+msgid "The approvals and tasks of the flows that reach you show here."
+msgstr "Aquí aparecen las aprobaciones y tareas de los flujos que te llegan."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid ""
+"The flow %(flow)s cannot start on this record: it is not in the flow's "
+"records, or it already went through it."
+msgstr ""
+"El flujo %(flow)s no puede iniciarse en este registro: no está entre los "
+"registros del flujo o ya pasó por él."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "The flow %(flow)s ended: approved (%(run)s)."
+msgstr "El flujo %(flow)s terminó: aprobado (%(run)s)."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "The flow %(flow)s ended: rejected (%(run)s)."
+msgstr "El flujo %(flow)s terminó: rechazado (%(run)s)."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "The flow %(flow)s needs a date field."
+msgstr "El flujo %(flow)s necesita un campo de fecha."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "The flow %(flow)s started."
+msgstr "El flujo %(flow)s se inició."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "The flow %(flow)s started: %(run)s."
+msgstr "El flujo %(flow)s se inició: %(run)s."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "The flow could not go on."
+msgstr "El flujo no pudo continuar."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "The flow started on %(count)s records."
+msgstr "El flujo se inició en %(count)s registros."
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow__filter_domain
+msgid "The flow starts only on the records that match."
+msgstr "El flujo solo se inicia en los registros que cumplen el filtro."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "The model has no user field."
+msgstr "El modelo no tiene ningún campo de usuario."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_condition.py:0
+msgid "The operator of the condition on %(field)s does not fit its type."
+msgstr "El operador de la condición sobre %(field)s no corresponde a su tipo."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "The record of %(run)s no longer exists."
+msgstr "El registro de %(run)s ya no existe."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "The step %(step)s needs a user field of the record."
+msgstr "El paso %(step)s necesita un campo de usuario del registro."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow.py:0
+msgid "The step %(step)s waits at least 1 hour or day."
+msgstr "El paso %(step)s espera al menos 1 hora o 1 día."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "The step “%s” has nobody to send to."
+msgstr "El paso “%s” no tiene destinatarios."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_run.py:0
+msgid "This run is not waiting for your decision."
+msgstr "Esta ejecución no está esperando tu decisión."
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__interval_type
+msgid "Unit"
+msgstr "Unidad"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Unsaved changes"
+msgstr "Cambios sin guardar"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow__trigger_field_ids
+msgid "Updates of other fields do not start the flow. Empty: any update."
+msgstr ""
+"Los cambios en otros campos no inician el flujo. Vacío: cualquier cambio."
+
+#. module: angels_flow
+#: model:res.groups,name:angels_flow.group_flow_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__user_field_id
+msgid "User Field"
+msgstr "Campo de usuario"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__assign_type__field
+msgid "User in a field of the record"
+msgstr "Usuario en un campo del registro"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__wait_amount
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__wait
+msgid "Wait"
+msgstr "Esperar"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__wait_unit
+msgid "Wait Unit"
+msgstr "Unidad de espera"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Wait for"
+msgstr "Esperar"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Wait pauses the run for some hours or days, then it goes on."
+msgstr "Esperar pausa la ejecución unas horas o días y luego sigue."
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_search
+msgid "Waiting"
+msgstr "En espera"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__wait_node_id
+msgid "Waiting At"
+msgstr "Esperando en"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__wait_until
+msgid "Waiting Until"
+msgstr "Esperando hasta"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__is_my_turn
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_search
+msgid "Waiting for Me"
+msgstr "Esperando por mí"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Waits %s, then goes on"
+msgstr "Espera %s y luego sigue"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__interval_type__weeks
+msgid "Weeks"
+msgstr "Semanas"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid "What this flow is for..."
+msgstr "Para qué sirve este flujo..."
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid "When"
+msgstr "Cuándo"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__trigger_field_ids
+msgid "When These Change"
+msgstr "Cuando cambien estos"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__trigger__on_create
+msgid "When a record is created"
+msgstr "Al crear un registro"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__trigger__on_create_or_write
+msgid "When a record is created or updated"
+msgstr "Al crear o modificar un registro"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_node__reject_id
+msgid "Where a rejected run goes. Empty: the run is rejected."
+msgstr "A dónde va una ejecución rechazada. Vacío: la ejecución se rechaza."
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow__allow_self_approval
+msgid ""
+"Who started a run may also approve its steps. Off: someone else must approve"
+" them."
+msgstr ""
+"Quien inició una ejecución también puede aprobar sus pasos. Desactivado: "
+"otra persona debe aprobarlos."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "a removed field"
+msgstr "un campo eliminado"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "checked"
+msgstr "marcada"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_condition__operator__contains
+msgid "contains"
+msgstr "contiene"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid "e.g. Big Quotation Approval"
+msgstr "p. ej. Aprobación de presupuestos grandes"
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid "e.g. Sales Order"
+msgstr "p. ej. Pedido de venta"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_condition__operator__>=
+msgid "greater or equal"
+msgstr "mayor o igual que"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_condition__operator__>
+msgid "greater than"
+msgstr "mayor que"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_condition__operator__=
+msgid "is"
+msgstr "es"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_condition__operator__not_set
+msgid "is empty"
+msgstr "está vacío"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_condition__operator__set
+msgid "is filled"
+msgstr "está respondido"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_condition__operator__!=
+msgid "is not"
+msgstr "no es"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_condition__operator__<=
+msgid "less or equal"
+msgstr "menor o igual que"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_condition__operator__<
+msgid "less than"
+msgstr "menor que"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "not checked"
+msgstr "no marcada"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "1 day"
+msgstr "1 día"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "1 hour"
+msgstr "1 hora"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_has_sms_error
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_ir_actions_server__state
+#: model:ir.model.fields,help:angels_flow.field_ir_cron__state
+msgid ""
+"Type of server action. The following values are available:\n"
+"- 'Update a Record': update the values of a record\n"
+"- 'Create Activity': create an activity (Discuss)\n"
+"- 'Send Email': post a message, a note or send an email (Discuss)\n"
+"- 'Send SMS': send SMS, log them on documents (SMS)- 'Add/Remove Followers': add or remove followers to a record (Discuss)\n"
+"- 'Create Record': create a new record with new values\n"
+"- 'Execute Code': a block of Python code that will be executed\n"
+"- 'Send Webhook Notification': send a POST request to an external system, also known as a Webhook\n"
+"- 'Multi Actions': define an action that triggers several other server actions\n"
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__website_message_ids
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__website_message_ids
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "%(step)s: %(action)s done."
+msgstr "%(step)s: %(action)s hecho."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "%(step)s: %(fields)s updated."
+msgstr "%(step)s: %(fields)s actualizado."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "%s fields"
+msgstr "%s campos"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+msgid "Add a field"
+msgstr "Añadir un campo"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Buttons"
+msgstr "Botones"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+msgid "Choose a field..."
+msgstr "Elige un campo..."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Choose an action..."
+msgstr "Elige una acción..."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+msgid "Choose..."
+msgstr "Elige..."
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_update__source__empty
+msgid "Empty"
+msgstr "Vacío"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+msgid "Field to set"
+msgstr "Campo a cambiar"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__update_ids
+msgid "Fields to Set"
+msgstr "Campos a cambiar"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_update__source__value
+msgid "Fixed Value"
+msgstr "Valor fijo"
+
+#. module: angels_flow
+#: model:ir.model,name:angels_flow.model_angels_flow_update
+msgid "Flow Update"
+msgstr "Cambio del flujo"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_update__days
+msgid "For Today + Days: how many days after today (negative: before)."
+msgstr "Para Hoy + días: cuántos días después de hoy (negativo: antes)."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid ""
+"It runs with full rights, like an automation rule. A button that opens a window to fill\n"
+"                                cannot run by itself."
+msgstr ""
+"Se ejecuta con todos los permisos, como una regla de automatización. Un "
+"botón que abre una ventana para rellenar no puede ejecutarse solo."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "No action yet"
+msgstr "Sin acción todavía"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "No field yet"
+msgstr "Sin campos todavía"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+msgid "No field yet."
+msgstr "Sin campos todavía."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Only a date can be set to today."
+msgstr "Solo una fecha puede ponerse en hoy."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Only a user field can be set to who started the run."
+msgstr "Solo un campo de usuario puede ponerse en quien inició la ejecución."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+msgid "Remove"
+msgstr "Quitar"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__action
+msgid "Run an Action"
+msgstr "Ejecutar una acción"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Server Actions"
+msgstr "Acciones de servidor"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+msgid "Set these fields"
+msgstr "Cambiar estos campos"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Sets %s"
+msgstr "Cambia %s"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__source
+msgid "Source"
+msgstr "Origen"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "The step %(step)s cannot set the field %(field)s."
+msgstr "El paso %(step)s no puede cambiar el campo %(field)s."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "The step %(step)s could not finish: %(error)s"
+msgstr "El paso %(step)s no pudo terminar: %(error)s"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "The step %(step)s could not finish: the database refused the change."
+msgstr ""
+"El paso %(step)s no pudo terminar: la base de datos rechazó el cambio."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "The step %(step)s has no action to run."
+msgstr "El paso %(step)s no tiene ninguna acción que ejecutar."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "The step %(step)s needs an action of this model."
+msgstr "El paso %(step)s necesita una acción de este modelo."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "The step “%s” needs an action."
+msgstr "El paso “%s” necesita una acción."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "The step “%s” sets no field."
+msgstr "El paso “%s” no cambia ningún campo."
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "The value %(value)s does not fit the field %(field)s."
+msgstr "El valor %(value)s no corresponde al campo %(field)s."
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_update__source__today
+msgid "Today + Days"
+msgstr "Hoy + días"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__update
+msgid "Update Record"
+msgstr "Actualizar registro"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid ""
+"Update Record sets fields; Run an Action presses a button of the record."
+msgstr ""
+"Actualizar registro cambia campos; Ejecutar una acción pulsa un botón del "
+"registro."
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_node__action_ref
+msgid ""
+"What the step does: button:<method> (a button of the record), server:<id> (a"
+" server action) or preset:<key> (an action added by another module)."
+msgstr ""
+"Qué hace el paso: button:<método> (un botón del registro), server:<id> (una "
+"acción de servidor) o preset:<clave> (una acción añadida por otro módulo)."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "What to do on the record"
+msgstr "Qué hacer en el registro"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+msgid "Where the value comes from"
+msgstr "De dónde sale el valor"
+
+#. module: angels_flow
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_update__source__starter
+msgid "Who Started the Run"
+msgstr "Quien inició la ejecución"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+msgid "days"
+msgstr "días"
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "this button opens a window to fill, it cannot run by itself"
+msgstr "este botón abre una ventana para rellenar, no puede ejecutarse solo"
+
+#. module: angels_flow
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "1 field"
+msgstr "1 campo"

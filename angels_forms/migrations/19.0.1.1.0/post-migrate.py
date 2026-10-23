@@ -19,7 +19,7 @@ def migrate(cr, version):
     if not cr.fetchone()[0]:
         return
     env = api.Environment(cr, SUPERUSER_ID, {"active_test": False})
-    Node = env["angels.form.node"].with_context(angels_forms_defer=True)
+    Node = env["angels.form.node"].with_context(angels_flow_defer=True)
     node_by_rule = {}
     order = {"notify_submit": 0, "approve": 1, "notify_done": 2}
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_activity_flow_step" model="mail.activity.type">
+        <field name="name">Flow Step</field>
+        <field name="icon">fa-code-fork</field>
+        <field name="res_model">angels.flow.run</field>
+        <field name="delay_count">1</field>
+    </record>
+</odoo>

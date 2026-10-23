@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
 
     <!-- Each condition reads as a sentence: "Show if [question] [is] [value]", each part a pill. -->
-    <t t-name="angels_forms.ConditionEditor">
+    <t t-name="angels_flow.ConditionEditor">
         <div class="o_af_conditions">
             <p t-if="!this.item.conditions.length" class="text-muted small mb-2" t-out="this.props.emptyText"/>
             <div t-if="this.item.conditions.length > 1" class="o_af_segment mb-2" role="radiogroup" aria-label="Match">
@@ -43,7 +43,8 @@
                                     class="o_af_pill o_af_pill_value" aria-label="Value"
                                     t-on-change="(ev) => this.setValue(condition, ev.target.value)">
                                 <t t-foreach="source.options" t-as="option" t-key="option_index">
-                                    <option t-att-value="option" t-att-selected="option === condition.value" t-out="option"/>
+                                    <option t-att-value="this.optionValue(option)" t-att-selected="this.optionValue(option) === condition.value"
+                                            t-out="this.optionLabel(option)"/>
                                 </t>
                             </select>
                             <div t-elif="source.type === 'user' or source.type === 'partner'" class="o_af_pill o_af_pill_record">

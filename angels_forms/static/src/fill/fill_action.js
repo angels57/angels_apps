@@ -4,7 +4,7 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { isSet, visibleFieldIds } from "../common/conditions";
 import { FormRenderer } from "../common/form_renderer";
-import { useProps, useState } from "../common/owl_compat";
+import { useProps, useState } from "@angels_flow/common/owl_compat";
 
 /**
  * Fill a form (context: form_id, submission_id):

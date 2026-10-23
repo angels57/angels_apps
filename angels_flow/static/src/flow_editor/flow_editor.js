@@ -3,23 +3,11 @@ import { _t } from "@web/core/l10n/translation";
 import { MultiRecordSelector } from "@web/core/record_selectors/multi_record_selector";
 import { RecordSelector } from "@web/core/record_selectors/record_selector";
 import { useProps, useState } from "../common/owl_compat";
+import { startPointerDrag } from "../common/pointer_drag";
 import { ConditionEditor } from "./condition_editor";
-import { startPointerDrag } from "./pointer_drag";
-import { RecordEditor } from "./record_editor";
+import { nodeIcon, nodeTypes } from "./node_types";
 
-export const STAGE_TYPES = ["approve", "task"];
 const PEOPLE_TYPES = ["approve", "task", "notify"];
-export const NODE_ICONS = {
-    start: "fa-play",
-    condition: "fa-code-fork",
-    approve: "fa-check-circle",
-    task: "fa-tasks",
-    notify: "fa-bell",
-    record: "fa-cubes",
-    back: "fa-reply",
-    end: "fa-flag-checkered",
-};
-const PALETTE = ["condition", "approve", "task", "notify", "record", "back", "end"];
 const NODE_W = 220;
 const NODE_H = 88;
 const GRID = 20;
@@ -30,23 +18,29 @@ const ZOOM_MIN = 0.4;
 const ZOOM_MAX = 1.5;
 
 /**
- * The steps a request goes through, drawn as boxes linked by arrows, like the
+ * The steps a document goes through, drawn as boxes linked by arrows, like the
  * Integration Workflow builder. Drag a step from the palette, move it (it
  * snaps to the grid and lines up with the others), and drag from one of its
  * outputs (Yes / No, Approved / Rejected, Then) to the next step.
  *
- * Mutates ``props.nodes`` and ``props.fields`` in place and calls ``props.onChange``.
+ * The host gives what conditions read (``sources``), the users a step can be
+ * sent to from the document (``userSources``, optional) and its own settings
+ * for a step (``inspector`` slot, with ``node``). Kinds of step come from the
+ * ``angels_flow.node_types`` registry.
+ *
+ * Mutates ``props.nodes`` in place and calls ``props.onChange``.
  */
 export class FlowEditor extends Component {
-    static template = "angels_forms.FlowEditor";
-    static components = { ConditionEditor, MultiRecordSelector, RecordEditor, RecordSelector };
+    static template = "angels_flow.FlowEditor";
+    static components = { ConditionEditor, MultiRecordSelector, RecordSelector };
 
     setup() {
-        // nodes, fields, labels, ports, operatorsByType, names, loadNames, conditionsText, onChange,
-        // problems (by step id), focusNodeId (step to select when opened), onFocused
+        // nodes, sources, userSources, labels, ports, operatorsByType, names, loadNames, conditionsText,
+        // onChange, onRemoveNode, nodePills, problems (by step id), focusNodeId (step to select when
+        // opened), onFocused, startText (what starts the flow), userSourceTexts ({label, placeholder,
+        // empty}); slots: inspector (with node), help
         this.props = useProps();
         this.nodes = useState(this.props.nodes);
-        this.fields = useState(this.props.fields);
         this.names = useState(this.props.names);
         this.state = useState({
             selectedId: this.props.focusNodeId || false,
@@ -79,10 +73,11 @@ export class FlowEditor extends Component {
         return this.nodes.find((n) => n.id === this.state.selectedId);
     }
     get palette() {
-        return PALETTE.map((type) => ({ type, icon: NODE_ICONS[type], label: this.props.labels.node_types[type] }));
-    }
-    get questions() {
-        return this.fields.filter((f) => f.type !== "section");
+        return nodeTypes
+            .getEntries()
+            .filter(([type, kind]) => kind.palette && this.props.ports[type])
+            .sort(([, a], [, b]) => a.sequence - b.sequence)
+            .map(([type, kind]) => ({ type, icon: kind.icon, label: this.props.labels.node_types[type] }));
     }
     // Choices shown as chips; the first one is what an empty value means.
     get endChoices() {
@@ -92,11 +87,14 @@ export class FlowEditor extends Component {
         ];
     }
     get assignChoices() {
-        return [
+        const choices = [
             { value: "users", label: _t("Specific users") },
             { value: "group", label: _t("Members of a group") },
-            { value: "field", label: _t("User chosen in the form") },
         ];
+        if (this.props.userSources) {
+            choices.push({ value: "field", label: this.userSourceTexts.label });
+        }
+        return choices;
     }
     get ruleChoices() {
         return [
@@ -109,8 +107,16 @@ export class FlowEditor extends Component {
         const current = choices.some((c) => c.value === node[prop]) ? node[prop] : choices[0].value;
         return current === choice.value;
     }
-    get userQuestions() {
-        return this.fields.filter((f) => f.type === "user");
+    get userSources() {
+        return this.props.userSources || [];
+    }
+    get userSourceTexts() {
+        return {
+            label: _t("User chosen in the form"),
+            placeholder: _t("Choose a question"),
+            empty: _t("Add a User question to the form first."),
+            ...this.props.userSourceTexts,
+        };
     }
     get boardSize() {
         return {
@@ -162,24 +168,17 @@ export class FlowEditor extends Component {
     recipientsIcon(node) {
         return node.assign_type === "group" ? "fa-users" : "fa-user-circle-o";
     }
+    /** Small facts of the kind of step; they replace its summary at the bottom. */
+    kindPills(node) {
+        return nodeTypes.get(node.type, {}).pills?.(node) || [];
+    }
     /** Small facts shown at the bottom of a step. */
     pills(node) {
-        const pills = [];
-        if (node.type === "record" && node.record_model) {
-            pills.push({ icon: "fa-cube", text: node.record_model_name || node.record_model });
-            pills.push({ icon: "fa-list", text: _t("%s fields", node.mappings.length), muted: true });
-        }
+        const pills = [...this.kindPills(node)];
         if (node.type === "approve" && node.approval_rule === "all") {
             pills.push({ icon: "fa-users", text: _t("Everyone"), title: _t("Everyone must approve"), muted: true });
         }
-        if (this.canFill(node) && this.stageFields(node).length) {
-            pills.push({
-                icon: "fa-pencil",
-                text: String(this.stageFields(node).length),
-                title: this.stageFieldNames(node),
-                stage: true,
-            });
-        }
+        pills.push(...(this.props.nodePills?.(node) || []));
         return pills;
     }
     problemsOf(node) {
@@ -189,7 +188,7 @@ export class FlowEditor extends Component {
         return this.problemsOf(node).map((p) => p.text).join("\n");
     }
     icon(node) {
-        return NODE_ICONS[node.type];
+        return nodeIcon(node.type);
     }
     ports(node) {
         return this.props.ports[node.type].map((port, index, all) => ({
@@ -224,17 +223,6 @@ export class FlowEditor extends Component {
             return _t("Done");
         }
         return _t("Then");
-    }
-    stageFields(node) {
-        return this.fields.filter((f) => f.node_id === node.id);
-    }
-    stageFieldNames(node) {
-        return this.stageFields(node)
-            .map((f) => f.name)
-            .join(", ");
-    }
-    canFill(node) {
-        return STAGE_TYPES.includes(node.type);
     }
     hasPeople(node) {
         return PEOPLE_TYPES.includes(node.type);
@@ -305,13 +293,13 @@ export class FlowEditor extends Component {
                 ? _t("group %s", this.names["res.groups"][node.group_id] || "...")
                 : _t("no group yet");
         }
-        const field = this.fields.find((f) => f.id === node.user_field_id);
+        const field = this.userSources.find((f) => f.id === node.user_field_id);
         return field ? _t("the user in “%s”", field.name) : _t("no question yet");
     }
     summary(node) {
         switch (node.type) {
             case "start":
-                return _t("When the requester sends the form");
+                return this.props.startText || _t("When the requester sends the form");
             case "condition":
                 return node.conditions.length ? this.props.conditionsText(node) : _t("No condition yet");
             case "approve":
@@ -320,16 +308,12 @@ export class FlowEditor extends Component {
                 return _t("%s completes it", this.recipientsText(node));
             case "notify":
                 return _t("Inform %s", this.recipientsText(node));
-            case "record":
-                return node.record_model
-                    ? _t("Creates a %s", node.record_model_name || node.record_model)
-                    : _t("No record type yet");
             case "back":
                 return _t("The requester corrects it and sends it again");
             case "end":
                 return node.end_state === "rejected" ? _t("The request is rejected") : _t("The request is approved");
         }
-        return "";
+        return nodeTypes.get(node.type, {}).summary?.(node) || "";
     }
 
     // ------------------------------------------------------------------
@@ -383,10 +367,7 @@ export class FlowEditor extends Component {
             approval_rule: "any",
             match: "all",
             conditions: [],
-            record_model: false,
-            record_model_name: "",
-            attach_files: true,
-            mappings: [],
+            ...nodeTypes.get(type, {}).defaults,
         };
         this.nodes.push(node);
         this.state.selectedId = node.id;
@@ -467,11 +448,7 @@ export class FlowEditor extends Component {
                 }
             }
         }
-        for (const field of this.fields) {
-            if (field.node_id === node.id) {
-                field.node_id = false;
-            }
-        }
+        this.props.onRemoveNode?.(node);
         this.nodes.splice(this.nodes.indexOf(node), 1);
         this.state.selectedId = false;
         this.changed();
@@ -500,7 +477,7 @@ export class FlowEditor extends Component {
         }
     }
     setUserField(node, value) {
-        const question = this.userQuestions.find((f) => String(f.id) === value);
+        const question = this.userSources.find((f) => String(f.id) === value);
         this.setProp(node, "user_field_id", question ? question.id : false);
     }
 

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_flow.FlowDesignerAction">
+        <div class="o_action o_afl_designer">
+            <div t-if="this.data" class="o_afl_topbar">
+                <div class="o_afl_titles">
+                    <div class="o_afl_crumbs">
+                        <t t-foreach="this.breadcrumbs" t-as="crumb" t-key="crumb_index">
+                            <a href="#" t-on-click.prevent="() => crumb.onSelected()" t-out="crumb.name"/>
+                            <span class="mx-1">/</span>
+                        </t>
+                        <span>Designer</span>
+                    </div>
+                    <div class="o_afl_name">
+                        <span class="o_afl_icon"><i class="fa fa-code-fork" aria-hidden="true"/></span>
+                        <span class="o_afl_title" t-out="this.data.flow.name"/>
+                        <span class="o_afl_chip"><i class="fa fa-database me-1" aria-hidden="true"/><t t-out="this.data.flow.model"/></span>
+                        <span class="o_afl_chip"><i class="fa fa-bolt me-1" aria-hidden="true"/><t t-out="this.data.flow.trigger_label"/></span>
+                    </div>
+                </div>
+                <div class="o_afl_actions">
+                    <span t-if="this.state.dirty" class="o_afl_unsaved">Unsaved changes</span>
+                    <button type="button" class="btn btn-secondary" t-on-click="() => this.openSettings()">
+                        <i class="fa fa-sliders me-1" aria-hidden="true"/>Settings
+                    </button>
+                    <button type="button" class="btn btn-primary" t-att-disabled="!this.state.dirty or this.state.saving"
+                            t-on-click="() => this.save()">Save</button>
+                </div>
+            </div>
+            <div t-if="this.data" class="o_af_body">
+                <FlowEditor t-key="this.state.version"
+                            nodes="this.data.nodes" sources="this.data.sources" userSources="this.data.user_sources"
+                            labels="this.labels" ports="this.data.ports" operatorsByType="this.data.operators_by_type"
+                            names="this.state.names" loadNames="(model, ids) => this.loadNames(model, ids)"
+                            conditionsText="(item) => this.conditionsText(item)" onChange="() => this.touch()"
+                            startText="this.data.flow.trigger_label" userSourceTexts="this.userSourceTexts"
+                            problems="this.nodeProblems" focusNodeId="this.state.focusNodeId"
+                            onFocused="() => this.clearFocus()">
+                    <t t-set-slot="help">
+                        <li>Conditions and “User in a field” read the fields of the record.</li>
+                        <li>Wait pauses the run for some hours or days, then it goes on.</li>
+                        <li>Update Record sets fields; Run an Action presses a button of the record.</li>
+                    </t>
+                    <t t-set-slot="inspector" t-slot-scope="scope">
+                        <div t-if="scope.node.type === 'wait'" class="o_af_settings mt-3">
+                            <div class="o_af_setting">
+                                <i class="fa fa-fw fa-hourglass-half" aria-hidden="true"/>
+                                <span class="o_af_setting_body">
+                                    <small id="o_afl_wait">Wait for</small>
+                                    <span class="d-flex gap-2 align-items-center mt-1">
+                                        <input type="number" min="1" class="form-control form-control-sm o_afl_wait_amount"
+                                               aria-labelledby="o_afl_wait" t-att-value="scope.node.wait_amount"
+                                               t-on-change="(ev) => this.setWait(scope.node, 'wait_amount', ev.target.value)"/>
+                                        <span class="o_af_chips mt-0" role="radiogroup" aria-labelledby="o_afl_wait">
+                                            <button type="button" role="radio"
+                                                    t-att-aria-checked="scope.node.wait_unit === 'hours' ? 'true' : 'false'"
+                                                    t-attf-class="o_af_chip #{scope.node.wait_unit === 'hours' ? 'active' : ''}"
+                                                    t-on-click="() => this.setWait(scope.node, 'wait_unit', 'hours')">Hours</button>
+                                            <button type="button" role="radio"
+                                                    t-att-aria-checked="scope.node.wait_unit !== 'hours' ? 'true' : 'false'"
+                                                    t-attf-class="o_af_chip #{scope.node.wait_unit !== 'hours' ? 'active' : ''}"
+                                                    t-on-click="() => this.setWait(scope.node, 'wait_unit', 'days')">Days</button>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <UpdateEditor t-if="scope.node.type === 'update'" t-key="scope.node.id" node="scope.node"
+                                      fields="this.data.update_fields" sources="this.data.update_sources"
+                                      onChange="() => this.touch()"/>
+                        <div t-if="scope.node.type === 'action'" class="o_af_settings mt-3">
+                            <div class="o_af_setting">
+                                <i class="fa fa-fw fa-bolt" aria-hidden="true"/>
+                                <span class="o_af_setting_body">
+                                    <small id="o_afl_action">What to do on the record</small>
+                                    <select class="form-select form-select-sm mt-1" aria-labelledby="o_afl_action"
+                                            t-on-change="(ev) => this.setAction(scope.node, ev.target.value)">
+                                        <option value="" t-att-selected="!scope.node.action_ref">Choose an action...</option>
+                                        <optgroup t-foreach="this.actionGroups" t-as="group" t-key="group.group" t-att-label="group.group">
+                                            <option t-foreach="group.choices" t-as="choice" t-key="choice.key"
+                                                    t-att-value="choice.key" t-att-selected="choice.key === scope.node.action_ref"
+                                                    t-out="choice.label"/>
+                                        </optgroup>
+                                    </select>
+                                </span>
+                            </div>
+                            <p class="text-muted small mt-2 mb-0">
+                                It runs with full rights, like an automation rule. A button that opens a window to fill
+                                cannot run by itself.
+                            </p>
+                        </div>
+                        <p t-if="scope.node.type === 'start'" class="text-muted small mt-3">
+                            Every run starts here: by hand, when a record is created or updated, on a schedule or
+                            around a date, as set in the Settings of the flow.
+                        </p>
+                    </t>
+                </FlowEditor>
+            </div>
+        </div>
+    </t>
+
+</templates>

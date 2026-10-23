@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="seq_flow_run" model="ir.sequence">
+        <field name="name">Flow Run</field>
+        <field name="code">angels.flow.run</field>
+        <field name="prefix">FLOW/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="ir_cron_flow_run" model="ir.cron">
+        <field name="name">Angels Flow: scheduled flows and waiting runs</field>
+        <field name="model_id" ref="model_angels_flow"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_run()</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

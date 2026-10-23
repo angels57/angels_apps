@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* angels_flow_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-23 00:35+0000\n"
+"PO-Revision-Date: 2026-10-23 00:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: angels_flow_sale
+#: model:ir.model.fields,field_description:angels_flow_sale.field_angels_flow__display_name
+#: model:ir.model.fields,field_description:angels_flow_sale.field_angels_flow_node__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: angels_flow_sale
+#: model:ir.model,name:angels_flow_sale.model_angels_flow
+msgid "Flow"
+msgstr "Flujo"
+
+#. module: angels_flow_sale
+#: model:ir.model,name:angels_flow_sale.model_angels_flow_node
+msgid "Flow Step"
+msgstr "Paso del flujo"
+
+#. module: angels_flow_sale
+#: model:ir.model.fields,field_description:angels_flow_sale.field_angels_flow__id
+#: model:ir.model.fields,field_description:angels_flow_sale.field_angels_flow_node__id
+msgid "ID"
+msgstr "ID"
+
+#. module: angels_flow_sale
+#. odoo-python
+#: code:addons/angels_flow_sale/models/flow.py:0
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: angels_flow_sale
+#. odoo-python
+#: code:addons/angels_flow_sale/models/flow.py:0
+msgid "Sales has no email template for this order."
+msgstr "Ventas no tiene plantilla de correo para este pedido."
+
+#. module: angels_flow_sale
+#. odoo-python
+#: code:addons/angels_flow_sale/models/flow.py:0
+msgid "Send by email to the customer"
+msgstr "Enviar por correo al cliente"
+
+#. module: angels_flow_sale
+#. odoo-python
+#: code:addons/angels_flow_sale/models/flow.py:0
+msgid "The customer %(customer)s has no email."
+msgstr "El cliente %(customer)s no tiene correo."

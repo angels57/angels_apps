@@ -1,39 +1,16 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-OPERATORS = [
-    ("=", "is"),
-    ("!=", "is not"),
-    (">", "greater than"),
-    (">=", "greater or equal"),
-    ("<", "less than"),
-    ("<=", "less or equal"),
-    ("contains", "contains"),
-    ("set", "is filled"),
-    ("not_set", "is empty"),
-]
+from odoo.addons.angels_flow.models.flow_condition import (
+    OPERATORS,
+    OPERATORS_BY_TYPE,
+    TRUE_WORDS,
+    is_set,
+    match_value,
+)
 
-# Operators that make sense for each kind of question. Kept in sync with
-# static/src/common/conditions.js.
-OPERATORS_BY_TYPE = {
-    "char": ("=", "!=", "contains", "set", "not_set"),
-    "text": ("contains", "set", "not_set"),
-    "number": ("=", "!=", ">", ">=", "<", "<=", "set", "not_set"),
-    "date": ("=", "!=", ">", ">=", "<", "<=", "set", "not_set"),
-    "datetime": ("set", "not_set"),
-    "boolean": ("=", "!="),
-    "selection": ("=", "!=", "set", "not_set"),
-    "multi": ("contains", "set", "not_set"),
-    "user": ("=", "!=", "set", "not_set"),
-    "partner": ("=", "!=", "set", "not_set"),
-    "file": ("set", "not_set"),
-}
-TRUE_WORDS = ("1", "true", "yes")
-
-
-def is_set(value):
-    # Identity checks: 0 is an answer, although 0 == False in Python.
-    return not (value is None or value is False or value == "" or value == [])
+# Re-exported for the other models of this module.
+__all__ = ["OPERATORS", "OPERATORS_BY_TYPE", "TRUE_WORDS", "is_set"]
 
 
 class AngelsFormCondition(models.Model):
@@ -78,39 +55,7 @@ class AngelsFormCondition(models.Model):
         """``values`` maps field ids to answers normalized by the field."""
         self.ensure_one()
         source = self.source_field_id
-        actual = values.get(source.id, False)
-        operator = self.operator
-        if operator == "set":
-            return is_set(actual)
-        if operator == "not_set":
-            return not is_set(actual)
-        if source.field_type == "boolean":
-            expected = (self.value or "").strip().lower() in TRUE_WORDS
-            return (bool(actual) == expected) == (operator == "=")
-        if source.field_type == "multi":
-            # "contains": the choice is one of the ticked ones.
-            ticked = [choice.lower() for choice in actual or []]
-            return operator == "contains" and (self.value or "").strip().lower() in ticked
-        expected = source._normalize(self.value)
-        if not is_set(actual) or not is_set(expected):
-            return operator == "!=" and is_set(actual) != is_set(expected)
-        if source.field_type in ("char", "text", "selection"):
-            actual, expected = actual.lower(), expected.lower()
-        if operator == "=":
-            return actual == expected
-        if operator == "!=":
-            return actual != expected
-        if operator == "contains":
-            return expected in actual
-        if operator == ">":
-            return actual > expected
-        if operator == ">=":
-            return actual >= expected
-        if operator == "<":
-            return actual < expected
-        if operator == "<=":
-            return actual <= expected
-        return False
+        return match_value(source.field_type, values.get(source.id, False), self.operator, self.value, source._normalize)
 
     def _to_client(self):
         return {"source_id": self.source_field_id.id, "operator": self.operator, "value": self.value or ""}
