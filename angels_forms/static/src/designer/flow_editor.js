@@ -5,6 +5,7 @@ import { RecordSelector } from "@web/core/record_selectors/record_selector";
 import { useProps, useState } from "../common/owl_compat";
 import { ConditionEditor } from "./condition_editor";
 import { startPointerDrag } from "./pointer_drag";
+import { RecordEditor } from "./record_editor";
 
 export const STAGE_TYPES = ["approve", "task"];
 const PEOPLE_TYPES = ["approve", "task", "notify"];
@@ -14,10 +15,11 @@ const NODE_ICONS = {
     approve: "fa-check-circle",
     task: "fa-tasks",
     notify: "fa-bell",
+    record: "fa-cubes",
     back: "fa-reply",
     end: "fa-flag-checkered",
 };
-const PALETTE = ["condition", "approve", "task", "notify", "back", "end"];
+const PALETTE = ["condition", "approve", "task", "notify", "record", "back", "end"];
 const NODE_W = 220;
 const NODE_H = 78;
 const GRID = 20;
@@ -37,7 +39,7 @@ const ZOOM_MAX = 1.5;
  */
 export class FlowEditor extends Component {
     static template = "angels_forms.FlowEditor";
-    static components = { ConditionEditor, MultiRecordSelector, RecordSelector };
+    static components = { ConditionEditor, MultiRecordSelector, RecordEditor, RecordSelector };
 
     setup() {
         // nodes, fields, labels, ports, operatorsByType, names, loadNames, conditionsText, onChange
@@ -216,6 +218,10 @@ export class FlowEditor extends Component {
                 return _t("%s completes it", this.recipientsText(node));
             case "notify":
                 return _t("Inform %s", this.recipientsText(node));
+            case "record":
+                return node.record_model
+                    ? _t("Creates a %s", node.record_model_name || node.record_model)
+                    : _t("No record type yet");
             case "back":
                 return _t("The requester corrects it and sends it again");
             case "end":
@@ -275,6 +281,10 @@ export class FlowEditor extends Component {
             approval_rule: "any",
             match: "all",
             conditions: [],
+            record_model: false,
+            record_model_name: "",
+            attach_files: true,
+            mappings: [],
         };
         this.nodes.push(node);
         this.state.selectedId = node.id;

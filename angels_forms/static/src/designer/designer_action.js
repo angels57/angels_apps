@@ -19,6 +19,7 @@ import {
 import { useProps, useState } from "../common/owl_compat";
 import { ConditionEditor } from "./condition_editor";
 import { FlowEditor, STAGE_TYPES } from "./flow_editor";
+import { recordProblems } from "./record_editor";
 import { IconPicker } from "./icon_picker";
 import { startPointerDrag } from "./pointer_drag";
 
@@ -551,6 +552,7 @@ export class FormDesignerAction extends Component {
             if (node.user_field_id === field.id) {
                 node.user_field_id = false;
             }
+            node.mappings = (node.mappings || []).filter((m) => m.source !== "question" || m.question_id !== field.id);
         }
         if (this.data.form.title_field_id === field.id) {
             this.data.form.title_field_id = false;
@@ -811,6 +813,9 @@ export class FormDesignerAction extends Component {
                 (node.assign_type === "field" && !node.user_field_id);
             if (people && missing) {
                 problems.push(_t("The step “%s” has nobody to send to.", node.name));
+            }
+            if (node.type === "record") {
+                problems.push(...recordProblems(node, this.fields.filter((f) => f.type !== "section")));
             }
         }
         return problems;

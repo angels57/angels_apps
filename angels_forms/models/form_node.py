@@ -7,6 +7,7 @@ NODE_TYPES = [
     ("approve", "Approval"),
     ("task", "Task"),
     ("notify", "Notification"),
+    ("record", "Create Record"),
     ("back", "Back to Requester"),
     ("end", "End"),
 ]
@@ -18,6 +19,7 @@ PORTS = {
     "approve": ("next", "reject"),
     "task": ("next",),
     "notify": ("next",),
+    "record": ("next",),
     "back": (),
     "end": (),
 }

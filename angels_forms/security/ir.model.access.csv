@@ -11,3 +11,6 @@ access_form_submission_user,angels.form.submission.user,model_angels_form_submis
 access_form_answer_user,angels.form.answer.user,model_angels_form_answer,group_form_user,1,0,0,0
 access_form_step_user,angels.form.step.user,model_angels_form_step,group_form_user,1,0,0,0
 access_form_decision_wizard_user,angels.form.decision.wizard.user,model_angels_form_decision_wizard,group_form_user,1,1,1,1
+access_form_mapping_user,angels.form.mapping.user,model_angels_form_mapping,group_form_user,1,0,0,0
+access_form_mapping_manager,angels.form.mapping.manager,model_angels_form_mapping,group_form_manager,1,1,1,1
+access_form_link_user,angels.form.link.user,model_angels_form_link,group_form_user,1,0,0,0

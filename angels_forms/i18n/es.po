@@ -71,6 +71,12 @@ msgstr "%(field)s debe ser un número."
 
 #. module: angels_forms
 #. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "%(step)s: %(model)s %(record)s created."
+msgstr "%(step)s: se creó %(model)s %(record)s."
+
+#. module: angels_forms
+#. odoo-python
 #: code:addons/angels_forms/models/form_submission.py:0
 msgid "%(step)s: request %(request)s from %(user)s."
 msgstr "%(step)s: solicitud %(request)s de %(user)s."
@@ -130,6 +136,12 @@ msgstr "%s ocupa más de 25 MB."
 #: code:addons/angels_forms/static/src/common/form_renderer.xml:0
 msgid "(optional)"
 msgstr "(opcional)"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "+ Answer..."
+msgstr "+ Respuesta..."
 
 #. module: angels_forms
 #. odoo-javascript
@@ -204,6 +216,12 @@ msgid "A step can only lead to a step of the same flow."
 msgstr "Un paso solo puede llevar a un paso del mismo flujo."
 
 #. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form.py:0
+msgid "A step cannot create %(model)s records."
+msgstr "Un paso no puede crear registros de %(model)s."
+
+#. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.js:0
 msgid "A step of the flow has no name."
@@ -273,6 +291,12 @@ msgstr "Primero añade al formulario una pregunta de tipo Usuario."
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_decision_wizard_form
 msgid "Add a comment for the requester"
 msgstr "Añade un comentario para el solicitante"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Add a field"
+msgstr "Añadir un campo"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -365,8 +389,15 @@ msgstr "Angels Forms"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__display_value
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_mapping__source__question
 msgid "Answer"
 msgstr "Respuesta"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Answer to"
+msgstr "Respuesta a"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -482,6 +513,17 @@ msgstr ""
 " el presupuesto supera 2.000, y la agencia de viajes lo reserva."
 
 #. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__attach_files
+msgid "Attach the Files"
+msgstr "Adjuntar los archivos"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Attach the files of the request"
+msgstr "Adjuntar los archivos de la solicitud"
+
+#. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_attachment_count
 msgid "Attachment Count"
 msgstr "Número de adjuntos"
@@ -594,21 +636,42 @@ msgstr "Opciones de una lista, una por línea."
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
 #: code:addons/angels_forms/static/src/designer/designer_action.js:0
 msgid "Choose a contact"
 msgstr "Elige un contacto"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Choose a field..."
+msgstr "Elige un campo..."
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
 msgid "Choose a question"
 msgstr "Elige una pregunta"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
 #: code:addons/angels_forms/static/src/designer/designer_action.js:0
 msgid "Choose a user"
 msgstr "Elige un usuario"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+msgid "Choose what kind of record the request creates."
+msgstr "Elige qué tipo de registro crea la solicitud."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Choose..."
+msgstr "Elige..."
 
 #. module: angels_forms
 #: model:angels.form.field,placeholder:angels_forms.travel_destination
@@ -706,6 +769,11 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_node__attach_files
+msgid "Copy the files of the request onto the new record."
+msgstr "Copia los archivos de la solicitud en el nuevo registro."
+
+#. module: angels_forms
 #. odoo-python
 #: code:addons/angels_forms/models/form_submission.py:0
 msgid "Correct %(request)s"
@@ -717,9 +785,43 @@ msgid "Cost Center"
 msgstr "Centro de coste"
 
 #. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__node_type__record
+msgid "Create Record"
+msgstr "Crear registro"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
+msgid ""
+"Create Record makes a record in Odoo (a contact, a task, an event...) with "
+"the answers."
+msgstr ""
+"Crear registro crea un registro en Odoo (un contacto, una tarea, un "
+"evento...) con las respuestas."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Create a"
+msgstr "Crear"
+
+#. module: angels_forms
 #: model_terms:ir.actions.act_window,help:angels_forms.action_form
 msgid "Create your first form"
 msgstr "Crea tu primer formulario"
+
+#. module: angels_forms
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_form_link_list
+msgid "Created On"
+msgstr "Creado el"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_submission.py:0
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__link_ids
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
+msgid "Created Records"
+msgstr "Registros creados"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__create_uid
@@ -727,6 +829,8 @@ msgstr "Crea tu primer formulario"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__create_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__create_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__create_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__create_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__create_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__create_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__create_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__create_uid
@@ -734,16 +838,36 @@ msgid "Created by"
 msgstr "Creado por"
 
 #. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "Created from the request %(request)s."
+msgstr "Creado desde la solicitud %(request)s."
+
+#. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__create_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__create_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__create_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__create_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__create_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__create_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__create_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__create_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__create_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__create_date
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+msgid "Creates a %(model)s: %(fields)s"
+msgstr "Crea %(model)s: %(fields)s"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+msgid "Creates a %s"
+msgstr "Crea: %s"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__current_step_id
@@ -845,6 +969,8 @@ msgstr "Descartar"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__display_name
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__display_name
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__display_name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__display_name
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__display_name
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__display_name
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__display_name
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__display_name
@@ -1002,9 +1128,20 @@ msgid "Field Count"
 msgstr "Número de campos"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Field to add"
+msgstr "Campo que añadir"
+
+#. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__field_ids
 msgid "Fields"
 msgstr "Campos"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__mapping_ids
+msgid "Fields to Fill"
+msgstr "Campos que rellenar"
 
 #. module: angels_forms
 #. odoo-python
@@ -1017,6 +1154,12 @@ msgstr "Archivo"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__attachment_ids
 msgid "Files"
 msgstr "Archivos"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Fill these fields"
+msgstr "Rellenar estos campos"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__node_id
@@ -1045,6 +1188,20 @@ msgstr "Aprobación de Finanzas"
 #: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
 msgid "Fit to screen"
 msgstr "Ajustar a la pantalla"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_mapping__source__value
+msgid "Fixed Value"
+msgstr "Valor fijo"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_mapping__value
+msgid ""
+"Fixed value, or text where {reference}, {requester} and the answers are "
+"replaced."
+msgstr ""
+"Valor fijo, o texto donde se sustituyen {reference}, {requester} y las "
+"respuestas."
 
 #. module: angels_forms
 #. odoo-javascript
@@ -1129,6 +1286,11 @@ msgstr "Campo de formulario"
 #: model:ir.model,name:angels_forms.model_angels_form_node
 msgid "Form Flow Step"
 msgstr "Paso del flujo del formulario"
+
+#. module: angels_forms
+#: model:ir.model,name:angels_forms.model_angels_form_mapping
+msgid "Form Record Field"
+msgstr "Campo de registro del formulario"
 
 #. module: angels_forms
 #: model:ir.model,name:angels_forms.model_angels_form_submission
@@ -1242,6 +1404,8 @@ msgstr "Necesito hotel"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__id
@@ -1324,6 +1488,12 @@ msgid "Informed"
 msgstr "Avisado"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Insert an answer"
+msgstr "Insertar una respuesta"
+
+#. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_is_follower
 msgid "Is Follower"
 msgstr "Es seguidor"
@@ -1341,6 +1511,8 @@ msgstr "Etiqueta"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__write_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__write_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__write_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__write_uid
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__write_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__write_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__write_uid
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__write_uid
@@ -1353,6 +1525,8 @@ msgstr "Última actualización por"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__write_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__write_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__write_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__write_date
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__write_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__write_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__write_date
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__write_date
@@ -1380,6 +1554,11 @@ msgstr "Permitir que el solicitante apruebe sus propias solicitudes"
 #: model:ir.model.fields,help:angels_forms.field_angels_form__allow_self_approval
 msgid "Let the requester approve a step where they are an approver."
 msgstr "Permite que el solicitante apruebe un paso en el que sea aprobador."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__link_count
+msgid "Link Count"
+msgstr "Número de registros creados"
 
 #. module: angels_forms
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__text
@@ -1437,6 +1616,11 @@ msgstr "Pregunta eliminada"
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Mode"
 msgstr "Modo"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__res_model
+msgid "Model"
+msgstr "Modelo"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -1572,6 +1756,12 @@ msgid "No question can be used here yet."
 msgstr "Todavía no hay preguntas que usar aquí."
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+msgid "No record type yet"
+msgstr "Sin tipo de registro todavía"
+
+#. module: angels_forms
 #: model_terms:ir.actions.act_window,help:angels_forms.action_submission_mine
 msgid "No request yet"
 msgstr "Todavía no hay solicitudes"
@@ -1587,6 +1777,11 @@ msgstr "Ningún paso puede volver al Inicio."
 #: code:addons/angels_forms/models/form_submission.py:0
 msgid "Nobody can do the step %(step)s."
 msgstr "Nadie puede hacer el paso %(step)s."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__node_id
+msgid "Node"
+msgstr "Paso"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__node_count
@@ -1647,6 +1842,16 @@ msgid "Number of messages with delivery error"
 msgstr "Número de mensajes con error de entrega"
 
 #. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__field_name
+msgid "Odoo Field"
+msgstr "Campo de Odoo"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_node__record_model
+msgid "Odoo model of the record to create, for example res.partner."
+msgstr "Modelo de Odoo del registro que se crea, por ejemplo res.partner."
+
+#. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid ""
@@ -1663,6 +1868,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__approval_rule__any
 msgid "One person is enough"
 msgstr "Basta con una persona"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "Only a Create Record step fills the fields of a record."
+msgstr "Solo un paso Crear registro rellena los campos de un registro."
 
 #. module: angels_forms
 #. odoo-python
@@ -1837,6 +2048,7 @@ msgstr "Publicado: los usuarios lo encuentran en Nueva solicitud."
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__field_id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__source_field_id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__question_id
 msgid "Question"
 msgstr "Pregunta"
 
@@ -1876,6 +2088,28 @@ msgid "Reason for the Trip"
 msgstr "Motivo del viaje"
 
 #. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__name
+msgid "Record"
+msgstr "Registro"
+
+#. module: angels_forms
+#: model:ir.model,name:angels_forms.model_angels_form_link
+msgid "Record Created by a Request"
+msgstr "Registro creado por una solicitud"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__res_id
+msgid "Record ID"
+msgstr "ID del registro"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__record_model
+msgid "Record Type"
+msgstr "Tipo de registro"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__name
 msgid "Reference"
 msgstr "Referencia"
@@ -1903,6 +2137,7 @@ msgstr "Rechazada"
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
 msgid "Remove"
 msgstr "Quitar"
 
@@ -1962,6 +2197,13 @@ msgstr "Solicitado por"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_mapping__source__requester
+msgid "Requester"
+msgstr "Solicitante"
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__submission_ids
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
@@ -1987,6 +2229,12 @@ msgstr "Aquí aparecen las solicitudes que debes aprobar."
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__required
 msgid "Required"
 msgstr "Obligatorio"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Required:"
+msgstr "Obligatorio:"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__activity_user_id
@@ -2054,6 +2302,12 @@ msgstr "Buscar iconos"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Search: Contact, Task, Event..."
+msgstr "Buscar: Contacto, Tarea, Evento..."
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/icon_picker.xml:0
 msgid "Search: plane, money, mail..."
 msgstr "Buscar: avión, dinero, correo..."
@@ -2108,6 +2362,7 @@ msgstr "Enviada el"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__sequence
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__sequence
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__sequence
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__sequence
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__sequence
 msgid "Sequence"
 msgstr "Secuencia"
@@ -2150,6 +2405,11 @@ msgid "Skipped"
 msgstr "Omitido"
 
 #. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__source
+msgid "Source"
+msgstr "Origen"
+
+#. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__assign_type__users
@@ -2186,6 +2446,7 @@ msgstr ""
 "Planificada: actividades futuras."
 
 #. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__node_id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__name
 msgid "Step"
 msgstr "Paso"
@@ -2211,6 +2472,7 @@ msgstr "Pasos"
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__submission_id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_decision_wizard__submission_id
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__submission_id
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__submission_id
 msgid "Submission"
 msgstr "Solicitud"
@@ -2245,9 +2507,16 @@ msgid "Test"
 msgstr "Probar"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__char
 msgid "Text"
 msgstr "Texto"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_mapping__source__template
+msgid "Text with Answers"
+msgstr "Texto con respuestas"
 
 #. module: angels_forms
 #: model:ir.model.fields,help:angels_forms.field_angels_form__title_field_id
@@ -2263,6 +2532,18 @@ msgstr ""
 #: code:addons/angels_forms/models/form_field.py:0
 msgid "The choice list %(field)s needs at least one choice."
 msgstr "La lista %(field)s necesita al menos una opción."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "The field %(field)s cannot take this kind of value."
+msgstr "El campo %(field)s no admite este tipo de valor."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "The field %(field)s needs a question of a matching type."
+msgstr "El campo %(field)s necesita una pregunta de un tipo compatible."
 
 #. module: angels_forms
 #. odoo-python
@@ -2306,6 +2587,16 @@ msgstr "El formulario necesita un nombre."
 msgid "The operator of the condition on %(question)s does not fit its type."
 msgstr ""
 "El operador de la condición sobre %(question)s no corresponde a su tipo."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid ""
+"The record is created when the request reaches this step, then the flow goes on. A request creates it\n"
+"                only once, and links to it."
+msgstr ""
+"El registro se crea cuando la solicitud llega a este paso y luego el flujo sigue. Una solicitud lo crea\n"
+"                una sola vez y queda enlazada a él."
 
 #. module: angels_forms
 #. odoo-python
@@ -2355,9 +2646,40 @@ msgstr "El solicitante la corrige y la envía de nuevo"
 
 #. module: angels_forms
 #. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "The step %(step)s cannot create records any more."
+msgstr "El paso %(step)s ya no puede crear registros."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "The step %(step)s cannot fill the field %(field)s."
+msgstr "El paso %(step)s no puede rellenar el campo %(field)s."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "The step %(step)s could not create the %(model)s: %(error)s"
+msgstr "El paso %(step)s no pudo crear el registro %(model)s: %(error)s"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "The step %(step)s could not create the %(model)s: %(fields)s is empty."
+msgstr ""
+"El paso %(step)s no pudo crear el registro %(model)s: falta %(fields)s."
+
+#. module: angels_forms
+#. odoo-python
 #: code:addons/angels_forms/models/form_node.py:0
 msgid "The step %(step)s needs a group."
 msgstr "El paso %(step)s necesita un grupo."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "The step %(step)s needs a kind of record to create."
+msgstr "El paso %(step)s necesita un tipo de registro que crear."
 
 #. module: angels_forms
 #. odoo-python
@@ -2374,9 +2696,39 @@ msgstr "El paso %(step)s necesita al menos un usuario."
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+msgid "The step “%(step)s” must fill: %(fields)s."
+msgstr "El paso “%(step)s” debe rellenar: %(fields)s."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+msgid "The step “%(step)s” uses {%(name)s}, which is not a question."
+msgstr "El paso “%(step)s” usa {%(name)s}, que no es una pregunta."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+msgid "The step “%s” has a field with no question chosen."
+msgstr "El paso “%s” tiene un campo sin pregunta elegida."
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.js:0
 msgid "The step “%s” has nobody to send to."
 msgstr "El paso “%s” no tiene destinatarios."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
+msgid "The step “%s” needs a kind of record to create."
+msgstr "El paso “%s” necesita un tipo de registro que crear."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "The text of %(field)s uses a question of another form."
+msgstr "El texto de %(field)s usa una pregunta de otro formulario."
 
 #. module: angels_forms
 #. odoo-python
@@ -2390,6 +2742,12 @@ msgstr "El título debe salir de una pregunta del mismo formulario."
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__next_id
 msgid "Then"
 msgstr "Después"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "This field does not exist any more."
+msgstr "Este campo ya no existe."
 
 #. module: angels_forms
 #. odoo-javascript
@@ -2496,6 +2854,12 @@ msgstr "Tipo de viaje"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Trip to {Destination}"
+msgstr "Viaje a {Destino}"
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Try the conditions. Nothing is saved."
 msgstr "Prueba las condiciones. No se guarda nada."
@@ -2505,6 +2869,7 @@ msgstr "Prueba las condiciones. No se guarda nada."
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__field_type
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__field_type
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_link__model_name
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__node_type
 msgid "Type"
 msgstr "Tipo"
@@ -2564,7 +2929,9 @@ msgstr "Usuarios"
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_condition__value
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_mapping__value
 msgid "Value"
 msgstr "Valor"
 
@@ -2633,6 +3000,12 @@ msgstr "A dónde va una solicitud rechazada. Vacío: la solicitud se rechaza."
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
+msgid "Where the value comes from"
+msgstr "De dónde sale el valor"
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Who can fill it"
 msgstr "Quién puede rellenarlo"
@@ -2658,6 +3031,7 @@ msgstr "Trabajo"
 #: code:addons/angels_forms/static/src/common/form_renderer.xml:0
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+#: code:addons/angels_forms/static/src/designer/record_editor.xml:0
 msgid "Yes"
 msgstr "Sí"
 
@@ -2669,9 +3043,21 @@ msgstr "No eres revisor del paso %(step)s."
 
 #. module: angels_forms
 #. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "You are not allowed to fill the field %(field)s."
+msgstr "No tienes permiso para rellenar el campo %(field)s."
+
+#. module: angels_forms
+#. odoo-python
 #: code:addons/angels_forms/models/form_step.py:0
 msgid "You cannot approve or reject your own request."
 msgstr "No puedes aprobar ni rechazar tu propia solicitud."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "You cannot create %(model)s records, so no step of yours can."
+msgstr "No puedes crear registros de %(model)s, así que tus pasos tampoco."
 
 #. module: angels_forms
 #. odoo-python
@@ -2825,6 +3211,18 @@ msgstr "no marcada"
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 msgid "the user in “%s”"
 msgstr "el usuario de “%s”"
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "“%(value)s” is not a valid value for %(field)s."
+msgstr "“%(value)s” no es un valor válido para %(field)s."
+
+#. module: angels_forms
+#. odoo-python
+#: code:addons/angels_forms/models/form_record.py:0
+msgid "“%(value)s” is not one of the choices of %(field)s."
+msgstr "“%(value)s” no es una de las opciones de %(field)s."
 
 #. module: angels_forms
 #. odoo-javascript

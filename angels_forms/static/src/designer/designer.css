@@ -900,6 +900,7 @@
 .o_af_node_start { border-left-color: #10b981; }
 .o_af_node_condition { border-left-color: #0ea5e9; border-style: dashed; border-left-style: solid; }
 .o_af_node_back { border-left-color: #f97316; }
+.o_af_node_record { border-left-color: #8b5cf6; }
 .o_af_node_end { border-left-color: #10b981; }
 .o_af_node_end.o_af_node_rejected { border-left-color: #ef4444; }
 
@@ -1006,6 +1007,7 @@
 
 .o_af_palette_condition i { color: #0ea5e9; }
 .o_af_palette_back i { color: #f97316; }
+.o_af_palette_record i { color: #8b5cf6; }
 .o_af_palette_end i { color: #10b981; }
 
 .o_af_swatches {
@@ -1026,6 +1028,65 @@
 
 .o_af_swatch.active {
     box-shadow: 0 0 0 2px var(--body-color);
+}
+
+/* Create Record: one card per field, "Field ← where the value comes from". */
+.o_af_map {
+    padding: 0.5rem 0.6rem;
+    margin-bottom: 0.5rem;
+    background: var(--tertiary-bg);
+    border-left: 3px solid #8b5cf6;
+    border-radius: 0 0.4rem 0.4rem 0;
+}
+
+.o_af_map_head {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.o_af_map_source {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.o_af_tokens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 0.35rem;
+}
+
+.o_af_token {
+    padding: 0.05rem 0.45rem;
+    font-size: 0.75rem;
+    color: var(--body-color);
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+}
+
+.o_af_token_select {
+    width: auto;
+    max-width: 10rem;
+    padding-right: 0.45rem;
+    cursor: pointer;
+}
+
+.o_af_token:hover {
+    border-color: #8b5cf6;
+}
+
+.o_af_map_missing {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--warning-text-emphasis, #92400e);
+    background: var(--warning-bg-subtle, #fef3c7);
+    border-radius: 0.4rem;
 }
 
 .o_af_stage_list li {

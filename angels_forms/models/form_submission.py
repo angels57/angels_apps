@@ -46,6 +46,8 @@ class AngelsFormSubmission(models.Model):
     )
     can_cancel = fields.Boolean(compute="_compute_permissions")
     can_edit = fields.Boolean(compute="_compute_permissions")
+    link_ids = fields.One2many("angels.form.link", "submission_id", string="Created Records", readonly=True)
+    link_count = fields.Integer(compute="_compute_link_count")
 
     @api.depends("form_id", "answer_ids.display_value", "form_id.title_field_id")
     def _compute_title(self):
@@ -96,6 +98,11 @@ class AngelsFormSubmission(models.Model):
             submission.can_edit = submission.state == "draft" and mine
             submission.can_cancel = submission.state in ("draft", "pending") and (mine or is_manager)
 
+    @api.depends("link_ids")
+    def _compute_link_count(self):
+        for submission in self:
+            submission.link_count = len(submission.link_ids)
+
     @api.depends("answer_ids", "step_ids", "form_id.field_ids")
     def _compute_answers_html(self):
         for submission in self:
@@ -140,6 +147,12 @@ class AngelsFormSubmission(models.Model):
     def _answer_values(self):
         self.ensure_one()
         return {answer.field_id.id: answer._get_value() for answer in self.sudo().answer_ids}
+
+    def _answer_text(self, field):
+        """The answer to ``field`` as it reads in the summary, or an empty string."""
+        self.ensure_one()
+        answer = self.sudo().answer_ids.filtered(lambda a: a.field_id == field)[:1]
+        return answer._format() if answer else ""
 
     def _answers_to_client(self):
         self.ensure_one()
@@ -298,6 +311,9 @@ class AngelsFormSubmission(models.Model):
                 return self._finish(node.end_state or "approved")
             elif kind == "back":
                 return self._send_back(node)
+            elif kind == "record":
+                node._create_record(self, values)
+                node = node.next_id
             else:
                 recipients = node._get_recipients(values)
                 if not recipients:
@@ -383,6 +399,18 @@ class AngelsFormSubmission(models.Model):
             "tag": "angels_forms_fill",
             "name": self.form_id.name,
             "context": {"form_id": self.form_id.id, "submission_id": self.id},
+        }
+
+    def action_view_links(self):
+        self.ensure_one()
+        if len(self.link_ids) == 1:
+            return self.link_ids.action_open()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Created Records"),
+            "res_model": "angels.form.link",
+            "views": [[False, "list"]],
+            "domain": [("submission_id", "=", self.id)],
         }
 
     def action_cancel(self):
