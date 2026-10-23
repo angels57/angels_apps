@@ -49,7 +49,7 @@ class AngelsFlowDocumentMixin(models.AbstractModel):
         return self.env.ref("mail.mail_activity_data_todo")
 
     def _flow_run_node(self, node, values):
-        """Run a step kind added by another module; return the next step."""
+        """Run a step kind added by another module; return the next step, or True to stop here."""
         raise UserError(_("The step %(step)s cannot run.", step=node.name))
 
     # ------------------------------------------------------------------
@@ -105,6 +105,8 @@ class AngelsFlowDocumentMixin(models.AbstractModel):
                 return True
             else:
                 node = self._flow_run_node(node, values)
+                if node is True:
+                    return True
         return self._flow_finish("approved")
 
     def _flow_send_back(self, node):

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 11:20+0000\n"
-"PO-Revision-Date: 2026-10-23 11:20+0000\n"
+"POT-Creation-Date: 2026-10-23 11:42+0000\n"
+"PO-Revision-Date: 2026-10-23 11:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1248,6 +1248,7 @@ msgstr ""
 
 #. module: angels_forms
 #: model:ir.model.fields,help:angels_forms.field_angels_form_submission__message_has_error
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -1986,6 +1987,11 @@ msgid "Rule"
 msgstr ""
 
 #. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: code:addons/angels_forms/static/src/fill/fill_action.xml:0
@@ -2575,6 +2581,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__is_my_turn
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_search
 msgid "Waiting for Me"
+msgstr ""
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__website_message_ids
+msgid "Website communication history"
 msgstr ""
 
 #. module: angels_forms

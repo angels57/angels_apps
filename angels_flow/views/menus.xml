@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_flow_root" name="Flows" sequence="63"
+              web_icon="angels_flow,static/description/icon.png"
+              groups="group_flow_user"/>
+
+    <menuitem id="menu_flow_to_do" name="To Do" parent="menu_flow_root"
+              action="action_run_to_do" sequence="10"/>
+    <menuitem id="menu_flow_runs" name="Runs" parent="menu_flow_root"
+              action="action_run_all" sequence="20"/>
+    <menuitem id="menu_flow_flows" name="Flows" parent="menu_flow_root"
+              action="action_flow" sequence="30" groups="group_flow_manager"/>
+</odoo>

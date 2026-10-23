@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- A user sees the runs they started or that reached them; administrators see all. -->
+    <record id="rule_run_user" model="ir.rule">
+        <field name="name">Flow runs: started by or reaching the user</field>
+        <field name="model_id" ref="model_angels_flow_run"/>
+        <field name="domain_force">['|', ('user_id', '=', user.id), ('step_ids.user_ids', 'in', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_flow_user'))]"/>
+    </record>
+
+    <record id="rule_run_manager" model="ir.rule">
+        <field name="name">Flow runs: all</field>
+        <field name="model_id" ref="model_angels_flow_run"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_flow_manager'))]"/>
+    </record>
+
+    <record id="rule_run_step_user" model="ir.rule">
+        <field name="name">Flow run steps: of the runs the user sees</field>
+        <field name="model_id" ref="model_angels_flow_run_step"/>
+        <field name="domain_force">['|', ('run_id.user_id', '=', user.id), ('run_id.step_ids.user_ids', 'in', user.id)]</field>
+        <field name="groups" eval="[(4, ref('group_flow_user'))]"/>
+    </record>
+
+    <record id="rule_run_step_manager" model="ir.rule">
+        <field name="name">Flow run steps: all</field>
+        <field name="model_id" ref="model_angels_flow_run_step"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_flow_manager'))]"/>
+    </record>
+
+    <record id="rule_flow_company" model="ir.rule">
+        <field name="name">Flow runs: allowed companies</field>
+        <field name="model_id" ref="model_angels_flow_run"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="global" eval="True"/>
+    </record>
+
+</odoo>

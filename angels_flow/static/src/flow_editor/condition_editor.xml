@@ -43,7 +43,8 @@
                                     class="o_af_pill o_af_pill_value" aria-label="Value"
                                     t-on-change="(ev) => this.setValue(condition, ev.target.value)">
                                 <t t-foreach="source.options" t-as="option" t-key="option_index">
-                                    <option t-att-value="option" t-att-selected="option === condition.value" t-out="option"/>
+                                    <option t-att-value="this.optionValue(option)" t-att-selected="this.optionValue(option) === condition.value"
+                                            t-out="this.optionLabel(option)"/>
                                 </t>
                             </select>
                             <div t-elif="source.type === 'user' or source.type === 'partner'" class="o_af_pill o_af_pill_record">

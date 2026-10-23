@@ -1236,6 +1236,7 @@ msgstr "Si está marcado, hay mensajes nuevos que requieren tu atención."
 
 #. module: angels_forms
 #: model:ir.model.fields,help:angels_forms.field_angels_form_submission__message_has_error
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
 
@@ -2800,3 +2801,18 @@ msgid ""
 msgstr ""
 "En la pestaña Preguntas, elige este paso en “Rellena”. Sus personas las responden antes de\n"
 "                        aprobar o completar el paso."
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__website_message_ids
+msgid "Website communication history"
+msgstr ""

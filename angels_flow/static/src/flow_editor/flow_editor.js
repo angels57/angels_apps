@@ -37,7 +37,8 @@ export class FlowEditor extends Component {
     setup() {
         // nodes, sources, userSources, labels, ports, operatorsByType, names, loadNames, conditionsText,
         // onChange, onRemoveNode, nodePills, problems (by step id), focusNodeId (step to select when
-        // opened), onFocused; slots: inspector (with node), help
+        // opened), onFocused, startText (what starts the flow), userSourceTexts ({label, placeholder,
+        // empty}); slots: inspector (with node), help
         this.props = useProps();
         this.nodes = useState(this.props.nodes);
         this.names = useState(this.props.names);
@@ -91,7 +92,7 @@ export class FlowEditor extends Component {
             { value: "group", label: _t("Members of a group") },
         ];
         if (this.props.userSources) {
-            choices.push({ value: "field", label: _t("User chosen in the form") });
+            choices.push({ value: "field", label: this.userSourceTexts.label });
         }
         return choices;
     }
@@ -108,6 +109,14 @@ export class FlowEditor extends Component {
     }
     get userSources() {
         return this.props.userSources || [];
+    }
+    get userSourceTexts() {
+        return {
+            label: _t("User chosen in the form"),
+            placeholder: _t("Choose a question"),
+            empty: _t("Add a User question to the form first."),
+            ...this.props.userSourceTexts,
+        };
     }
     get boardSize() {
         return {
@@ -290,7 +299,7 @@ export class FlowEditor extends Component {
     summary(node) {
         switch (node.type) {
             case "start":
-                return _t("When the requester sends the form");
+                return this.props.startText || _t("When the requester sends the form");
             case "condition":
                 return node.conditions.length ? this.props.conditionsText(node) : _t("No condition yet");
             case "approve":

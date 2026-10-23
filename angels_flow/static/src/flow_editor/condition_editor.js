@@ -24,6 +24,16 @@ export class ConditionEditor extends Component {
         const source = this.source(condition);
         return source ? this.props.operatorsByType[source.type] : [];
     }
+    /** Choices of a selection come as plain texts (form questions) or as {value, label}. */
+    optionValue(option) {
+        return typeof option === "object" ? option.value : option;
+    }
+    optionLabel(option) {
+        return typeof option === "object" ? option.label : option;
+    }
+    firstOption(source) {
+        return source.options?.length ? this.optionValue(source.options[0]) : "";
+    }
     needsValue(condition) {
         return !["set", "not_set"].includes(condition.operator);
     }
@@ -39,7 +49,7 @@ export class ConditionEditor extends Component {
         this.item.conditions.push({
             source_id: source.id,
             operator: this.props.operatorsByType[source.type][0],
-            value: source.type === "boolean" ? "1" : ["selection", "multi"].includes(source.type) ? source.options[0] || "" : "",
+            value: source.type === "boolean" ? "1" : ["selection", "multi"].includes(source.type) ? this.firstOption(source) : "",
         });
         this.changed();
     }
@@ -54,7 +64,7 @@ export class ConditionEditor extends Component {
         if (!allowed.includes(condition.operator)) {
             condition.operator = allowed[0];
         }
-        condition.value = source.type === "boolean" ? "1" : ["selection", "multi"].includes(source.type) ? source.options[0] || "" : "";
+        condition.value = source.type === "boolean" ? "1" : ["selection", "multi"].includes(source.type) ? this.firstOption(source) : "";
         this.changed();
     }
     setOperator(condition, ev) {

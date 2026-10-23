@@ -184,17 +184,16 @@
                                     <RecordSelector t-elif="node.assign_type === 'group'" resModel="'res.groups'"
                                                     resId="node.group_id" update="(id) => this.setGroup(node, id)"/>
                                     <t t-else="">
-                                        <select class="form-select form-select-sm" aria-label="User question"
+                                        <select class="form-select form-select-sm" t-att-aria-label="this.userSourceTexts.label"
                                                 t-on-change="(ev) => this.setUserField(node, ev.target.value)">
-                                            <option value="" t-att-selected="!node.user_field_id">Choose a question</option>
+                                            <option value="" t-att-selected="!node.user_field_id" t-out="this.userSourceTexts.placeholder"/>
                                             <t t-foreach="this.userSources" t-as="question" t-key="question.id">
                                                 <option t-att-value="question.id" t-att-selected="question.id === node.user_field_id"
                                                         t-out="question.name"/>
                                             </t>
                                         </select>
-                                        <p t-if="!this.userSources.length" class="text-muted small mt-1 mb-0">
-                                            Add a User question to the form first.
-                                        </p>
+                                        <p t-if="!this.userSources.length" class="text-muted small mt-1 mb-0"
+                                           t-out="this.userSourceTexts.empty"/>
                                     </t>
                                 </span>
                             </span>
@@ -214,7 +213,7 @@
                     </t>
                 </div>
 
-                <p t-if="node.type === 'start'" class="text-muted small mt-3">
+                <p t-if="node.type === 'start' and !this.props.startText" class="text-muted small mt-3">
                     Every request starts here when the requester sends it. Drag its output to the first step.
                 </p>
                 <p t-if="node.type === 'back'" class="text-muted small mt-3">
