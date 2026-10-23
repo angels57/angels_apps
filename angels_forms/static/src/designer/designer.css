@@ -1120,19 +1120,6 @@
     stroke-dasharray: 4 4;
 }
 
-.o_af_link_delete {
-    position: absolute;
-    z-index: 3;
-    width: 1.6rem;
-    height: 1.6rem;
-    margin: -0.8rem 0 0 -0.8rem;
-    padding: 0;
-    color: #fff;
-    background: #ef4444;
-    border: 2px solid var(--body-bg);
-    border-radius: 50%;
-}
-
 /* Steps */
 .o_af_node {
     position: absolute;
@@ -1198,24 +1185,16 @@
     text-overflow: ellipsis;
 }
 
-.o_af_node_count {
-    flex-shrink: 0;
-    padding: 0 0.4rem;
+.o_af_node_meta {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
+    margin-top: 0.45rem;
+    padding-top: 0.4rem;
     font-size: 0.75rem;
-    color: color-mix(in srgb, var(--af-stage, var(--primary)) 70%, #000);
-    background: color-mix(in srgb, var(--af-stage, var(--primary)) 16%, transparent);
-    border-radius: 1rem;
-}
-
-.o_af_node_summary {
-    display: -webkit-box;
-    margin-top: 0.25rem;
-    overflow: hidden;
-    font-size: 0.78rem;
-    line-height: 1.25;
     color: var(--secondary-color);
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    border-top: 1px solid color-mix(in srgb, var(--border-color) 60%, transparent);
 }
 
 .o_af_port_in,
@@ -1253,17 +1232,6 @@
 .o_af_port_no.o_af_port_linked,
 .o_af_port_reject.o_af_port_linked {
     background: #ef4444;
-}
-
-.o_af_port_label {
-    position: absolute;
-    left: calc(100% + 10px);
-    margin-top: -1.1rem;
-    font-size: 0.7rem;
-    font-weight: 500;
-    white-space: nowrap;
-    color: var(--secondary-color);
-    pointer-events: none;
 }
 
 .o_af_palette_condition i { color: #0ea5e9; }
@@ -1704,7 +1672,7 @@
     box-shadow: 0 0 0 2px var(--body-bg);
 }
 
-.o_af_node_summary.o_af_node_problem {
+.o_af_node_meta.o_af_node_problem {
     font-weight: 500;
     color: var(--danger);
 }
@@ -1801,4 +1769,242 @@
     flex-shrink: 0;
     font-size: 0.75rem;
     color: var(--af-brand);
+}
+
+/* Step card: the kind in small capitals above the name, then who receives it and small facts. */
+.o_af_node_title {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+    line-height: 1.2;
+}
+
+.o_af_node_kind {
+    overflow: hidden;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: color-mix(in srgb, var(--af-stage, var(--secondary-color)) 70%, var(--body-color));
+}
+
+.o_af_node_start .o_af_node_kind,
+.o_af_node_end .o_af_node_kind { color: #059669; }
+.o_af_node_end.o_af_node_rejected .o_af_node_kind { color: #dc2626; }
+.o_af_node_condition .o_af_node_kind { color: #0284c7; }
+.o_af_node_back .o_af_node_kind { color: #ea580c; }
+.o_af_node_record .o_af_node_kind { color: #7c3aed; }
+
+.o_af_node_head .o_af_node_icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+}
+
+.o_af_node_meta_text {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.o_af_node_meta_icon {
+    flex-shrink: 0;
+    color: color-mix(in srgb, var(--af-stage, var(--secondary-color)) 75%, var(--body-color));
+}
+
+.o_af_avatars {
+    display: flex;
+    flex-shrink: 0;
+}
+
+.o_af_avatar {
+    width: 1.35rem;
+    height: 1.35rem;
+    margin-left: -0.35rem;
+    object-fit: cover;
+    border: 2px solid var(--body-bg);
+    border-radius: 50%;
+}
+
+.o_af_avatar:first-child {
+    margin-left: 0;
+}
+
+.o_af_avatar_more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--body-color);
+    background: var(--tertiary-bg);
+}
+
+.o_af_node_pill {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.25rem;
+    max-width: 8rem;
+    padding: 0 0.45rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #6d28d9;
+    background: color-mix(in srgb, #8b5cf6 13%, transparent);
+    border-radius: 1rem;
+}
+
+.o_af_node_pill_muted {
+    color: var(--secondary-color);
+    background: var(--tertiary-bg);
+}
+
+.o_af_node_pill_stage {
+    margin-left: auto;
+    color: color-mix(in srgb, var(--af-stage, var(--primary)) 70%, #000);
+    background: color-mix(in srgb, var(--af-stage, var(--primary)) 16%, transparent);
+}
+
+/* Arrows: the output as a colored pill on the arrow; the arrows of the step under the mouse stand out. */
+.o_af_link_lit {
+    stroke-width: 3;
+}
+
+.o_af_flow_dim .o_af_link:not(.o_af_link_lit):not(.o_af_link_draft) {
+    opacity: 0.25;
+}
+
+.o_af_link,
+.o_af_link_pill {
+    transition: opacity 0.15s, stroke-width 0.15s;
+}
+
+.o_af_link_pill {
+    position: absolute;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.05rem 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--secondary-color);
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.o_af_link_pill_yes {
+    color: #047857;
+    background: color-mix(in srgb, #10b981 12%, var(--body-bg));
+    border-color: color-mix(in srgb, #10b981 40%, transparent);
+}
+
+.o_af_link_pill_no {
+    color: #b91c1c;
+    background: color-mix(in srgb, #ef4444 10%, var(--body-bg));
+    border-color: color-mix(in srgb, #ef4444 40%, transparent);
+}
+
+.o_af_link_pill.selected {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--af-brand) 25%, transparent);
+}
+
+.o_af_flow_board:has(.o_af_flow_dim) .o_af_link_pill:not(.lit) {
+    opacity: 0.35;
+}
+
+.o_af_link_remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    margin-right: -0.35rem;
+    padding: 0;
+    font-size: 0.6rem;
+    color: #fff;
+    background: #ef4444;
+    border: 0;
+    border-radius: 50%;
+}
+
+/* Free output: "+ Approved" next to the port; a click opens the kinds of step. */
+.o_af_port_add {
+    position: absolute;
+    left: calc(100% + 14px);
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.05rem 0.5rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--af-brand);
+    background: var(--body-bg);
+    border: 1px dashed color-mix(in srgb, var(--af-brand) 55%, transparent);
+    border-radius: 1rem;
+    transform: translateY(-50%);
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.o_af_port_add_no {
+    color: #dc2626;
+    border-color: color-mix(in srgb, #ef4444 55%, transparent);
+}
+
+.o_af_port_add:hover {
+    color: #fff;
+    background: var(--af-brand);
+    border-style: solid;
+}
+
+.o_af_port_add_no:hover {
+    background: #ef4444;
+}
+
+.o_af_add_menu {
+    position: absolute;
+    z-index: 10;
+    width: 13rem;
+    padding: 0.35rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--af-radius) + 4px);
+    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.15);
+}
+
+.o_af_add_menu h6 {
+    margin: 0.35rem 0.5rem 0.25rem;
+    font-size: 0.68rem;
+}
+
+.o_af_add_menu_item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.82rem;
+    text-align: left;
+    color: var(--body-color);
+    background: transparent;
+    border: 0;
+    border-radius: var(--af-radius);
+}
+
+.o_af_add_menu_item:hover,
+.o_af_add_menu_item:focus-visible {
+    outline: 0;
+    background: var(--af-brand-soft);
 }

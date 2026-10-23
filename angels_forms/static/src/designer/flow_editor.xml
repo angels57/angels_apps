@@ -38,7 +38,7 @@
           <div class="o_af_flow_stage" t-att-style="this.stageStyle">
             <div class="o_af_flow_board" t-ref="board" t-att-style="this.boardStyle"
                  t-on-pointerdown="(ev) => this.clearSelection(ev)">
-                <svg class="o_af_flow_svg" width="100%" height="100%">
+                <svg t-att-class="this.svgClass" width="100%" height="100%">
                     <defs>
                         <marker id="o_af_arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
                                 markerHeight="7" orient="auto-start-reverse">
@@ -59,40 +59,78 @@
                 </svg>
 
                 <t t-foreach="this.links" t-as="link" t-key="link.key">
-                    <button t-if="link.selected" type="button" class="o_af_link_delete" title="Remove arrow"
-                            aria-label="Remove arrow" t-attf-style="left: {{link.mid.x}}px; top: {{link.mid.y}}px;"
-                            t-on-pointerdown.stop="() => {}" t-on-click="() => this.removeLink(link)">
+                <span t-if="link.showPill" t-att-class="link.pillClass"
+                      t-attf-style="left: {{link.mid.x}}px; top: {{link.mid.y}}px;"
+                      t-on-pointerdown.stop="() => this.selectLink(link)">
+                    <t t-if="link.tone !== 'plain'" t-out="link.label"/>
+                    <button t-if="link.selected" type="button" class="o_af_link_remove" title="Remove arrow"
+                            aria-label="Remove arrow" t-on-click="() => this.removeLink(link)">
                         <i class="fa fa-times" aria-hidden="true"/>
                     </button>
+                </span>
                 </t>
 
                 <div t-foreach="this.nodes" t-as="node" t-key="node.id" t-att-class="this.nodeClass(node)"
                      t-att-style="this.nodeStyle(node)" t-att-data-node-id="node.id" tabindex="0"
                      t-on-pointerdown="(ev) => this.onNodePointerDown(node, ev)"
-                     t-on-keydown="(ev) => ev.key === 'Enter' and this.select(node)">
+                     t-on-keydown="(ev) => ev.key === 'Enter' and this.select(node)"
+                     t-on-pointerenter="() => this.hover(node)" t-on-pointerleave="() => this.hover(false)">
                     <span t-if="node.type !== 'start'" class="o_af_port_in" aria-hidden="true"/>
                     <div class="o_af_node_head">
                         <span class="o_af_node_icon"><i t-attf-class="fa fa-fw #{this.icon(node)}" aria-hidden="true"/></span>
-                        <span class="o_af_node_name" t-out="node.name"/>
-                        <span t-if="this.canFill(node) and this.stageFields(node).length" class="o_af_node_count"
-                              t-att-title="this.stageFieldNames(node)">
-                            <i class="fa fa-pencil me-1" aria-hidden="true"/><t t-out="this.stageFields(node).length"/>
+                        <span class="o_af_node_title">
+                            <span class="o_af_node_kind" t-out="this.kindLabel(node)"/>
+                            <span class="o_af_node_name" t-out="node.name" t-att-title="node.name"/>
                         </span>
                     </div>
                     <t t-set="nodeProblems" t-value="this.problemsOf(node)"/>
                     <t t-if="nodeProblems.length">
                         <span class="o_af_node_badge" t-att-title="this.problemsText(node)" t-out="nodeProblems.length"/>
-                        <div class="o_af_node_summary o_af_node_problem" t-att-title="this.problemsText(node)">
-                            <i class="fa fa-exclamation-circle me-1" aria-hidden="true"/><t t-out="nodeProblems[0].short"/>
+                        <div class="o_af_node_meta o_af_node_problem" t-att-title="this.problemsText(node)">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"/>
+                            <span class="o_af_node_meta_text" t-out="nodeProblems[0].short"/>
                         </div>
                     </t>
-                    <div t-else="" class="o_af_node_summary" t-out="this.summary(node)"/>
+                    <div t-else="" class="o_af_node_meta" t-att-title="this.summary(node)">
+                        <t t-if="this.hasPeople(node)">
+                            <span t-if="this.avatars(node).length" class="o_af_avatars">
+                                <img t-foreach="this.avatars(node)" t-as="userId" t-key="userId" class="o_af_avatar"
+                                     t-att-src="this.avatarUrl(userId)" t-att-alt="this.names['res.users'][userId] or ''"/>
+                                <span t-if="this.moreAvatars(node)" class="o_af_avatar o_af_avatar_more"
+                                      t-out="'+' + this.moreAvatars(node)"/>
+                            </span>
+                            <i t-else="" t-attf-class="fa fa-fw #{this.recipientsIcon(node)} o_af_node_meta_icon" aria-hidden="true"/>
+                            <span class="o_af_node_meta_text" t-out="this.recipientsText(node)"/>
+                        </t>
+                        <span t-elif="node.type !== 'record' or !node.record_model" class="o_af_node_meta_text"
+                              t-out="this.summary(node)"/>
+                        <span t-foreach="this.pills(node)" t-as="pill" t-key="pill_index" t-att-title="pill.title"
+                              t-attf-class="o_af_node_pill #{pill.muted ? 'o_af_node_pill_muted' : ''} #{pill.stage ? 'o_af_node_pill_stage' : ''}">
+                            <i t-attf-class="fa #{pill.icon}" aria-hidden="true"/><t t-out="pill.text"/>
+                        </span>
+                    </div>
                     <t t-foreach="this.ports(node)" t-as="port" t-key="port.port">
                         <span t-attf-class="o_af_port o_af_port_#{port.port} #{port.linked ? 'o_af_port_linked' : ''}"
                               t-attf-style="top: {{port.top}}px;" t-att-title="port.label"
                               t-on-pointerdown="(ev) => this.onPortPointerDown(node, port.port, ev)"/>
-                        <span class="o_af_port_label" t-attf-style="top: {{port.top}}px;" t-out="port.label"/>
+                        <button t-if="!port.linked" type="button"
+                                t-attf-class="o_af_port_add o_af_port_add_#{port.tone}"
+                                t-attf-style="top: {{port.top}}px;" t-att-title="port.label"
+                                t-on-pointerdown.stop="() => {}" t-on-click="() => this.toggleAddMenu(node, port.port)">
+                            <i class="fa fa-plus" aria-hidden="true"/><t t-out="port.label"/>
+                        </button>
                     </t>
+                </div>
+
+                <div t-if="this.addMenu" class="o_af_add_menu" t-att-style="this.addMenu.style"
+                     t-on-pointerdown.stop="() => {}">
+                    <h6 t-out="this.addMenu.title"/>
+                    <button t-foreach="this.palette" t-as="item" t-key="item.type" type="button"
+                            t-attf-class="o_af_add_menu_item o_af_palette_{{item.type}}"
+                            t-on-click="() => this.addFromPort(this.addMenu.node, this.addMenu.port, item.type)">
+                        <i t-attf-class="fa fa-fw #{item.icon}" aria-hidden="true"/>
+                        <t t-out="item.label"/>
+                    </button>
                 </div>
             </div>
           </div>

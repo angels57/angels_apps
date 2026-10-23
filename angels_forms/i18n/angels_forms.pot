@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 09:50+0000\n"
-"PO-Revision-Date: 2026-10-23 09:50+0000\n"
+"POT-Creation-Date: 2026-10-23 09:59+0000\n"
+"PO-Revision-Date: 2026-10-23 09:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -119,6 +119,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 msgid "%s completes it"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+msgid "%s fields"
 msgstr ""
 
 #. module: angels_forms
@@ -336,6 +342,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "After the number"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+msgid "After “%s”"
 msgstr ""
 
 #. module: angels_forms
@@ -1106,6 +1118,12 @@ msgstr ""
 msgid ""
 "Every request starts here when the requester sends it. Drag its output to "
 "the first step."
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+msgid "Everyone"
 msgstr ""
 
 #. module: angels_forms

@@ -21,7 +21,7 @@ export const NODE_ICONS = {
 };
 const PALETTE = ["condition", "approve", "task", "notify", "record", "back", "end"];
 const NODE_W = 220;
-const NODE_H = 78;
+const NODE_H = 88;
 const GRID = 20;
 const SNAP = 8;
 const COLUMN = 280;
@@ -48,7 +48,15 @@ export class FlowEditor extends Component {
         this.nodes = useState(this.props.nodes);
         this.fields = useState(this.props.fields);
         this.names = useState(this.props.names);
-        this.state = useState({ selectedId: this.props.focusNodeId || false, link: null, connecting: null, guides: [], zoom: 1 });
+        this.state = useState({
+            selectedId: this.props.focusNodeId || false,
+            link: null,
+            connecting: null,
+            guides: [],
+            zoom: 1,
+            hoverId: false, // the step under the mouse: its arrows stand out
+            addMenu: null, // {id, port}: the free output whose "+" menu is open
+        });
         this.board = useRef("board");
         this.scroller = useRef("scroller");
         this.newId = 0;
@@ -138,6 +146,42 @@ export class FlowEditor extends Component {
             o_af_node_target: this.state.connecting && node.type !== "start",
         };
     }
+    kindLabel(node) {
+        return this.props.labels.node_types[node.type];
+    }
+    /** Up to 3 people who receive the step, as avatars; the others as "+N". */
+    avatars(node) {
+        return node.assign_type === "users" ? node.user_ids.slice(0, 3) : [];
+    }
+    moreAvatars(node) {
+        return node.assign_type === "users" ? Math.max(0, node.user_ids.length - 3) : 0;
+    }
+    avatarUrl(id) {
+        return `/web/image/res.users/${id}/avatar_128`;
+    }
+    recipientsIcon(node) {
+        return node.assign_type === "group" ? "fa-users" : "fa-user-circle-o";
+    }
+    /** Small facts shown at the bottom of a step. */
+    pills(node) {
+        const pills = [];
+        if (node.type === "record" && node.record_model) {
+            pills.push({ icon: "fa-cube", text: node.record_model_name || node.record_model });
+            pills.push({ icon: "fa-list", text: _t("%s fields", node.mappings.length), muted: true });
+        }
+        if (node.type === "approve" && node.approval_rule === "all") {
+            pills.push({ icon: "fa-users", text: _t("Everyone"), title: _t("Everyone must approve"), muted: true });
+        }
+        if (this.canFill(node) && this.stageFields(node).length) {
+            pills.push({
+                icon: "fa-pencil",
+                text: String(this.stageFields(node).length),
+                title: this.stageFieldNames(node),
+                stage: true,
+            });
+        }
+        return pills;
+    }
     problemsOf(node) {
         return this.props.problems?.[node.id] || [];
     }
@@ -153,7 +197,15 @@ export class FlowEditor extends Component {
             label: this.portLabel(node, port),
             top: (NODE_H * (index + 1)) / (all.length + 1),
             linked: Boolean(node.links[port]),
+            tone: this.portTone(node, port),
         }));
+    }
+    /** Green for the way forward when there is a choice, red for No / Rejected. */
+    portTone(node, port) {
+        if (port === "no" || port === "reject") {
+            return "no";
+        }
+        return port === "yes" || node.type === "approve" ? "yes" : "plain";
     }
     portLabel(node, port) {
         if (port === "yes") {
@@ -191,8 +243,9 @@ export class FlowEditor extends Component {
     /** Arrows between steps, as SVG paths. */
     get links() {
         const links = [];
+        const hover = this.state.hoverId;
         for (const node of this.nodes) {
-            for (const { port, top } of this.ports(node)) {
+            for (const { port, top, label, tone } of this.ports(node)) {
                 const target = this.nodes.find((n) => n.id === node.links[port]);
                 if (!target) {
                     continue;
@@ -202,13 +255,19 @@ export class FlowEditor extends Component {
                 const x2 = target.x;
                 const y2 = target.y + NODE_H / 2;
                 const selected = this.state.link?.id === node.id && this.state.link?.port === port;
+                const lit = hover && (hover === node.id || hover === target.id);
                 links.push({
                     key: `${node.id}-${port}`,
                     node,
                     port,
                     d: this.curve(x1, y1, x2, y2),
                     mid: { x: (x1 + x2) / 2, y: (y1 + y2) / 2 },
-                    className: `o_af_link o_af_link_${port}${selected ? " o_af_link_selected" : ""}`,
+                    className: `o_af_link o_af_link_${port}${selected ? " o_af_link_selected" : ""}${lit ? " o_af_link_lit" : ""}`,
+                    pillClass: `o_af_link_pill o_af_link_pill_${tone}${selected ? " selected" : ""}${lit ? " lit" : ""}`,
+                    label,
+                    tone,
+                    // One output needs no name on its arrow; a choice (Yes / No...) does.
+                    showPill: tone !== "plain" || selected,
                     selected,
                 });
             }
@@ -223,6 +282,9 @@ export class FlowEditor extends Component {
         const node = this.nodes.find((n) => n.id === connecting.id);
         const top = this.ports(node).find((p) => p.port === connecting.port).top;
         return this.curve(node.x + NODE_W, node.y + top, connecting.x, connecting.y);
+    }
+    get svgClass() {
+        return `o_af_flow_svg${this.state.hoverId ? " o_af_flow_dim" : ""}`;
     }
     curve(x1, y1, x2, y2) {
         const dx = Math.max(60, Math.abs(x2 - x1) / 2);
@@ -349,12 +411,50 @@ export class FlowEditor extends Component {
     select(node) {
         this.state.selectedId = node.id;
         this.state.link = null;
+        this.state.addMenu = null;
     }
     clearSelection(ev) {
         if (ev.target === ev.currentTarget || ev.target.closest("svg") === ev.target) {
             this.state.selectedId = false;
             this.state.link = null;
+            this.state.addMenu = null;
         }
+    }
+    hover(node) {
+        this.state.hoverId = node ? node.id : false;
+    }
+
+    // "+" on a free output: choose a kind of step, it is added there, already linked.
+    toggleAddMenu(node, port) {
+        const open = this.state.addMenu;
+        this.state.addMenu = open && open.id === node.id && open.port === port ? null : { id: node.id, port };
+        this.state.link = null;
+    }
+    get addMenu() {
+        const open = this.state.addMenu;
+        const node = open && this.nodes.find((n) => n.id === open.id);
+        if (!node) {
+            return null;
+        }
+        const { top, label } = this.ports(node).find((p) => p.port === open.port);
+        return {
+            node,
+            port: open.port,
+            title: _t("After “%s”", label),
+            style: `left: ${node.x + NODE_W + 24}px; top: ${node.y + top + 18}px;`,
+        };
+    }
+    addFromPort(node, port, type) {
+        const top = this.ports(node).find((p) => p.port === port).top;
+        const x = node.x + COLUMN;
+        let y = Math.max(0, node.y + top - NODE_H / 2);
+        while (this.nodes.some((n) => Math.abs(n.x - x) < NODE_W && Math.abs(n.y - y) < NODE_H + GRID)) {
+            y += ROW;
+        }
+        const added = this.addNode(type, x, y);
+        node.links[port] = added.id;
+        this.state.addMenu = null;
+        this.changed();
     }
     removeNode(node) {
         if (node.type === "start") {
@@ -405,6 +505,10 @@ export class FlowEditor extends Component {
     }
 
     onKeyDown(ev) {
+        if (ev.key === "Escape" && this.state.addMenu) {
+            this.state.addMenu = null;
+            return;
+        }
         if (ev.target.closest?.("input, textarea, select, [contenteditable]") || ev.key !== "Delete") {
             return;
         }
@@ -435,7 +539,7 @@ export class FlowEditor extends Component {
 
     // Move a step: it snaps to the grid, and lines up with the other steps.
     onNodePointerDown(node, ev) {
-        if (ev.target.closest(".o_af_port, button")) {
+        if (ev.target.closest(".o_af_port, .o_af_port_add, button")) {
             return;
         }
         this.select(node);

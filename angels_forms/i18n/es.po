@@ -3336,3 +3336,21 @@ msgstr "Sin destinatarios"
 #: code:addons/angels_forms/static/src/designer/record_editor.js:0
 msgid "Unknown {%s}"
 msgstr "{%s} desconocido"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+msgid "%s fields"
+msgstr "%s campos"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+msgid "After “%s”"
+msgstr "Después de “%s”"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+msgid "Everyone"
+msgstr "Todos"
