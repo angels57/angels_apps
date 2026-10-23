@@ -19,6 +19,7 @@ import {
 import { useProps, useState } from "../common/owl_compat";
 import { ConditionEditor } from "./condition_editor";
 import { FlowEditor, STAGE_TYPES } from "./flow_editor";
+import { recordProblems } from "./record_editor";
 import { IconPicker } from "./icon_picker";
 import { startPointerDrag } from "./pointer_drag";
 
@@ -275,11 +276,18 @@ export class FormDesignerAction extends Component {
         if (["set", "not_set"].includes(condition.operator)) {
             return `${source.name} ${operator}`;
         }
-        let value = condition.value;
+        let value = condition.value || "…";
         if (source.type === "boolean") {
             value = condition.value === "1" ? _t("checked") : _t("not checked");
         }
         return `${source.name} ${operator} ${value}`;
+    }
+    /** "Only shown when ..." under the conditions of a question. */
+    conditionSummary(field) {
+        if (!field.conditions.length) {
+            return "";
+        }
+        return _t("Only shown when %s", this.conditionsText(field));
     }
     conditionsText(item) {
         const glue = item.match === "any" ? _t(" or ") : _t(" and ");
@@ -551,6 +559,7 @@ export class FormDesignerAction extends Component {
             if (node.user_field_id === field.id) {
                 node.user_field_id = false;
             }
+            node.mappings = (node.mappings || []).filter((m) => m.source !== "question" || m.question_id !== field.id);
         }
         if (this.data.form.title_field_id === field.id) {
             this.data.form.title_field_id = false;
@@ -590,10 +599,6 @@ export class FormDesignerAction extends Component {
         } else {
             this.place(field, { row: field.row + 1, insert: true, col: 0, width });
         }
-    }
-    setStage(field, value) {
-        const stage = this.stages.find((n) => String(n.id) === value);
-        this.setProp(field, "node_id", stage ? stage.id : false);
     }
     setTitle(field, checked) {
         this.data.form.title_field_id = checked ? field.id : false;
@@ -811,6 +816,9 @@ export class FormDesignerAction extends Component {
                 (node.assign_type === "field" && !node.user_field_id);
             if (people && missing) {
                 problems.push(_t("The step “%s” has nobody to send to.", node.name));
+            }
+            if (node.type === "record") {
+                problems.push(...recordProblems(node, this.fields.filter((f) => f.type !== "section")));
             }
         }
         return problems;

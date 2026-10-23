@@ -42,6 +42,12 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,pending,approved"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_links" type="object" class="oe_stat_button" icon="fa-cubes"
+                                invisible="not link_count">
+                            <field name="link_count" widget="statinfo" string="Created Records"/>
+                        </button>
+                    </div>
                     <field name="is_my_turn" invisible="1"/>
                     <field name="current_step_type" invisible="1"/>
                     <field name="can_cancel" invisible="1"/>
@@ -89,6 +95,20 @@
                 </sheet>
                 <chatter/>
             </form>
+        </field>
+    </record>
+
+    <record id="view_form_link_list" model="ir.ui.view">
+        <field name="name">angels.form.link.list</field>
+        <field name="model">angels.form.link</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0" action="action_open" type="object">
+                <field name="model_name"/>
+                <field name="name"/>
+                <field name="node_id"/>
+                <field name="submission_id" optional="hide"/>
+                <field name="create_date" string="Created On" optional="show"/>
+            </list>
         </field>
     </record>
 

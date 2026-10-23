@@ -9,7 +9,7 @@ export class ConditionEditor extends Component {
     static components = { RecordSelector };
 
     setup() {
-        // item, sources, labels, operatorsByType, onChange, emptyText
+        // item, sources, labels, operatorsByType, onChange, emptyText, lead, summary
         this.props = useProps();
         this.item = useState(this.props.item);
     }
@@ -68,11 +68,14 @@ export class ConditionEditor extends Component {
         condition.value = value === false || value === undefined ? "" : String(value);
         this.changed();
     }
-    setMatch(ev) {
-        this.item.match = ev.target.value;
-        this.changed();
+    get match() {
+        return this.item.match === "any" ? "any" : "all";
     }
-    get matchLabel() {
-        return { all: _t("All conditions"), any: _t("Any condition") };
+    get glue() {
+        return this.match === "any" ? _t("or") : _t("and");
+    }
+    setMatch(match) {
+        this.item.match = match;
+        this.changed();
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "Angels Forms - Forms and Flows",
-    "version": "19.0.1.4.0",
+    "version": "19.0.1.5.0",
     "summary": "Request forms with conditional fields and a visual approval flow",
     "description": """
 Angels Forms - Forms and Flows for Odoo 19
@@ -33,6 +33,10 @@ Features:
   (for example Finance fills the cost center, the travel desk the booking)
 * Approvers by user list, by group or by a user chosen in the form
 * "Any approver" or "all approvers" rule per step, self-approval blocked by default
+* Create Record step: once approved, a request creates a record anywhere in
+  Odoo (a calendar event, a task, an expense...) with its answers, the
+  requester, fixed values or a text such as "Trip to {Destination}", and its
+  files; the request links to what it created
 * Activities, chatter and full history on every request
     """,
     "category": "Productivity",

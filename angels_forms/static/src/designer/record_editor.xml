@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_forms.RecordEditor">
+        <div class="o_af_record_editor">
+            <label class="form-label small mt-3" for="o_af_record_model">Create a</label>
+            <input id="o_af_record_model" type="search" class="form-control form-control-sm" list="o_af_record_models"
+                   placeholder="Search: Contact, Task, Event..." t-att-value="this.currentModelLabel"
+                   t-on-change="(ev) => this.setModel(ev.target.value)"/>
+            <datalist id="o_af_record_models">
+                <option t-foreach="this.state.models" t-as="model" t-key="model.model" t-att-value="this.modelLabel(model)"/>
+            </datalist>
+
+            <t t-if="this.node.record_model">
+                <h6 class="mt-4">Fill these fields</h6>
+                <div t-foreach="this.node.mappings" t-as="mapping" t-key="mapping_index" class="o_af_map">
+                    <t t-set="field" t-value="this.fieldOf(mapping)"/>
+                    <div class="o_af_map_head">
+                        <span class="o_af_map_field" t-out="this.fieldLabel(mapping)"/>
+                        <span t-if="field and field.required" class="text-danger">*</span>
+                        <button type="button" class="btn btn-link btn-sm ms-auto p-0 text-muted" title="Remove"
+                                aria-label="Remove" t-on-click="() => this.removeMapping(mapping)">
+                            <i class="fa fa-times" aria-hidden="true"/>
+                        </button>
+                    </div>
+                    <t t-if="field">
+                        <t t-set="kind" t-value="this.valueKind(field)"/>
+                        <div class="o_af_map_source">
+                            <i class="fa fa-long-arrow-left text-muted" aria-hidden="true"/>
+                            <select class="form-select form-select-sm" aria-label="Where the value comes from"
+                                    t-on-change="(ev) => this.setSource(mapping, ev.target.value)">
+                                <optgroup t-if="this.questionsFor(field).length" label="Answer to">
+                                    <option t-foreach="this.questionsFor(field)" t-as="question" t-key="question.id"
+                                            t-att-value="'q:' + question.id"
+                                            t-att-selected="this.sourceKey(mapping) === 'q:' + question.id"
+                                            t-out="question.name"/>
+                                </optgroup>
+                                <option t-if="mapping.source === 'question' and !mapping.question_id" value="q:" selected="1">
+                                    Choose a question
+                                </option>
+                                <option t-foreach="this.sourcesFor(field)" t-as="source" t-key="source.key"
+                                        t-att-value="source.key" t-att-selected="mapping.source === source.key"
+                                        t-out="source.label"/>
+                            </select>
+                        </div>
+                        <t t-if="mapping.source === 'template'">
+                            <input type="text" class="form-control form-control-sm mt-1" aria-label="Text"
+                                   placeholder="Trip to {Destination}" t-att-value="this.templateText(mapping)"
+                                   t-on-change="(ev) => this.setTemplate(mapping, ev.target.value)"/>
+                            <div class="o_af_tokens">
+                                <button t-foreach="this.requestTokens" t-as="item" t-key="item.token" type="button"
+                                        class="o_af_token" t-on-click="() => this.insertToken(mapping, item.token)">
+                                    <i class="fa fa-plus" aria-hidden="true"/> <t t-out="item.label"/>
+                                </button>
+                                <select class="o_af_token o_af_token_select" aria-label="Insert an answer"
+                                        t-on-change="(ev) => this.onTokenSelect(mapping, ev)">
+                                    <option value="">+ Answer...</option>
+                                    <option t-foreach="this.props.questions" t-as="question" t-key="question.id"
+                                            t-att-value="question.id" t-out="question.name"/>
+                                </select>
+                            </div>
+                        </t>
+                        <div t-elif="mapping.source === 'value'" class="mt-1">
+                            <div t-if="kind === 'boolean'" class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" t-att-id="'o_af_map_' + mapping_index"
+                                       t-att-checked="mapping.value === 'true'"
+                                       t-on-change="(ev) => this.setValue(mapping, ev.target.checked ? 'true' : '')"/>
+                                <label class="form-check-label small" t-att-for="'o_af_map_' + mapping_index">Yes</label>
+                            </div>
+                            <select t-elif="kind === 'selection'" class="form-select form-select-sm" aria-label="Value"
+                                    t-on-change="(ev) => this.setValue(mapping, ev.target.value)">
+                                <option value="" t-att-selected="!mapping.value">Choose...</option>
+                                <option t-foreach="field.selection" t-as="choice" t-key="choice[0]" t-att-value="choice[0]"
+                                        t-att-selected="mapping.value === choice[0]" t-out="choice[1]"/>
+                            </select>
+                            <RecordSelector t-elif="kind === 'record'" resModel="field.relation"
+                                            resId="this.recordId(mapping)"
+                                            update="(id) => this.setValue(mapping, id)"/>
+                            <MultiRecordSelector t-elif="kind === 'records'" resModel="field.relation"
+                                                 resIds="this.recordIds(mapping)"
+                                                 update="(ids) => this.setValue(mapping, ids.join(','))"/>
+                            <input t-else="" class="form-control form-control-sm" aria-label="Value"
+                                   t-att-type="kind === 'datetime' ? 'datetime-local' : kind" t-att-value="this.inputValue(mapping, kind)"
+                                   t-on-change="(ev) => this.setInput(mapping, kind, ev.target.value)"/>
+                        </div>
+                    </t>
+                    <p t-else="" class="text-danger small mb-0">This field does not exist any more.</p>
+                </div>
+
+                <div t-if="this.node.mappings.length" class="o_af_rule_summary small mb-2">
+                    <i class="fa fa-eye me-1" aria-hidden="true"/><t t-out="this.summary"/>
+                </div>
+                <div t-if="this.missingFields.length" class="o_af_map_missing">
+                    <i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>
+                    Required: <t t-out="this.missingText"/>
+                </div>
+                <select t-if="this.state.adding" class="form-select form-select-sm mt-2" aria-label="Field to add"
+                        t-on-change="(ev) => this.addMapping(ev.target.value)">
+                    <option value="">Choose a field...</option>
+                    <option t-foreach="this.freeFields" t-as="free" t-key="free.name" t-att-value="free.name">
+                        <t t-out="free.label"/><t t-if="free.required"> *</t>
+                    </option>
+                </select>
+                <button t-else="" type="button" class="btn btn-sm btn-link px-0 mt-1"
+                        t-on-click="() => this.startAdding()">
+                    <i class="fa fa-plus me-1" aria-hidden="true"/>Add a field
+                </button>
+
+                <div class="form-check form-switch mt-3">
+                    <input id="o_af_record_files" class="form-check-input" type="checkbox"
+                           t-att-checked="this.node.attach_files"
+                           t-on-change="(ev) => this.setAttachFiles(ev.target.checked)"/>
+                    <label class="form-check-label small" for="o_af_record_files">Attach the files of the request</label>
+                </div>
+            </t>
+            <p class="text-muted small mt-3 mb-0">
+                The record is created when the request reaches this step, then the flow goes on. A request creates it
+                only once, and links to it.
+            </p>
+        </div>
+    </t>
+
+</templates>

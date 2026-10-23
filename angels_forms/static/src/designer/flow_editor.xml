@@ -20,6 +20,7 @@
                 <li>Click an arrow and press Delete to remove it.</li>
                 <li>An output with no arrow ends the flow: the request is approved.</li>
                 <li>Approval and Task steps can fill their own questions (choose “Filled by” on a question).</li>
+                <li>Create Record makes a record in Odoo (a contact, a task, an event...) with the answers.</li>
             </ul>
         </aside>
 
@@ -125,9 +126,12 @@
                     <h6 class="mt-4">Go to “Yes” when</h6>
                     <ConditionEditor t-key="node.id" item="node" sources="this.questions"
                                      labels="this.props.labels.operators" operatorsByType="this.props.operatorsByType"
-                                     onChange="() => this.changed()"
+                                     onChange="() => this.changed()" lead.translate="If"
                                      emptyText.translate="No condition yet: requests always go to “Yes”."/>
                 </t>
+
+                <RecordEditor t-if="node.type === 'record'" t-key="node.id" node="node" questions="this.questions"
+                              sources="this.props.labels.sources" onChange="() => this.changed()"/>
 
                 <t t-if="this.hasPeople(node)">
                     <label class="form-label small mt-3" for="o_af_node_assign">Send to</label>

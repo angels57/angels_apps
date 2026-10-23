@@ -89,6 +89,7 @@
                                            invisible="node_type not in ('approve', 'task', 'notify') or assign_type != 'group'"/>
                                     <field name="user_field_id"
                                            invisible="node_type not in ('approve', 'task', 'notify') or assign_type != 'field'"/>
+                                    <field name="record_model" optional="show" invisible="node_type != 'record'"/>
                                 </list>
                             </field>
                         </page>

@@ -3,6 +3,7 @@ from odoo.exceptions import AccessError, UserError, ValidationError
 
 from .form_condition import OPERATORS_BY_TYPE
 from .form_node import PORT_FIELDS, PORTS
+from .form_record import PLACEHOLDER, record_field_allowed, record_model_allowed
 
 SUBMISSION_MODEL = "angels.form.submission"
 FIELD_KEYS = ("name", "required", "help", "placeholder", "prefix", "suffix", "width")
@@ -143,10 +144,21 @@ class AngelsForm(models.Model):
                     if c.source_field_id in field_map
                 ]
 
+            ids = {str(field.id): new_field.id for field, new_field in field_map.items()}
             for node, new_node in node_map.items():
                 new_node.write({
                     **{name: node_map.get(node[name], node[name].browse()).id for name in PORT_FIELDS.values()},
                     "condition_ids": conditions(node.condition_ids),
+                    "mapping_ids": [
+                        fields.Command.create({
+                            "field_name": m.field_name,
+                            "source": m.source,
+                            "question_id": field_map.get(m.question_id, m.question_id.browse()).id,
+                            "value": self._replace_question_ids(m.value, ids),
+                        })
+                        for m in node.mapping_ids
+                        if m.source != "question" or m.question_id in field_map
+                    ],
                 })
             for field, new_field in field_map.items():
                 new_field.write({
@@ -274,10 +286,57 @@ class AngelsForm(models.Model):
                 "widths": dict(self._fields_selection("angels.form.field", "width")),
                 "operators": dict(self._fields_selection("angels.form.condition", "operator")),
                 "node_types": dict(self._fields_selection("angels.form.node", "node_type")),
+                "sources": dict(self._fields_selection("angels.form.mapping", "source")),
             },
             "operators_by_type": OPERATORS_BY_TYPE,
             "ports": PORTS,
         }
+
+    @api.model
+    def _replace_question_ids(self, text, ids):
+        """In the text of a mapping, point {question id} placeholders at other ids."""
+        if not text:
+            return text
+        return PLACEHOLDER.sub(lambda m: "{%s}" % ids.get(m.group(1), m.group(1)), text)
+
+    @api.model
+    def get_record_models(self):
+        """Kinds of record the current designer may make a step create."""
+        self.env["angels.form"].check_access("write")
+        models_ = self.env["ir.model"].sudo().search([("transient", "=", False)])
+        return sorted(
+            (
+                {"model": model.model, "name": model.name}
+                for model in models_
+                if record_model_allowed(self.env, model.model) and self.env[model.model].has_access("create")
+            ),
+            key=lambda m: m["name"].lower(),
+        )
+
+    @api.model
+    def get_record_fields(self, model):
+        """Fields of ``model`` a Create Record step can fill, required ones first."""
+        self.env["angels.form"].check_access("write")
+        if not record_model_allowed(self.env, model):
+            raise UserError(_("A step cannot create %(model)s records.", model=model))
+        Model = self.env[model]
+        allowed = {
+            name: field for name, field in Model._fields.items()
+            if record_field_allowed(field) and (not field.groups or self.env.user.has_groups(field.groups))
+        }
+        missing = set(self.env["angels.form.node"]._missing_fields(Model, {}))
+        result = [
+            {
+                "name": name,
+                "label": field._description_string(self.env),
+                "type": field.type,
+                "relation": field.comodel_name or False,
+                "required": name in missing,
+                "selection": field._description_selection(self.env) if field.type == "selection" else False,
+            }
+            for name, field in allowed.items()
+        ]
+        return sorted(result, key=lambda f: (not f["required"], f["label"].lower()))
 
     def _fields_selection(self, model, field_name):
         field = self.env[model]._fields[field_name]
@@ -377,6 +436,7 @@ class AngelsForm(models.Model):
                 target = nodes_by_client_id.get(links.get(port))
                 vals[PORT_FIELDS[port]] = target.id if target else False
             user_field = fields_by_client_id.get(item.get("user_field_id"))
+            vals.update(self._record_vals(node, item, fields_by_client_id))
             node.condition_ids.unlink()
             vals.update({
                 "assign_type": item.get("assign_type") or "users",
@@ -393,6 +453,39 @@ class AngelsForm(models.Model):
         title = fields_by_client_id.get(form_data.get("title_field_id"))
         self.title_field_id = title or False
         return self.get_design_data()
+
+    def _record_vals(self, node, item, fields_by_client_id):
+        """What a Create Record step creates. Mappings are rewritten only when they change."""
+        ids = {str(cid): field.id for cid, field in fields_by_client_id.items()}
+        record = node.node_type == "record"
+        model = record and item.get("record_model") or False
+        vals = {"attach_files": bool(item.get("attach_files", True))}
+        if model != (node.record_model or False):
+            vals["record_model"] = model
+        mappings = []
+        for mapping in (item.get("mappings") or []) if record else []:
+            source = mapping.get("source") or "question"
+            question = fields_by_client_id.get(mapping.get("question_id")) if source == "question" else False
+            mappings.append((
+                mapping.get("field"),
+                source,
+                question.id if question else False,
+                self._replace_question_ids(mapping.get("value"), ids) or False if source != "question" else False,
+            ))
+        current = [(m.field_name, m.source, m.question_id.id, m.value or False) for m in node.mapping_ids]
+        if mappings != current or "record_model" in vals:
+            node.mapping_ids.unlink()
+            vals["mapping_ids"] = [
+                fields.Command.create({
+                    "sequence": index,
+                    "field_name": field_name,
+                    "source": source,
+                    "question_id": question_id,
+                    "value": value,
+                })
+                for index, (field_name, source, question_id, value) in enumerate(mappings)
+            ]
+        return vals
 
     # ------------------------------------------------------------------
     # Filling
