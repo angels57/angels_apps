@@ -56,6 +56,29 @@
                             <i class="fa fa-circle-o me-1" aria-hidden="true"/>Publish
                         </t>
                     </button>
+                    <t t-set="pending" t-value="this.problems()"/>
+                    <div t-if="pending.length" class="o_af_pending">
+                        <button type="button" class="o_af_pending_btn" t-att-aria-expanded="this.state.pendingOpen ? 'true' : 'false'"
+                                t-on-click="() => this.togglePending()">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"/>
+                            <t t-out="this.pendingLabel(pending)"/>
+                            <i t-attf-class="fa fa-angle-{{this.state.pendingOpen ? 'up' : 'down'}}" aria-hidden="true"/>
+                        </button>
+                        <t t-if="this.state.pendingOpen">
+                            <div class="o_af_pending_backdrop" t-on-click="() => this.togglePending()"/>
+                            <div class="o_af_pending_list">
+                                <h6>Before saving</h6>
+                                <button t-foreach="pending" t-as="problem" t-key="problem_index" type="button"
+                                        class="o_af_pending_item" t-on-click="() => this.goToProblem(problem)">
+                                    <span class="o_af_pending_icon">
+                                        <i t-attf-class="fa fa-fw #{this.problemIcon(problem)}" aria-hidden="true"/>
+                                    </span>
+                                    <span class="o_af_pending_text" t-out="problem.text"/>
+                                    <span class="o_af_pending_go">Go <i class="fa fa-arrow-right" aria-hidden="true"/></span>
+                                </button>
+                            </div>
+                        </t>
+                    </div>
                     <button type="button" class="btn btn-primary" t-att-disabled="!this.state.dirty or this.state.saving"
                             t-on-click="() => this.save()">Save</button>
                 </div>
@@ -67,7 +90,9 @@
                             nodes="this.data.nodes" fields="this.data.fields" labels="this.labels"
                             ports="this.data.ports" operatorsByType="this.data.operators_by_type"
                             names="this.state.names" loadNames="(model, ids) => this.loadNames(model, ids)"
-                            conditionsText="(item) => this.conditionsText(item)" onChange="() => this.touch()"/>
+                            conditionsText="(item) => this.conditionsText(item)" onChange="() => this.touch()"
+                            problems="this.nodeProblems" focusNodeId="this.state.focusNodeId"
+                            onFocused="() => this.clearFocus()"/>
             </div>
         </div>
     </t>

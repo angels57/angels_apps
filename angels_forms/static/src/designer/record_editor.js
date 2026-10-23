@@ -31,24 +31,30 @@ function questionTypes(field) {
     return field.relation ? RELATION_QUESTIONS[field.relation] || [] : QUESTION_TYPES[field.type] || [];
 }
 
-/** What blocks saving a Create Record step, in plain words. */
+/** What blocks saving a Create Record step: the full sentence, and a short one for the step on the diagram. */
 export function recordProblems(node, questions) {
     if (!node.record_model) {
-        return [_t("The step “%s” needs a kind of record to create.", node.name)];
+        return [{ text: _t("The step “%s” needs a kind of record to create.", node.name), short: _t("No record type yet") }];
     }
     const problems = [];
     const ids = new Set(questions.map((q) => String(q.id)));
     for (const mapping of node.mappings) {
         if (mapping.source === "question" && !mapping.question_id) {
-            problems.push(_t("The step “%s” has a field with no question chosen.", node.name));
+            problems.push({
+                text: _t("The step “%s” has a field with no question chosen.", node.name),
+                short: _t("A field has no question"),
+            });
         }
         if (mapping.source === "template") {
             for (const [, token] of mapping.value.matchAll(PLACEHOLDER)) {
                 if (!REQUEST_TOKENS.includes(token) && !ids.has(token)) {
-                    problems.push(_t("The step “%(step)s” uses {%(name)s}, which is not a question.", {
-                        step: node.name,
-                        name: token,
-                    }));
+                    problems.push({
+                        text: _t("The step “%(step)s” uses {%(name)s}, which is not a question.", {
+                            step: node.name,
+                            name: token,
+                        }),
+                        short: _t("Unknown {%s}", token),
+                    });
                 }
             }
         }
@@ -58,7 +64,10 @@ export function recordProblems(node, questions) {
         const used = new Set(node.mappings.map((m) => m.field));
         const missing = fields.filter((f) => f.required && !used.has(f.name)).map((f) => f.label);
         if (missing.length) {
-            problems.push(_t("The step “%(step)s” must fill: %(fields)s.", { step: node.name, fields: missing.join(", ") }));
+            problems.push({
+                text: _t("The step “%(step)s” must fill: %(fields)s.", { step: node.name, fields: missing.join(", ") }),
+                short: _t("Must fill: %s", missing.join(", ")),
+            });
         }
     }
     return problems;
