@@ -667,10 +667,6 @@
     background: var(--primary);
 }
 
-.o_af_widths .btn {
-    min-width: 2.4rem;
-}
-
 .o_af_shortcuts {
     margin-top: 1.25rem;
     font-size: 0.8rem;
@@ -696,21 +692,286 @@
     touch-action: none;
 }
 
-/* Conditions */
+/* Inspector controls, in the look of the Angels theme (its tokens when installed). */
+.o_af_designer {
+    --af-brand: var(--at-brand, var(--primary));
+    --af-brand-soft: var(--at-brand-soft, var(--primary-bg-subtle));
+    --af-radius: var(--at-radius, 0.5rem);
+}
+
+.o_af_inspector_head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Type: tiles with an icon, like the palette. */
+.o_af_type_grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem;
+}
+
+.o_af_type_tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    min-width: 0;
+    padding: 0.45rem 0.25rem;
+    font-size: 0.72rem;
+    line-height: 1.15;
+    color: var(--body-color);
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--af-radius);
+    transition: border-color 0.15s, background-color 0.15s, transform 0.1s;
+}
+
+.o_af_type_tile span {
+    max-width: 100%;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.o_af_type_tile i {
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+
+.o_af_type_tile:hover {
+    border-color: var(--af-brand);
+}
+
+.o_af_type_tile:active {
+    transform: scale(0.97);
+}
+
+.o_af_type_tile.active {
+    font-weight: 600;
+    color: var(--af-brand);
+    background: var(--af-brand-soft);
+    border-color: var(--af-brand);
+}
+
+.o_af_type_tile.active i {
+    color: var(--af-brand);
+}
+
+/* Segmented control: gray track, the chosen item as a white chip. */
+.o_af_segment {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    max-width: 100%;
+    padding: 2px;
+    background: color-mix(in srgb, var(--body-color) 7%, transparent);
+    border-radius: var(--af-radius);
+}
+
+.o_af_segment_wrap {
+    display: flex;
+}
+
+.o_af_segment_item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 2.4rem;
+    justify-content: center;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    background: transparent;
+    border: 0;
+    border-radius: calc(var(--af-radius) - 2px);
+    transition: background-color 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.o_af_segment_item:hover {
+    color: var(--body-color);
+}
+
+.o_af_segment_item.active {
+    font-weight: 500;
+    color: var(--body-color);
+    background: var(--body-bg);
+    box-shadow: 0 0 0 1px var(--border-color), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.o_af_segment_item:focus-visible,
+.o_af_type_tile:focus-visible,
+.o_af_pill:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--af-brand) 25%, transparent);
+}
+
+.o_af_dot {
+    flex: 0 0 auto;
+    width: 0.55rem;
+    height: 0.55rem;
+    background: var(--af-stage);
+    border-radius: 50%;
+}
+
+.o_af_hint {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25rem 0.5rem;
+    margin-top: 0.4rem;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.78rem;
+    color: var(--secondary-color);
+    background: color-mix(in srgb, var(--body-color) 5%, transparent);
+    border-radius: var(--af-radius);
+}
+
+.o_af_hint .btn-link {
+    font-size: 0.78rem;
+    color: var(--af-brand);
+}
+
+/* Conditions: each one reads as a sentence of pills. */
 .o_af_condition {
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    background: var(--tertiary-bg);
-    border-radius: 0.5rem;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 1.6rem 0.5rem 0.55rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--af-radius);
 }
 
-.o_af_operator {
-    flex: 0 0 45%;
+.o_af_condition_lead {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
 }
 
-.o_af_condition .o_record_selector {
-    min-height: calc(1.5em + 0.5rem + 2px);
-    font-size: 0.875rem;
+.o_af_pill {
+    display: inline-block;
+    flex: 0 1 auto;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0.15rem 1.4rem 0.15rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--body-color);
+    background: color-mix(in srgb, var(--body-color) 6%, transparent) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") no-repeat right 0.45rem center / 0.6rem;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    appearance: none;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    /* Each pill as wide as its value, so a condition reads as one sentence. */
+    field-sizing: content;
+}
+
+.o_af_pill:hover {
+    border-color: var(--af-brand);
+}
+
+.o_af_pill_strong,
+.o_af_pill_value {
+    font-weight: 600;
+    color: var(--af-brand);
+    background-color: var(--af-brand-soft);
+}
+
+.o_af_pill_input {
+    min-width: 4rem;
+    padding-right: 0.6rem;
+    background-image: none;
+    cursor: text;
+}
+
+.o_af_pill_input::placeholder {
+    font-weight: 400;
+    color: var(--secondary-color);
+}
+
+.o_af_pill_record {
+    flex: 1 1 8rem;
+    padding: 0 0.5rem;
+    background-image: none;
+    cursor: default;
+}
+
+.o_af_pill_record .o_record_selector,
+.o_af_pill_record input {
+    min-height: 1.6rem;
+    font-size: 0.8rem;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.o_af_condition_remove {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.35rem;
+    padding: 0 0.25rem;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    background: none;
+    border: 0;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s;
+}
+
+.o_af_condition:hover .o_af_condition_remove,
+.o_af_condition_remove:focus-visible {
+    opacity: 1;
+}
+
+.o_af_condition_remove:hover {
+    color: var(--danger);
+}
+
+/* Touch screens have no hover: keep the remove button visible. */
+@media (hover: none) {
+    .o_af_condition_remove {
+        opacity: 1;
+    }
+}
+
+.o_af_condition_glue {
+    margin: 0.2rem 0 0.2rem 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+}
+
+.o_af_add_condition {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--af-brand);
+    background: none;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--af-radius);
+}
+
+.o_af_add_condition:hover:not(:disabled) {
+    background: var(--af-brand-soft);
+    border-color: var(--af-brand);
+}
+
+.o_af_add_condition:disabled {
+    color: var(--secondary-color);
+}
+
+.o_af_condition_summary {
+    margin: 0.5rem 0 0;
+    font-size: 0.78rem;
+    color: var(--secondary-color);
 }
 
 /* Flow */

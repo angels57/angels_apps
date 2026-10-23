@@ -276,11 +276,18 @@ export class FormDesignerAction extends Component {
         if (["set", "not_set"].includes(condition.operator)) {
             return `${source.name} ${operator}`;
         }
-        let value = condition.value;
+        let value = condition.value || "…";
         if (source.type === "boolean") {
             value = condition.value === "1" ? _t("checked") : _t("not checked");
         }
         return `${source.name} ${operator} ${value}`;
+    }
+    /** "Only shown when ..." under the conditions of a question. */
+    conditionSummary(field) {
+        if (!field.conditions.length) {
+            return "";
+        }
+        return _t("Only shown when %s", this.conditionsText(field));
     }
     conditionsText(item) {
         const glue = item.match === "any" ? _t(" or ") : _t(" and ");
@@ -592,10 +599,6 @@ export class FormDesignerAction extends Component {
         } else {
             this.place(field, { row: field.row + 1, insert: true, col: 0, width });
         }
-    }
-    setStage(field, value) {
-        const stage = this.stages.find((n) => String(n.id) === value);
-        this.setProp(field, "node_id", stage ? stage.id : false);
     }
     setTitle(field, checked) {
         this.data.form.title_field_id = checked ? field.id : false;

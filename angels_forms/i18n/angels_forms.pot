@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 01:17+0000\n"
-"PO-Revision-Date: 2026-10-23 01:17+0000\n"
+"POT-Creation-Date: 2026-10-23 01:24+0000\n"
+"PO-Revision-Date: 2026-10-23 01:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -303,14 +303,6 @@ msgid "Add a step"
 msgstr ""
 
 #. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
-msgid ""
-"Add an Approval or Task step in the Flow tab to let its people fill "
-"questions."
-msgstr ""
-
-#. module: angels_forms
 #: model_terms:ir.actions.act_window,help:angels_forms.action_form
 msgid ""
 "Add questions, show them only when they apply and decide who receives each "
@@ -335,11 +327,15 @@ msgid "All Requests"
 msgstr ""
 
 #. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__condition_match__all
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__condition_match__all
 msgid "All conditions"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
+msgid "All of them"
 msgstr ""
 
 #. module: angels_forms
@@ -411,11 +407,15 @@ msgid "Answers saved."
 msgstr ""
 
 #. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__condition_match__any
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__condition_match__any
 msgid "Any condition"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
+msgid "Any of them"
 msgstr ""
 
 #. module: angels_forms
@@ -1311,6 +1311,12 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Go to Flow"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
 msgid "Go to “Yes” when"
 msgstr ""
@@ -1397,6 +1403,12 @@ msgstr ""
 #. module: angels_forms
 #: model:ir.model.fields,help:angels_forms.field_angels_form_submission__activity_exception_icon
 msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
+msgid "If"
 msgstr ""
 
 #. module: angels_forms
@@ -1691,6 +1703,7 @@ msgstr ""
 #: code:addons/angels_forms/static/src/common/form_renderer.xml:0
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
 msgid "No"
 msgstr ""
 
@@ -1856,6 +1869,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Only members of these groups"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Only shown when %s"
 msgstr ""
 
 #. module: angels_forms
@@ -2348,6 +2367,12 @@ msgstr ""
 #. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Show if"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Show only if"
 msgstr ""
 
@@ -2425,6 +2450,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__step_ids
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
 msgid "Steps"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Steps of the flow can fill questions too."
 msgstr ""
 
 #. module: angels_forms
@@ -2980,6 +3011,7 @@ msgstr ""
 #: code:addons/angels_forms/static/src/common/form_renderer.xml:0
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
+#: code:addons/angels_forms/static/src/designer/record_editor.js:0
 #: code:addons/angels_forms/static/src/designer/record_editor.xml:0
 msgid "Yes"
 msgstr ""
@@ -3048,6 +3080,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.js:0
 msgid "a removed question"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
+msgid "and"
 msgstr ""
 
 #. module: angels_forms
@@ -3157,8 +3195,20 @@ msgstr ""
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.js:0
+msgid "or"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 msgid "the user in “%s”"
+msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/condition_editor.xml:0
+msgid "value"
 msgstr ""
 
 #. module: angels_forms

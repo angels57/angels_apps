@@ -221,55 +221,66 @@
         <aside class="o_af_inspector">
             <t t-if="this.selected">
                 <t t-set="field" t-value="this.selected"/>
-                <h6>Question</h6>
+                <div class="o_af_inspector_head">
+                    <h6 class="mb-0">Question</h6>
+                    <div t-if="field.type !== 'section'" class="form-check form-switch mb-0 ms-auto">
+                        <input id="o_af_prop_required" type="checkbox" class="form-check-input" role="switch"
+                               t-att-checked="field.required"
+                               t-on-change="(ev) => this.setProp(field, 'required', ev.target.checked)"/>
+                        <label class="form-check-label small" for="o_af_prop_required">Required</label>
+                    </div>
+                </div>
                 <label class="form-label small" for="o_af_prop_name">Label</label>
                 <input id="o_af_prop_name" type="text" class="form-control form-control-sm"
                        t-att-value="field.name" t-on-input="(ev) => this.setProp(field, 'name', ev.target.value)"/>
 
-                <label class="form-label small mt-2" for="o_af_prop_type">Type</label>
-                <select id="o_af_prop_type" class="form-select form-select-sm"
-                        t-on-change="(ev) => this.setProp(field, 'type', ev.target.value)">
-                    <t t-foreach="this.palette" t-as="item" t-key="item.type">
-                        <option t-att-value="item.type" t-att-selected="item.type === field.type" t-out="item.label"/>
-                    </t>
-                </select>
+                <span class="form-label small d-block mt-3">Type</span>
+                <div class="o_af_type_grid" role="radiogroup" aria-label="Type">
+                    <button t-foreach="this.palette" t-as="item" t-key="item.type" type="button" role="radio"
+                            t-att-aria-checked="item.type === field.type" t-att-title="item.label"
+                            t-attf-class="o_af_type_tile #{item.type === field.type ? 'active' : ''}"
+                            t-on-click="() => this.setProp(field, 'type', item.type)">
+                        <i t-attf-class="fa fa-fw #{item.icon}" aria-hidden="true"/>
+                        <span t-out="item.label"/>
+                    </button>
+                </div>
+
+                <span class="form-label small d-block mt-3">Filled by</span>
+                <div class="o_af_segment o_af_segment_wrap" role="radiogroup" aria-label="Filled by">
+                    <button type="button" role="radio" t-att-aria-checked="!field.node_id"
+                            t-attf-class="o_af_segment_item #{!field.node_id ? 'active' : ''}"
+                            t-on-click="() => this.setProp(field, 'node_id', false)">
+                        <i class="fa fa-user-o me-1" aria-hidden="true"/>The requester
+                    </button>
+                    <button t-foreach="this.stages" t-as="stage" t-key="stage.id" type="button" role="radio"
+                            t-att-aria-checked="stage.id === field.node_id"
+                            t-attf-class="o_af_segment_item o_af_stage_{{(stage.color or 0) % 12}} #{stage.id === field.node_id ? 'active' : ''}"
+                            t-on-click="() => this.setProp(field, 'node_id', stage.id)">
+                        <span class="o_af_dot" aria-hidden="true"/><t t-out="stage.name"/>
+                    </button>
+                </div>
+                <div t-if="!this.stages.length" class="o_af_hint">
+                    <span>Steps of the flow can fill questions too.</span>
+                    <button type="button" class="btn btn-link btn-sm p-0" t-on-click="() => this.setTab('flow')">
+                        Go to Flow <i class="fa fa-arrow-right" aria-hidden="true"/>
+                    </button>
+                </div>
 
                 <t t-if="field.type !== 'section'">
-                    <div class="form-check form-switch mt-3">
-                        <input id="o_af_prop_required" type="checkbox" class="form-check-input" role="switch"
-                               t-att-checked="field.required"
-                               t-on-change="(ev) => this.setProp(field, 'required', ev.target.checked)"/>
-                        <label class="form-check-label" for="o_af_prop_required">Required</label>
+                    <span class="form-label small d-block mt-3">Width</span>
+                    <div class="o_af_segment" role="radiogroup" aria-label="Width">
+                        <button t-foreach="this.widthKeys" t-as="width" t-key="width" type="button" role="radio"
+                                t-att-aria-checked="field.width === width"
+                                t-attf-class="o_af_segment_item #{field.width === width ? 'active' : ''}"
+                                t-on-click="() => this.setWidth(field, width)" t-out="this.widthLabel(width)"/>
                     </div>
-                    <div t-if="this.canBeTitle(field)" class="form-check form-switch">
+                    <div t-if="this.canBeTitle(field)" class="form-check form-switch mt-3">
                         <input id="o_af_prop_title" type="checkbox" class="form-check-input" role="switch"
                                t-att-checked="this.data.form.title_field_id === field.id"
                                t-on-change="(ev) => this.setTitle(field, ev.target.checked)"/>
-                        <label class="form-check-label" for="o_af_prop_title">Name requests with this answer</label>
-                    </div>
-                    <div class="mt-2">
-                        <span class="form-label small d-block">Width</span>
-                        <div class="btn-group btn-group-sm o_af_widths" role="group" aria-label="Width">
-                            <t t-foreach="this.widthKeys" t-as="width" t-key="width">
-                                <button type="button" t-att-class="'btn ' + (field.width === width ? 'btn-primary' : 'btn-secondary')"
-                                        t-on-click="() => this.setWidth(field, width)"
-                                        t-out="this.widthLabel(width)"/>
-                            </t>
-                        </div>
+                        <label class="form-check-label small" for="o_af_prop_title">Name requests with this answer</label>
                     </div>
                 </t>
-
-                <label class="form-label small mt-3" for="o_af_prop_stage">Filled by</label>
-                <select id="o_af_prop_stage" class="form-select form-select-sm"
-                        t-on-change="(ev) => this.setStage(field, ev.target.value)">
-                    <option value="" t-att-selected="!field.node_id">The requester</option>
-                    <t t-foreach="this.stages" t-as="stage" t-key="stage.id">
-                        <option t-att-value="stage.id" t-att-selected="stage.id === field.node_id" t-out="stage.name"/>
-                    </t>
-                </select>
-                <p t-if="!this.stages.length" class="text-muted small mt-1 mb-0">
-                    Add an Approval or Task step in the Flow tab to let its people fill questions.
-                </p>
 
                 <t t-if="this.hasPlaceholder(field)">
                     <label class="form-label small mt-2" for="o_af_prop_placeholder">Placeholder</label>
@@ -317,8 +328,8 @@
                 </div>
                 <ConditionEditor t-key="field.id" item="field" sources="this.sourcesFor(field)"
                                  labels="this.labels.operators" operatorsByType="this.data.operators_by_type"
-                                 onChange="() => this.touch()"
-                                 emptyText.translate="Always shown."/>
+                                 onChange="() => this.touch()" summary="this.conditionSummary(field)"
+                                 lead.translate="Show if" emptyText.translate="Always shown."/>
             </t>
             <div t-else="" class="o_af_inspector_empty">
                 <i class="fa fa-mouse-pointer fa-2x mb-2" aria-hidden="true"/>

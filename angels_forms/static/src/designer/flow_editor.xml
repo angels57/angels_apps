@@ -126,7 +126,7 @@
                     <h6 class="mt-4">Go to “Yes” when</h6>
                     <ConditionEditor t-key="node.id" item="node" sources="this.questions"
                                      labels="this.props.labels.operators" operatorsByType="this.props.operatorsByType"
-                                     onChange="() => this.changed()"
+                                     onChange="() => this.changed()" lead.translate="If"
                                      emptyText.translate="No condition yet: requests always go to “Yes”."/>
                 </t>
 
