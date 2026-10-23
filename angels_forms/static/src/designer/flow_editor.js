@@ -68,6 +68,31 @@ export class FlowEditor extends Component {
     get questions() {
         return this.fields.filter((f) => f.type !== "section");
     }
+    // Choices shown as chips; the first one is what an empty value means.
+    get endChoices() {
+        return [
+            { value: "approved", label: _t("Approved") },
+            { value: "rejected", label: _t("Rejected") },
+        ];
+    }
+    get assignChoices() {
+        return [
+            { value: "users", label: _t("Specific users") },
+            { value: "group", label: _t("Members of a group") },
+            { value: "field", label: _t("User chosen in the form") },
+        ];
+    }
+    get ruleChoices() {
+        return [
+            { value: "any", label: _t("One person is enough") },
+            { value: "all", label: _t("Everyone must approve") },
+        ];
+    }
+    isChosen(node, prop, choice) {
+        const choices = { end_state: this.endChoices, assign_type: this.assignChoices, approval_rule: this.ruleChoices }[prop];
+        const current = choices.some((c) => c.value === node[prop]) ? node[prop] : choices[0].value;
+        return current === choice.value;
+    }
     get userQuestions() {
         return this.fields.filter((f) => f.type === "user");
     }
