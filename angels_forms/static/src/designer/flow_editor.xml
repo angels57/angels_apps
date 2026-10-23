@@ -101,9 +101,74 @@
                     </span>
                     <h6 class="mb-0" t-out="this.props.labels.node_types[node.type]"/>
                 </div>
-                <label class="form-label small" for="o_af_node_name">Name</label>
-                <input id="o_af_node_name" type="text" class="form-control form-control-sm"
-                       t-att-value="node.name" t-on-input="(ev) => this.setProp(node, 'name', ev.target.value)"/>
+                <div class="o_af_settings">
+                    <label class="o_af_setting" for="o_af_node_name">
+                        <i class="fa fa-fw fa-pencil" aria-hidden="true"/>
+                        <span class="o_af_setting_body">
+                            <small>Name</small>
+                            <input id="o_af_node_name" type="text" class="o_af_setting_input" t-att-value="node.name"
+                                   t-on-input="(ev) => this.setProp(node, 'name', ev.target.value)"/>
+                        </span>
+                    </label>
+                    <div t-if="node.type === 'end'" class="o_af_setting">
+                        <i class="fa fa-fw fa-flag-checkered" aria-hidden="true"/>
+                        <span class="o_af_setting_body">
+                            <small id="o_af_node_end">Result</small>
+                            <span class="o_af_chips" role="radiogroup" aria-labelledby="o_af_node_end">
+                                <button t-foreach="this.endChoices" t-as="choice" t-key="choice.value" type="button" role="radio"
+                                        t-att-aria-checked="this.isChosen(node, 'end_state', choice) ? 'true' : 'false'"
+                                        t-attf-class="o_af_chip #{this.isChosen(node, 'end_state', choice) ? 'active' : ''}"
+                                        t-on-click="() => this.setProp(node, 'end_state', choice.value)" t-out="choice.label"/>
+                            </span>
+                        </span>
+                    </div>
+                    <t t-if="this.hasPeople(node)">
+                        <div class="o_af_setting">
+                            <i class="fa fa-fw fa-paper-plane" aria-hidden="true"/>
+                            <span class="o_af_setting_body">
+                                <small id="o_af_node_assign">Send to</small>
+                                <span class="o_af_chips" role="radiogroup" aria-labelledby="o_af_node_assign">
+                                    <button t-foreach="this.assignChoices" t-as="choice" t-key="choice.value" type="button" role="radio"
+                                            t-att-aria-checked="this.isChosen(node, 'assign_type', choice) ? 'true' : 'false'"
+                                            t-attf-class="o_af_chip #{this.isChosen(node, 'assign_type', choice) ? 'active' : ''}"
+                                            t-on-click="() => this.setProp(node, 'assign_type', choice.value)" t-out="choice.label"/>
+                                </span>
+                                <span class="o_af_setting_value">
+                                    <MultiRecordSelector t-if="node.assign_type === 'users'" resModel="'res.users'"
+                                                         resIds="node.user_ids" domain="[['share', '=', false]]"
+                                                         update="(ids) => this.setUsers(node, ids)"/>
+                                    <RecordSelector t-elif="node.assign_type === 'group'" resModel="'res.groups'"
+                                                    resId="node.group_id" update="(id) => this.setGroup(node, id)"/>
+                                    <t t-else="">
+                                        <select class="form-select form-select-sm" aria-label="User question"
+                                                t-on-change="(ev) => this.setUserField(node, ev.target.value)">
+                                            <option value="" t-att-selected="!node.user_field_id">Choose a question</option>
+                                            <t t-foreach="this.userQuestions" t-as="question" t-key="question.id">
+                                                <option t-att-value="question.id" t-att-selected="question.id === node.user_field_id"
+                                                        t-out="question.name"/>
+                                            </t>
+                                        </select>
+                                        <p t-if="!this.userQuestions.length" class="text-muted small mt-1 mb-0">
+                                            Add a User question to the form first.
+                                        </p>
+                                    </t>
+                                </span>
+                            </span>
+                        </div>
+                        <div t-if="node.type === 'approve'" class="o_af_setting">
+                            <i class="fa fa-fw fa-users" aria-hidden="true"/>
+                            <span class="o_af_setting_body">
+                                <small id="o_af_node_rule">When several people receive it</small>
+                                <span class="o_af_chips" role="radiogroup" aria-labelledby="o_af_node_rule">
+                                    <button t-foreach="this.ruleChoices" t-as="choice" t-key="choice.value" type="button" role="radio"
+                                            t-att-aria-checked="this.isChosen(node, 'approval_rule', choice) ? 'true' : 'false'"
+                                            t-attf-class="o_af_chip #{this.isChosen(node, 'approval_rule', choice) ? 'active' : ''}"
+                                            t-on-click="() => this.setProp(node, 'approval_rule', choice.value)" t-out="choice.label"/>
+                                </span>
+                            </span>
+                        </div>
+                    </t>
+                </div>
 
                 <p t-if="node.type === 'start'" class="text-muted small mt-3">
                     Every request starts here when the requester sends it. Drag its output to the first step.
@@ -113,14 +178,6 @@
                     the flow from the beginning. Link the “Rejected” output of an approval here.
                 </p>
 
-                <t t-if="node.type === 'end'">
-                    <label class="form-label small mt-3" for="o_af_node_end">Result</label>
-                    <select id="o_af_node_end" class="form-select form-select-sm"
-                            t-on-change="(ev) => this.setProp(node, 'end_state', ev.target.value)">
-                        <option value="approved" t-att-selected="node.end_state !== 'rejected'">Approved</option>
-                        <option value="rejected" t-att-selected="node.end_state === 'rejected'">Rejected</option>
-                    </select>
-                </t>
 
                 <t t-if="node.type === 'condition'">
                     <h6 class="mt-4">Go to “Yes” when</h6>
@@ -134,42 +191,7 @@
                               sources="this.props.labels.sources" onChange="() => this.changed()"/>
 
                 <t t-if="this.hasPeople(node)">
-                    <label class="form-label small mt-3" for="o_af_node_assign">Send to</label>
-                    <select id="o_af_node_assign" class="form-select form-select-sm"
-                            t-on-change="(ev) => this.setProp(node, 'assign_type', ev.target.value)">
-                        <option value="users" t-att-selected="node.assign_type === 'users'">Specific users</option>
-                        <option value="group" t-att-selected="node.assign_type === 'group'">Members of a group</option>
-                        <option value="field" t-att-selected="node.assign_type === 'field'">User chosen in the form</option>
-                    </select>
-                    <div class="mt-2">
-                        <MultiRecordSelector t-if="node.assign_type === 'users'" resModel="'res.users'"
-                                             resIds="node.user_ids" domain="[['share', '=', false]]"
-                                             update="(ids) => this.setUsers(node, ids)"/>
-                        <RecordSelector t-elif="node.assign_type === 'group'" resModel="'res.groups'"
-                                        resId="node.group_id" update="(id) => this.setGroup(node, id)"/>
-                        <t t-else="">
-                            <select class="form-select form-select-sm" aria-label="User question"
-                                    t-on-change="(ev) => this.setUserField(node, ev.target.value)">
-                                <option value="" t-att-selected="!node.user_field_id">Choose a question</option>
-                                <t t-foreach="this.userQuestions" t-as="question" t-key="question.id">
-                                    <option t-att-value="question.id" t-att-selected="question.id === node.user_field_id"
-                                            t-out="question.name"/>
-                                </t>
-                            </select>
-                            <p t-if="!this.userQuestions.length" class="text-muted small mt-1 mb-0">
-                                Add a User question to the form first.
-                            </p>
-                        </t>
-                    </div>
-                    <t t-if="node.type === 'approve'">
-                        <label class="form-label small mt-3" for="o_af_node_rule">When several people receive it</label>
-                        <select id="o_af_node_rule" class="form-select form-select-sm"
-                                t-on-change="(ev) => this.setProp(node, 'approval_rule', ev.target.value)">
-                            <option value="any" t-att-selected="node.approval_rule !== 'all'">One person is enough</option>
-                            <option value="all" t-att-selected="node.approval_rule === 'all'">Everyone must approve</option>
-                        </select>
-                    </t>
-                    <span class="form-label small d-block mt-3">Color</span>
+                    <h6 class="mt-4">Color</h6>
                     <div class="o_af_swatches" role="radiogroup" aria-label="Color">
                         <t t-foreach="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0]" t-as="color" t-key="color">
                             <button type="button" role="radio" t-att-aria-checked="node.color === color"

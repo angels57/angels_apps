@@ -1562,3 +1562,116 @@
         width: min(22rem, calc(100vw - 2rem));
     }
 }
+
+/* Step settings: a white card, one row per setting with an icon. */
+.o_af_settings {
+    margin-bottom: 0.25rem;
+    padding: 0 0.75rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--af-radius) + 4px);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.o_af_setting {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin: 0 -0.75rem;
+    padding: 0.6rem 0.75rem;
+    transition: box-shadow 0.15s;
+}
+
+.o_af_setting + .o_af_setting {
+    border-top: 1px solid var(--border-color);
+}
+
+.o_af_setting:focus-within {
+    box-shadow: inset 3px 0 0 var(--af-brand);
+}
+
+.o_af_setting > i {
+    margin-top: 0.15rem;
+    color: var(--af-brand);
+}
+
+.o_af_setting_body {
+    display: block;
+    flex: 1;
+    min-width: 0;
+}
+
+.o_af_setting_body > small {
+    display: block;
+    margin-bottom: 0.1rem;
+    font-size: 0.72rem;
+    color: var(--secondary-color);
+}
+
+.o_af_setting_input {
+    width: 100%;
+    padding: 0;
+    font-weight: 600;
+    color: var(--body-color);
+    background: transparent;
+    border: 0;
+}
+
+.o_af_setting_input:focus {
+    outline: 0;
+}
+
+.o_af_setting_value {
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.o_af_setting_value:empty {
+    display: none;
+}
+
+.o_af_chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.3rem;
+}
+
+.o_af_chip {
+    padding: 0.2rem 0.7rem;
+    font-size: 0.78rem;
+    color: var(--body-color);
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.o_af_chip:hover {
+    border-color: var(--af-brand);
+}
+
+.o_af_chip.active {
+    font-weight: 600;
+    color: var(--af-brand);
+    background: var(--af-brand-soft);
+    border-color: var(--af-brand);
+}
+
+.o_af_chip:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--af-brand) 25%, transparent);
+}
+
+/* The other inputs of the panels: rounded, with a border that shows on gray. */
+.o_af_inspector .form-control,
+.o_af_inspector .form-select {
+    border-color: color-mix(in srgb, var(--body-color) 18%, transparent);
+    border-radius: var(--af-radius);
+}
+
+.o_af_inspector .form-control:focus,
+.o_af_inspector .form-select:focus {
+    border-color: var(--af-brand);
+    box-shadow: 0 0 0 3px var(--af-brand-soft);
+}
