@@ -41,7 +41,7 @@
                             <option value="1" t-att-selected="condition.value === '1'">Checked</option>
                             <option value="0" t-att-selected="condition.value !== '1'">Not checked</option>
                         </select>
-                        <select t-elif="source.type === 'selection'" class="form-select form-select-sm" aria-label="Value"
+                        <select t-elif="source.type === 'selection' or source.type === 'multi'" class="form-select form-select-sm" aria-label="Value"
                                 t-on-change="(ev) => this.setValue(condition, ev.target.value)">
                             <t t-foreach="source.options" t-as="option" t-key="option_index">
                                 <option t-att-value="option" t-att-selected="option === condition.value" t-out="option"/>

@@ -39,7 +39,7 @@ export class ConditionEditor extends Component {
         this.item.conditions.push({
             source_id: source.id,
             operator: this.props.operatorsByType[source.type][0],
-            value: source.type === "boolean" ? "1" : source.type === "selection" ? source.options[0] || "" : "",
+            value: source.type === "boolean" ? "1" : ["selection", "multi"].includes(source.type) ? source.options[0] || "" : "",
         });
         this.changed();
     }
@@ -54,7 +54,7 @@ export class ConditionEditor extends Component {
         if (!allowed.includes(condition.operator)) {
             condition.operator = allowed[0];
         }
-        condition.value = source.type === "boolean" ? "1" : source.type === "selection" ? source.options[0] || "" : "";
+        condition.value = source.type === "boolean" ? "1" : ["selection", "multi"].includes(source.type) ? source.options[0] || "" : "";
         this.changed();
     }
     setOperator(condition, ev) {

@@ -213,7 +213,7 @@
                             <p t-if="this.data.form.description" class="text-muted mb-0" t-out="this.data.form.description"/>
                         </div>
                     </div>
-                    <FormRenderer t-key="this.state.previewKey" fields="this.previewFields" values="this.preview"/>
+                    <FormRenderer t-key="this.state.previewKey" fields="this.previewFields" values="this.preview" progress="true"/>
                 </div>
             </div>
         </main>
@@ -281,7 +281,21 @@
                 <input id="o_af_prop_help" type="text" class="form-control form-control-sm"
                        t-att-value="field.help" t-on-input="(ev) => this.setProp(field, 'help', ev.target.value)"/>
 
-                <t t-if="field.type === 'selection'">
+                <t t-if="field.type === 'number'">
+                    <div class="d-flex gap-2 mt-2">
+                        <div class="flex-grow-1">
+                            <label class="form-label small" for="o_af_prop_prefix">Before the number</label>
+                            <input id="o_af_prop_prefix" type="text" class="form-control form-control-sm" placeholder="€"
+                                   t-att-value="field.prefix" t-on-input="(ev) => this.setProp(field, 'prefix', ev.target.value)"/>
+                        </div>
+                        <div class="flex-grow-1">
+                            <label class="form-label small" for="o_af_prop_suffix">After the number</label>
+                            <input id="o_af_prop_suffix" type="text" class="form-control form-control-sm" placeholder="nights"
+                                   t-att-value="field.suffix" t-on-input="(ev) => this.setProp(field, 'suffix', ev.target.value)"/>
+                        </div>
+                    </div>
+                </t>
+                <t t-if="field.type === 'selection' or field.type === 'multi'">
                     <h6 class="mt-4">Choices</h6>
                     <div t-foreach="field.options" t-as="option" t-key="option_index" class="d-flex gap-1 mb-1">
                         <input type="text" class="form-control form-control-sm" t-att-value="option"
@@ -408,23 +422,42 @@
         </main>
     </t>
 
-    <!-- How a question will look, drawn on its card in the designer -->
+    <!-- How a question will look, drawn on its card with the classes of the filled form -->
     <t t-name="angels_forms.FieldMock">
         <t t-set="kind" t-value="this.mockKind(field)"/>
         <div t-if="kind" class="o_af_mock" aria-hidden="true">
-            <div t-if="kind === 'input' or kind === 'select'" class="o_af_mock_input">
-                <span t-out="this.mockHint(field)"/>
-                <i t-attf-class="fa #{kind === 'select' ? 'fa-caret-down' : this.fieldIcon(field)}"/>
+            <div t-if="field.help" class="o_af_q_help" t-out="field.help"/>
+            <div t-if="kind === 'input' or kind === 'search' or kind === 'date'" class="o_af_control">
+                <i t-attf-class="fa fa-fw #{this.mockIcon(field)} o_af_control_icon"/>
+                <span class="o_af_mock_text" t-out="this.mockHint(field)"/>
             </div>
-            <div t-elif="kind === 'area'" class="o_af_mock_input o_af_mock_area">
-                <span t-out="field.placeholder"/>
+            <div t-if="kind === 'date'" class="o_af_shortcuts_row">
+                <span class="o_af_chip">Today</span><span class="o_af_chip">Tomorrow</span>
             </div>
-            <div t-elif="kind === 'switch'" class="o_af_mock_switch"><span class="o_af_mock_toggle"/><span>Yes / No</span></div>
-            <div t-elif="kind === 'choices'" class="o_af_mock_choices">
-                <span t-foreach="field.options" t-as="option" t-key="option_index" t-out="option"/>
+            <div t-elif="kind === 'number'" class="o_af_control o_af_control_number">
+                <span class="o_af_step"><i class="fa fa-minus"/></span>
+                <span t-if="field.prefix" class="o_af_affix" t-out="field.prefix"/>
+                <span class="o_af_mock_text text-center flex-grow-1" t-out="this.mockHint(field)"/>
+                <span t-if="field.suffix" class="o_af_affix" t-out="field.suffix"/>
+                <span class="o_af_step"><i class="fa fa-plus"/></span>
             </div>
-            <div t-elif="kind === 'file'" class="o_af_mock_file"><i class="fa fa-paperclip me-1"/>Add files</div>
-            <div t-if="field.help" class="o_af_mock_help" t-out="field.help"/>
+            <div t-elif="kind === 'area'" class="o_af_control o_af_control_area o_af_mock_area">
+                <span class="o_af_mock_text" t-out="field.placeholder"/>
+            </div>
+            <div t-elif="kind === 'yesno'" class="o_af_yesno">
+                <span class="o_af_mock_option active">No</span><span class="o_af_mock_option">Yes</span>
+            </div>
+            <div t-elif="kind === 'choices'" class="o_af_choice_cards">
+                <span t-foreach="field.options" t-as="option" t-key="option_index"
+                      t-attf-class="o_af_choice #{field.type === 'multi' ? 'o_af_choice_multi' : ''}">
+                    <span class="o_af_choice_mark"><i class="fa fa-check"/></span>
+                    <span t-out="option"/>
+                </span>
+            </div>
+            <div t-elif="kind === 'file'" class="o_af_drop o_af_mock_drop">
+                <i class="fa fa-cloud-upload"/>
+                <span>Drop files here or <u>click to choose</u></span>
+            </div>
         </div>
     </t>
 

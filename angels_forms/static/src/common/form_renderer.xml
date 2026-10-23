@@ -2,121 +2,191 @@
 <templates xml:space="preserve">
 
     <t t-name="angels_forms.FormRenderer">
+        <div t-if="this.props.progress and this.progress.total" class="o_af_progress" role="progressbar"
+             t-att-aria-valuenow="this.progress.percent" aria-valuemin="0" aria-valuemax="100">
+            <div class="o_af_progress_text">
+                <span t-out="this.progressText"/>
+                <span t-out="this.progress.percent + '%'"/>
+            </div>
+            <div class="o_af_progress_track"><div class="o_af_progress_bar" t-attf-style="width: {{this.progress.percent}}%;"/></div>
+        </div>
         <div class="o_af_form row g-3">
             <t t-foreach="this.items" t-as="item" t-key="item.field.id">
                 <t t-set="field" t-value="item.field"/>
                 <div t-if="item.breakBefore and field.type !== 'section'" class="w-100 m-0 p-0"/>
+
                 <div t-if="field.type === 'section'" class="col-12 o_af_form_section">
-                    <h4>
-                        <t t-out="field.name"/>
+                    <button type="button" class="o_af_section_toggle" t-att-aria-expanded="!this.isFolded(field)"
+                            t-on-click="() => this.toggleSection(field)">
+                        <i t-attf-class="fa fa-fw #{this.isFolded(field) ? 'fa-chevron-right' : 'fa-chevron-down'}" aria-hidden="true"/>
+                        <span class="o_af_section_title" t-out="field.name"/>
                         <span t-if="field.stage" t-attf-class="o_af_stage o_af_stage_#{field.color % 12}" t-out="field.stage"/>
-                    </h4>
-                    <p t-if="field.help" class="text-muted mb-0" t-out="field.help"/>
+                        <i t-if="this.sectionDone(field)" class="fa fa-check-circle o_af_section_done" title="Done"
+                           aria-label="Done"/>
+                    </button>
+                    <p t-if="field.help and !this.isFolded(field)" class="text-muted mb-0" t-out="field.help"/>
                 </div>
+
                 <div t-else="" t-att-class="this.colClass(item)" t-att-data-field-id="field.id">
-                    <label t-if="field.type !== 'boolean'" class="form-label" t-att-for="this.inputId(field)">
-                        <t t-out="field.name"/>
-                        <span t-if="field.required and !this.isDisabled(field)" class="text-danger ms-1" aria-hidden="true">*</span>
-                        <span t-if="field.stage" t-attf-class="o_af_stage o_af_stage_#{field.color % 12} ms-1" t-out="field.stage"/>
-                    </label>
-
-                    <input t-if="field.type === 'char'" type="text" class="form-control"
-                           t-att-id="this.inputId(field)" t-att-value="this.value(field)"
-                           t-att-placeholder="field.placeholder" t-att-disabled="this.isDisabled(field)"
-                           t-on-input="(ev) => this.onText(field, ev)"/>
-
-                    <textarea t-elif="field.type === 'text'" class="form-control" rows="3"
-                              t-att-id="this.inputId(field)" t-att-value="this.value(field)"
-                              t-att-placeholder="field.placeholder" t-att-disabled="this.isDisabled(field)"
-                              t-on-input="(ev) => this.onText(field, ev)"/>
-
-                    <input t-elif="field.type === 'number'" type="number" step="any" class="form-control"
-                           t-att-id="this.inputId(field)" t-att-value="this.value(field)"
-                           t-att-placeholder="field.placeholder" t-att-disabled="this.isDisabled(field)"
-                           t-on-input="(ev) => this.onNumber(field, ev)"/>
-
-                    <input t-elif="field.type === 'date'" type="date" class="form-control"
-                           t-att-id="this.inputId(field)" t-att-value="this.value(field)"
-                           t-att-disabled="this.isDisabled(field)"
-                           t-on-change="(ev) => this.onText(field, ev)"/>
-
-                    <input t-elif="field.type === 'datetime'" type="datetime-local" class="form-control"
-                           t-att-id="this.inputId(field)" t-att-value="this.datetimeValue(field)"
-                           t-att-disabled="this.isDisabled(field)"
-                           t-on-change="(ev) => this.onDatetime(field, ev)"/>
-
-                    <div t-elif="field.type === 'boolean'" class="form-check form-switch o_af_switch">
-                        <input type="checkbox" class="form-check-input" role="switch"
-                               t-att-id="this.inputId(field)" t-att-checked="this.checked(field)"
-                               t-att-disabled="this.isDisabled(field)"
-                               t-on-change="(ev) => this.onBoolean(field, ev)"/>
-                        <label class="form-check-label" t-att-for="this.inputId(field)">
-                            <t t-out="field.name"/>
-                            <span t-if="field.required" class="text-danger ms-1" aria-hidden="true">*</span>
-                        </label>
-                    </div>
-
-                    <t t-elif="field.type === 'selection'">
-                        <div t-if="this.useRadios(field)" class="o_af_choices" role="radiogroup"
-                             t-att-aria-label="field.name">
-                            <t t-foreach="field.options" t-as="option" t-key="option_index">
-                                <input type="radio" class="btn-check" t-att-name="this.inputId(field)"
-                                       t-att-id="this.inputId(field) + '_' + option_index"
-                                       t-att-checked="this.value(field) === option"
-                                       t-att-disabled="this.isDisabled(field)"
-                                       t-on-change="() => this.set(field, option)"/>
-                                <label class="btn btn-outline-primary" t-att-for="this.inputId(field) + '_' + option_index"
-                                       t-out="option"/>
-                            </t>
+                    <div t-att-class="this.questionClass(field)" class="o_af_q">
+                        <div class="o_af_q_head">
+                            <label class="o_af_q_label" t-att-for="this.inputId(field)">
+                                <t t-out="field.name"/>
+                                <t t-if="!this.isDisabled(field)">
+                                    <span t-if="field.required" class="o_af_required" aria-label="Required">*</span>
+                                    <span t-elif="field.type !== 'boolean'" class="o_af_optional">(optional)</span>
+                                </t>
+                            </label>
+                            <span t-if="field.stage" t-attf-class="o_af_stage o_af_stage_#{field.color % 12}" t-out="field.stage"/>
+                            <i class="fa fa-check-circle o_af_q_check" title="Answered" aria-label="Answered"/>
                         </div>
-                        <select t-else="" class="form-select" t-att-id="this.inputId(field)"
-                                t-att-disabled="this.isDisabled(field)"
-                                t-on-change="(ev) => this.onText(field, ev)">
-                            <option value="" t-att-selected="!this.value(field)">
-                                <t t-out="field.placeholder or ''"/>
-                            </option>
-                            <t t-foreach="field.options" t-as="option" t-key="option_index">
-                                <option t-att-value="option" t-att-selected="this.value(field) === option" t-out="option"/>
-                            </t>
-                        </select>
-                    </t>
+                        <div t-if="field.help" class="o_af_q_help" t-out="field.help"/>
 
-                    <div t-elif="field.type === 'user' or field.type === 'partner'"
-                         t-att-class="{'o_af_disabled': this.isDisabled(field)}">
-                        <RecordSelector resModel="field.type === 'user' ? 'res.users' : 'res.partner'"
-                                        resId="this.recordId(field)"
-                                        domain="field.type === 'user' ? [['share', '=', false]] : []"
-                                        placeholder="field.placeholder"
-                                        update="(id) => this.set(field, id)"/>
-                    </div>
+                        <!-- Filled by another step: the answer as text -->
+                        <t t-if="this.isDisabled(field)">
+                            <div t-if="field.type === 'user' or field.type === 'partner'" class="o_af_readonly o_af_disabled">
+                                <RecordSelector resModel="field.type === 'user' ? 'res.users' : 'res.partner'"
+                                                resId="this.recordId(field)" update="() => {}"/>
+                            </div>
+                            <ul t-elif="field.type === 'file'" class="o_af_file_list">
+                                <li t-foreach="this.files(field)" t-as="file" t-key="file_index" class="o_af_file">
+                                    <i class="fa fa-file-o o_af_file_icon" aria-hidden="true"/>
+                                    <a t-att-href="'/web/content/' + file.id + '?download=true'" t-out="file.name"/>
+                                </li>
+                                <li t-if="!this.files(field).length" class="o_af_readonly">—</li>
+                            </ul>
+                            <div t-else="" class="o_af_readonly" t-att-id="this.inputId(field)" t-out="this.readonlyText(field)"/>
+                        </t>
 
-                    <div t-elif="field.type === 'file'" class="o_af_files">
-                        <label t-if="!this.isDisabled(field)" class="btn btn-secondary btn-sm">
-                            <i class="fa fa-paperclip me-1" aria-hidden="true"/>
-                            <span>Add files</span>
-                            <input type="file" multiple="" class="d-none" t-att-id="this.inputId(field)"
-                                   t-att-disabled="this.isDisabled(field)"
-                                   t-on-change="(ev) => this.onFiles(field, ev)"/>
-                        </label>
-                        <ul t-if="this.files(field).length" class="list-unstyled mt-2 mb-0">
-                            <li t-foreach="this.files(field)" t-as="file" t-key="file_index"
-                                class="d-flex align-items-center gap-2">
-                                <i class="fa fa-file-o text-muted" aria-hidden="true"/>
-                                <a t-if="file.id" t-att-href="'/web/content/' + file.id + '?download=true'"
-                                   t-out="file.name"/>
-                                <span t-else="" t-out="file.name"/>
-                                <button t-if="!this.isDisabled(field)" type="button" class="btn btn-link btn-sm text-danger p-0"
-                                        t-on-click="() => this.removeFile(field, file_index)"
-                                        title="Remove" aria-label="Remove">
-                                    <i class="fa fa-times" aria-hidden="true"/>
+                        <t t-elif="field.type === 'char'">
+                            <div class="o_af_control">
+                                <i t-attf-class="fa fa-fw #{this.icon(field)} o_af_control_icon" aria-hidden="true"/>
+                                <input type="text" t-att-id="this.inputId(field)" t-att-value="this.value(field)"
+                                       t-att-placeholder="field.placeholder" t-on-input="(ev) => this.onText(field, ev)"/>
+                            </div>
+                        </t>
+
+                        <t t-elif="field.type === 'text'">
+                            <div class="o_af_control o_af_control_area">
+                                <textarea rows="3" t-att-id="this.inputId(field)" t-att-value="this.value(field)"
+                                          t-att-placeholder="field.placeholder" t-on-input="(ev) => this.onLongText(field, ev)"/>
+                            </div>
+                            <div class="o_af_counter" t-out="this.charCount(field)"/>
+                        </t>
+
+                        <t t-elif="field.type === 'number'">
+                            <div class="o_af_control o_af_control_number">
+                                <button type="button" class="o_af_step" title="Less" aria-label="Less"
+                                        t-on-click="() => this.step(field, -1)"><i class="fa fa-minus" aria-hidden="true"/></button>
+                                <span t-if="field.prefix" class="o_af_affix" t-out="field.prefix"/>
+                                <input type="number" step="any" inputmode="decimal" t-att-id="this.inputId(field)"
+                                       t-att-value="this.value(field)" t-att-placeholder="field.placeholder or '0'"
+                                       t-on-input="(ev) => this.onNumber(field, ev)"/>
+                                <span t-if="field.suffix" class="o_af_affix" t-out="field.suffix"/>
+                                <button type="button" class="o_af_step" title="More" aria-label="More"
+                                        t-on-click="() => this.step(field, 1)"><i class="fa fa-plus" aria-hidden="true"/></button>
+                            </div>
+                        </t>
+
+                        <t t-elif="field.type === 'date'">
+                            <div class="o_af_control">
+                                <i class="fa fa-fw fa-calendar o_af_control_icon" aria-hidden="true"/>
+                                <input type="date" t-att-id="this.inputId(field)" t-att-value="this.value(field)"
+                                       t-on-change="(ev) => this.onText(field, ev)"/>
+                            </div>
+                            <div class="o_af_shortcuts_row">
+                                <button t-foreach="this.dateShortcuts" t-as="shortcut" t-key="shortcut.days" type="button"
+                                        class="o_af_chip" t-on-click="() => this.pickDate(field, shortcut.days)"
+                                        t-out="shortcut.label"/>
+                            </div>
+                        </t>
+
+                        <t t-elif="field.type === 'datetime'">
+                            <div class="o_af_control">
+                                <i class="fa fa-fw fa-clock-o o_af_control_icon" aria-hidden="true"/>
+                                <input type="datetime-local" t-att-id="this.inputId(field)" t-att-value="this.datetimeValue(field)"
+                                       t-on-change="(ev) => this.onDatetime(field, ev)"/>
+                            </div>
+                        </t>
+
+                        <t t-elif="field.type === 'boolean'">
+                            <div class="o_af_yesno" role="radiogroup" t-att-id="this.inputId(field)" t-att-aria-label="field.name">
+                                <button type="button" role="radio" t-att-aria-checked="this.isBoolean(field, false)"
+                                        t-attf-class="#{this.isBoolean(field, false) ? 'active' : ''}"
+                                        t-on-click="() => this.set(field, false)">No</button>
+                                <button type="button" role="radio" t-att-aria-checked="this.isBoolean(field, true)"
+                                        t-attf-class="#{this.isBoolean(field, true) ? 'active' : ''}"
+                                        t-on-click="() => this.set(field, true)">Yes</button>
+                            </div>
+                        </t>
+
+                        <t t-elif="field.type === 'selection' or field.type === 'multi'">
+                            <div t-if="field.type === 'multi' or this.useCards(field)" class="o_af_choice_cards"
+                                 t-att-role="field.type === 'multi' ? 'group' : 'radiogroup'" t-att-aria-label="field.name"
+                                 t-att-id="this.inputId(field)">
+                                <button t-foreach="field.options" t-as="option" t-key="option_index" type="button"
+                                        t-att-role="field.type === 'multi' ? 'checkbox' : 'radio'"
+                                        t-att-aria-checked="this.isChosen(field, option)"
+                                        t-attf-class="o_af_choice #{this.isChosen(field, option) ? 'active' : ''} #{field.type === 'multi' ? 'o_af_choice_multi' : ''}"
+                                        t-on-click="() => this.choose(field, option)">
+                                    <span class="o_af_choice_mark" aria-hidden="true"><i class="fa fa-check"/></span>
+                                    <span t-out="option"/>
                                 </button>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                            <div t-else="" class="o_af_control">
+                                <i class="fa fa-fw fa-search o_af_control_icon" aria-hidden="true"/>
+                                <input type="text" t-att-id="this.inputId(field)" t-att-list="this.inputId(field) + '_list'"
+                                       t-att-value="this.value(field)" t-att-placeholder="field.placeholder or ''"
+                                       autocomplete="off" t-on-change="(ev) => this.onSearchChoice(field, ev)"/>
+                                <datalist t-att-id="this.inputId(field) + '_list'">
+                                    <option t-foreach="field.options" t-as="option" t-key="option_index" t-att-value="option"/>
+                                </datalist>
+                            </div>
+                        </t>
 
-                    <div t-if="field.help and field.type !== 'boolean'" class="form-text" t-out="field.help"/>
-                    <div t-if="field.help and field.type === 'boolean'" class="form-text ms-5" t-out="field.help"/>
-                    <div t-if="this.error(field)" class="invalid-feedback d-block" t-out="this.error(field)"/>
+                        <t t-elif="field.type === 'user' or field.type === 'partner'">
+                            <div class="o_af_control o_af_control_record">
+                                <i t-if="!this.recordId(field)" t-attf-class="fa fa-fw #{this.icon(field)} o_af_control_icon" aria-hidden="true"/>
+                                <RecordSelector resModel="field.type === 'user' ? 'res.users' : 'res.partner'"
+                                                resId="this.recordId(field)"
+                                                domain="field.type === 'user' ? [['share', '=', false]] : []"
+                                                placeholder="this.recordPlaceholder(field)"
+                                                update="(id) => this.set(field, id)"/>
+                            </div>
+                        </t>
+
+                        <t t-elif="field.type === 'file'">
+                            <label t-attf-class="o_af_drop #{this.ui.dragOver ? 'o_af_drop_over' : ''}"
+                                   t-on-dragover.prevent="() => this.setDragOver(true)"
+                                   t-on-dragleave="() => this.setDragOver(false)"
+                                   t-on-drop.prevent="(ev) => this.onDropFiles(field, ev)">
+                                <i class="fa fa-cloud-upload" aria-hidden="true"/>
+                                <span>Drop files here or <u>click to choose</u></span>
+                                <small class="text-muted">25 MB max per file</small>
+                                <input type="file" multiple="" class="d-none" t-att-id="this.inputId(field)"
+                                       t-on-change="(ev) => this.onFiles(field, ev)"/>
+                            </label>
+                            <ul t-if="this.files(field).length" class="o_af_file_list">
+                                <li t-foreach="this.files(field)" t-as="file" t-key="file_index" class="o_af_file">
+                                    <img t-if="this.thumbnail(file)" class="o_af_file_thumb" t-att-src="this.thumbnail(file)" alt=""/>
+                                    <i t-else="" class="fa fa-file-o o_af_file_icon" aria-hidden="true"/>
+                                    <a t-if="file.id" class="o_af_file_name" t-att-href="'/web/content/' + file.id + '?download=true'"
+                                       t-out="file.name"/>
+                                    <span t-else="" class="o_af_file_name" t-out="file.name"/>
+                                    <span class="o_af_file_size" t-out="this.fileSize(file)"/>
+                                    <button type="button" class="o_af_file_remove" t-on-click="() => this.removeFile(field, file_index)"
+                                            title="Remove" aria-label="Remove">
+                                        <i class="fa fa-times" aria-hidden="true"/>
+                                    </button>
+                                </li>
+                            </ul>
+                        </t>
+
+                        <div t-if="this.error(field)" class="o_af_q_error_msg" role="alert">
+                            <i class="fa fa-exclamation-circle me-1" aria-hidden="true"/>
+                            <t t-out="this.error(field)"/>
+                        </div>
+                    </div>
                 </div>
             </t>
         </div>

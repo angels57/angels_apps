@@ -1,10 +1,7 @@
 /* Shared by the fill screen, the designer preview and the request form. */
 
-.o_af_form .form-label {
-    font-weight: 500;
-    margin-bottom: 0.3rem;
-}
-
+/* One look for every question: label, help, control, and its states.
+   The designer draws its cards with the same classes (o_af_control, o_af_choice...). */
 .o_af_form_section {
     padding-top: 0.75rem;
     border-bottom: 1px solid var(--border-color);
@@ -14,31 +11,434 @@
     padding-top: 0;
 }
 
-.o_af_form_section h4 {
-    margin-bottom: 0.25rem;
+.o_af_section_toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    padding: 0.25rem 0;
+    color: inherit;
+    text-align: left;
+    background: none;
+    border: 0;
 }
 
-.o_af_choices {
+.o_af_section_toggle .fa-chevron-down,
+.o_af_section_toggle .fa-chevron-right {
+    font-size: 0.75rem;
+    color: var(--secondary-color);
+}
+
+.o_af_section_title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.o_af_section_done {
+    margin-left: auto;
+    font-size: 1.1rem;
+    color: #10b981;
+}
+
+.o_af_question {
+    animation: o_af_reveal 0.22s ease-out;
+}
+
+@keyframes o_af_reveal {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+}
+
+.o_af_q_head {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+}
+
+.o_af_q_label {
+    margin: 0;
+    font-weight: 600;
+}
+
+.o_af_required {
+    margin-left: 0.2rem;
+    color: #ef4444;
+}
+
+.o_af_optional {
+    margin-left: 0.3rem;
+    font-size: 0.8em;
+    font-weight: 400;
+    color: var(--secondary-color);
+}
+
+.o_af_q_check {
+    display: none;
+    margin-left: auto;
+    color: #10b981;
+}
+
+.o_af_q_done .o_af_q_check {
+    display: inline-block;
+}
+
+.o_af_q_help {
+    margin: -0.1rem 0 0.4rem;
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+}
+
+.o_af_q_error_msg {
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+    color: #dc2626;
+}
+
+/* The input box, with the icon of its type */
+.o_af_control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0 0.75rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.o_af_control:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-bg-subtle);
+}
+
+.o_af_q_error .o_af_control,
+.o_af_q_error .o_af_drop,
+.o_af_q_error .o_af_yesno {
+    border-color: #dc2626;
+}
+
+.o_af_q_error .o_af_control:focus-within {
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.o_af_control_icon {
+    flex-shrink: 0;
+    color: var(--secondary-color);
+}
+
+.o_af_control:focus-within .o_af_control_icon {
+    color: var(--primary);
+}
+
+.o_af_control input,
+.o_af_control textarea {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.5rem 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    outline: none;
+}
+
+.o_af_control_area {
+    align-items: stretch;
+}
+
+.o_af_control_area textarea {
+    min-height: 5rem;
+    resize: none;
+    overflow: hidden;
+}
+
+.o_af_counter {
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    text-align: right;
+    color: var(--secondary-color);
+}
+
+.o_af_control_number {
+    padding: 0 0.25rem;
+}
+
+.o_af_control_number input {
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+.o_af_control_number input::-webkit-inner-spin-button,
+.o_af_control_number input::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+.o_af_step {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    color: var(--secondary-color);
+    background: var(--tertiary-bg);
+    border: 0;
+    border-radius: 0.4rem;
+}
+
+.o_af_step:hover {
+    color: var(--primary);
+    background: var(--primary-bg-subtle);
+}
+
+.o_af_affix {
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.o_af_shortcuts_row {
     display: flex;
     flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.4rem;
+}
+
+.o_af_chip {
+    padding: 0.15rem 0.65rem;
+    font-size: 0.8rem;
+    color: var(--primary);
+    background: var(--primary-bg-subtle);
+    border: 0;
+    border-radius: 1rem;
+}
+
+.o_af_control_record {
+    padding-left: 0.4rem;
+}
+
+.o_af_control_record .o_record_selector {
+    flex: 1 1 auto;
+    min-height: 2.4rem;
+    align-items: center;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+/* No / Yes */
+.o_af_yesno {
+    display: inline-flex;
+    padding: 0.2rem;
+    background: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.6rem;
+}
+
+.o_af_yesno button {
+    min-width: 4.5rem;
+    padding: 0.4rem 1rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    background: transparent;
+    border: 0;
+    border-radius: 0.45rem;
+}
+
+.o_af_yesno button.active {
+    color: #fff;
+    background: var(--primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Choice cards (one or several) */
+.o_af_choice_cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
     gap: 0.5rem;
 }
 
-.o_af_choices .btn {
-    min-width: 6rem;
+.o_af_choice {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    color: inherit;
+    text-align: left;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.6rem;
+    transition: border-color 0.15s, background 0.15s;
 }
 
-.o_af_switch {
-    padding-top: 0.4rem;
+.o_af_choice:hover {
+    border-color: var(--primary-border-subtle);
+}
+
+.o_af_choice.active {
+    border-color: var(--primary);
+    background: var(--primary-bg-subtle);
+}
+
+.o_af_choice_mark {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    font-size: 0.65rem;
+    color: transparent;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+}
+
+.o_af_choice_multi .o_af_choice_mark {
+    border-radius: 0.25rem;
+}
+
+.o_af_choice.active .o_af_choice_mark {
+    color: #fff;
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Files */
+.o_af_drop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 1rem;
+    text-align: center;
+    color: var(--secondary-color);
+    cursor: pointer;
+    border: 2px dashed var(--border-color);
+    border-radius: 0.6rem;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.o_af_drop .fa-cloud-upload {
+    font-size: 1.6rem;
+    color: var(--primary);
+}
+
+.o_af_drop:hover,
+.o_af_drop_over {
+    border-color: var(--primary);
+    background: var(--primary-bg-subtle);
+}
+
+.o_af_file_list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    list-style: none;
+}
+
+.o_af_file {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0.5rem;
+    background: var(--tertiary-bg);
+    border-radius: 0.45rem;
+}
+
+.o_af_file_thumb {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    border-radius: 0.3rem;
+}
+
+.o_af_file_icon {
+    width: 2rem;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+.o_af_file_name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.o_af_file_size {
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+}
+
+.o_af_file_remove {
+    color: #dc2626;
+    background: none;
+    border: 0;
+}
+
+/* Answered by another step: plain text */
+.o_af_readonly {
+    min-height: 2.5rem;
+    padding: 0.55rem 0.75rem;
+    background: var(--tertiary-bg);
+    border-radius: 0.5rem;
+    white-space: pre-line;
 }
 
 .o_af_disabled {
     pointer-events: none;
-    opacity: 0.7;
 }
 
-.o_af_files .btn {
-    cursor: pointer;
+/* Progress of the answers */
+.o_af_progress {
+    margin-bottom: 1.25rem;
+}
+
+.o_af_progress_text {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+}
+
+.o_af_progress_track {
+    height: 0.4rem;
+    overflow: hidden;
+    background: var(--secondary-bg);
+    border-radius: 1rem;
+}
+
+.o_af_progress_bar {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 1rem;
+    transition: width 0.3s ease;
+}
+
+/* Phones: taller controls, easier to tap */
+@media (max-width: 767.98px) {
+    .o_af_control,
+    .o_af_readonly {
+        min-height: 2.9rem;
+    }
+
+    .o_af_control input,
+    .o_af_control textarea {
+        font-size: 1rem;
+    }
+
+    .o_af_choice {
+        min-height: 3rem;
+    }
+
+    .o_af_choice_cards {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 /* Answers summary on the request form */
@@ -136,4 +536,11 @@ span.o_af_stage {
     color: color-mix(in srgb, var(--af-stage) 70%, #000);
     background: color-mix(in srgb, var(--af-stage) 16%, transparent);
     border-radius: 1rem;
+}
+
+.o_af_readonly .o_record_selector {
+    min-height: 0;
+    padding: 0;
+    border: 0 !important;
+    background: transparent;
 }

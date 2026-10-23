@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 00:22+0000\n"
-"PO-Revision-Date: 2026-10-23 00:22+0000\n"
+"POT-Creation-Date: 2026-10-23 00:35+0000\n"
+"PO-Revision-Date: 2026-10-23 00:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -27,6 +27,12 @@ msgstr " y "
 #: code:addons/angels_forms/static/src/designer/designer_action.js:0
 msgid " or "
 msgstr " o "
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
+msgid "%(done)s of %(total)s answered"
+msgstr "%(done)s de %(total)s respondidas"
 
 #. module: angels_forms
 #. odoo-python
@@ -103,6 +109,12 @@ msgstr "%s (copia)"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
+msgid "%s characters"
+msgstr "%s caracteres"
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 msgid "%s completes it"
 msgstr "%s la completa"
@@ -112,6 +124,18 @@ msgstr "%s la completa"
 #: code:addons/angels_forms/static/src/common/form_renderer.js:0
 msgid "%s is larger than 25 MB."
 msgstr "%s ocupa más de 25 MB."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+msgid "(optional)"
+msgstr "(opcional)"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+msgid "25 MB max per file"
+msgstr "Máximo 25 MB por archivo"
 
 #. module: angels_forms
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_kanban_catalog
@@ -273,13 +297,6 @@ msgstr ""
 "personas rellenen preguntas."
 
 #. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
-msgid "Add files"
-msgstr "Añadir archivos"
-
-#. module: angels_forms
 #: model_terms:ir.actions.act_window,help:angels_forms.action_form
 msgid ""
 "Add questions, show them only when they apply and decide who receives each "
@@ -292,6 +309,12 @@ msgstr ""
 #: model:res.groups,name:angels_forms.group_form_manager
 msgid "Administrator"
 msgstr "Administrador"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "After the number"
+msgstr "Después del número"
 
 #. module: angels_forms
 #: model:ir.actions.act_window,name:angels_forms.action_submission_all
@@ -344,6 +367,12 @@ msgstr "Angels Forms"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_answer__display_value
 msgid "Answer"
 msgstr "Respuesta"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+msgid "Answered"
+msgstr "Respondida"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__answer_ids
@@ -464,6 +493,12 @@ msgid "Back to Requester"
 msgstr "Devolver al solicitante"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Before the number"
+msgstr "Antes del número"
+
+#. module: angels_forms
 #: model:angels.form.node,name:angels_forms.travel_node_booking
 msgid "Book the Trip"
 msgstr "Reservar el viaje"
@@ -556,12 +591,6 @@ msgstr "Opciones"
 #: model:ir.model.fields,help:angels_forms.field_angels_form_field__options
 msgid "Choices of a choice list, one per line."
 msgstr "Opciones de una lista, una por línea."
-
-#. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.js:0
-msgid "Choose"
-msgstr "Elegir"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -830,6 +859,7 @@ msgstr "Documentos"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__done
 msgid "Done"
@@ -902,6 +932,13 @@ msgid ""
 msgstr ""
 "Suelta una pregunta junto a otra para compartir la fila, entre filas para crear una fila nueva, o deja\n"
 "                    columnas vacías. Estira su borde derecho para cambiar el ancho. Teclas: flechas para mover, Supr, Ctrl+D para duplicar."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Drop files here or"
+msgstr "Suelta archivos aquí o"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -1261,6 +1298,12 @@ msgstr "En revisión"
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
+msgid "In a week"
+msgstr "En 1 semana"
+
+#. module: angels_forms
+#. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/flow_editor.xml:0
 msgid ""
 "In the Questions tab, choose this step in “Filled by”. Its people answer them before\n"
@@ -1320,6 +1363,12 @@ msgstr "Última actualización el"
 #: model:ir.model.fields,help:angels_forms.field_angels_form__company_id
 msgid "Leave empty to use the form in every company."
 msgstr "Déjalo vacío para usar el formulario en todas las compañías."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+msgid "Less"
+msgstr "Menos"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -1394,6 +1443,17 @@ msgstr "Modo"
 #: code:addons/angels_forms/static/src/designer/icon_picker.js:0
 msgid "Money"
 msgstr "Dinero"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+msgid "More"
+msgstr "Más"
+
+#. module: angels_forms
+#: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_field__field_type__multi
+msgid "Multiple Choice"
+msgstr "Elección múltiple"
 
 #. module: angels_forms
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__my_activity_date_deadline
@@ -1475,6 +1535,9 @@ msgstr "Tipo de la siguiente actividad"
 #. odoo-python
 #: code:addons/angels_forms/models/form_answer.py:0
 #: code:addons/angels_forms/models/form_submission.py:0
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 msgid "No"
 msgstr "No"
@@ -1725,6 +1788,11 @@ msgid "Pos Y"
 msgstr "Posición Y"
 
 #. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__prefix
+msgid "Prefix"
+msgstr "Prefijo"
+
+#. module: angels_forms
 #. odoo-javascript
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 msgid "Preview"
@@ -1914,6 +1982,7 @@ msgstr "Aquí aparecen las solicitudes que debes aprobar."
 
 #. module: angels_forms
 #. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__required
 msgid "Required"
@@ -1970,6 +2039,12 @@ msgstr "Guardar"
 #: code:addons/angels_forms/static/src/fill/fill_action.xml:0
 msgid "Save Draft"
 msgstr "Guardar borrador"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Search a choice"
+msgstr "Busca una opción"
 
 #. module: angels_forms
 #. odoo-javascript
@@ -2060,6 +2135,16 @@ msgid "Show only if"
 msgstr "Mostrar solo si"
 
 #. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_field__suffix
+msgid "Shown after a number, for example nights."
+msgstr "Se muestra después del número, por ejemplo noches."
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_field__prefix
+msgid "Shown before a number, for example €."
+msgstr "Se muestra antes del número, por ejemplo €."
+
+#. module: angels_forms
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_step__state__skipped
 msgid "Skipped"
 msgstr "Omitido"
@@ -2134,6 +2219,11 @@ msgstr "Solicitud"
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__submission_count
 msgid "Submission Count"
 msgstr "Número de solicitudes"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_field__suffix
+msgid "Suffix"
+msgstr "Sufijo"
 
 #. module: angels_forms
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_node__node_type__task
@@ -2365,6 +2455,20 @@ msgid "To Review"
 msgstr "Por revisar"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Today"
+msgstr "Hoy"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Tomorrow"
+msgstr "Mañana"
+
+#. module: angels_forms
 #: model:angels.form.field,help:angels_forms.travel_budget
 msgid "Transport, hotel and meals, in the company currency."
 msgstr "Transporte, hotel y comidas, en la moneda de la compañía."
@@ -2550,15 +2654,12 @@ msgstr "Trabajo"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/angels_forms/models/form_answer.py:0
+#: code:addons/angels_forms/static/src/common/form_renderer.js:0
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: code:addons/angels_forms/static/src/designer/flow_editor.js:0
 msgid "Yes"
 msgstr "Sí"
-
-#. module: angels_forms
-#. odoo-javascript
-#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
-msgid "Yes / No"
-msgstr "Sí / No"
 
 #. module: angels_forms
 #. odoo-python
@@ -2621,6 +2722,13 @@ msgid "checked"
 msgstr "marcada"
 
 #. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/common/form_renderer.xml:0
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "click to choose"
+msgstr "haz clic para elegir"
+
+#. module: angels_forms
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__contains
 msgid "contains"
 msgstr "contiene"
@@ -2680,6 +2788,13 @@ msgstr "menor o igual que"
 #: model:ir.model.fields.selection,name:angels_forms.selection__angels_form_condition__operator__<
 msgid "less than"
 msgstr "menor que"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+#: model:angels.form.field,suffix:angels_forms.travel_nights
+msgid "nights"
+msgstr "noches"
 
 #. module: angels_forms
 #. odoo-javascript

@@ -12,6 +12,7 @@ export const OPERATORS_BY_TYPE = {
     datetime: ["set", "not_set"],
     boolean: ["=", "!="],
     selection: ["=", "!=", "set", "not_set"],
+    multi: ["contains", "set", "not_set"],
     user: ["=", "!=", "set", "not_set"],
     partner: ["=", "!=", "set", "not_set"],
     file: ["set", "not_set"],
@@ -65,6 +66,11 @@ export function conditionMatches(condition, source, values) {
     if (source.type === "boolean") {
         const expected = TRUE_WORDS.includes((condition.value || "").trim().toLowerCase());
         return (Boolean(actualRaw) === expected) === (operator === "=");
+    }
+    if (source.type === "multi") {
+        // "contains": the choice is one of the ticked ones.
+        const ticked = (actualRaw || []).map((choice) => String(choice).toLowerCase());
+        return operator === "contains" && ticked.includes((condition.value || "").trim().toLowerCase());
     }
     const actual = normalize(source.type, actualRaw);
     const expected = normalize(source.type, condition.value);

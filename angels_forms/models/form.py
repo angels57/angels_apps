@@ -5,7 +5,7 @@ from .form_condition import OPERATORS_BY_TYPE
 from .form_node import PORT_FIELDS, PORTS
 
 SUBMISSION_MODEL = "angels.form.submission"
-FIELD_KEYS = ("name", "required", "help", "placeholder", "width")
+FIELD_KEYS = ("name", "required", "help", "placeholder", "prefix", "suffix", "width")
 SETTING_KEYS = ("name", "description", "icon", "color", "allow_self_approval")
 NODE_KEYS = ("name", "end_state", "assign_type", "approval_rule")
 START_POSITION = (40, 160)

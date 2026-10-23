@@ -13,6 +13,7 @@ FIELD_TYPES = [
     ("datetime", "Date and Time"),
     ("boolean", "Checkbox"),
     ("selection", "Choice List"),
+    ("multi", "Multiple Choice"),
     ("user", "User"),
     ("partner", "Contact"),
     ("file", "File"),
@@ -43,6 +44,8 @@ class AngelsFormField(models.Model):
     required = fields.Boolean()
     help = fields.Char(string="Help Text", translate=True)
     placeholder = fields.Char(translate=True)
+    prefix = fields.Char(translate=True, help="Shown before a number, for example €.")
+    suffix = fields.Char(translate=True, help="Shown after a number, for example nights.")
     # Not translated: conditions compare answers with these exact words.
     options = fields.Text(help="Choices of a choice list, one per line.")
     width = fields.Selection(WIDTHS, required=True, default="full")
@@ -77,7 +80,7 @@ class AngelsFormField(models.Model):
     @api.constrains("field_type", "options")
     def _check_options(self):
         for field in self:
-            if field.field_type == "selection" and not field._option_list():
+            if field.field_type in ("selection", "multi") and not field._option_list():
                 raise ValidationError(_("The choice list %(field)s needs at least one choice.",
                                         field=field.name))
 
@@ -102,6 +105,9 @@ class AngelsFormField(models.Model):
         kind = self.field_type
         if not is_set(raw) and kind != "boolean":
             return False
+        if kind == "multi":
+            choices = raw if isinstance(raw, (list, tuple)) else str(raw).splitlines()
+            return [str(choice).strip() for choice in choices if str(choice).strip()] or False
         if kind in ("char", "text", "selection"):
             return str(raw).strip() or False
         if kind == "number":
@@ -135,6 +141,8 @@ class AngelsFormField(models.Model):
             "required": self.required,
             "help": self.help or "",
             "placeholder": self.placeholder or "",
+            "prefix": self.prefix or "",
+            "suffix": self.suffix or "",
             "options": self._option_list(),
             "width": self.width,
             "row": self.row,

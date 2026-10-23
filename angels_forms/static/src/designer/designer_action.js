@@ -5,7 +5,7 @@ import { RecordSelector } from "@web/core/record_selectors/record_selector";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { useSetupAction } from "@web/search/action_hook";
-import { FormRenderer } from "../common/form_renderer";
+import { CONTROL_ICONS, FormRenderer } from "../common/form_renderer";
 import {
     COLUMNS,
     WIDTH_COLS,
@@ -31,6 +31,7 @@ export const FIELD_ICONS = {
     datetime: "fa-clock-o",
     boolean: "fa-toggle-on",
     selection: "fa-list-ul",
+    multi: "fa-check-square-o",
     user: "fa-user",
     partner: "fa-address-book-o",
     file: "fa-paperclip",
@@ -197,17 +198,23 @@ export class FormDesignerAction extends Component {
     isPreviewAs(stage) {
         return String(stage.id) === this.state.previewAs;
     }
-    /** How the card draws the input of a question. */
+    /** How the card draws the input of a question: the same controls as the filled form. */
     mockKind(field) {
         if (field.type === "selection") {
-            return field.options.length <= 4 ? "choices" : "select";
+            return field.options.length <= 6 ? "choices" : "search";
         }
         return {
             section: false,
             text: "area",
-            boolean: "switch",
+            boolean: "yesno",
+            multi: "choices",
+            number: "number",
+            date: "date",
             file: "file",
         }[field.type] ?? "input";
+    }
+    mockIcon(field) {
+        return CONTROL_ICONS[field.type] || "fa-pencil";
     }
     mockHint(field) {
         if (field.placeholder) {
@@ -219,7 +226,7 @@ export class FormDesignerAction extends Component {
             datetime: _t("Date and time"),
             user: _t("Choose a user"),
             partner: _t("Choose a contact"),
-            selection: _t("Choose"),
+            selection: _t("Search a choice"),
         }[field.type] || "";
     }
     widthLabel(width) {
@@ -498,7 +505,9 @@ export class FormDesignerAction extends Component {
             required: false,
             help: "",
             placeholder: "",
-            options: type === "selection" ? [_t("Option 1"), _t("Option 2")] : [],
+            options: ["selection", "multi"].includes(type) ? [_t("Option 1"), _t("Option 2")] : [],
+            prefix: "",
+            suffix: "",
             width: "full",
             row: 0,
             col: 0,
@@ -552,7 +561,7 @@ export class FormDesignerAction extends Component {
     setProp(field, name, value) {
         field[name] = value;
         if (name === "type") {
-            if (value === "selection" && !field.options.length) {
+            if (["selection", "multi"].includes(value) && !field.options.length) {
                 field.options = [_t("Option 1"), _t("Option 2")];
             }
             if (value === "section") {
@@ -784,7 +793,7 @@ export class FormDesignerAction extends Component {
             if (!field.name.trim()) {
                 problems.push(_t("A question has no label."));
             }
-            if (field.type === "selection" && !field.options.some((o) => o.trim())) {
+            if (["selection", "multi"].includes(field.type) && !field.options.some((o) => o.trim())) {
                 problems.push(_t("“%s” needs at least one choice.", field.name));
             }
             if (this.brokenConditions(field).length) {

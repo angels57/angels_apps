@@ -4,6 +4,7 @@ VALUE_FIELDS = {
     "char": "value_char",
     "selection": "value_char",
     "text": "value_text",
+    "multi": "value_text",
     "number": "value_number",
     "date": "value_date",
     "datetime": "value_datetime",
@@ -58,8 +59,6 @@ class AngelsFormAnswer(models.Model):
         value = self._get_value()
         if value is False:
             return ""
-        if kind == "number":
-            return ("%.2f" % value).rstrip("0").rstrip(".")
         if kind == "date":
             return fields.Date.to_string(value)
         if kind == "datetime":
@@ -70,6 +69,11 @@ class AngelsFormAnswer(models.Model):
             return self.value_partner_id.sudo().display_name
         if kind == "file":
             return ", ".join(self.attachment_ids.mapped("name"))
+        if kind == "multi":
+            return ", ".join(value)
+        if kind == "number":
+            number = ("%.2f" % value).rstrip("0").rstrip(".")
+            return " ".join(part for part in (self.field_id.prefix, number, self.field_id.suffix) if part)
         return value
 
     def _get_value(self):
@@ -80,6 +84,8 @@ class AngelsFormAnswer(models.Model):
             return self[VALUE_FIELDS[kind]].id or False
         if kind == "file":
             return self.attachment_ids.ids or False
+        if kind == "multi":
+            return [line for line in (self.value_text or "").splitlines() if line] or False
         return self[VALUE_FIELDS[kind]] if kind in VALUE_FIELDS else False
 
     def _value_vals(self, field, value):
@@ -88,6 +94,8 @@ class AngelsFormAnswer(models.Model):
         vals = {name: False for name in set(VALUE_FIELDS.values()) if name != "attachment_ids"}
         if kind == "file":
             vals["attachment_ids"] = [fields.Command.set(value or [])]
+        elif kind == "multi":
+            vals["value_text"] = "\n".join(value or [])
         elif kind in VALUE_FIELDS:
             vals[VALUE_FIELDS[kind]] = value
         return vals
@@ -97,7 +105,10 @@ class AngelsFormAnswer(models.Model):
         kind = self.field_type
         value = self._get_value()
         if kind == "file":
-            return [{"id": a.id, "name": a.name} for a in self.attachment_ids]
+            return [
+                {"id": a.id, "name": a.name, "size": a.file_size, "mimetype": a.mimetype}
+                for a in self.attachment_ids
+            ]
         if kind == "date" and value:
             return fields.Date.to_string(value)
         if kind == "datetime" and value:

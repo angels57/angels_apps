@@ -223,6 +223,28 @@ class TestFormFlow(FormCase):
             ("res_model", "=", submission._name), ("res_id", "=", submission.id),
         ]))
 
+    def test_multiple_choice_and_number_affixes(self):
+        extras = self.env["angels.form.field"].create({
+            "form_id": self.travel.id, "sequence": 115, "name": "Extras", "field_type": "multi",
+            "options": "Breakfast\nParking\nLate checkout",
+        })
+        self.f["budget"].write({"prefix": "€"})
+        values = self.answers(budget=900)
+        values[str(extras.id)] = ["Parking", "Breakfast"]
+        Submission = self.env["angels.form.submission"].with_user(self.requester)
+        submission = Submission.browse(Submission.save_from_filler(self.travel.id, False, values, True))
+        answer = submission.answer_ids.filtered(lambda a: a.field_id == extras)
+        self.assertEqual(answer._get_value(), ["Parking", "Breakfast"])
+        self.assertEqual(answer.display_value, "Parking, Breakfast")
+        self.assertEqual(submission._answers_to_client()[str(extras.id)], ["Parking", "Breakfast"])
+        budget = submission.answer_ids.filtered(lambda a: a.field_id == self.f["budget"])
+        self.assertEqual(budget.display_value, "€ 900")
+        Condition = self.env["angels.form.condition"]
+        condition = Condition.new({"source_field_id": extras.id, "operator": "contains", "value": "parking"})
+        self.assertTrue(condition._matches({extras.id: ["Parking", "Breakfast"]}))
+        self.assertFalse(condition._matches({extras.id: ["Breakfast"]}))
+        self.assertFalse(condition._matches({extras.id: False}))
+
     def test_answers_summary(self):
         submission = self.fill(budget=1234.5, hotel=False)
         html = str(submission.answers_html)
