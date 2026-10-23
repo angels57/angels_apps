@@ -102,6 +102,7 @@ International</field>
         <field name="sequence">120</field>
         <field name="name">Hotel Nights</field>
         <field name="field_type">number</field>
+        <field name="suffix">nights</field>
         <field name="required" eval="True"/>
         <field name="width">half</field>
     </record>

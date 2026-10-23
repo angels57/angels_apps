@@ -66,6 +66,18 @@
         border-radius: 0.5rem;
     }
 
+    /* Send / Save stay at hand at the bottom of the screen. */
+    .o_af_fill_footer {
+        position: sticky;
+        bottom: -2rem;
+        z-index: 5;
+        margin: 1.5rem -1rem -1.25rem;
+        padding: 0.75rem 1rem;
+        background: var(--body-bg);
+        border-radius: 0 0 0.5rem 0.5rem;
+        box-shadow: 0 -6px 14px rgba(0, 0, 0, 0.08);
+    }
+
     .o_af_fill_footer .btn-primary {
         flex: 1 1 100%;
     }

@@ -23,6 +23,7 @@ OPERATORS_BY_TYPE = {
     "datetime": ("set", "not_set"),
     "boolean": ("=", "!="),
     "selection": ("=", "!=", "set", "not_set"),
+    "multi": ("contains", "set", "not_set"),
     "user": ("=", "!=", "set", "not_set"),
     "partner": ("=", "!=", "set", "not_set"),
     "file": ("set", "not_set"),
@@ -86,6 +87,10 @@ class AngelsFormCondition(models.Model):
         if source.field_type == "boolean":
             expected = (self.value or "").strip().lower() in TRUE_WORDS
             return (bool(actual) == expected) == (operator == "=")
+        if source.field_type == "multi":
+            # "contains": the choice is one of the ticked ones.
+            ticked = [choice.lower() for choice in actual or []]
+            return operator == "contains" and (self.value or "").strip().lower() in ticked
         expected = source._normalize(self.value)
         if not is_set(actual) or not is_set(expected):
             return operator == "!=" and is_set(actual) != is_set(expected)

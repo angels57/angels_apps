@@ -465,76 +465,77 @@
     border-left: 4px solid var(--af-stage);
 }
 
-/* How the input will look */
+/* How the input will look: the classes of the filled form, a bit smaller */
 .o_af_mock {
     padding-left: 2.6rem;
+    pointer-events: none;
 }
 
-.o_af_mock_input {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    height: 1.9rem;
-    padding: 0 0.6rem;
+.o_af_mock .o_af_control {
+    min-height: 2.1rem;
+}
+
+.o_af_mock .o_af_q_help {
+    margin: 0 0 0.3rem;
+}
+
+.o_af_mock_text {
+    min-width: 0;
     overflow: hidden;
     font-size: 0.85rem;
     color: var(--tertiary-color);
     white-space: nowrap;
-    background: var(--body-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 0.35rem;
+    text-overflow: ellipsis;
 }
 
 .o_af_mock_area {
     align-items: flex-start;
-    height: 3.6rem;
-    padding-top: 0.35rem;
+    min-height: 3.6rem;
+    padding-top: 0.45rem;
 }
 
-.o_af_mock_switch {
-    display: flex;
+.o_af_mock .o_af_step {
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.o_af_yesno .o_af_mock_option {
+    min-width: 3.5rem;
+    padding: 0.25rem 0.8rem;
     font-size: 0.85rem;
+    text-align: center;
     color: var(--secondary-color);
+    border-radius: 0.45rem;
 }
 
-.o_af_mock_toggle {
-    width: 2rem;
-    height: 1.1rem;
-    background: var(--secondary-bg);
-    border-radius: 1rem;
-    box-shadow: inset 0.2rem 0 0 0.15rem var(--body-bg);
+.o_af_yesno .o_af_mock_option.active {
+    color: #fff;
+    background: var(--primary);
 }
 
-.o_af_mock_choices {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem;
+.o_af_mock .o_af_choice_cards {
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    gap: 0.35rem;
 }
 
-.o_af_mock_choices span {
-    padding: 0.15rem 0.6rem;
-    font-size: 0.8rem;
-    color: var(--primary);
-    border: 1px solid var(--primary-border-subtle);
-    border-radius: 0.35rem;
+.o_af_mock .o_af_choice {
+    min-height: 2.1rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
 }
 
-.o_af_mock_file {
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    font-size: 0.8rem;
-    color: var(--secondary-color);
-    background: var(--secondary-bg);
-    border-radius: 0.35rem;
+.o_af_mock_drop {
+    flex-direction: row;
+    justify-content: center;
+    padding: 0.5rem;
+    font-size: 0.85rem;
 }
 
-.o_af_mock_help {
-    margin-top: 0.25rem;
-    font-size: 0.75rem;
-    color: var(--secondary-color);
+.o_af_mock_drop .fa-cloud-upload {
+    font-size: 1.1rem;
 }
 
 /* Options on the selected question */

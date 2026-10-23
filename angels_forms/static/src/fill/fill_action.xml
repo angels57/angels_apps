@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div t-if="!this.fields.length" class="text-muted py-4">This form has no questions yet.</div>
-                    <FormRenderer t-else="" fields="this.fields" values="this.values" errors="this.errors"/>
+                    <FormRenderer t-else="" fields="this.fields" values="this.values" errors="this.errors" progress="true"/>
                     <div t-if="this.step" class="o_af_fill_footer">
                         <button type="button" class="btn btn-primary" t-att-disabled="this.state.saving"
                                 t-on-click="() => this.save(true)">

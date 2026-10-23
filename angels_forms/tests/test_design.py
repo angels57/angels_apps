@@ -23,7 +23,7 @@ class TestDesigner(FormCase):
         data["fields"] = [
             {"id": "new_1", "name": "Kind", "type": "selection", "options": ["Paid", "Unpaid"],
              "required": True, "width": "third", "match": "all", "conditions": []},
-            {"id": "new_2", "name": "Days", "type": "number", "required": True,
+            {"id": "new_2", "name": "Days", "type": "number", "required": True, "suffix": "days",
              "width": "two_thirds", "match": "all", "conditions": []},
             {"id": "new_3", "name": "Why unpaid?", "type": "text", "match": "all",
              "conditions": [{"source_id": "new_1", "operator": "=", "value": "Unpaid"}]},
@@ -47,6 +47,7 @@ class TestDesigner(FormCase):
         self.assertEqual(self.form.name, "Vacation Request")
         self.assertEqual(self.form.title_field_id, kind)
         self.assertEqual((kind.width, days.width), ("third", "two_thirds"))
+        self.assertEqual(days.suffix, "days")
         self.assertEqual(why.condition_ids.source_field_id, kind)
         self.assertEqual(notes.node_id, nodes["HR"])
         self.assertEqual(nodes["Request Sent"].id, start_id)
