@@ -1,4 +1,7 @@
+import base64
 import io
+
+from PIL import Image
 
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests import tagged
@@ -126,6 +129,17 @@ class TestRequestFlow(AngelsSignCase):
             self.add_field(request, doc, signer, pos_x=0.9, width=0.3)
         with self.assertRaises(ValidationError):
             self.add_field(request, doc, signer, page=3)
+
+    def test_signature_image_formats(self):
+        request = self.env["sign.request"].create({})
+        png = base64.b64encode(make_png()).decode()
+        self.assertTrue(request._validate_image(f"data:image/png;base64,{png}").startswith(b"\x89PNG"))
+        gif = io.BytesIO()
+        Image.new("RGB", (10, 10)).save(gif, "GIF")
+        with self.assertRaisesRegex(UserError, "PNG or JPEG"):
+            request._validate_image(base64.b64encode(gif.getvalue()).decode())
+        with self.assertRaises(UserError):
+            request._validate_image(base64.b64encode(b"not an image").decode())
 
     def test_rotated_page_overlay(self):
         request = self.env["sign.request"].create({})

@@ -17,6 +17,7 @@ _logger = logging.getLogger(__name__)
 
 MAX_IMAGE_BYTES = 2 * 1024 * 1024
 MAX_IMAGE_SIZE = (1200, 600)
+IMAGE_FORMATS = ("PNG", "JPEG")
 
 
 class SignRequest(models.Model):
@@ -38,12 +39,16 @@ class SignRequest(models.Model):
         if len(raw) > MAX_IMAGE_BYTES:
             raise UserError(_("The image is larger than 2 MB."))
         try:
-            img = Image.open(io.BytesIO(raw))
+            # Only the PNG and JPEG decoders ever see what signers upload.
+            img = Image.open(io.BytesIO(raw), formats=IMAGE_FORMATS)
+        except Image.UnidentifiedImageError as exc:
+            raise UserError(_("Use a PNG or JPEG image.")) from exc
+        except Exception as exc:  # noqa: BLE001
+            raise UserError(_("The file is not an image.")) from exc
+        try:
             img.load()
         except Exception as exc:  # noqa: BLE001
             raise UserError(_("The file is not an image.")) from exc
-        if img.format not in ("PNG", "JPEG"):
-            raise UserError(_("Use a PNG or JPEG image."))
         img.thumbnail(MAX_IMAGE_SIZE)
         out = io.BytesIO()
         img.convert("RGBA").save(out, format="PNG")  # re-encoding drops metadata
