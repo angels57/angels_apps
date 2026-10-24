@@ -25,6 +25,7 @@ class TestFlows(TransactionCase):
         """Start → approval by the boss → end."""
         flow = self.env["angels.flow"].create(dict({
             "name": "Company Check", "model_id": self.partner_model.id, "trigger": trigger, "filter_domain": domain,
+            "enabled": True,
         }, **vals))
         Node = self.env["angels.flow.node"].with_context(**{DEFER: True})
         approve = Node.create({"flow_id": flow.id, "name": "Boss Approval", "node_type": "approve",
@@ -84,8 +85,11 @@ class TestFlows(TransactionCase):
         self.assertEqual(flow.run_ids.res_id, partner.id)
         result = flow.action_id.with_context(active_model="res.partner", active_ids=partner.ids).run()
         self.assertEqual(result["params"]["type"], "warning", "already running")
-        flow.active = False
+        flow.enabled = False
         self.assertFalse(flow.action_id.binding_model_id)
+        flow.enabled = True
+        flow.active = False
+        self.assertFalse(flow.action_id.binding_model_id, "archived")
 
     def test_scheduled_flow(self):
         flow = self.make_flow(trigger="scheduled", domain="[('name', '=like', 'Sched%')]",
@@ -293,14 +297,15 @@ class TestFlows(TransactionCase):
 
     def test_example_flow_and_getting_started(self):
         example = self.env.ref("angels_flow.example_flow_welcome")
-        self.assertEqual((example.active, example.is_example, example.trigger), (False, True, "on_create"))
+        self.assertEqual((example.enabled, example.is_example, example.trigger), (False, True, "on_create"))
+        self.assertIn(example, self.env["angels.flow"].search([]), "examples show in the list of flows")
         self.assertEqual(len(example.node_ids.filtered(lambda n: n.node_type == "start")), 1)
         self.assertFalse(example.automation_id, "off until switched on")
         welcome = self.env["angels.flow"].get_welcome_data()
         self.assertIn(example.id, [e["id"] for e in welcome["examples"]])
         action = example.action_use_example()
-        copy = self.env["angels.flow"].with_context(active_test=False).browse(action["context"]["active_id"])
-        self.assertEqual((copy.active, copy.is_example), (False, False))
+        copy = self.env["angels.flow"].browse(action["context"]["active_id"])
+        self.assertEqual((copy.enabled, copy.is_example), (False, False))
         self.assertEqual(len(copy.node_ids), len(example.node_ids))
         self.assertEqual(copy._start_node().next_id.name, "Is It a Company?")
         # The copy works: a company with a salesperson gets the call.
@@ -345,5 +350,7 @@ class TestFlows(TransactionCase):
             form.model_id = self.partner_model
             form.trigger = "on_create"
         flow = form.save()
+        self.assertFalse(flow.automation_id, "a new flow is off")
+        flow.enabled = True
         self.assertEqual(flow.node_ids.node_type, "start")
         self.assertEqual(flow.automation_id.trigger, "on_create")

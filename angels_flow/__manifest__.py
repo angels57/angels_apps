@@ -1,6 +1,6 @@
 {
     "name": "Angels Flow - Visual Flows",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "summary": "Visual flows on any Odoo record: approvals, tasks and notifications, started by hand, "
                "automatically or on a schedule",
     "description": """

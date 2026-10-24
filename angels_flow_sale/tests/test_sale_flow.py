@@ -27,7 +27,7 @@ class TestSaleFlow(TransactionCase):
     def test_big_quotation_approved_sent_and_confirmed(self):
         flow = self.env["angels.flow"].create({
             "name": "Big Quotations", "model_id": self.env["ir.model"]._get("sale.order").id,
-            "trigger": "manual", "filter_domain": "[]",
+            "trigger": "manual", "filter_domain": "[]", "enabled": True,
         })
         keys = [choice["key"] for choice in flow._flow_action_choices()]
         self.assertIn("preset:sale_send", keys)
@@ -63,6 +63,7 @@ class TestSaleFlow(TransactionCase):
     def test_customer_without_email_stops_the_step(self):
         flow = self.env["angels.flow"].create({
             "name": "Send", "model_id": self.env["ir.model"]._get("sale.order").id, "trigger": "manual",
+            "enabled": True,
         })
         send = self.env["angels.flow.node"].create({"flow_id": flow.id, "name": "Send", "node_type": "action",
                                                     "action_ref": "preset:sale_send"})
@@ -75,7 +76,7 @@ class TestSaleFlow(TransactionCase):
 
     def test_example_flow(self):
         example = self.env.ref("angels_flow_sale.example_flow_big_quotation")
-        self.assertFalse(example.active)
+        self.assertFalse(example.enabled)
         example.action_activate()
         self.make_order(price=500)
         self.assertFalse(example.run_ids, "small quotation")

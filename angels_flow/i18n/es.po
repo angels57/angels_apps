@@ -2872,6 +2872,8 @@ msgstr "Dibuja los pasos"
 
 #. module: angels_flow
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow__is_example
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_list
 msgid "Example"
 msgstr "Ejemplo"
 
@@ -3070,3 +3072,41 @@ msgid ""
 msgstr ""
 "Cuando se crea una empresa, su comercial la llama en menos de un día. Tres "
 "días después, se escribe una nota en el contacto."
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+msgid ""
+"<span invisible=\"not enabled\" class=\"text-success\">On: it starts as set below.</span>\n"
+"                        <span invisible=\"enabled\" class=\"text-muted\">Off: it does not start. Switch it on when it is ready.</span>"
+msgstr ""
+"<span invisible=\"not enabled\" class=\"text-success\">Activado: empieza como se indica abajo.</span>\n"
+"                        <span invisible=\"enabled\" class=\"text-muted\">Desactivado: no empieza. Actívalo cuando esté listo.</span>"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow__active
+msgid "Archived flows are hidden, and never start."
+msgstr "Los flujos archivados están ocultos y nunca empiezan."
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_search
+msgid "Examples"
+msgstr "Ejemplos"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow__enabled
+msgid ""
+"Only a flow that is on starts: by hand, automatically or on its schedule."
+msgstr ""
+"Solo un flujo activado empieza: a mano, automáticamente o según su "
+"programación."
+
+#. module: angels_flow
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_search
+msgid "Switched Off"
+msgstr "Desactivado"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__enabled
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_search
+msgid "Switched On"
+msgstr "Activado"

@@ -4,14 +4,15 @@
         <field name="name">angels.flow.list</field>
         <field name="model">angels.flow</field>
         <field name="arch" type="xml">
-            <list>
+            <list decoration-muted="not enabled">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="model_id" options="{'no_create': True}"/>
                 <field name="trigger"/>
+                <field name="is_example" string="Example" widget="boolean" optional="show"/>
                 <field name="running_count" string="Running"/>
                 <field name="run_count" string="Runs" optional="hide"/>
-                <field name="active" widget="boolean_toggle"/>
+                <field name="enabled" widget="boolean_toggle"/>
             </list>
         </field>
     </record>
@@ -25,7 +26,7 @@
                     <button name="action_open_designer" type="object" string="Design the Flow" class="btn-primary"
                             invisible="not id" data-hotkey="d"/>
                     <button name="action_start_now" type="object" string="Start Now"
-                            invisible="not id or not active"
+                            invisible="not id or not active or not enabled"
                             confirm="Start the flow now on every record it applies to?"/>
                 </header>
                 <sheet>
@@ -37,10 +38,17 @@
                     </div>
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <field name="active" invisible="1"/>
+                    <field name="is_example" invisible="1"/>
+                    <widget name="web_ribbon" title="Example" bg_color="text-bg-info" invisible="not is_example or not active"/>
                     <field name="model_name" invisible="1"/>
                     <div class="oe_title">
                         <label for="name"/>
                         <h1><field name="name" placeholder="e.g. Big Quotation Approval"/></h1>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <field name="enabled" widget="boolean_toggle" nolabel="1"/>
+                        <span invisible="not enabled" class="text-success">On: it starts as set below.</span>
+                        <span invisible="enabled" class="text-muted">Off: it does not start. Switch it on when it is ready.</span>
                     </div>
                     <group>
                         <group string="On">
@@ -97,7 +105,10 @@
             <search>
                 <field name="name"/>
                 <field name="model_id"/>
+                <filter name="on" string="Switched On" domain="[('enabled', '=', True)]"/>
+                <filter name="off" string="Switched Off" domain="[('enabled', '=', False)]"/>
                 <filter name="automatic" string="Automatic" domain="[('trigger', '!=', 'manual')]"/>
+                <filter name="examples" string="Examples" domain="[('is_example', '=', True)]"/>
                 <separator/>
                 <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
                 <group>

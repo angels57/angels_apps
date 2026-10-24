@@ -36,7 +36,11 @@ class AngelsFlow(models.Model):
     _order = "sequence, id"
 
     name = fields.Char(required=True, translate=True)
-    active = fields.Boolean(default=True)
+    active = fields.Boolean(default=True, help="Archived flows are hidden, and never start.")
+    enabled = fields.Boolean(
+        string="Switched On", default=False, copy=False,
+        help="Only a flow that is on starts: by hand, automatically or on its schedule.",
+    )
     sequence = fields.Integer(default=10)
     description = fields.Text(translate=True)
     is_example = fields.Boolean(
@@ -117,7 +121,7 @@ class AngelsFlow(models.Model):
 
     def write(self, vals):
         result = super().write(vals)
-        if {"active", "name", "model_id", "trigger", "filter_domain", "trigger_field_ids",
+        if {"active", "enabled", "name", "model_id", "trigger", "filter_domain", "trigger_field_ids",
                 "date_field_id", "date_range", "date_range_type", "date_range_mode"} & set(vals):
             self._sync_automation()
         return result
@@ -162,14 +166,14 @@ class AngelsFlow(models.Model):
                 "model_id": flow.model_id.id,
                 "state": "angels_flow",
                 "angels_flow_id": flow.id,
-                "binding_model_id": flow.model_id.id if flow.active else False,
+                "binding_model_id": flow.model_id.id if flow._is_on() else False,
                 "binding_type": "action",
             }
             if flow.action_id:
                 flow.action_id.write(action_vals)
             else:
                 flow.action_id = self.env["ir.actions.server"].create(action_vals)
-            if not flow.active or flow.trigger not in AUTOMATION_TRIGGERS:
+            if not flow._is_on() or flow.trigger not in AUTOMATION_TRIGGERS:
                 flow.automation_id.unlink()
                 continue
             automation_vals = {
@@ -220,7 +224,7 @@ class AngelsFlow(models.Model):
         self.ensure_one()
         Run = self.env["angels.flow.run"].sudo()
         starting = self.env.context.get("angels_flow_starting", ())
-        if not self.active or not records or self.id in starting:
+        if not self._is_on() or not records or self.id in starting:
             # A change made while the flow starts does not start it again.
             return Run
         self = self.with_context(angels_flow_starting=(*starting, self.id))
@@ -253,6 +257,10 @@ class AngelsFlow(models.Model):
                 run._flow_fail(error)
         return runs
 
+    def _is_on(self):
+        self.ensure_one()
+        return self.active and self.enabled
+
     def _start_node(self):
         self.ensure_one()
         return self.node_ids.filtered(lambda n: n.node_type == "start")[:1]
@@ -265,7 +273,7 @@ class AngelsFlow(models.Model):
     def _cron_run(self):
         """Scheduled flows whose time has come, and runs whose wait is over."""
         now = fields.Datetime.now()
-        for flow in self.search([("trigger", "=", "scheduled"), ("next_run", "<=", now)]):
+        for flow in self.search([("trigger", "=", "scheduled"), ("enabled", "=", True), ("next_run", "<=", now)]):
             records = self.env[flow.model_name].sudo().search(flow._records_domain())
             flow._start(records, raise_errors=False)
             next_run = flow.next_run or now
@@ -306,7 +314,7 @@ class AngelsFlow(models.Model):
                 "description": flow.description or "",
                 "model": flow.model_id.name,
                 "trigger": triggers[flow.trigger],
-                "active": flow.active,
+                "active": flow.enabled,
                 "steps": len(flow.node_ids) - 1,
             } for flow in examples],
             "flow_count": self.search_count([("is_example", "=", False)]),
@@ -315,11 +323,11 @@ class AngelsFlow(models.Model):
     def action_use_example(self):
         """A copy of the example, to make it one's own; it opens in the designer."""
         self.ensure_one()
-        copy = self.copy({"active": False})
+        copy = self.copy()
         return copy.action_open_designer()
 
     def action_activate(self):
-        self.write({"active": True})
+        self.write({"enabled": True})
         return True
 
     def action_open_designer(self):
@@ -376,7 +384,7 @@ class AngelsFlow(models.Model):
         return {
             "flow": {
                 "id": self.id, "name": self.name, "model": self.model_id.name, "model_name": self.model_name,
-                "active": self.active, "is_example": self.is_example,
+                "active": self.enabled, "is_example": self.is_example,
                 "trigger": self.trigger,
                 "trigger_label": dict(self._fields["trigger"]._description_selection(self.env))[self.trigger],
             },

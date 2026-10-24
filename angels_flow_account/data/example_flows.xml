@@ -5,7 +5,7 @@
     <record id="example_flow_overdue_invoices" model="angels.flow" context="{'angels_flow_no_start': True}">
         <field name="name">Overdue Invoices Follow-Up</field>
         <field name="is_example" eval="True"/>
-        <field name="active" eval="False"/>
+        <field name="enabled" eval="False"/>
         <field name="model_id" ref="account.model_account_move"/>
         <field name="trigger">scheduled</field>
         <field name="interval_number">1</field>
