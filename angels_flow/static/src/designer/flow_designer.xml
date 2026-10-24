@@ -21,6 +21,14 @@
                 </div>
                 <div class="o_afl_actions">
                     <span t-if="this.state.dirty" class="o_afl_unsaved">Unsaved changes</span>
+                    <button type="button" t-attf-class="btn btn-secondary #{this.state.showStats ? 'active' : ''}"
+                            t-att-aria-pressed="this.state.showStats ? 'true' : 'false'" t-on-click="() => this.toggleStats()">
+                        <i class="fa fa-hourglass-half me-1" aria-hidden="true"/>Times
+                    </button>
+                    <button type="button" t-attf-class="btn btn-secondary #{this.state.testOpen ? 'active' : ''}"
+                            t-att-aria-pressed="this.state.testOpen ? 'true' : 'false'" t-on-click="() => this.toggleTest()">
+                        <i class="fa fa-play-circle me-1" aria-hidden="true"/>Test
+                    </button>
                     <button type="button" class="btn btn-secondary" t-on-click="() => this.openSettings()">
                         <i class="fa fa-sliders me-1" aria-hidden="true"/>Settings
                     </button>
@@ -35,6 +43,7 @@
                             names="this.state.names" loadNames="(model, ids) => this.loadNames(model, ids)"
                             conditionsText="(item) => this.conditionsText(item)" onChange="() => this.touch()"
                             startText="this.data.flow.trigger_label" userSourceTexts="this.userSourceTexts"
+                            nodePills="(node) => this.nodePills(node)" trail="this.testTrail"
                             problems="this.nodeProblems" focusNodeId="this.state.focusNodeId"
                             onFocused="() => this.clearFocus()">
                     <t t-set-slot="help">
@@ -55,11 +64,11 @@
                                         <span class="o_af_chips mt-0" role="radiogroup" aria-labelledby="o_afl_wait">
                                             <button type="button" role="radio"
                                                     t-att-aria-checked="scope.node.wait_unit === 'hours' ? 'true' : 'false'"
-                                                    t-attf-class="o_af_chip #{scope.node.wait_unit === 'hours' ? 'active' : ''}"
+                                                    t-attf-class="o_af_pick #{scope.node.wait_unit === 'hours' ? 'active' : ''}"
                                                     t-on-click="() => this.setWait(scope.node, 'wait_unit', 'hours')">Hours</button>
                                             <button type="button" role="radio"
                                                     t-att-aria-checked="scope.node.wait_unit !== 'hours' ? 'true' : 'false'"
-                                                    t-attf-class="o_af_chip #{scope.node.wait_unit !== 'hours' ? 'active' : ''}"
+                                                    t-attf-class="o_af_pick #{scope.node.wait_unit !== 'hours' ? 'active' : ''}"
                                                     t-on-click="() => this.setWait(scope.node, 'wait_unit', 'days')">Days</button>
                                         </span>
                                     </span>
@@ -96,6 +105,38 @@
                         </p>
                     </t>
                 </FlowEditor>
+                <div t-if="this.state.testOpen" class="o_afl_test">
+                    <div class="o_afl_test_head">
+                        <i class="fa fa-play-circle" aria-hidden="true"/>
+                        <span>Test with a record</span>
+                        <button type="button" class="btn btn-link btn-sm ms-auto p-0 text-muted" title="Close"
+                                aria-label="Close" t-on-click="() => this.toggleTest()">
+                            <i class="fa fa-times" aria-hidden="true"/>
+                        </button>
+                    </div>
+                    <p class="text-muted small mb-2">See the way it would go and who it would reach. Nothing is changed.</p>
+                    <div class="d-flex gap-2 align-items-center">
+                        <div class="flex-grow-1 o_afl_test_record">
+                            <RecordSelector resModel="this.data.flow.model_name" resId="this.state.testRecordId"
+                                            update="(id) => this.setTestRecord(id)"/>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm" t-att-disabled="!this.state.testRecordId"
+                                t-on-click="() => this.runTest()">Test</button>
+                    </div>
+                    <t t-if="this.state.test">
+                        <div t-if="!this.state.test.matches" class="o_afl_test_warning">
+                            <i class="fa fa-exclamation-triangle me-1" aria-hidden="true"/>
+                            This record is not among the records of the flow: it would not start by itself.
+                        </div>
+                        <ol class="o_afl_test_path">
+                            <li t-foreach="this.state.test.path" t-as="entry" t-key="entry_index"
+                                t-attf-class="#{entry.error ? 'o_afl_test_error' : ''}">
+                                <b t-out="this.stepName(entry)"/>
+                                <span t-out="entry.text"/>
+                            </li>
+                        </ol>
+                    </t>
+                </div>
             </div>
         </div>
     </t>

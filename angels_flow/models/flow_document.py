@@ -27,6 +27,8 @@ class AngelsFlowDocumentMixin(models.AbstractModel):
 
     state = fields.Selection(STATES, required=True, default="draft", readonly=True, tracking=True, index=True)
     date_done = fields.Datetime(string="Decided On", readonly=True)
+    flow_trail = fields.Json(string="Trail", readonly=True, copy=False,
+                             help="The steps this document went through: [{node, at}].")
 
     # ------------------------------------------------------------------
     # What the flow needs from the document
@@ -47,6 +49,14 @@ class AngelsFlowDocumentMixin(models.AbstractModel):
 
     def _flow_activity_type(self):
         return self.env.ref("mail.mail_activity_data_todo")
+
+    def _flow_nodes(self):
+        """Every step of the flow this document walks."""
+        raise NotImplementedError
+
+    def _flow_start_text(self):
+        """What starts the flow, in words, for its diagram (False: a requester sends it)."""
+        return False
 
     def _flow_run_node(self, node, values):
         """Run a step kind added by another module; return the next step, or True to stop here."""
@@ -69,6 +79,7 @@ class AngelsFlowDocumentMixin(models.AbstractModel):
             if node.id in seen:
                 raise UserError(_("The flow goes round in a circle at %(step)s.", step=node.name))
             seen.add(node.id)
+            self._flow_trail_add(node)
             kind = node.node_type
             if kind == "start":
                 node = node.next_id
@@ -87,6 +98,7 @@ class AngelsFlowDocumentMixin(models.AbstractModel):
                     raise UserError(_("Nobody can do the step %(step)s.", step=node.name))
                 step = Step.create({
                     Step._flow_document: self.id,
+                    "date_deadline": node._flow_deadline(fields.Datetime.now()),
                     "node_id": node.id,
                     "sequence": len(self.step_ids) + 1,
                     "name": node.name,
@@ -108,6 +120,60 @@ class AngelsFlowDocumentMixin(models.AbstractModel):
                 if node is True:
                     return True
         return self._flow_finish("approved")
+
+    # ------------------------------------------------------------------
+    # Trail: where the document went, for its diagram
+    # ------------------------------------------------------------------
+
+    def _flow_trail_begin(self, start):
+        """A new pass through the flow, from its Start."""
+        self.ensure_one()
+        self.sudo().flow_trail = []
+        self._flow_trail_add(start)
+
+    def _flow_trail_add(self, node):
+        self.ensure_one()
+        entry = {"node": node.id, "at": fields.Datetime.to_string(fields.Datetime.now())}
+        self.sudo().flow_trail = [*(self.flow_trail or []), entry]
+
+    def get_flow_trail(self):
+        """The flow of this document as its diagram shows it, with the steps it went through."""
+        self.ensure_one()
+        self.check_access("read")
+        nodes = self.sudo()._flow_nodes()
+        Node = self.env[nodes._name]
+        now = fields.Datetime.now()
+        trail = list(self.flow_trail or [])
+        steps = self.sudo().step_ids
+        entries = []
+        for index, entry in enumerate(trail):
+            start = fields.Datetime.to_datetime(entry["at"])
+            nxt = trail[index + 1]["at"] if index + 1 < len(trail) else None
+            step = steps.filtered(lambda s, nid=entry["node"]: s.node_id.id == nid)[-1:]
+            if step and step.date_done:
+                end = step.date_done
+            elif nxt:
+                end = fields.Datetime.to_datetime(nxt)
+            else:
+                end = now if self.state == "pending" else (self.date_done or now)
+            entries.append({
+                "node": entry["node"],
+                "at": entry["at"],
+                "hours": round((end - start).total_seconds() / 3600, 1),
+                "state": step.state if step else False,
+                "by": (step.decided_by_id.name or ", ".join(step.approved_by_ids.mapped("name"))) if step else "",
+                "late": bool(step.is_late) if step else False,
+            })
+        current = trail[-1]["node"] if trail and self.state == "pending" else False
+        return {
+            "nodes": [node._to_client() for node in nodes],
+            "ports": Node._flow_ports(),
+            "labels": {"node_types": dict(Node._fields["node_type"]._description_selection(self.env))},
+            "trail": entries,
+            "current": current,
+            "state": self.state,
+            "start_text": self._flow_start_text(),
+        }
 
     def _flow_send_back(self, node):
         """Reopen the document so the requester corrects it and sends it again."""

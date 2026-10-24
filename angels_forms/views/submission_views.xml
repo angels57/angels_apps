@@ -73,6 +73,10 @@
                         <page string="Answers" name="answers">
                             <field name="answers_html" nolabel="1" class="o_af_answers_field"/>
                         </page>
+                        <page string="Flow" name="trail" invisible="not flow_trail">
+                            <field name="flow_trail" invisible="1"/>
+                            <widget name="angels_flow_trail"/>
+                        </page>
                         <page string="Steps" name="steps" invisible="state == 'draft'">
                             <field name="step_ids">
                                 <list decoration-muted="state == 'skipped'" decoration-bf="state == 'pending'">
@@ -83,10 +87,13 @@
                                     <field name="approval_rule" optional="hide"/>
                                     <field name="decided_by_id" widget="many2one_avatar_user" optional="show"/>
                                     <field name="date_done" optional="show"/>
+                                    <field name="date_deadline" optional="show" decoration-danger="is_late"/>
+                                    <field name="is_late" column_invisible="1"/>
                                     <field name="comment" optional="show"/>
                                     <field name="state" widget="badge"
                                            decoration-info="state == 'pending'"
                                            decoration-success="state in ('approved', 'done', 'notified')"
+                                           decoration-warning="state == 'expired'"
                                            decoration-danger="state == 'rejected'"/>
                                 </list>
                             </field>

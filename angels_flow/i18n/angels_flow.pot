@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 11:48+0000\n"
-"PO-Revision-Date: 2026-10-23 11:48+0000\n"
+"POT-Creation-Date: 2026-10-24 20:21+0000\n"
+"PO-Revision-Date: 2026-10-24 20:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,36 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.js:0
 msgid " or "
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "%(people)s would be informed."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "%(people)s would complete it."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "%(step)s expired: nobody acted in time."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "%(step)s is late: it goes to %(user)s too."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "%(step)s is late: please act on it."
 msgstr ""
 
 #. module: angels_flow
@@ -89,7 +119,15 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/trail_widget.js:0
+msgid "%s conditions"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: code:addons/angels_flow/static/src/flow_editor/trail_widget.js:0
 msgid "%s days"
 msgstr ""
 
@@ -101,19 +139,52 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
-#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
-msgid "%s hours"
+#: code:addons/angels_flow/static/src/flow_editor/trail_widget.js:0
+msgid "%s h"
 msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+msgid "%s hours"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/trail_widget.js:0
+msgid "%s min"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "0: no deadline."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/trail_widget.js:0
+msgid "1 condition"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 msgid "1 day"
 msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "1 field"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 msgid "1 hour"
 msgstr ""
 
@@ -289,6 +360,7 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__condition_match__all
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__condition_match__all
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__condition_match__all
 msgid "All conditions"
 msgstr ""
 
@@ -318,6 +390,7 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__condition_match__any
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__condition_match__any
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__condition_match__any
 msgid "Any condition"
 msgstr ""
 
@@ -337,7 +410,15 @@ msgstr ""
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__approve
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__step_type__approve
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__step_type__approve
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__node_type__approve
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__step_type__approve
 msgid "Approval"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Approval by %(people)s; if they approve, it goes on."
 msgstr ""
 
 #. module: angels_flow
@@ -364,6 +445,9 @@ msgstr ""
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__approved
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__approved
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__approved
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__end_state__approved
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__state__approved
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_submission__state__approved
 msgid "Approved"
 msgstr ""
 
@@ -406,8 +490,15 @@ msgid "Automation Rule"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Average time over %s finished steps"
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__back
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__back
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__node_type__back
 msgid "Back to Requester"
 msgstr ""
 
@@ -435,6 +526,7 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_document_mixin__state__cancelled
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__cancelled
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_submission__state__cancelled
 msgid "Cancelled"
 msgstr ""
 
@@ -488,6 +580,12 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Close"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__color
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__color
@@ -526,6 +624,7 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__condition
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__condition
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__node_type__condition
 msgid "Condition"
 msgstr ""
 
@@ -594,11 +693,32 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
 #: code:addons/angels_flow/static/src/designer/update_editor.xml:0
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_update__days
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__date_range_type__day
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__interval_type__days
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__deadline_unit__days
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__wait_unit__days
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__deadline_unit__days
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__deadline_unit__days
 msgid "Days"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__deadline_amount
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__deadline_amount
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__date_deadline
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__date_deadline
+msgid "Deadline"
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__deadline_unit
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__deadline_unit
+msgid "Deadline Unit"
 msgstr ""
 
 #. module: angels_flow
@@ -680,6 +800,7 @@ msgstr ""
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__done
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__done
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__state__done
 msgid "Done"
 msgstr ""
 
@@ -692,6 +813,7 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_document_mixin__state__draft
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__draft
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_submission__state__draft
 msgid "Draft"
 msgstr ""
 
@@ -721,9 +843,30 @@ msgid "Empty"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__end
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__end
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__node_type__end
 msgid "End"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Ends: approved."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Ends: rejected."
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__escalate_user_id
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__escalate_user_id
+msgid "Escalate To"
 msgstr ""
 
 #. module: angels_flow
@@ -761,7 +904,18 @@ msgstr ""
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__approval_rule__all
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__approval_rule__all
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__approval_rule__all
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__approval_rule__all
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__approval_rule__all
 msgid "Everyone must approve"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__expired
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__expired
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__state__expired
+msgid "Expired"
 msgstr ""
 
 #. module: angels_flow
@@ -799,6 +953,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:angels_flow.field_ir_actions_server__angels_flow_id
 #: model:ir.model.fields,field_description:angels_flow.field_ir_cron__angels_flow_id
 #: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
+#: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
 #: model_terms:ir.ui.view,arch_db:angels_flow.view_run_search
 msgid "Flow"
 msgstr ""
@@ -903,6 +1058,15 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__on_deadline__expire
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__on_deadline__expire
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__on_deadline__expire
+msgid "Go on by “Expired”"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
 msgid "Go to “Yes” when"
 msgstr ""
@@ -922,9 +1086,13 @@ msgstr ""
 #. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__date_range_type__hour
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__interval_type__hours
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__deadline_unit__hours
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__wait_unit__hours
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__deadline_unit__hours
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__deadline_unit__hours
 msgid "Hours"
 msgstr ""
 
@@ -968,6 +1136,11 @@ msgid "If"
 msgstr ""
 
 #. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__expired_id
+msgid "If Expired"
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__no_id
 msgid "If No"
 msgstr ""
@@ -999,6 +1172,7 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_document_mixin__state__pending
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__pending
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_submission__state__pending
 msgid "In Review"
 msgstr ""
 
@@ -1011,6 +1185,7 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__notified
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__notified
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__state__notified
 msgid "Informed"
 msgstr ""
 
@@ -1018,6 +1193,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_is_follower
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_is_follower
 msgid "Is Follower"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/trail_widget.xml:0
+msgid "It has not started the flow yet."
 msgstr ""
 
 #. module: angels_flow
@@ -1051,6 +1232,20 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/trail_widget.js:0
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__is_late
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_step_mixin__is_late
+msgid "Late"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_step.py:0
+msgid "Late: %(request)s"
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow__trigger__manual
 msgid "Manually"
 msgstr ""
@@ -1073,6 +1268,7 @@ msgstr ""
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__assign_type__group
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__assign_type__group
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__assign_type__group
 msgid "Members of a group"
 msgstr ""
 
@@ -1197,6 +1393,12 @@ msgid "No flow can run on %(model)s."
 msgstr ""
 
 #. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "No more steps: the run would be approved."
+msgstr ""
+
+#. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.js:0
 msgid "No name"
@@ -1227,8 +1429,26 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "No: the conditions are not met."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
 #: code:addons/angels_flow/models/flow_document.py:0
 msgid "Nobody can do the step %(step)s."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Nobody can do this step: the run would stop here."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Nobody to escalate to"
 msgstr ""
 
 #. module: angels_flow
@@ -1253,7 +1473,15 @@ msgstr ""
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__notify
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__step_type__notify
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__step_type__notify
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__node_type__notify
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__step_type__notify
 msgid "Notification"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/trail_widget.js:0
+msgid "Now here"
 msgstr ""
 
 #. module: angels_flow
@@ -1302,6 +1530,8 @@ msgstr ""
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__approval_rule__any
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__approval_rule__any
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__approval_rule__any
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__approval_rule__any
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__approval_rule__any
 msgid "One person is enough"
 msgstr ""
 
@@ -1396,7 +1626,19 @@ msgstr ""
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run__state__rejected
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__rejected
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__rejected
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__end_state__rejected
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__state__rejected
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_submission__state__rejected
 msgid "Rejected"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__on_deadline__remind
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__on_deadline__remind
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__on_deadline__remind
+msgid "Remind them"
 msgstr ""
 
 #. module: angels_flow
@@ -1510,6 +1752,12 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "See the way it would go and who it would reach. Nothing is changed."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
 msgid ""
 "Select a step to choose who receives the request, the conditions, and what "
@@ -1525,6 +1773,15 @@ msgstr ""
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__assign_type
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__assign_type
 msgid "Send To"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__on_deadline__escalate
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__on_deadline__escalate
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__on_deadline__escalate
+msgid "Send it to someone else too"
 msgstr ""
 
 #. module: angels_flow
@@ -1573,6 +1830,7 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__skipped
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__skipped
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__state__skipped
 msgid "Skipped"
 msgstr ""
 
@@ -1586,6 +1844,7 @@ msgstr ""
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__assign_type__users
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__assign_type__users
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__assign_type__users
 msgid "Specific users"
 msgstr ""
 
@@ -1594,6 +1853,7 @@ msgstr ""
 #: code:addons/angels_flow/models/flow.py:0
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__start
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__start
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__node_type__start
 msgid "Start"
 msgstr ""
 
@@ -1641,6 +1901,12 @@ msgid "Starts"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Starts for %(record)s."
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__state
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__state
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run_step__state
@@ -1681,12 +1947,38 @@ msgstr ""
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__task
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__step_type__task
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__step_type__task
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__node_type__task
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__step_type__task
 msgid "Task"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Test"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Test with a record"
 msgstr ""
 
 #. module: angels_flow
 #: model_terms:ir.actions.act_window,help:angels_flow.action_run_to_do
 msgid "The approvals and tasks of the flows that reach you show here."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_node.py:0
+msgid "The deadline of %(step)s cannot be negative."
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run_step__is_late
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_step_mixin__is_late
+msgid "The deadline passed: the reminder or the escalation was done."
 msgstr ""
 
 #. module: angels_flow
@@ -1748,6 +2040,12 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields,help:angels_flow.field_angels_flow__filter_domain
 msgid "The flow starts only on the records that match."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "The flow would go round in a circle here."
 msgstr ""
 
 #. module: angels_flow
@@ -1864,6 +2162,12 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-python
+#: code:addons/angels_flow/models/flow_node.py:0
+msgid "The step %(step)s needs someone to send it to when it is late."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
 #: code:addons/angels_flow/models/flow.py:0
 msgid "The step %(step)s waits at least 1 hour or day."
 msgstr ""
@@ -1883,7 +2187,19 @@ msgstr ""
 #. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "The step “%s” needs someone to send it to when it is late."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
 msgid "The step “%s” sets no field."
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_document_mixin__flow_trail
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_run__flow_trail
+msgid "The steps this document went through: [{node, at}]."
 msgstr ""
 
 #. module: angels_flow
@@ -1901,6 +2217,20 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "This record does not exist."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid ""
+"This record is not among the records of the flow: it would not start by "
+"itself."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
 #: code:addons/angels_flow/models/flow_run.py:0
 msgid "This run is not waiting for your decision."
 msgstr ""
@@ -1912,9 +2242,22 @@ msgid "This step is no longer waiting for a decision."
 msgstr ""
 
 #. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_node__deadline_amount
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_node_mixin__deadline_amount
+msgid "Time its people have to act. 0: no deadline."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Times"
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.actions.act_window,name:angels_flow.action_run_to_do
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__pending
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__pending
+#: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__state__pending
 #: model:ir.ui.menu,name:angels_flow.menu_flow_to_do
 msgid "To Do"
 msgstr ""
@@ -1922,6 +2265,12 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_update__source__today
 msgid "Today + Days"
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__flow_trail
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__flow_trail
+msgid "Trail"
 msgstr ""
 
 #. module: angels_flow
@@ -2064,6 +2413,18 @@ msgid "Waiting for Me"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Waits %(amount)s days."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Waits %(amount)s hours."
+msgstr ""
+
+#. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.js:0
 msgid "Waits %s, then goes on"
@@ -2110,6 +2471,12 @@ msgid "When"
 msgstr ""
 
 #. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__on_deadline
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__on_deadline
+msgid "When It Is Late"
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow__trigger_field_ids
 msgid "When These Change"
 msgstr ""
@@ -2127,6 +2494,12 @@ msgstr ""
 #. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
+msgid "When it is late"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
 msgid "When several people receive it"
 msgstr ""
 
@@ -2134,6 +2507,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 msgid "When the requester sends the form"
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_node__expired_id
+msgid ""
+"Where a late step goes when its deadline says so. Empty: the run is "
+"rejected."
 msgstr ""
 
 #. module: angels_flow
@@ -2153,6 +2533,12 @@ msgid "Who Started the Run"
 msgstr ""
 
 #. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_node__escalate_user_id
+#: model:ir.model.fields,help:angels_flow.field_angels_flow_node_mixin__escalate_user_id
+msgid "Who also receives the step once it is late."
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields,help:angels_flow.field_angels_flow__allow_self_approval
 msgid ""
 "Who started a run may also approve its steps. Off: someone else must approve"
@@ -2160,10 +2546,28 @@ msgid ""
 msgstr ""
 
 #. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Would run: %(action)s."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Would set: %(fields)s."
+msgstr ""
+
+#. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/update_editor.xml:0
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 msgid "Yes"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-python
+#: code:addons/angels_flow/models/flow_action.py:0
+msgid "Yes: the conditions are met."
 msgstr ""
 
 #. module: angels_flow
@@ -2233,6 +2637,12 @@ msgstr ""
 #. module: angels_flow
 #: model_terms:ir.ui.view,arch_db:angels_flow.view_flow_form
 msgid "e.g. Sales Order"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/flow_editor/trail_widget.js:0
+msgid "for %s"
 msgstr ""
 
 #. module: angels_flow
@@ -2330,6 +2740,7 @@ msgid "value"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.js:0
-msgid "1 field"
+msgid "⌀ %(time)s · %(count)s"
 msgstr ""

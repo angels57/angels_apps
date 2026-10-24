@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
 
     <t t-name="angels_flow.FlowEditor">
-        <aside class="o_af_palette">
+        <aside t-if="!this.props.readonly" class="o_af_palette">
             <h6>Add a step</h6>
             <p class="text-muted small">Drag a step onto the board, or click it to add it after the selected one.</p>
             <button t-foreach="this.palette" t-as="item" t-key="item.type" type="button"
@@ -104,7 +104,7 @@
                         <span t-elif="!this.kindPills(node).length" class="o_af_node_meta_text"
                               t-out="this.summary(node)"/>
                         <span t-foreach="this.pills(node)" t-as="pill" t-key="pill_index" t-att-title="pill.title"
-                              t-attf-class="o_af_node_pill #{pill.muted ? 'o_af_node_pill_muted' : ''} #{pill.stage ? 'o_af_node_pill_stage' : ''}">
+                              t-attf-class="o_af_node_pill #{pill.muted ? 'o_af_node_pill_muted' : ''} #{pill.stage ? 'o_af_node_pill_stage' : ''} #{pill.tone ? 'o_af_node_pill_' + pill.tone : ''}">
                             <i t-attf-class="fa #{pill.icon}" aria-hidden="true"/><t t-out="pill.text"/>
                         </span>
                     </div>
@@ -112,7 +112,7 @@
                         <span t-attf-class="o_af_port o_af_port_#{port.port} #{port.linked ? 'o_af_port_linked' : ''}"
                               t-attf-style="top: {{port.top}}px;" t-att-title="port.label"
                               t-on-pointerdown="(ev) => this.onPortPointerDown(node, port.port, ev)"/>
-                        <button t-if="!port.linked" type="button"
+                        <button t-if="!port.linked and !this.props.readonly" type="button"
                                 t-attf-class="o_af_port_add o_af_port_add_#{port.tone}"
                                 t-attf-style="top: {{port.top}}px;" t-att-title="port.label"
                                 t-on-pointerdown.stop="() => {}" t-on-click="() => this.toggleAddMenu(node, port.port)">
@@ -136,7 +136,7 @@
         </div>
         </main>
 
-        <aside class="o_af_inspector o_af_inspector_wide">
+        <aside t-if="!this.props.readonly" class="o_af_inspector o_af_inspector_wide">
             <t t-if="this.selected">
                 <t t-set="node" t-value="this.selected"/>
                 <div class="d-flex align-items-center gap-2 mb-2">
@@ -161,7 +161,7 @@
                             <span class="o_af_chips" role="radiogroup" aria-labelledby="o_af_node_end">
                                 <button t-foreach="this.endChoices" t-as="choice" t-key="choice.value" type="button" role="radio"
                                         t-att-aria-checked="this.isChosen(node, 'end_state', choice) ? 'true' : 'false'"
-                                        t-attf-class="o_af_chip #{this.isChosen(node, 'end_state', choice) ? 'active' : ''}"
+                                        t-attf-class="o_af_pick #{this.isChosen(node, 'end_state', choice) ? 'active' : ''}"
                                         t-on-click="() => this.setProp(node, 'end_state', choice.value)" t-out="choice.label"/>
                             </span>
                         </span>
@@ -174,7 +174,7 @@
                                 <span class="o_af_chips" role="radiogroup" aria-labelledby="o_af_node_assign">
                                     <button t-foreach="this.assignChoices" t-as="choice" t-key="choice.value" type="button" role="radio"
                                             t-att-aria-checked="this.isChosen(node, 'assign_type', choice) ? 'true' : 'false'"
-                                            t-attf-class="o_af_chip #{this.isChosen(node, 'assign_type', choice) ? 'active' : ''}"
+                                            t-attf-class="o_af_pick #{this.isChosen(node, 'assign_type', choice) ? 'active' : ''}"
                                             t-on-click="() => this.setProp(node, 'assign_type', choice.value)" t-out="choice.label"/>
                                 </span>
                                 <span class="o_af_setting_value">
@@ -198,6 +198,38 @@
                                 </span>
                             </span>
                         </div>
+                        <div t-if="node.type === 'approve' or node.type === 'task'" class="o_af_setting">
+                            <i class="fa fa-fw fa-clock-o" aria-hidden="true"/>
+                            <span class="o_af_setting_body">
+                                <small id="o_af_node_deadline">Deadline</small>
+                                <span class="d-flex flex-wrap align-items-center gap-2 mt-1">
+                                    <input type="number" min="0" class="form-control form-control-sm o_af_deadline_amount"
+                                           aria-labelledby="o_af_node_deadline" t-att-value="node.deadline_amount"
+                                           t-on-change="(ev) => this.setDeadline(node, ev.target.value)"/>
+                                    <span class="o_af_chips mt-0" role="radiogroup" aria-labelledby="o_af_node_deadline">
+                                        <button t-foreach="this.unitChoices" t-as="choice" t-key="choice.value" type="button" role="radio"
+                                                t-att-aria-checked="this.isChosen(node, 'deadline_unit', choice) ? 'true' : 'false'"
+                                                t-attf-class="o_af_pick #{this.isChosen(node, 'deadline_unit', choice) ? 'active' : ''}"
+                                                t-on-click="() => this.setProp(node, 'deadline_unit', choice.value)" t-out="choice.label"/>
+                                    </span>
+                                </span>
+                                <span t-if="!node.deadline_amount" class="d-block text-muted small mt-1">0: no deadline.</span>
+                                <t t-else="">
+                                    <small id="o_af_node_late" class="d-block mt-2">When it is late</small>
+                                    <span class="o_af_chips" role="radiogroup" aria-labelledby="o_af_node_late">
+                                        <button t-foreach="this.deadlineChoices" t-as="choice" t-key="choice.value" type="button" role="radio"
+                                                t-att-aria-checked="this.isChosen(node, 'on_deadline', choice) ? 'true' : 'false'"
+                                                t-attf-class="o_af_pick #{this.isChosen(node, 'on_deadline', choice) ? 'active' : ''}"
+                                                t-on-click="() => this.setOnDeadline(node, choice.value)" t-out="choice.label"/>
+                                    </span>
+                                    <span t-if="node.on_deadline === 'escalate'" class="o_af_setting_value">
+                                        <RecordSelector resModel="'res.users'" resId="node.escalate_user_id"
+                                                        domain="[['share', '=', false]]"
+                                                        update="(id) => this.setProp(node, 'escalate_user_id', id or false)"/>
+                                    </span>
+                                </t>
+                            </span>
+                        </div>
                         <div t-if="node.type === 'approve'" class="o_af_setting">
                             <i class="fa fa-fw fa-users" aria-hidden="true"/>
                             <span class="o_af_setting_body">
@@ -205,7 +237,7 @@
                                 <span class="o_af_chips" role="radiogroup" aria-labelledby="o_af_node_rule">
                                     <button t-foreach="this.ruleChoices" t-as="choice" t-key="choice.value" type="button" role="radio"
                                             t-att-aria-checked="this.isChosen(node, 'approval_rule', choice) ? 'true' : 'false'"
-                                            t-attf-class="o_af_chip #{this.isChosen(node, 'approval_rule', choice) ? 'active' : ''}"
+                                            t-attf-class="o_af_pick #{this.isChosen(node, 'approval_rule', choice) ? 'active' : ''}"
                                             t-on-click="() => this.setProp(node, 'approval_rule', choice.value)" t-out="choice.label"/>
                                 </span>
                             </span>

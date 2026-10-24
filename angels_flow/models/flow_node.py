@@ -15,13 +15,13 @@ NODE_TYPES = [
 PORTS = {
     "start": ("next",),
     "condition": ("yes", "no"),
-    "approve": ("next", "reject"),
-    "task": ("next",),
+    "approve": ("next", "reject", "expired"),
+    "task": ("next", "expired"),
     "notify": ("next",),
     "back": (),
     "end": (),
 }
-PORT_FIELDS = {"next": "next_id", "yes": "yes_id", "no": "no_id", "reject": "reject_id"}
+PORT_FIELDS = {"next": "next_id", "yes": "yes_id", "no": "no_id", "reject": "reject_id", "expired": "expired_id"}
 # Node types that reach people.
 PEOPLE_TYPES = ("approve", "task", "notify")
 # Context key to save a whole flow before checking its steps.
@@ -33,8 +33,8 @@ class AngelsFlowNodeMixin(models.AbstractModel):
 
     The model that inherits it names the field of the record holding the flow
     (``_flow_container``) and declares the links, Many2one to itself:
-    ``next_id``, ``yes_id``, ``no_id`` and ``reject_id``. Its constraint on
-    them calls ``_check_flow_links``.
+    ``next_id``, ``yes_id``, ``no_id``, ``reject_id`` and ``expired_id``. Its
+    constraint on them calls ``_check_flow_links``.
     """
 
     _name = "angels.flow.node.mixin"
@@ -60,6 +60,22 @@ class AngelsFlowNodeMixin(models.AbstractModel):
         [("any", "One person is enough"), ("all", "Everyone must approve")],
         string="Rule",
         default="any",
+    )
+    deadline_amount = fields.Integer(
+        string="Deadline", help="Time its people have to act. 0: no deadline.",
+    )
+    deadline_unit = fields.Selection([("hours", "Hours"), ("days", "Days")], string="Deadline Unit", default="days")
+    on_deadline = fields.Selection(
+        [
+            ("remind", "Remind them"),
+            ("escalate", "Send it to someone else too"),
+            ("expire", "Go on by “Expired”"),
+        ],
+        string="When It Is Late", default="remind",
+    )
+    escalate_user_id = fields.Many2one(
+        "res.users", string="Escalate To", domain=[("share", "=", False)],
+        help="Who also receives the step once it is late.",
     )
     condition_match = fields.Selection(
         [("all", "All conditions"), ("any", "Any condition")],
@@ -102,6 +118,24 @@ class AngelsFlowNodeMixin(models.AbstractModel):
             if node.assign_type == "group" and not node.group_id:
                 raise ValidationError(_("The step %(step)s needs a group.", step=node.name))
 
+    @api.constrains("deadline_amount", "on_deadline", "escalate_user_id")
+    def _check_deadline(self):
+        if self.env.context.get(DEFER):
+            return
+        for node in self.filtered(lambda n: n.deadline_amount):
+            if node.deadline_amount < 0:
+                raise ValidationError(_("The deadline of %(step)s cannot be negative.", step=node.name))
+            if node.on_deadline == "escalate" and not node.escalate_user_id:
+                raise ValidationError(_("The step %(step)s needs someone to send it to when it is late.",
+                                        step=node.name))
+
+    def _flow_deadline(self, start):
+        """When a step reached at ``start`` is late, or False."""
+        self.ensure_one()
+        if self.node_type not in ("approve", "task") or self.deadline_amount <= 0:
+            return False
+        return fields.Datetime.add(start, **{self.deadline_unit or "days": self.deadline_amount})
+
     def _flow_condition_met(self, values):
         """Whether a Condition step goes to "Yes". ``values`` come from the document."""
         self.ensure_one()
@@ -135,4 +169,8 @@ class AngelsFlowNodeMixin(models.AbstractModel):
             "group_id": self.group_id.id,
             "approval_rule": self.approval_rule or "any",
             "match": self.condition_match,
+            "deadline_amount": self.deadline_amount,
+            "deadline_unit": self.deadline_unit or "days",
+            "on_deadline": self.on_deadline or "remind",
+            "escalate_user_id": self.escalate_user_id.id,
         }

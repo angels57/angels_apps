@@ -61,6 +61,10 @@
                         </group>
                     </group>
                     <notebook>
+                        <page string="Flow" name="trail">
+                            <field name="flow_trail" invisible="1"/>
+                            <widget name="angels_flow_trail"/>
+                        </page>
                         <page string="Steps" name="steps">
                             <field name="step_ids">
                                 <list decoration-muted="state in ('skipped', 'notified')" decoration-bf="state == 'pending'">
@@ -70,8 +74,11 @@
                                     <field name="approved_by_ids" widget="many2many_avatar_user" optional="show"/>
                                     <field name="comment" optional="show"/>
                                     <field name="date_done"/>
+                                    <field name="date_deadline" optional="show" decoration-danger="is_late"/>
+                                    <field name="is_late" column_invisible="1"/>
                                     <field name="state" widget="badge" decoration-info="state == 'pending'"
                                            decoration-success="state in ('approved', 'done')"
+                                           decoration-warning="state == 'expired'"
                                            decoration-danger="state == 'rejected'"/>
                                 </list>
                             </field>

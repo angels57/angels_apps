@@ -9,7 +9,7 @@ from .form_record import PLACEHOLDER, record_field_allowed, record_model_allowed
 SUBMISSION_MODEL = "angels.form.submission"
 FIELD_KEYS = ("name", "required", "help", "placeholder", "prefix", "suffix", "width")
 SETTING_KEYS = ("name", "description", "icon", "color", "allow_self_approval")
-NODE_KEYS = ("name", "end_state", "assign_type", "approval_rule")
+NODE_KEYS = ("name", "end_state", "assign_type", "approval_rule", "deadline_amount", "deadline_unit", "on_deadline")
 START_POSITION = (40, 160)
 
 
@@ -444,6 +444,7 @@ class AngelsForm(models.Model):
                 "assign_type": item.get("assign_type") or "users",
                 "user_ids": [fields.Command.set(item.get("user_ids") or [])],
                 "group_id": item.get("group_id") or False,
+                "escalate_user_id": item.get("escalate_user_id") or False,
                 "user_field_id": user_field.id if user_field else False,
                 "condition_ids": conditions(item.get("conditions")),
             })
@@ -455,6 +456,12 @@ class AngelsForm(models.Model):
         title = fields_by_client_id.get(form_data.get("title_field_id"))
         self.title_field_id = title or False
         return self.get_design_data()
+
+    def get_step_stats(self):
+        """How long the people of each step take, for the designer."""
+        self.ensure_one()
+        self.check_access("write")
+        return self.env["angels.form.step"]._flow_stats(self.node_ids)
 
     def _record_vals(self, node, item, fields_by_client_id):
         """What a Create Record step creates. Mappings are rewritten only when they change."""

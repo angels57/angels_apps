@@ -94,6 +94,13 @@ class AngelsFlowRun(models.Model):
     def _flow_requester(self):
         return self.user_id
 
+    def _flow_nodes(self):
+        return self.flow_id.node_ids
+
+    def _flow_start_text(self):
+        flow = self.flow_id
+        return dict(flow._fields["trigger"]._description_selection(self.env))[flow.trigger]
+
     def _flow_allow_self_approval(self):
         return self.flow_id.allow_self_approval
 
@@ -127,6 +134,7 @@ class AngelsFlowRun(models.Model):
         })
         self._post_on_record(_("The flow %(flow)s started: %(run)s.", flow=self.flow_id.name,
                                run=self._get_html_link()))
+        self._flow_trail_begin(start)
         return self._flow_run(start.next_id)
 
     def _flow_fail(self, error):

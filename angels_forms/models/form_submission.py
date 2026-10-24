@@ -276,7 +276,9 @@ class AngelsFormSubmission(models.Model):
         else:
             body = _("Request sent by %(user)s.", user=self.user_id.name)
         self.sudo().message_post(body=Markup("<p>%s</p>") % body, subtype_xmlid="mail.mt_note")
-        self._flow_run(self.form_id._start_node().next_id)
+        start = self.form_id._start_node()
+        self._flow_trail_begin(start)
+        self._flow_run(start.next_id)
         return True
 
     # What the flow reads from a request
@@ -285,6 +287,9 @@ class AngelsFormSubmission(models.Model):
 
     def _flow_requester(self):
         return self.user_id
+
+    def _flow_nodes(self):
+        return self.form_id.node_ids
 
     def _flow_allow_self_approval(self):
         return self.form_id.allow_self_approval

@@ -1005,6 +1005,7 @@ msgstr ""
 #: code:addons/angels_forms/static/src/designer/designer_action.xml:0
 #: model:ir.model.fields,field_description:angels_forms.field_angels_form__node_ids
 #: model_terms:ir.ui.view,arch_db:angels_forms.view_form_form
+#: model_terms:ir.ui.view,arch_db:angels_forms.view_submission_form
 msgid "Flow"
 msgstr "Flujo"
 
@@ -2816,3 +2817,99 @@ msgstr ""
 #: model:ir.model.fields,help:angels_forms.field_angels_form_submission__website_message_ids
 msgid "Website communication history"
 msgstr ""
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Average time over %s finished steps"
+msgstr "Tiempo medio en %s pasos terminados"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__deadline_amount
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__date_deadline
+msgid "Deadline"
+msgstr "Plazo"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__deadline_unit
+msgid "Deadline Unit"
+msgstr "Unidad del plazo"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__escalate_user_id
+msgid "Escalate To"
+msgstr "Escalar a"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__expired_id
+msgid "If Expired"
+msgstr "Si vence"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_step__is_late
+msgid "Late"
+msgstr "Con retraso"
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "Nobody to escalate to"
+msgstr "Nadie a quien escalar"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_step__is_late
+msgid "The deadline passed: the reminder or the escalation was done."
+msgstr "El plazo pasó: ya se hizo el recordatorio o el escalado."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "The step “%s” needs someone to send it to when it is late."
+msgstr ""
+"El paso “%s” necesita a alguien a quien pasarlo cuando vaya con retraso."
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_submission__flow_trail
+msgid "The steps this document went through: [{node, at}]."
+msgstr "Los pasos por los que pasó este documento: [{node, at}]."
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_node__deadline_amount
+msgid "Time its people have to act. 0: no deadline."
+msgstr "Tiempo que tienen sus personas para actuar. 0: sin plazo."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.xml:0
+msgid "Times"
+msgstr "Tiempos"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_submission__flow_trail
+msgid "Trail"
+msgstr "Recorrido"
+
+#. module: angels_forms
+#: model:ir.model.fields,field_description:angels_forms.field_angels_form_node__on_deadline
+msgid "When It Is Late"
+msgstr "Cuando vaya con retraso"
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_node__expired_id
+msgid ""
+"Where a late step goes when its deadline says so. Empty: the request is "
+"rejected."
+msgstr ""
+"A dónde va un paso con retraso si su plazo lo indica. Vacío: la solicitud se"
+" rechaza."
+
+#. module: angels_forms
+#: model:ir.model.fields,help:angels_forms.field_angels_form_node__escalate_user_id
+msgid "Who also receives the step once it is late."
+msgstr "Quién recibe también el paso cuando va con retraso."
+
+#. module: angels_forms
+#. odoo-javascript
+#: code:addons/angels_forms/static/src/designer/designer_action.js:0
+msgid "⌀ %(time)s · %(count)s"
+msgstr "⌀ %(time)s · %(count)s"

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_flow.FlowTrail">
+        <div t-if="this.state.data and this.state.data.trail.length" class="o_af_body o_af_trail">
+            <FlowEditor readonly="true" nodes="this.state.data.nodes" sources="[]" labels="this.state.data.labels"
+                        ports="this.state.data.ports" operatorsByType="{}" names="this.state.names"
+                        loadNames="() => {}" conditionsText="(item) => this.conditionsText(item)" onChange="() => {}"
+                        trail="this.trail" nodePills="(node) => this.nodePills(node)"
+                        startText="this.state.data.start_text"/>
+        </div>
+        <p t-elif="this.state.data" class="text-muted small mb-0">It has not started the flow yet.</p>
+    </t>
+
+</templates>
