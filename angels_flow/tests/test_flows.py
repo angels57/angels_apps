@@ -291,6 +291,29 @@ class TestFlows(TransactionCase):
         self.assertFalse(partner.comment)
         self.assertFalse(flow.run_ids)
 
+    def test_example_flow_and_getting_started(self):
+        example = self.env.ref("angels_flow.example_flow_welcome")
+        self.assertEqual((example.active, example.is_example, example.trigger), (False, True, "on_create"))
+        self.assertEqual(len(example.node_ids.filtered(lambda n: n.node_type == "start")), 1)
+        self.assertFalse(example.automation_id, "off until switched on")
+        welcome = self.env["angels.flow"].get_welcome_data()
+        self.assertIn(example.id, [e["id"] for e in welcome["examples"]])
+        action = example.action_use_example()
+        copy = self.env["angels.flow"].with_context(active_test=False).browse(action["context"]["active_id"])
+        self.assertEqual((copy.active, copy.is_example), (False, False))
+        self.assertEqual(len(copy.node_ids), len(example.node_ids))
+        self.assertEqual(copy._start_node().next_id.name, "Is It a Company?")
+        # The copy works: a company with a salesperson gets the call.
+        company = self.env["res.partner"].create({"name": "Pat Ltd", "is_company": True, "user_id": self.seller.id})
+        path = copy.simulate(company.id)["path"]
+        self.assertIn("Seller", path[2]["text"])
+        copy.action_activate()
+        self.assertEqual(copy.automation_id.trigger, "on_create")
+        other = self.env["res.partner"].create({"name": "Quin Ltd", "is_company": True, "user_id": self.seller.id})
+        run = copy.run_ids.filtered(lambda r: r.res_id == other.id)
+        self.assertEqual(run.current_step_id.user_ids, self.seller)
+        self.assertTrue(run.current_step_id.date_deadline)
+
     def test_technical_models_are_refused(self):
         for model in ("ir.config_parameter", "angels.flow.run", "res.users.log"):
             with self.assertRaises(ValidationError, msg=model):

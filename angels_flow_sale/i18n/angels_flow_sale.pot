@@ -6,14 +6,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-23 11:48+0000\n"
-"PO-Revision-Date: 2026-10-23 11:48+0000\n"
+"POT-Creation-Date: 2026-10-24 20:31+0000\n"
+"PO-Revision-Date: 2026-10-24 20:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: angels_flow_sale
+#: model:angels.flow,description:angels_flow_sale.example_flow_big_quotation
+msgid ""
+"A quotation over 10,000 needs the approval of a sales manager (2 days, then "
+"the administrator gets it too). Once approved, it is sent to the customer "
+"and confirmed."
+msgstr ""
+
+#. module: angels_flow_sale
+#: model:angels.flow,name:angels_flow_sale.example_flow_big_quotation
+msgid "Big Quotation Approval"
+msgstr ""
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_confirm
+msgid "Confirm the Order"
+msgstr ""
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_end
+msgid "Confirmed"
+msgstr ""
 
 #. module: angels_flow_sale
 #: model:ir.model.fields,field_description:angels_flow_sale.field_angels_flow__display_name
@@ -38,9 +61,19 @@ msgid "ID"
 msgstr ""
 
 #. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_rejected
+msgid "Rejected"
+msgstr ""
+
+#. module: angels_flow_sale
 #. odoo-python
 #: code:addons/angels_flow_sale/models/flow.py:0
 msgid "Sales"
+msgstr ""
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_approve
+msgid "Sales Manager Approval"
 msgstr ""
 
 #. module: angels_flow_sale
@@ -53,6 +86,16 @@ msgstr ""
 #. odoo-python
 #: code:addons/angels_flow_sale/models/flow.py:0
 msgid "Send by email to the customer"
+msgstr ""
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_send
+msgid "Send to the Customer"
+msgstr ""
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_start
+msgid "Start"
 msgstr ""
 
 #. module: angels_flow_sale

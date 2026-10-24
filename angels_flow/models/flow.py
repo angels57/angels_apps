@@ -4,6 +4,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools.safe_eval import datetime as safe_eval_datetime
 from odoo.tools.safe_eval import safe_eval
 
 from .flow_condition import OPERATORS_BY_TYPE, field_kind
@@ -37,7 +38,11 @@ class AngelsFlow(models.Model):
     name = fields.Char(required=True, translate=True)
     active = fields.Boolean(default=True)
     sequence = fields.Integer(default=10)
-    description = fields.Text()
+    description = fields.Text(translate=True)
+    is_example = fields.Boolean(
+        string="Example", readonly=True, copy=False,
+        help="An example shipped with the module: use it as it is, or as a start for your own flow.",
+    )
     model_id = fields.Many2one(
         "ir.model", string="Applies To", required=True, ondelete="cascade",
         domain=[("transient", "=", False), ("abstract", "=", False)],
@@ -102,7 +107,8 @@ class AngelsFlow(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         flows = super().create(vals_list)
-        for flow in flows:
+        # Example flows come with their own Start.
+        for flow in flows.filtered(lambda f: not self.env.context.get("angels_flow_no_start")):
             flow.node_ids.create([
                 {"flow_id": flow.id, "name": self.env._("Start"), "node_type": "start", "pos_x": 40, "pos_y": 160},
             ])
@@ -196,7 +202,13 @@ class AngelsFlow(models.Model):
 
     def _records_domain(self):
         self.ensure_one()
-        return safe_eval(self.filter_domain or "[]", {"uid": self.env.uid, "user": self.env.user})
+        return safe_eval(self.filter_domain or "[]", {
+            "uid": self.env.uid,
+            "user": self.env.user,
+            "context_today": lambda: fields.Date.context_today(self),
+            "datetime": safe_eval_datetime,
+            "relativedelta": relativedelta,
+        })
 
     def _start(self, records, raise_errors=True):
         """Start a run of the flow on each of ``records`` that may go through it.
@@ -277,6 +289,39 @@ class AngelsFlow(models.Model):
             "success" if runs else "warning",
         )
 
+    # ------------------------------------------------------------------
+    # Getting started
+    # ------------------------------------------------------------------
+
+    @api.model
+    def get_welcome_data(self):
+        """The examples to start from, for the Get Started screen."""
+        self.check_access("create")
+        examples = self.with_context(active_test=False).search([("is_example", "=", True)])
+        triggers = dict(self._fields["trigger"]._description_selection(self.env))
+        return {
+            "examples": [{
+                "id": flow.id,
+                "name": flow.name,
+                "description": flow.description or "",
+                "model": flow.model_id.name,
+                "trigger": triggers[flow.trigger],
+                "active": flow.active,
+                "steps": len(flow.node_ids) - 1,
+            } for flow in examples],
+            "flow_count": self.search_count([("is_example", "=", False)]),
+        }
+
+    def action_use_example(self):
+        """A copy of the example, to make it one's own; it opens in the designer."""
+        self.ensure_one()
+        copy = self.copy({"active": False})
+        return copy.action_open_designer()
+
+    def action_activate(self):
+        self.write({"active": True})
+        return True
+
     def action_open_designer(self):
         self.ensure_one()
         return {
@@ -331,6 +376,7 @@ class AngelsFlow(models.Model):
         return {
             "flow": {
                 "id": self.id, "name": self.name, "model": self.model_id.name, "model_name": self.model_name,
+                "active": self.active, "is_example": self.is_example,
                 "trigger": self.trigger,
                 "trigger_label": dict(self._fields["trigger"]._description_selection(self.env))[self.trigger],
             },

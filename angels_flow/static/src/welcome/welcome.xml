@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="angels_flow.FlowWelcome">
+        <div class="o_action o_afl_welcome">
+            <div t-if="this.state.data" class="o_afl_welcome_inner">
+                <div class="o_afl_hero">
+                    <img src="/angels_flow/static/description/icon.png" alt="" class="o_afl_hero_icon"/>
+                    <div>
+                        <h1>Put your work on autopilot</h1>
+                        <p>A flow follows the records of a model, quotations, invoices, contacts..., and does the next
+                           step for you: it asks for an approval, gives someone a task, waits, updates the record.</p>
+                    </div>
+                </div>
+
+                <ol class="o_afl_how">
+                    <li><span class="o_afl_how_num">1</span><b>Choose the records and when it starts</b>
+                        <span>By hand, when a record is created or changed, every week, before a date...</span></li>
+                    <li><span class="o_afl_how_num">2</span><b>Draw the steps</b>
+                        <span>Approvals, tasks, waits, updates, actions. Use the “+” of an output to add the next one.</span></li>
+                    <li><span class="o_afl_how_num">3</span><b>Test it, then switch it on</b>
+                        <span>Test shows the way a real record would go, without changing anything.</span></li>
+                </ol>
+
+                <h2>Start from an example</h2>
+                <div class="o_afl_cards">
+                    <div t-foreach="this.state.data.examples" t-as="example" t-key="example.id" class="o_afl_card">
+                        <div class="o_afl_card_tags">
+                            <span class="o_afl_tag"><i class="fa fa-database me-1" aria-hidden="true"/><t t-out="example.model"/></span>
+                            <span class="o_afl_tag"><i class="fa fa-bolt me-1" aria-hidden="true"/><t t-out="example.trigger"/></span>
+                        </div>
+                        <h3 t-out="example.name"/>
+                        <p t-out="example.description"/>
+                        <div class="o_afl_card_foot">
+                            <span class="text-muted small"><t t-out="example.steps"/> steps</span>
+                            <button type="button" class="btn btn-primary btn-sm" t-on-click="() => this.useExample(example)">
+                                Use this example
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="o_afl_card o_afl_card_new" t-on-click="() => this.createFlow()">
+                        <i class="fa fa-plus-circle" aria-hidden="true"/>
+                        <h3>Start from scratch</h3>
+                        <p>Pick a model and draw your own steps.</p>
+                    </button>
+                </div>
+                <p t-if="!this.state.data.examples.length" class="text-muted small">
+                    Install Sales or Invoicing to get their examples too.
+                </p>
+                <p t-if="this.state.data.flow_count" class="mt-4">
+                    <a href="#" t-on-click.prevent="() => this.openFlows()">
+                        <i class="fa fa-arrow-right me-1" aria-hidden="true"/>See your <t t-out="this.state.data.flow_count"/> flows
+                    </a>
+                </p>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -11,6 +11,17 @@ import { durationWords } from "../flow_editor/trail_widget";
 import { UpdateEditor } from "./update_editor";
 
 const PEOPLE_TYPES = ["approve", "task", "notify"];
+// Browser storage only remembers per-viewer conveniences: a closed guide, a tested flow.
+function remember(key, value) {
+    try {
+        if (value === undefined) {
+            return window.localStorage.getItem(key);
+        }
+        window.localStorage.setItem(key, value);
+    } catch {
+        return null;
+    }
+}
 
 function waitText(node) {
     const amount = node.wait_amount || 0;
@@ -95,6 +106,8 @@ export class FlowDesignerAction extends Component {
             testOpen: false,
             testRecordId: false,
             test: null, // {matches, path, record}
+            guideOpen: remember(`angels_flow_guide_closed_${this.props.action.context?.active_id}`) !== "1",
+            tested: remember(`angels_flow_tested_${this.props.action.context?.active_id}`) === "1",
         });
         onWillStart(() => this.load());
         useSetupAction({
@@ -171,6 +184,8 @@ export class FlowDesignerAction extends Component {
             return;
         }
         this.state.test = await this.orm.call("angels.flow", "simulate", [[this.flowId], this.state.testRecordId]);
+        this.state.tested = true;
+        remember(`angels_flow_tested_${this.flowId}`, "1");
     }
     get testTrail() {
         const test = this.state.test;
@@ -179,6 +194,76 @@ export class FlowDesignerAction extends Component {
     stepName(entry) {
         const node = this.data.nodes.find((n) => n.id === entry.node);
         return node ? node.name : _t("End");
+    }
+
+    // ------------------------------------------------------------------
+    // First steps: a checklist that ticks itself
+    // ------------------------------------------------------------------
+
+    get guideSteps() {
+        const nodes = this.data.nodes;
+        const start = nodes.find((n) => n.type === "start");
+        const people = nodes.filter((n) => PEOPLE_TYPES.includes(n.type));
+        const reached = people.every((n) =>
+            n.assign_type === "users" ? n.user_ids.length : n.assign_type === "group" ? n.group_id : n.user_field_id
+        );
+        return [
+            { key: "add", done: nodes.length > 1, label: _t("Add a step"),
+              help: _t("Click a step on the left, or the “+” of an output.") },
+            { key: "link", done: Boolean(start?.links.next), label: _t("Link it to Start"),
+              help: _t("Drag from the dot of Start to your first step.") },
+            { key: "people", done: nodes.length > 1 && reached, label: _t("Choose who gets each step"),
+              help: _t("Select an approval or a task, then “Send to”.") },
+            { key: "test", done: this.state.tested, label: _t("Test it with a record"),
+              help: _t("See the way a real record would go. Nothing is changed.") },
+            { key: "active", done: this.data.flow.active, label: _t("Switch it on"),
+              help: _t("It starts as set in its Settings: by hand, on create, every week...") },
+        ];
+    }
+    get guideDone() {
+        return this.guideSteps.filter((step) => step.done).length;
+    }
+    toggleGuide() {
+        this.state.guideOpen = !this.state.guideOpen;
+        remember(`angels_flow_guide_closed_${this.flowId}`, this.state.guideOpen ? "0" : "1");
+    }
+    /** Make the place of a step stand out for a moment. */
+    glow(selector) {
+        const element = document.querySelector(selector);
+        if (!element) {
+            return;
+        }
+        element.scrollIntoView({ block: "nearest", inline: "nearest" });
+        element.classList.remove("o_afl_glow");
+        void element.offsetWidth;
+        element.classList.add("o_afl_glow");
+        setTimeout(() => element.classList.remove("o_afl_glow"), 2600);
+    }
+    async showMe(step) {
+        const nodes = this.data.nodes;
+        if (step.key === "add") {
+            this.glow(".o_afl_designer .o_af_palette");
+        } else if (step.key === "link") {
+            const start = nodes.find((n) => n.type === "start");
+            this.glow(`.o_afl_designer [data-node-id="${start.id}"]`);
+        } else if (step.key === "people") {
+            const node = nodes.find((n) => PEOPLE_TYPES.includes(n.type)) || nodes.find((n) => n.type !== "start");
+            this.glow(node ? `.o_afl_designer [data-node-id="${node.id}"]` : ".o_afl_designer .o_af_palette");
+        } else if (step.key === "test") {
+            if (!this.state.testOpen) {
+                this.toggleTest();
+                // The card shows once the designer is drawn again.
+                await new Promise((resolve) => setTimeout(resolve, 60));
+            }
+            this.glow(".o_afl_designer .o_afl_test_record");
+        } else if (step.key === "active") {
+            if (this.state.dirty && !(await this.save())) {
+                return;
+            }
+            await this.orm.call("angels.flow", "action_activate", [[this.flowId]]);
+            this.data.flow.active = true;
+            this.notification.add(_t("The flow is on."), { type: "success" });
+        }
     }
 
     get data() {

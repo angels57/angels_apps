@@ -16,6 +16,10 @@ The buttons of the order (Confirm, Cancel...) are already offered by Angels
 Flow. Example: a big quotation needs the approval of the sales manager, then
 it is sent to the customer and confirmed, all by itself.
 
+Comes with an example flow, off until you switch it on: Big Quotation
+Approval (approval by a sales manager, then sent to the customer and
+confirmed).
+
 Installed by itself when Angels Flow and Sales are both installed.
     """,
     "category": "Sales",
@@ -23,6 +27,9 @@ Installed by itself when Angels Flow and Sales are both installed.
     "maintainer": "Angels SAS",
     "license": "LGPL-3",
     "depends": ["angels_flow", "sale"],
+    "data": [
+        "data/example_flows.xml",
+    ],
     "installable": True,
     "application": False,
     "auto_install": True,

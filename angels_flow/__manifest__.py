@@ -51,6 +51,7 @@ Technical:
         "security/rules.xml",
         "data/flow_data.xml",
         "data/mail_activity_type.xml",
+        "data/example_flows.xml",
         "views/flow_views.xml",
         "views/run_views.xml",
         "views/menus.xml",
@@ -65,6 +66,9 @@ Technical:
             "angels_flow/static/src/designer/*.js",
             "angels_flow/static/src/designer/*.xml",
             "angels_flow/static/src/designer/*.css",
+            "angels_flow/static/src/welcome/*.js",
+            "angels_flow/static/src/welcome/*.xml",
+            "angels_flow/static/src/welcome/*.css",
         ],
     },
     "images": [

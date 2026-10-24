@@ -116,7 +116,13 @@
             <p class="o_view_nocontent_smiling_face">Create your first flow</p>
             <p>A flow runs on the records of one model: quotations, invoices, contacts...
                It starts by hand, when a record is created or updated, on a schedule or around a date.</p>
+            <p>New to flows? Open Get Started to begin from an example.</p>
         </field>
+    </record>
+
+    <record id="action_flow_welcome" model="ir.actions.client">
+        <field name="name">Get Started</field>
+        <field name="tag">angels_flow_welcome</field>
     </record>
 
     <record id="action_flow_designer" model="ir.actions.client">

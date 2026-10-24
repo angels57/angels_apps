@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Example: big quotations need the sales manager, then go to the customer by themselves. -->
+    <record id="example_flow_big_quotation" model="angels.flow" context="{'angels_flow_no_start': True}">
+        <field name="name">Big Quotation Approval</field>
+        <field name="is_example" eval="True"/>
+        <field name="active" eval="False"/>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="trigger">on_create_or_write</field>
+        <field name="filter_domain">[("state", "in", ["draft", "sent"]), ("amount_total", "&gt;", 10000)]</field>
+        <field name="description">A quotation over 10,000 needs the approval of a sales manager (2 days, then the administrator gets it too). Once approved, it is sent to the customer and confirmed.</field>
+    </record>
+
+    <record id="example_quotation_rejected" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_big_quotation"/>
+        <field name="name">Rejected</field>
+        <field name="node_type">end</field>
+        <field name="end_state">rejected</field>
+        <field name="pos_x">600</field>
+        <field name="pos_y">280</field>
+    </record>
+    <record id="example_quotation_end" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_big_quotation"/>
+        <field name="name">Confirmed</field>
+        <field name="node_type">end</field>
+        <field name="pos_x">1160</field>
+        <field name="pos_y">120</field>
+    </record>
+    <record id="example_quotation_confirm" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_big_quotation"/>
+        <field name="name">Confirm the Order</field>
+        <field name="node_type">action</field>
+        <field name="action_ref">button:action_confirm</field>
+        <field name="pos_x">880</field>
+        <field name="pos_y">120</field>
+        <field name="next_id" ref="example_quotation_end"/>
+    </record>
+    <record id="example_quotation_send" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_big_quotation"/>
+        <field name="name">Send to the Customer</field>
+        <field name="node_type">action</field>
+        <field name="action_ref">preset:sale_send</field>
+        <field name="pos_x">600</field>
+        <field name="pos_y">120</field>
+        <field name="next_id" ref="example_quotation_confirm"/>
+    </record>
+    <record id="example_quotation_approve" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_big_quotation"/>
+        <field name="name">Sales Manager Approval</field>
+        <field name="node_type">approve</field>
+        <field name="color">2</field>
+        <field name="assign_type">group</field>
+        <field name="group_id" ref="sales_team.group_sale_manager"/>
+        <field name="deadline_amount">2</field>
+        <field name="deadline_unit">days</field>
+        <field name="on_deadline">escalate</field>
+        <field name="escalate_user_id" ref="base.user_admin"/>
+        <field name="pos_x">320</field>
+        <field name="pos_y">120</field>
+        <field name="next_id" ref="example_quotation_send"/>
+        <field name="reject_id" ref="example_quotation_rejected"/>
+    </record>
+    <record id="example_quotation_start" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_big_quotation"/>
+        <field name="name">Start</field>
+        <field name="node_type">start</field>
+        <field name="pos_x">40</field>
+        <field name="pos_y">120</field>
+        <field name="next_id" ref="example_quotation_approve"/>
+    </record>
+
+</odoo>

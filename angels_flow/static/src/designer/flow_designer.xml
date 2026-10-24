@@ -105,6 +105,34 @@
                         </p>
                     </t>
                 </FlowEditor>
+                <div t-attf-class="o_afl_guide #{this.state.guideOpen ? '' : 'o_afl_guide_closed'}">
+                    <button type="button" class="o_afl_guide_head" t-att-aria-expanded="this.state.guideOpen ? 'true' : 'false'"
+                            t-on-click="() => this.toggleGuide()">
+                        <span class="o_afl_guide_ring" t-attf-style="--done: {{this.guideDone / 5}}">
+                            <t t-out="this.guideDone"/>/5
+                        </span>
+                        <span class="flex-grow-1 text-start">
+                            <b t-if="this.guideDone === 5">All set!</b>
+                            <b t-else="">First steps</b>
+                        </span>
+                        <i t-attf-class="fa fa-chevron-{{this.state.guideOpen ? 'down' : 'up'}}" aria-hidden="true"/>
+                    </button>
+                    <ol t-if="this.state.guideOpen" class="o_afl_guide_steps">
+                        <li t-foreach="this.guideSteps" t-as="step" t-key="step.key"
+                            t-attf-class="#{step.done ? 'o_afl_guide_done' : ''}">
+                            <i t-attf-class="fa fa-fw #{step.done ? 'fa-check-circle' : 'fa-circle-o'}" aria-hidden="true"/>
+                            <span class="o_afl_guide_text">
+                                <b t-out="step.label"/>
+                                <span t-if="!step.done" t-out="step.help"/>
+                            </span>
+                            <button t-if="!step.done" type="button" class="btn btn-link btn-sm p-0"
+                                    t-on-click="() => this.showMe(step)">
+                                <t t-if="step.key === 'active'">Switch on</t>
+                                <t t-else="">Show me</t>
+                            </button>
+                        </li>
+                    </ol>
+                </div>
                 <div t-if="this.state.testOpen" class="o_afl_test">
                     <div class="o_afl_test_head">
                         <i class="fa fa-play-circle" aria-hidden="true"/>
