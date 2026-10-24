@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Example: welcome a new customer company. Off until someone switches it on. -->
+    <record id="example_flow_welcome" model="angels.flow" context="{'angels_flow_no_start': True}">
+        <field name="name">Welcome New Customers</field>
+        <field name="is_example" eval="True"/>
+        <field name="active" eval="False"/>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="trigger">on_create</field>
+        <field name="filter_domain">[]</field>
+        <field name="description">When a company is created, its salesperson calls it within a day. Three days later, a note is written on the contact.</field>
+    </record>
+
+    <record id="example_welcome_end" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_welcome"/>
+        <field name="name">Welcomed</field>
+        <field name="node_type">end</field>
+        <field name="pos_x">1440</field>
+        <field name="pos_y">40</field>
+    </record>
+    <record id="example_welcome_not_company" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_welcome"/>
+        <field name="name">Not a Company</field>
+        <field name="node_type">end</field>
+        <field name="pos_x">600</field>
+        <field name="pos_y">260</field>
+    </record>
+    <record id="example_welcome_note" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_welcome"/>
+        <field name="name">Write a Note</field>
+        <field name="node_type">update</field>
+        <field name="pos_x">1160</field>
+        <field name="pos_y">40</field>
+        <field name="next_id" ref="example_welcome_end"/>
+    </record>
+    <record id="example_welcome_note_comment" model="angels.flow.update">
+        <field name="node_id" ref="example_welcome_note"/>
+        <field name="field_id" ref="base.field_res_partner__comment"/>
+        <field name="value">Welcomed by the flow: called by the salesperson.</field>
+    </record>
+    <record id="example_welcome_wait" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_welcome"/>
+        <field name="name">Three Days Later</field>
+        <field name="node_type">wait</field>
+        <field name="wait_amount">3</field>
+        <field name="wait_unit">days</field>
+        <field name="pos_x">880</field>
+        <field name="pos_y">40</field>
+        <field name="next_id" ref="example_welcome_note"/>
+    </record>
+    <record id="example_welcome_call" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_welcome"/>
+        <field name="name">Call the Customer</field>
+        <field name="node_type">task</field>
+        <field name="color">3</field>
+        <field name="assign_type">field</field>
+        <field name="user_field_id" ref="base.field_res_partner__user_id"/>
+        <field name="deadline_amount">1</field>
+        <field name="deadline_unit">days</field>
+        <field name="on_deadline">remind</field>
+        <field name="pos_x">600</field>
+        <field name="pos_y">40</field>
+        <field name="next_id" ref="example_welcome_wait"/>
+    </record>
+    <record id="example_welcome_company" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_welcome"/>
+        <field name="name">Is It a Company?</field>
+        <field name="node_type">condition</field>
+        <field name="pos_x">320</field>
+        <field name="pos_y">150</field>
+        <field name="yes_id" ref="example_welcome_call"/>
+        <field name="no_id" ref="example_welcome_not_company"/>
+    </record>
+    <record id="example_welcome_company_condition" model="angels.flow.condition">
+        <field name="node_id" ref="example_welcome_company"/>
+        <field name="field_id" ref="base.field_res_partner__is_company"/>
+        <field name="operator">=</field>
+        <field name="value">1</field>
+    </record>
+    <record id="example_welcome_start" model="angels.flow.node">
+        <field name="flow_id" ref="example_flow_welcome"/>
+        <field name="name">Start</field>
+        <field name="node_type">start</field>
+        <field name="pos_x">40</field>
+        <field name="pos_y">150</field>
+        <field name="next_id" ref="example_welcome_company"/>
+    </record>
+
+</odoo>

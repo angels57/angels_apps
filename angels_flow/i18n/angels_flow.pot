@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-24 20:21+0000\n"
-"PO-Revision-Date: 2026-10-24 20:21+0000\n"
+"POT-Creation-Date: 2026-10-24 20:31+0000\n"
+"PO-Revision-Date: 2026-10-24 20:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -215,6 +215,14 @@ msgid "A condition can only test a field of the flow's model."
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid ""
+"A flow follows the records of a model, quotations, invoices, contacts..., and does the next\n"
+"                           step for you: it asks for an approval, gives someone a task, waits, updates the record."
+msgstr ""
+
+#. module: angels_flow
 #. odoo-python
 #: code:addons/angels_flow/models/flow.py:0
 msgid "A flow has exactly one Start."
@@ -337,6 +345,7 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
 msgid "Add a step"
 msgstr ""
@@ -368,6 +377,19 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
 msgid "All of them"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "All set!"
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow__is_example
+msgid ""
+"An example shipped with the module: use it as it is, or as a start for your "
+"own flow."
 msgstr ""
 
 #. module: angels_flow
@@ -425,6 +447,14 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 msgid "Approval by %s"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid ""
+"Approvals, tasks, waits, updates, actions. Use the “+” of an output to add "
+"the next one."
 msgstr ""
 
 #. module: angels_flow
@@ -514,6 +544,18 @@ msgid "Buttons"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid ""
+"By hand, when a record is created or changed, every week, before a date..."
+msgstr ""
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_call
+msgid "Call the Customer"
+msgstr ""
+
+#. module: angels_flow
 #: model_terms:ir.ui.view,arch_db:angels_flow.view_run_form
 msgid "Cancel Run"
 msgstr ""
@@ -568,8 +610,26 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Choose the records and when it starts"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Choose who gets each step"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/update_editor.xml:0
 msgid "Choose..."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Click a step on the left, or the “+” of an output."
 msgstr ""
 
 #. module: angels_flow
@@ -831,6 +891,18 @@ msgid "Drag from an output dot to the next step."
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Drag from the dot of Start to your first step."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Draw the steps"
+msgstr ""
+
+#. module: angels_flow
 #: model_terms:ir.actions.act_window,help:angels_flow.action_run_all
 msgid ""
 "Each time a record starts a flow, its run shows here with its steps and "
@@ -910,6 +982,11 @@ msgid "Everyone must approve"
 msgstr ""
 
 #. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__is_example
+msgid "Example"
+msgstr ""
+
+#. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.js:0
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__expired
@@ -933,6 +1010,12 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__update_ids
 msgid "Fields to Set"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "First steps"
 msgstr ""
 
 #. module: angels_flow
@@ -1048,6 +1131,12 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields,help:angels_flow.field_angels_flow_update__days
 msgid "For Today + Days: how many days after today (negative: before)."
+msgstr ""
+
+#. module: angels_flow
+#: model:ir.actions.client,name:angels_flow.action_flow_welcome
+#: model:ir.ui.menu,name:angels_flow.menu_flow_welcome
+msgid "Get Started"
 msgstr ""
 
 #. module: angels_flow
@@ -1190,9 +1279,20 @@ msgid "Informed"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Install Sales or Invoicing to get their examples too."
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_document_mixin__message_is_follower
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_run__message_is_follower
 msgid "Is Follower"
+msgstr ""
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_company
+msgid "Is It a Company?"
 msgstr ""
 
 #. module: angels_flow
@@ -1207,6 +1307,12 @@ msgstr ""
 msgid ""
 "It runs with full rights, like an automation rule. A button that opens a window to fill\n"
 "                                cannot run by itself."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "It starts as set in its Settings: by hand, on create, every week..."
 msgstr ""
 
 #. module: angels_flow
@@ -1243,6 +1349,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/angels_flow/models/flow_step.py:0
 msgid "Late: %(request)s"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Link it to Start"
 msgstr ""
 
 #. module: angels_flow
@@ -1319,6 +1431,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__name
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__name
 msgid "Name"
+msgstr ""
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_flow
+msgid "New to flows? Open Get Started to begin from an example."
 msgstr ""
 
 #. module: angels_flow
@@ -1458,6 +1575,11 @@ msgid "Nobody to send to"
 msgstr ""
 
 #. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_not_company
+msgid "Not a Company"
+msgstr ""
+
+#. module: angels_flow
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/condition_editor.xml:0
 msgid "Not checked"
@@ -1576,6 +1698,12 @@ msgid "People"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Pick a model and draw your own steps."
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__pos_x
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__pos_x
 msgid "Pos X"
@@ -1585,6 +1713,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node__pos_y
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow_node_mixin__pos_y
 msgid "Pos Y"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Put your work on autopilot"
 msgstr ""
 
 #. module: angels_flow
@@ -1752,8 +1886,20 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "See the way a real record would go. Nothing is changed."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
 msgid "See the way it would go and who it would reach. Nothing is changed."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "See your"
 msgstr ""
 
 #. module: angels_flow
@@ -1762,6 +1908,12 @@ msgstr ""
 msgid ""
 "Select a step to choose who receives the request, the conditions, and what "
 "happens next."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Select an approval or a task, then “Send to”."
 msgstr ""
 
 #. module: angels_flow
@@ -1828,6 +1980,12 @@ msgid "Settings"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Show me"
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__state__skipped
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_step_mixin__state__skipped
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__state__skipped
@@ -1851,6 +2009,7 @@ msgstr ""
 #. module: angels_flow
 #. odoo-python
 #: code:addons/angels_flow/models/flow.py:0
+#: model:angels.flow.node,name:angels_flow.example_welcome_start
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__start
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__start
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__node_type__start
@@ -1870,6 +2029,18 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__ir_actions_server__state__angels_flow
 msgid "Start a Flow"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Start from an example"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Start from scratch"
 msgstr ""
 
 #. module: angels_flow
@@ -1943,6 +2114,18 @@ msgid "Steps"
 msgstr ""
 
 #. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Switch it on"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Switch on"
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__task
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__task
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_run_step__step_type__task
@@ -1960,13 +2143,33 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Test it with a record"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Test it, then switch it on"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Test shows the way a real record would go, without changing anything."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
 #: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
 msgid "Test with a record"
 msgstr ""
 
 #. module: angels_flow
 #: model_terms:ir.actions.act_window,help:angels_flow.action_run_to_do
-msgid "The approvals and tasks of the flows that reach you show here."
+msgid ""
+"The approvals and tasks of the flows that reach you show here, with their deadline.\n"
+"               You also get them as activities."
 msgstr ""
 
 #. module: angels_flow
@@ -2029,6 +2232,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/angels_flow/models/flow_document.py:0
 msgid "The flow goes round in a circle at %(step)s."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "The flow is on."
 msgstr ""
 
 #. module: angels_flow
@@ -2242,6 +2451,11 @@ msgid "This step is no longer waiting for a decision."
 msgstr ""
 
 #. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_wait
+msgid "Three Days Later"
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields,help:angels_flow.field_angels_flow_node__deadline_amount
 #: model:ir.model.fields,help:angels_flow.field_angels_flow_node_mixin__deadline_amount
 msgid "Time its people have to act. 0: no deadline."
@@ -2260,6 +2474,13 @@ msgstr ""
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_step__state__pending
 #: model:ir.ui.menu,name:angels_flow.menu_flow_to_do
 msgid "To Do"
+msgstr ""
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_run_all
+msgid ""
+"To see one now, switch a flow on, or start it from the Action menu of a record.\n"
+"               In the designer, Test shows the way a record would go without starting anything."
 msgstr ""
 
 #. module: angels_flow
@@ -2328,6 +2549,12 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields,help:angels_flow.field_angels_flow__trigger_field_ids
 msgid "Updates of other fields do not start the flow. Empty: any update."
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Use this example"
 msgstr ""
 
 #. module: angels_flow
@@ -2448,6 +2675,16 @@ msgid "Weeks"
 msgstr ""
 
 #. module: angels_flow
+#: model:angels.flow,name:angels_flow.example_flow_welcome
+msgid "Welcome New Customers"
+msgstr ""
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_end
+msgid "Welcomed"
+msgstr ""
+
+#. module: angels_flow
 #: model:ir.model.fields,help:angels_flow.field_angels_flow_node__action_ref
 msgid ""
 "What the step does: button:<method> (a button of the record), server:<id> (a"
@@ -2479,6 +2716,13 @@ msgstr ""
 #. module: angels_flow
 #: model:ir.model.fields,field_description:angels_flow.field_angels_flow__trigger_field_ids
 msgid "When These Change"
+msgstr ""
+
+#. module: angels_flow
+#: model:angels.flow,description:angels_flow.example_flow_welcome
+msgid ""
+"When a company is created, its salesperson calls it within a day. Three days"
+" later, a note is written on the contact."
 msgstr ""
 
 #. module: angels_flow
@@ -2555,6 +2799,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/angels_flow/models/flow_action.py:0
 msgid "Would set: %(fields)s."
+msgstr ""
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_note
+msgid "Write a Note"
 msgstr ""
 
 #. module: angels_flow
@@ -2641,6 +2890,12 @@ msgstr ""
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "flows"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/trail_widget.js:0
 msgid "for %s"
 msgstr ""
@@ -2719,6 +2974,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/angels_flow/static/src/flow_editor/condition_editor.js:0
 msgid "or"
+msgstr ""
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "steps"
 msgstr ""
 
 #. module: angels_flow

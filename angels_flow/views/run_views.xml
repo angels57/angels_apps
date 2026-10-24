@@ -118,7 +118,8 @@
         <field name="domain">[('is_my_turn', '=', True)]</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Nothing waits for you</p>
-            <p>The approvals and tasks of the flows that reach you show here.</p>
+            <p>The approvals and tasks of the flows that reach you show here, with their deadline.
+               You also get them as activities.</p>
         </field>
     </record>
 
@@ -130,6 +131,8 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No run yet</p>
             <p>Each time a record starts a flow, its run shows here with its steps and history.</p>
+            <p>To see one now, switch a flow on, or start it from the Action menu of a record.
+               In the designer, Test shows the way a record would go without starting anything.</p>
         </field>
     </record>
 

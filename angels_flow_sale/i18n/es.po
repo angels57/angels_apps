@@ -61,3 +61,49 @@ msgstr "Enviar por correo al cliente"
 #: code:addons/angels_flow_sale/models/flow.py:0
 msgid "The customer %(customer)s has no email."
 msgstr "El cliente %(customer)s no tiene correo."
+
+#. module: angels_flow_sale
+#: model:angels.flow,name:angels_flow_sale.example_flow_big_quotation
+msgid "Big Quotation Approval"
+msgstr "Aprobación de presupuestos grandes"
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_confirm
+msgid "Confirm the Order"
+msgstr "Confirmar el pedido"
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_end
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_rejected
+msgid "Rejected"
+msgstr "Rechazado"
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_approve
+msgid "Sales Manager Approval"
+msgstr "Aprobación del gerente de ventas"
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_send
+msgid "Send to the Customer"
+msgstr "Enviar al cliente"
+
+#. module: angels_flow_sale
+#: model:angels.flow.node,name:angels_flow_sale.example_quotation_start
+msgid "Start"
+msgstr "Inicio"
+
+#. module: angels_flow_sale
+#: model:angels.flow,description:angels_flow_sale.example_flow_big_quotation
+msgid ""
+"A quotation over 10,000 needs the approval of a sales manager (2 days, then "
+"the administrator gets it too). Once approved, it is sent to the customer "
+"and confirmed."
+msgstr ""
+"Un presupuesto de más de 10.000 necesita la aprobación de un gerente de "
+"ventas (2 días; después también le llega al administrador). Una vez "
+"aprobado, se envía al cliente y se confirma."

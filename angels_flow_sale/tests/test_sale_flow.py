@@ -72,3 +72,15 @@ class TestSaleFlow(TransactionCase):
         with self.assertRaisesRegex(UserError, "Send could not finish: The customer Big Customer has no email"):
             flow._start(order)
         self.assertEqual(order.state, "draft")
+
+    def test_example_flow(self):
+        example = self.env.ref("angels_flow_sale.example_flow_big_quotation")
+        self.assertFalse(example.active)
+        example.action_activate()
+        self.make_order(price=500)
+        self.assertFalse(example.run_ids, "small quotation")
+        order = self.make_order()
+        run = example.run_ids
+        self.assertEqual(run.res_id, order.id)
+        self.assertIn(self.manager, run.current_step_id.user_ids)
+        self.assertEqual(run.current_step_id.node_id.escalate_user_id, self.env.ref("base.user_admin"))

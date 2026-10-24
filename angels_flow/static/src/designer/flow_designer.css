@@ -185,3 +185,107 @@
         left: 1rem;
     }
 }
+
+/* First steps: a checklist over the board that ticks itself. */
+.o_afl_guide {
+    position: absolute;
+    top: 1rem;
+    right: calc(22rem + 1rem);
+    z-index: 6;
+    width: 19rem;
+    background: var(--body-bg);
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--af-radius) + 4px);
+    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.12);
+}
+
+.o_afl_guide_head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    color: var(--body-color);
+    background: transparent;
+    border: 0;
+}
+
+.o_afl_guide_ring {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--af-brand);
+    background:
+        radial-gradient(closest-side, var(--body-bg) 74%, transparent 76%),
+        conic-gradient(var(--af-brand) calc(var(--done) * 100%), var(--af-brand-soft) 0);
+    border-radius: 50%;
+}
+
+.o_afl_guide_steps {
+    margin: 0;
+    padding: 0 0.75rem 0.6rem;
+    list-style: none;
+}
+
+.o_afl_guide_steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.45rem 0;
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.o_afl_guide_steps li > i {
+    margin-top: 0.15rem;
+    color: var(--secondary-color);
+}
+
+.o_afl_guide_done > i {
+    color: #10b981 !important;
+}
+
+.o_afl_guide_done b {
+    color: var(--secondary-color);
+    text-decoration: line-through;
+}
+
+.o_afl_guide_text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.o_afl_guide_text span {
+    font-size: 0.76rem;
+    color: var(--secondary-color);
+}
+
+.o_afl_guide_steps .btn-link {
+    flex-shrink: 0;
+    font-size: 0.76rem;
+    white-space: nowrap;
+}
+
+/* "Show me": the place of the step stands out for a moment. */
+.o_afl_glow {
+    animation: o_afl_glow 0.8s ease-in-out 3;
+}
+
+@keyframes o_afl_glow {
+    50% {
+        box-shadow: 0 0 0 5px color-mix(in srgb, var(--af-brand) 40%, transparent);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .o_afl_guide {
+        position: static;
+        width: auto;
+        margin: 0.75rem;
+    }
+}

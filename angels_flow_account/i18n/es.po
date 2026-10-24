@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* angels_flow_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-23 00:35+0000\n"
+"PO-Revision-Date: 2026-10-23 00:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: angels_flow_account
+#: model:angels.flow.node,name:angels_flow_account.example_invoice_call
+msgid "Call the Customer"
+msgstr "Llamar al cliente"
+
+#. module: angels_flow_account
+#: model:angels.flow.node,name:angels_flow_account.example_invoice_end
+msgid "Followed Up"
+msgstr "Seguimiento hecho"
+
+#. module: angels_flow_account
+#: model:angels.flow,name:angels_flow_account.example_flow_overdue_invoices
+msgid "Overdue Invoices Follow-Up"
+msgstr "Revisión de facturas vencidas"
+
+#. module: angels_flow_account
+#: model:angels.flow.node,name:angels_flow_account.example_invoice_paid
+msgid "Paid in the Meantime"
+msgstr "Pagada mientras tanto"
+
+#. module: angels_flow_account
+#: model:angels.flow.node,name:angels_flow_account.example_invoice_start
+msgid "Start"
+msgstr "Inicio"
+
+#. module: angels_flow_account
+#: model:angels.flow.node,name:angels_flow_account.example_invoice_unpaid
+msgid "Still Unpaid?"
+msgstr "¿Sigue sin pagar?"
+
+#. module: angels_flow_account
+#: model:angels.flow.node,name:angels_flow_account.example_invoice_notify
+msgid "Tell Accounting"
+msgstr "Avisar a Contabilidad"
+
+#. module: angels_flow_account
+#: model:angels.flow.node,name:angels_flow_account.example_invoice_wait
+msgid "Three Days Later"
+msgstr "Tres días después"
+
+#. module: angels_flow_account
+#: model:angels.flow,description:angels_flow_account.example_flow_overdue_invoices
+msgid ""
+"Every week, the accounting managers are told about each overdue customer "
+"invoice. Three days later, if it is still unpaid, its salesperson gets a "
+"task to call the customer."
+msgstr ""
+"Cada semana se avisa a los responsables de contabilidad de cada factura de "
+"cliente vencida. Tres días después, si sigue sin pagar, su comercial recibe "
+"una tarea para llamar al cliente."

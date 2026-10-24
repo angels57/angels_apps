@@ -121,6 +121,7 @@ msgstr "Primero añade al formulario una pregunta de tipo Usuario."
 
 #. module: angels_flow
 #. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
 #: code:addons/angels_flow/static/src/flow_editor/flow_editor.xml:0
 msgid "Add a step"
 msgstr "Añadir un paso"
@@ -817,6 +818,7 @@ msgstr "Usuarios concretos"
 #. module: angels_flow
 #. odoo-python
 #: code:addons/angels_flow/models/flow.py:0
+#: model:angels.flow.node,name:angels_flow.example_welcome_start
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node__node_type__start
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_flow_node_mixin__node_type__start
 #: model:ir.model.fields.selection,name:angels_flow.selection__angels_form_node__node_type__start
@@ -1809,11 +1811,6 @@ msgid "Steps"
 msgstr "Pasos"
 
 #. module: angels_flow
-#: model_terms:ir.actions.act_window,help:angels_flow.action_run_to_do
-msgid "The approvals and tasks of the flows that reach you show here."
-msgstr "Aquí aparecen las aprobaciones y tareas de los flujos que te llegan."
-
-#. module: angels_flow
 #. odoo-python
 #: code:addons/angels_flow/models/flow.py:0
 msgid ""
@@ -2793,3 +2790,283 @@ msgstr "lleva %s"
 #: code:addons/angels_flow/static/src/designer/flow_designer.js:0
 msgid "⌀ %(time)s · %(count)s"
 msgstr "⌀ %(time)s · %(count)s"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid ""
+"A flow follows the records of a model, quotations, invoices, contacts..., and does the next\n"
+"                           step for you: it asks for an approval, gives someone a task, waits, updates the record."
+msgstr ""
+"Un flujo sigue los registros de un modelo (presupuestos, facturas, "
+"contactos...) y hace por ti el siguiente paso: pide una aprobación, da una "
+"tarea a alguien, espera, actualiza el registro."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "All set!"
+msgstr "¡Todo listo!"
+
+#. module: angels_flow
+#: model:ir.model.fields,help:angels_flow.field_angels_flow__is_example
+msgid ""
+"An example shipped with the module: use it as it is, or as a start for your "
+"own flow."
+msgstr ""
+"Un ejemplo incluido en el módulo: úsalo tal cual o como punto de partida "
+"para tu propio flujo."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid ""
+"Approvals, tasks, waits, updates, actions. Use the “+” of an output to add "
+"the next one."
+msgstr ""
+"Aprobaciones, tareas, esperas, cambios, acciones. Usa el «+» de una salida "
+"para añadir el siguiente."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid ""
+"By hand, when a record is created or changed, every week, before a date..."
+msgstr ""
+"A mano, al crear o cambiar un registro, cada semana, antes de una fecha..."
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_call
+msgid "Call the Customer"
+msgstr "Llamar al cliente"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Choose the records and when it starts"
+msgstr "Elige los registros y cuándo empieza"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Choose who gets each step"
+msgstr "Elige quién recibe cada paso"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Click a step on the left, or the “+” of an output."
+msgstr "Haz clic en un paso de la izquierda o en el «+» de una salida."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Drag from the dot of Start to your first step."
+msgstr "Arrastra desde el punto del Inicio hasta tu primer paso."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Draw the steps"
+msgstr "Dibuja los pasos"
+
+#. module: angels_flow
+#: model:ir.model.fields,field_description:angels_flow.field_angels_flow__is_example
+msgid "Example"
+msgstr "Ejemplo"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "First steps"
+msgstr "Primeros pasos"
+
+#. module: angels_flow
+#: model:ir.actions.client,name:angels_flow.action_flow_welcome
+#: model:ir.ui.menu,name:angels_flow.menu_flow_welcome
+msgid "Get Started"
+msgstr "Empezar"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Install Sales or Invoicing to get their examples too."
+msgstr "Instala Ventas o Facturación para tener también sus ejemplos."
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_company
+msgid "Is It a Company?"
+msgstr "¿Es una empresa?"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "It starts as set in its Settings: by hand, on create, every week..."
+msgstr "Empieza según sus Ajustes: a mano, al crear, cada semana..."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Link it to Start"
+msgstr "Únelo al Inicio"
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_flow
+msgid "New to flows? Open Get Started to begin from an example."
+msgstr "¿Nuevo en los flujos? Abre Empezar para partir de un ejemplo."
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_not_company
+msgid "Not a Company"
+msgstr "No es una empresa"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Pick a model and draw your own steps."
+msgstr "Elige un modelo y dibuja tus propios pasos."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Put your work on autopilot"
+msgstr "Pon tu trabajo en piloto automático"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "See the way a real record would go. Nothing is changed."
+msgstr "Mira el camino que seguiría un registro real. No se cambia nada."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "See your"
+msgstr "Ver tus"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Select an approval or a task, then “Send to”."
+msgstr "Selecciona una aprobación o una tarea y luego «Enviar a»."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Show me"
+msgstr "Muéstrame"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Start from an example"
+msgstr "Empieza desde un ejemplo"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Start from scratch"
+msgstr "Empezar desde cero"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Switch it on"
+msgstr "Actívalo"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.xml:0
+msgid "Switch on"
+msgstr "Activar"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "Test it with a record"
+msgstr "Pruébalo con un registro"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Test it, then switch it on"
+msgstr "Pruébalo y actívalo"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Test shows the way a real record would go, without changing anything."
+msgstr ""
+"Probar muestra el camino que seguiría un registro real, sin cambiar nada."
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_run_to_do
+msgid ""
+"The approvals and tasks of the flows that reach you show here, with their deadline.\n"
+"               You also get them as activities."
+msgstr ""
+"Aquí aparecen las aprobaciones y tareas de los flujos que te llegan, con su "
+"plazo. También las recibes como actividades."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/designer/flow_designer.js:0
+msgid "The flow is on."
+msgstr "El flujo está activado."
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_wait
+msgid "Three Days Later"
+msgstr "Tres días después"
+
+#. module: angels_flow
+#: model_terms:ir.actions.act_window,help:angels_flow.action_run_all
+msgid ""
+"To see one now, switch a flow on, or start it from the Action menu of a record.\n"
+"               In the designer, Test shows the way a record would go without starting anything."
+msgstr ""
+"Para ver una ahora, activa un flujo o inícialo desde el menú Acción de un "
+"registro. En el diseñador, Probar muestra el camino que seguiría un registro"
+" sin iniciar nada."
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "Use this example"
+msgstr "Usar este ejemplo"
+
+#. module: angels_flow
+#: model:angels.flow,name:angels_flow.example_flow_welcome
+msgid "Welcome New Customers"
+msgstr "Bienvenida a nuevos clientes"
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_end
+msgid "Welcomed"
+msgstr "Bienvenida hecha"
+
+#. module: angels_flow
+#: model:angels.flow.node,name:angels_flow.example_welcome_note
+msgid "Write a Note"
+msgstr "Escribir una nota"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "flows"
+msgstr "flujos"
+
+#. module: angels_flow
+#. odoo-javascript
+#: code:addons/angels_flow/static/src/welcome/welcome.xml:0
+msgid "steps"
+msgstr "pasos"
+
+#. module: angels_flow
+#: model:angels.flow,description:angels_flow.example_flow_welcome
+msgid ""
+"When a company is created, its salesperson calls it within a day. Three days"
+" later, a note is written on the contact."
+msgstr ""
+"Cuando se crea una empresa, su comercial la llama en menos de un día. Tres "
+"días después, se escribe una nota en el contacto."
