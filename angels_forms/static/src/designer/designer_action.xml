@@ -56,6 +56,11 @@
                             <i class="fa fa-circle-o me-1" aria-hidden="true"/>Publish
                         </t>
                     </button>
+                    <button t-if="this.state.tab === 'flow'" type="button"
+                            t-attf-class="btn btn-secondary #{this.state.showStats ? 'active' : ''}"
+                            t-att-aria-pressed="this.state.showStats ? 'true' : 'false'" t-on-click="() => this.toggleStats()">
+                        <i class="fa fa-hourglass-half me-1" aria-hidden="true"/>Times
+                    </button>
                     <t t-set="pending" t-value="this.problems()"/>
                     <div t-if="pending.length" class="o_af_pending">
                         <button type="button" class="o_af_pending_btn" t-att-aria-expanded="this.state.pendingOpen ? 'true' : 'false'"

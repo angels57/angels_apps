@@ -21,6 +21,7 @@ import { startPointerDrag } from "@angels_flow/common/pointer_drag";
 import { ConditionEditor } from "@angels_flow/flow_editor/condition_editor";
 import { FlowEditor } from "@angels_flow/flow_editor/flow_editor";
 import { nodeIcon } from "@angels_flow/flow_editor/node_types";
+import { durationWords } from "@angels_flow/flow_editor/trail_widget";
 import { IconPicker } from "./icon_picker";
 import { RecordEditor, recordProblems } from "./record_editor";
 
@@ -90,6 +91,8 @@ export class FormDesignerAction extends Component {
             version: 0,
             pendingOpen: false,
             focusNodeId: false,
+            stats: null, // {step id: {count, hours}}, once Times is on
+            showStats: false,
             previewKey: 0,
             names: { "res.users": {}, "res.groups": {} },
         });
@@ -193,13 +196,29 @@ export class FormDesignerAction extends Component {
     canFill(node) {
         return STAGE_TYPES.includes(node.type);
     }
-    /** On a flow step: how many questions its people fill. */
+    /** On a flow step: how many questions its people fill, and how long they take when Times is on. */
     nodePills(node) {
-        const fields = this.canFill(node) ? this.stageFields(node) : [];
-        if (!fields.length) {
-            return [];
+        const pills = [];
+        const stats = this.state.showStats && this.state.stats?.[node.id];
+        if (stats) {
+            pills.push({
+                icon: "fa-hourglass-half",
+                text: _t("⌀ %(time)s · %(count)s", { time: durationWords(stats.hours), count: stats.count }),
+                title: _t("Average time over %s finished steps", stats.count),
+                tone: "now",
+            });
         }
-        return [{ icon: "fa-pencil", text: String(fields.length), title: fields.map((f) => f.name).join(", "), stage: true }];
+        const fields = this.canFill(node) ? this.stageFields(node) : [];
+        if (fields.length) {
+            pills.push({ icon: "fa-pencil", text: String(fields.length), title: fields.map((f) => f.name).join(", "), stage: true });
+        }
+        return pills;
+    }
+    async toggleStats() {
+        if (!this.state.stats) {
+            this.state.stats = await this.orm.call("angels.form", "get_step_stats", [[this.formId]]);
+        }
+        this.state.showStats = !this.state.showStats;
     }
     /** A removed flow step: its questions go back to the requester. */
     releaseStageFields(node) {
@@ -859,6 +878,10 @@ export class FormDesignerAction extends Component {
                 (node.assign_type === "field" && !node.user_field_id);
             if (people && missing) {
                 add({ text: _t("The step “%s” has nobody to send to.", node.name), short: _t("Nobody to send to") });
+            }
+            if (node.deadline_amount > 0 && node.on_deadline === "escalate" && !node.escalate_user_id) {
+                add({ text: _t("The step “%s” needs someone to send it to when it is late.", node.name),
+                      short: _t("Nobody to escalate to") });
             }
             if (node.type === "record") {
                 recordProblems(node, this.fields.filter((f) => f.type !== "section")).forEach(add);

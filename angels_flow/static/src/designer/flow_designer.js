@@ -1,11 +1,13 @@
 import { Component, onWillStart } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
+import { RecordSelector } from "@web/core/record_selectors/record_selector";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { useSetupAction } from "@web/search/action_hook";
 import { useProps, useState } from "../common/owl_compat";
 import { FlowEditor } from "../flow_editor/flow_editor";
 import { nodeTypes } from "../flow_editor/node_types";
+import { durationWords } from "../flow_editor/trail_widget";
 import { UpdateEditor } from "./update_editor";
 
 const PEOPLE_TYPES = ["approve", "task", "notify"];
@@ -72,7 +74,7 @@ nodeTypes.add("action", {
  */
 export class FlowDesignerAction extends Component {
     static template = "angels_flow.FlowDesignerAction";
-    static components = { FlowEditor, UpdateEditor };
+    static components = { FlowEditor, RecordSelector, UpdateEditor };
 
     setup() {
         this.props = useProps();
@@ -88,6 +90,11 @@ export class FlowDesignerAction extends Component {
             version: 0,
             focusNodeId: false,
             names: { "res.users": {}, "res.groups": {} },
+            stats: null, // {step id: {count, hours}}, once Times is on
+            showStats: false,
+            testOpen: false,
+            testRecordId: false,
+            test: null, // {matches, path, record}
         });
         onWillStart(() => this.load());
         useSetupAction({
@@ -120,6 +127,58 @@ export class FlowDesignerAction extends Component {
                 Object.assign(this.state.names[resModel], await this.nameService.loadDisplayNames(resModel, resIds));
             }
         }
+    }
+
+    // ------------------------------------------------------------------
+    // Times: how long the people of each step take
+    // ------------------------------------------------------------------
+
+    async toggleStats() {
+        if (!this.state.stats) {
+            this.state.stats = await this.orm.call("angels.flow", "get_step_stats", [[this.flowId]]);
+        }
+        this.state.showStats = !this.state.showStats;
+    }
+    nodePills(node) {
+        const stats = this.state.showStats && this.state.stats?.[node.id];
+        if (!stats) {
+            return [];
+        }
+        return [{
+            icon: "fa-hourglass-half",
+            text: _t("⌀ %(time)s · %(count)s", { time: durationWords(stats.hours), count: stats.count }),
+            title: _t("Average time over %s finished steps", stats.count),
+            tone: "now",
+        }];
+    }
+
+    // ------------------------------------------------------------------
+    // Test: the way a record would go, without changing anything
+    // ------------------------------------------------------------------
+
+    toggleTest() {
+        this.state.testOpen = !this.state.testOpen;
+        if (!this.state.testOpen) {
+            this.state.test = null;
+        }
+    }
+    setTestRecord(id) {
+        this.state.testRecordId = id || false;
+        this.state.test = null;
+    }
+    async runTest() {
+        if (!this.state.testRecordId || (this.state.dirty && !(await this.save()))) {
+            return;
+        }
+        this.state.test = await this.orm.call("angels.flow", "simulate", [[this.flowId], this.state.testRecordId]);
+    }
+    get testTrail() {
+        const test = this.state.test;
+        return test ? { visited: test.path.map((e) => e.node).filter(Boolean), current: false } : null;
+    }
+    stepName(entry) {
+        const node = this.data.nodes.find((n) => n.id === entry.node);
+        return node ? node.name : _t("End");
     }
 
     get data() {
@@ -202,6 +261,9 @@ export class FlowDesignerAction extends Component {
                 (node.assign_type === "field" && !node.user_field_id);
             if (PEOPLE_TYPES.includes(node.type) && missing) {
                 add(_t("The step “%s” has nobody to send to.", node.name), _t("Nobody to send to"));
+            }
+            if (node.deadline_amount > 0 && node.on_deadline === "escalate" && !node.escalate_user_id) {
+                add(_t("The step “%s” needs someone to send it to when it is late.", node.name), _t("Nobody to escalate to"));
             }
             if (node.type === "action" && !node.action_ref) {
                 add(_t("The step “%s” needs an action.", node.name), _t("No action yet"));

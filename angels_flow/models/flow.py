@@ -23,7 +23,8 @@ AUTOMATION_TRIGGERS = ("on_create", "on_create_or_write", "on_time")
 INTERVALS = [("hours", "Hours"), ("days", "Days"), ("weeks", "Weeks"), ("months", "Months")]
 # No flow on the models of flows, nor on technical models.
 BLOCKED_PREFIXES = ("angels.flow", "ir.", "base.automation", "mail.", "bus.", "res.groups", "res.users.")
-NODE_KEYS = ("name", "end_state", "assign_type", "approval_rule", "wait_amount", "wait_unit", "action_ref")
+NODE_KEYS = ("name", "end_state", "assign_type", "approval_rule", "wait_amount", "wait_unit", "action_ref",
+             "deadline_amount", "deadline_unit", "on_deadline")
 
 
 class AngelsFlow(models.Model):
@@ -260,6 +261,10 @@ class AngelsFlow(models.Model):
                 next_run = flow._next_run_after(next_run)
             flow.next_run = next_run
         self.env["angels.flow.run"]._cron_resume()
+        # Late steps of every model built on flows (runs, form requests...).
+        for model in self.env.registry["angels.flow.step.mixin"]._inherit_children:
+            if not self.env[model]._abstract:
+                self.env[model]._flow_check_deadlines()
 
     def action_start_now(self):
         """Start the flow now on every record it applies to."""
@@ -325,7 +330,8 @@ class AngelsFlow(models.Model):
             update_fields.append(item)
         return {
             "flow": {
-                "id": self.id, "name": self.name, "model": self.model_id.name, "trigger": self.trigger,
+                "id": self.id, "name": self.name, "model": self.model_id.name, "model_name": self.model_name,
+                "trigger": self.trigger,
                 "trigger_label": dict(self._fields["trigger"]._description_selection(self.env))[self.trigger],
             },
             "nodes": [node._to_client() for node in self.node_ids],
@@ -359,6 +365,7 @@ class AngelsFlow(models.Model):
                 "color": int(item.get("color") or 0),
                 "user_ids": [fields.Command.set(item.get("user_ids") or [])],
                 "group_id": item.get("group_id") or False,
+                "escalate_user_id": item.get("escalate_user_id") or False,
                 "user_field_id": item.get("user_field_id") if item.get("user_field_id") in fields_by_id else False,
                 "condition_match": item.get("match") or "all",
             })
@@ -396,6 +403,7 @@ class AngelsFlow(models.Model):
         self.node_ids._check_recipients()
         self.node_ids._check_step_settings()
         self.node_ids._check_action()
+        self.node_ids._check_deadline()
         return self.get_design_data()
 
 
@@ -415,6 +423,10 @@ class AngelsFlowNode(models.Model):
         "angels.flow.node", string="If Rejected", ondelete="set null",
         help="Where a rejected run goes. Empty: the run is rejected.",
     )
+    expired_id = fields.Many2one(
+        "angels.flow.node", string="If Expired", ondelete="set null",
+        help="Where a late step goes when its deadline says so. Empty: the run is rejected.",
+    )
     assign_type = fields.Selection(
         selection_add=[("field", "User in a field of the record")], ondelete={"field": "set default"},
     )
@@ -431,7 +443,7 @@ class AngelsFlowNode(models.Model):
         ports = {kind: outputs for kind, outputs in super()._flow_ports().items() if kind != "back"}
         return {**ports, "wait": ("next",)}
 
-    @api.constrains("next_id", "yes_id", "no_id", "reject_id", "flow_id")
+    @api.constrains("next_id", "yes_id", "no_id", "reject_id", "expired_id", "flow_id")
     def _check_links(self):
         self._check_flow_links()
 

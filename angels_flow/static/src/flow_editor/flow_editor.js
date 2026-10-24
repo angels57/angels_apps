@@ -38,7 +38,8 @@ export class FlowEditor extends Component {
         // nodes, sources, userSources, labels, ports, operatorsByType, names, loadNames, conditionsText,
         // onChange, onRemoveNode, nodePills, problems (by step id), focusNodeId (step to select when
         // opened), onFocused, startText (what starts the flow), userSourceTexts ({label, placeholder,
-        // empty}); slots: inspector (with node), help
+        // empty}), readonly (only look at it), trail ({visited: [step ids in order], current: step id}:
+        // a way through the flow to show); slots: inspector (with node), help
         this.props = useProps();
         this.nodes = useState(this.props.nodes);
         this.names = useState(this.props.names);
@@ -96,6 +97,12 @@ export class FlowEditor extends Component {
         }
         return choices;
     }
+    get unitChoices() {
+        return [
+            { value: "days", label: _t("Days") },
+            { value: "hours", label: _t("Hours") },
+        ];
+    }
     get ruleChoices() {
         return [
             { value: "any", label: _t("One person is enough") },
@@ -103,9 +110,42 @@ export class FlowEditor extends Component {
         ];
     }
     isChosen(node, prop, choice) {
-        const choices = { end_state: this.endChoices, assign_type: this.assignChoices, approval_rule: this.ruleChoices }[prop];
+        const choices = {
+            end_state: this.endChoices,
+            assign_type: this.assignChoices,
+            approval_rule: this.ruleChoices,
+            on_deadline: this.deadlineChoices,
+            deadline_unit: this.unitChoices,
+        }[prop];
         const current = choices.some((c) => c.value === node[prop]) ? node[prop] : choices[0].value;
         return current === choice.value;
+    }
+    get deadlineChoices() {
+        return [
+            { value: "remind", label: _t("Remind them") },
+            { value: "escalate", label: _t("Send it to someone else too") },
+            { value: "expire", label: _t("Go on by “Expired”") },
+        ];
+    }
+    durationText(amount, unit) {
+        if (unit === "hours") {
+            return amount === 1 ? _t("1 hour") : _t("%s hours", amount);
+        }
+        return amount === 1 ? _t("1 day") : _t("%s days", amount);
+    }
+    setDeadline(node, value) {
+        node.deadline_amount = Math.max(0, parseInt(value, 10) || 0);
+        if (!this.hasExpiredOutput(node) && node.links.expired !== undefined) {
+            node.links.expired = false;
+        }
+        this.changed();
+    }
+    setOnDeadline(node, value) {
+        node.on_deadline = value;
+        if (value !== "expire" && node.links.expired !== undefined) {
+            node.links.expired = false;
+        }
+        this.changed();
     }
     get userSources() {
         return this.props.userSources || [];
@@ -149,6 +189,9 @@ export class FlowEditor extends Component {
             [`o_af_stage_${(node.color || 0) % 12}`]: people,
             o_af_selected: node.id === this.state.selectedId,
             o_af_node_invalid: this.problemsOf(node).length > 0,
+            o_af_node_visited: this.visited.has(node.id) && node.id !== this.props.trail?.current,
+            o_af_node_current: Boolean(this.props.trail) && node.id === this.props.trail.current,
+            o_af_node_dimmed: Boolean(this.props.trail) && !this.visited.has(node.id),
             o_af_node_target: this.state.connecting && node.type !== "start",
         };
     }
@@ -175,6 +218,10 @@ export class FlowEditor extends Component {
     /** Small facts shown at the bottom of a step. */
     pills(node) {
         const pills = [...this.kindPills(node)];
+        if (node.deadline_amount > 0 && ["approve", "task"].includes(node.type)) {
+            pills.push({ icon: "fa-clock-o", text: this.durationText(node.deadline_amount, node.deadline_unit),
+                         title: _t("Deadline"), muted: true });
+        }
         if (node.type === "approve" && node.approval_rule === "all") {
             pills.push({ icon: "fa-users", text: _t("Everyone"), title: _t("Everyone must approve"), muted: true });
         }
@@ -190,8 +237,12 @@ export class FlowEditor extends Component {
     icon(node) {
         return nodeIcon(node.type);
     }
+    hasExpiredOutput(node) {
+        return node.deadline_amount > 0 && node.on_deadline === "expire";
+    }
     ports(node) {
-        return this.props.ports[node.type].map((port, index, all) => ({
+        const ports = this.props.ports[node.type].filter((port) => port !== "expired" || this.hasExpiredOutput(node));
+        return ports.map((port, index, all) => ({
             port,
             label: this.portLabel(node, port),
             top: (NODE_H * (index + 1)) / (all.length + 1),
@@ -204,6 +255,9 @@ export class FlowEditor extends Component {
         if (port === "no" || port === "reject") {
             return "no";
         }
+        if (port === "expired") {
+            return "late";
+        }
         return port === "yes" || node.type === "approve" ? "yes" : "plain";
     }
     portLabel(node, port) {
@@ -215,6 +269,9 @@ export class FlowEditor extends Component {
         }
         if (port === "reject") {
             return _t("Rejected");
+        }
+        if (port === "expired") {
+            return _t("Expired");
         }
         if (node.type === "approve") {
             return _t("Approved");
@@ -243,7 +300,8 @@ export class FlowEditor extends Component {
                 const x2 = target.x;
                 const y2 = target.y + NODE_H / 2;
                 const selected = this.state.link?.id === node.id && this.state.link?.port === port;
-                const lit = hover && (hover === node.id || hover === target.id);
+                const lit = (hover && (hover === node.id || hover === target.id))
+                    || this.trailPairs.has(`${node.id}>${target.id}`);
                 links.push({
                     key: `${node.id}-${port}`,
                     node,
@@ -271,8 +329,16 @@ export class FlowEditor extends Component {
         const top = this.ports(node).find((p) => p.port === connecting.port).top;
         return this.curve(node.x + NODE_W, node.y + top, connecting.x, connecting.y);
     }
+    /** Steps of the trail, and its arrows as "from>to" pairs. */
+    get visited() {
+        return new Set(this.props.trail?.visited || []);
+    }
+    get trailPairs() {
+        const visited = this.props.trail?.visited || [];
+        return new Set(visited.slice(1).map((id, index) => `${visited[index]}>${id}`));
+    }
     get svgClass() {
-        return `o_af_flow_svg${this.state.hoverId ? " o_af_flow_dim" : ""}`;
+        return `o_af_flow_svg${this.state.hoverId || this.props.trail ? " o_af_flow_dim" : ""}`;
     }
     curve(x1, y1, x2, y2) {
         const dx = Math.max(60, Math.abs(x2 - x1) / 2);
@@ -367,6 +433,10 @@ export class FlowEditor extends Component {
             approval_rule: "any",
             match: "all",
             conditions: [],
+            deadline_amount: 0,
+            deadline_unit: "days",
+            on_deadline: "remind",
+            escalate_user_id: false,
             ...nodeTypes.get(type, {}).defaults,
         };
         this.nodes.push(node);
@@ -390,6 +460,9 @@ export class FlowEditor extends Component {
         }
     }
     select(node) {
+        if (this.props.readonly) {
+            return;
+        }
         this.state.selectedId = node.id;
         this.state.link = null;
         this.state.addMenu = null;
@@ -454,6 +527,9 @@ export class FlowEditor extends Component {
         this.changed();
     }
     selectLink(link) {
+        if (this.props.readonly) {
+            return;
+        }
         this.state.link = { id: link.node.id, port: link.port };
         this.state.selectedId = false;
     }
@@ -482,6 +558,9 @@ export class FlowEditor extends Component {
     }
 
     onKeyDown(ev) {
+        if (this.props.readonly) {
+            return;
+        }
         if (ev.key === "Escape" && this.state.addMenu) {
             this.state.addMenu = null;
             return;
@@ -516,7 +595,7 @@ export class FlowEditor extends Component {
 
     // Move a step: it snaps to the grid, and lines up with the other steps.
     onNodePointerDown(node, ev) {
-        if (ev.target.closest(".o_af_port, .o_af_port_add, button")) {
+        if (this.props.readonly || ev.target.closest(".o_af_port, .o_af_port_add, button")) {
             return;
         }
         this.select(node);
@@ -561,6 +640,9 @@ export class FlowEditor extends Component {
     // Connect: drag from an output to the next step. A click selects the existing arrow.
     onPortPointerDown(node, port, ev) {
         ev.stopPropagation();
+        if (this.props.readonly) {
+            return;
+        }
         startPointerDrag(ev, {
             onMove: (x, y) => {
                 this.state.connecting = { id: node.id, port, ...this.toBoard(x, y) };

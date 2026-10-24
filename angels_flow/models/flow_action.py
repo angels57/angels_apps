@@ -7,7 +7,7 @@ from psycopg2 import Error as DatabaseError
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
-from .flow_condition import TRUE_WORDS
+from .flow_condition import TRUE_WORDS, field_kind, record_value
 
 SOURCES = [
     ("value", "Fixed Value"),
@@ -234,3 +234,85 @@ class AngelsFlowActions(models.Model):
         choices += [{"key": f"server:{action.id}", "label": action.name, "group": _("Server Actions")}
                     for action in actions]
         return choices
+
+
+class AngelsFlowSimulation(models.Model):
+    _inherit = "angels.flow"
+
+    def get_step_stats(self):
+        """How long the people of each step take, for the designer."""
+        self.ensure_one()
+        self.check_access("write")
+        return self.env["angels.flow.run.step"]._flow_stats(self.node_ids)
+
+    def simulate(self, res_id):
+        """The way a record would go through the flow, without changing anything.
+
+        Approvals are taken as approved and waits as over. Returns the steps in
+        order, each with what would happen there.
+        """
+        self.ensure_one()
+        self.check_access("write")
+        record = self.env[self.model_name].browse(int(res_id)).exists()
+        if not record:
+            raise UserError(_("This record does not exist."))
+        record.check_access("read")
+        record = record.sudo()
+        matches = bool(record.filtered_domain(self._records_domain()))
+        nodes = self.node_ids
+        used = nodes.condition_ids.field_id | nodes.user_field_id
+        values = {field.name: record_value(record, field) for field in used if field_kind(field)}
+        choices = {choice["key"]: choice["label"] for choice in self._flow_action_choices()}
+        path, seen = [], set()
+        node = self._start_node()
+        end = None
+        while node:
+            if node.id in seen:
+                path.append({"node": node.id, "text": _("The flow would go round in a circle here."), "error": True})
+                break
+            seen.add(node.id)
+            kind = node.node_type
+            entry = {"node": node.id, "text": ""}
+            path.append(entry)
+            if kind == "start":
+                entry["text"] = _("Starts for %(record)s.", record=record.display_name)
+                node = node.next_id
+            elif kind == "condition":
+                met = node._flow_condition_met(values)
+                entry["text"] = _("Yes: the conditions are met.") if met else _("No: the conditions are not met.")
+                node = node.yes_id if met else node.no_id
+            elif kind in ("approve", "task", "notify"):
+                people = node._get_recipients(values)
+                names = ", ".join(people.mapped("name"))
+                if not people:
+                    entry.update(text=_("Nobody can do this step: the run would stop here."), error=kind != "notify")
+                    if kind != "notify":
+                        break
+                elif kind == "approve":
+                    entry["text"] = _("Approval by %(people)s; if they approve, it goes on.", people=names)
+                elif kind == "task":
+                    entry["text"] = _("%(people)s would complete it.", people=names)
+                else:
+                    entry["text"] = _("%(people)s would be informed.", people=names)
+                node = node.next_id
+            elif kind == "wait":
+                amount = node.wait_amount
+                entry["text"] = (_("Waits %(amount)s hours.", amount=amount) if node.wait_unit == "hours"
+                                 else _("Waits %(amount)s days.", amount=amount))
+                node = node.next_id
+            elif kind == "update":
+                entry["text"] = _("Would set: %(fields)s.", fields=", ".join(node.update_ids.field_id.mapped("field_description")))
+                node = node.next_id
+            elif kind == "action":
+                entry["text"] = _("Would run: %(action)s.", action=choices.get(node.action_ref, "?"))
+                node = node.next_id
+            elif kind == "end":
+                end = node.end_state or "approved"
+                entry["text"] = _("Ends: approved.") if end == "approved" else _("Ends: rejected.")
+                node = False
+            else:
+                node = node.next_id
+        if end is None and not (path and path[-1].get("error")):
+            end = "approved"
+            path.append({"node": False, "text": _("No more steps: the run would be approved.")})
+        return {"matches": matches, "path": path, "record": record.display_name}

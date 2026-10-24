@@ -25,6 +25,10 @@ class AngelsFormNode(models.Model):
         "angels.form.node", string="If Rejected", ondelete="set null",
         help="Where a rejected request goes. Empty: the request is rejected.",
     )
+    expired_id = fields.Many2one(
+        "angels.form.node", string="If Expired", ondelete="set null",
+        help="Where a late step goes when its deadline says so. Empty: the request is rejected.",
+    )
     assign_type = fields.Selection(
         selection_add=[("field", "User chosen in the form")], ondelete={"field": "set default"},
     )
@@ -37,7 +41,7 @@ class AngelsFormNode(models.Model):
     condition_ids = fields.One2many("angels.form.condition", "node_id", string="Conditions", copy=False)
     field_ids = fields.One2many("angels.form.field", "node_id", string="Questions to Fill", copy=False)
 
-    @api.constrains("next_id", "yes_id", "no_id", "reject_id", "form_id")
+    @api.constrains("next_id", "yes_id", "no_id", "reject_id", "expired_id", "form_id")
     def _check_links(self):
         self._check_flow_links()
 

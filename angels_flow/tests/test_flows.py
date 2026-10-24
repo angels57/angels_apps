@@ -208,6 +208,89 @@ class TestFlows(TransactionCase):
         with self.assertRaises(ValidationError):
             action.action_ref = "button:unlink"
 
+    def late(self, run):
+        run.current_step_id.sudo().date_deadline = fields.Datetime.now() - timedelta(minutes=1)
+        self.env["angels.flow"]._cron_run()
+
+    def test_deadline_reminds_then_escalates(self):
+        flow = self.make_flow(trigger="manual", domain="[]")
+        approve = flow.node_ids.filtered(lambda n: n.node_type == "approve")
+        approve.write({"deadline_amount": 2, "deadline_unit": "days"})
+        run = flow._start(self.env["res.partner"].create({"name": "Ida"}))
+        step = run.current_step_id
+        self.assertAlmostEqual(step.date_deadline, fields.Datetime.now() + timedelta(days=2), delta=timedelta(minutes=5))
+        self.assertEqual(run.activity_ids.date_deadline, fields.Date.to_date(step.date_deadline))
+        self.late(run)
+        self.assertTrue(step.is_late)
+        self.assertIn("is late: please act on it", run.message_ids[0].body)
+        self.env["angels.flow"]._cron_run()
+        self.assertEqual(len(run.message_ids.filtered(lambda m: "is late" in (m.body or ""))), 1, "reminded once")
+
+        approve.write({"on_deadline": "escalate", "escalate_user_id": self.seller.id})
+        run = flow._start(self.env["res.partner"].create({"name": "Joe"}))
+        self.late(run)
+        self.assertEqual(run.current_step_id.user_ids, self.boss | self.seller)
+        self.assertIn(self.seller, run.activity_ids.user_id)
+        run.with_user(self.seller).current_step_id._decide("approve")
+        self.assertEqual(run.state, "approved")
+
+    def test_deadline_expires_by_its_output(self):
+        flow = self.make_flow(trigger="manual", domain="[]")
+        approve = flow.node_ids.filtered(lambda n: n.node_type == "approve")
+        approve.write({"deadline_amount": 4, "deadline_unit": "hours", "on_deadline": "expire"})
+        self.assertIn("expired", flow.get_design_data()["ports"]["approve"])
+        run = flow._start(self.env["res.partner"].create({"name": "Kim"}))
+        self.late(run)
+        self.assertEqual((run.step_ids.state, run.state), ("expired", "rejected"), "no Expired link: rejected")
+        notify = self.env["angels.flow.node"].create({
+            "flow_id": flow.id, "name": "Tell the Seller", "node_type": "notify",
+            "user_ids": [fields.Command.set(self.seller.ids)],
+        })
+        approve.expired_id = notify
+        run = flow._start(self.env["res.partner"].create({"name": "Lou"}))
+        self.late(run)
+        self.assertEqual(run.state, "approved", "Expired → notify → end of the flow")
+        self.assertEqual(run.step_ids.mapped("state"), ["expired", "notified"])
+        with self.assertRaises(ValidationError):
+            approve.write({"on_deadline": "escalate", "escalate_user_id": False})
+
+    def test_trail_and_times(self):
+        flow = self.make_flow(trigger="manual", domain="[]")
+        approve = flow.node_ids.filtered(lambda n: n.node_type == "approve")
+        run = flow._start(self.env["res.partner"].create({"name": "Max"}))
+        data = run.get_flow_trail()
+        self.assertEqual([e["node"] for e in data["trail"]], [flow._start_node().id, approve.id])
+        self.assertEqual(data["current"], approve.id)
+        self.assertEqual(len(data["nodes"]), 3)
+        run.with_user(self.boss).current_step_id._decide("approve")
+        data = run.get_flow_trail()
+        self.assertEqual(len(data["trail"]), 3)
+        self.assertFalse(data["current"])
+        self.assertEqual(data["trail"][1]["state"], "approved")
+        stats = flow.get_step_stats()
+        self.assertEqual(stats[approve.id]["count"], 1)
+
+    def test_simulation_changes_nothing(self):
+        flow = self.make_flow(trigger="manual", domain="[('is_company', '=', True)]")
+        approve = flow.node_ids.filtered(lambda n: n.node_type == "approve")
+        Node = self.env["angels.flow.node"]
+        update = Node.create({
+            "flow_id": flow.id, "name": "Mark", "node_type": "update", "next_id": approve.next_id.id,
+            "update_ids": [fields.Command.create({
+                "field_id": self.env["ir.model.fields"]._get("res.partner", "comment").id, "value": "Done",
+            })],
+        })
+        approve.next_id = update
+        partner = self.env["res.partner"].create({"name": "Ned"})
+        result = flow.simulate(partner.id)
+        self.assertFalse(result["matches"], "not a company")
+        self.assertEqual([e["node"] for e in result["path"]], [flow._start_node().id, approve.id, update.id,
+                                                              update.next_id.id])
+        self.assertIn("Boss", result["path"][1]["text"])
+        self.assertIn("Would set", result["path"][2]["text"])
+        self.assertFalse(partner.comment)
+        self.assertFalse(flow.run_ids)
+
     def test_technical_models_are_refused(self):
         for model in ("ir.config_parameter", "angels.flow.run", "res.users.log"):
             with self.assertRaises(ValidationError, msg=model):

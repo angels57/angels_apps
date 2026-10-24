@@ -193,6 +193,16 @@ class TestFormFlow(FormCase):
         self.assertFalse(submission.activity_ids)
         self.assertEqual(submission.step_ids.state, "skipped")
 
+    def test_trail_of_a_request(self):
+        submission = self.fill()
+        data = submission.with_user(self.requester).get_flow_trail()
+        visited = [entry["node"] for entry in data["trail"]]
+        self.assertEqual(visited[0], self.n["start"].id)
+        self.assertEqual(data["current"], visited[-1])
+        self.assertEqual(submission.current_step_id.node_id.id, data["current"])
+        self.decide(submission, self.boss)
+        self.assertGreater(len(submission.get_flow_trail()["trail"]), len(visited))
+
     def test_files_are_attached_to_the_request(self):
         data = base64.b64encode(b"ticket").decode()
         submission = self.fill(submit=False, files=[{"name": "ticket.txt", "data": data}])
