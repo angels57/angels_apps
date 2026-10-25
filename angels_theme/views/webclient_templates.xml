@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Browser tab icon. Pages that pass their own x_icon keep it. -->
+    <template id="layout_favicon" inherit_id="web.layout">
+        <xpath expr="//link[@rel='shortcut icon']" position="attributes">
+            <attribute name="t-att-href">x_icon or '/angels_theme/static/img/favicon.ico'</attribute>
+        </xpath>
+    </template>
+
+    <!-- Home screen icon on iOS and the browser bar color on phones. -->
+    <template id="webclient_bootstrap_icon" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//meta[@name='theme-color']" position="attributes">
+            <attribute name="content">#534ab7</attribute>
+        </xpath>
+        <xpath expr="//link[@rel='apple-touch-icon']" position="attributes">
+            <attribute name="href">/angels_theme/static/img/app_icon_ios.png</attribute>
+        </xpath>
+    </template>
+</odoo>

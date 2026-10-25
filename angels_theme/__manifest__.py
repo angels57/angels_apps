@@ -1,6 +1,6 @@
 {
     "name": "Angels Theme - Backend Theme",
-    "version": "20.0.1.15.0",
+    "version": "20.0.1.16.0",
     "summary": "Backend theme: brand colors, restyled tabs, per-user density and an app home screen",
     "description": """
 Angels Theme - Backend Theme for Odoo 20
@@ -46,6 +46,8 @@ A backend theme that every app inherits without changing its views.
   as brand pills, the form statusbar as steps, group rows and totals in
   lists, one2many lines framed as a sub-table with a totals card, and the
   settings page as cards of rows with switches
+* Its own app icon: the browser tab (favicon), the installed app (PWA)
+  and the iOS home screen show the Angels icon in the brand color
 * Kanban: cards apart with rounded corners and a hover lift, column headers
   with a slim progress bar, a framed quick create, a guide in empty columns
   and folded columns as a gray strip
@@ -59,6 +61,7 @@ A backend theme that every app inherits without changing its views.
         "views/home_action.xml",
         "views/res_company_views.xml",
         "views/res_users_views.xml",
+        "views/webclient_templates.xml",
     ],
     "assets": {
         "web._assets_primary_variables": [
