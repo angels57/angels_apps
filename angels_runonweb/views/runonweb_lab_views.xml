@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_runonweb_lab" model="ir.actions.client">
+        <field name="name">RunOnWeb Lab</field>
+        <field name="tag">angels_runonweb_lab</field>
+    </record>
+
+    <menuitem id="menu_runonweb_lab" name="RunOnWeb Lab" parent="base.menu_administration"
+              action="action_runonweb_lab" sequence="90" groups="base.group_system"/>
+</odoo>

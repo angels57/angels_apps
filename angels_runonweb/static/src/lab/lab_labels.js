@@ -1,0 +1,47 @@
+import { _t } from "@web/core/l10n/translation";
+
+// Every text of the lab, outside template literals so the translation export finds them.
+export function labLabels() {
+    return {
+        "Allowed": _t("Allowed"),
+        "Available": _t("Available"),
+        "Clear the model cache": _t("Clear the model cache"),
+        "Device": _t("Device"),
+        "Done": _t("Done"),
+        "Download to the server": _t("Download to the server"),
+        "Downloading": _t("Downloading"),
+        "Enter a text first.": _t("Enter a text first."),
+        "Failed": _t("Failed"),
+        "From the internet": _t("From the internet"),
+        "Internet downloads": _t("Internet downloads"),
+        "Load": _t("Load"),
+        "Loading the model": _t("Loading the model"),
+        "Model cache": _t("Model cache"),
+        "Not available": _t("Not available"),
+        "Not available, WASM will be used": _t("Not available, WASM will be used"),
+        "Not downloaded": _t("Not downloaded"),
+        "Off": _t("Off"),
+        "On the server": _t("On the server"),
+        "One (the page is not cross-origin isolated)": _t("One (the page is not cross-origin isolated)"),
+        "Remove from the server": _t("Remove from the server"),
+        "Run": _t("Run"),
+        "Run time": _t("Run time"),
+        "RunOnWeb Lab": _t("RunOnWeb Lab"),
+        "Several": _t("Several"),
+        "Storage folder": _t("Storage folder"),
+        "Test all": _t("Test all"),
+        "Testing": _t("Testing"),
+        "The model cache of this browser is empty.": _t("The model cache of this browser is empty."),
+        "This browser": _t("This browser"),
+        "This server": _t("This server"),
+        "Threads": _t("Threads"),
+        "To run it, download it to the server or allow internet downloads in Settings.": _t("To run it, download it to the server or allow internet downloads in Settings."),
+        "Try each task in this browser. Texts and images are processed on this device.": _t("Try each task in this browser. Texts and images are processed on this device."),
+        "Use the example": _t("Use the example"),
+        "Working": _t("Working"),
+        "shared by every task": _t("shared by every task"),
+        // Text to emoji
+        "Text (in English)": _t("Text (in English)"),
+        "Text to emoji": _t("Text to emoji"),
+    };
+}
