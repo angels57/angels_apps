@@ -19,7 +19,11 @@ CHUNK = 1024 * 1024
 TIMEOUT = (10, 60)
 
 
-class DownloadError(Exception):
+class StorageError(Exception):
+    """A file of the storage folder could not be written or deleted."""
+
+
+class DownloadError(StorageError):
     pass
 
 
@@ -47,10 +51,14 @@ def download(entry, session=None):
     browser never receives half a file and a failed download leaves nothing behind.
     """
     target = local_path(entry)
-    os.makedirs(os.path.dirname(target), exist_ok=True)
+    folder = os.path.dirname(target)
     digest = hashlib.sha256()
     received = 0
-    fd, tmp = tempfile.mkstemp(dir=os.path.dirname(target), prefix=".part-")
+    try:
+        os.makedirs(folder, exist_ok=True)
+        fd, tmp = tempfile.mkstemp(dir=folder, prefix=".part-")
+    except OSError as error:
+        raise DownloadError(f"cannot write in {folder}: {error.strerror or error}") from error
     try:
         with os.fdopen(fd, "wb") as out:
             response = (session or requests).get(entry.remote_url, stream=True, timeout=TIMEOUT)
@@ -67,9 +75,14 @@ def download(entry, session=None):
         os.replace(tmp, target)
     except requests.RequestException as error:
         raise DownloadError(f"{entry.remote_url}: {error}") from error
+    except OSError as error:
+        # Disk full, permissions, read-only folder: a clear message, not a server error.
+        raise DownloadError(f"cannot write {entry.path}: {error.strerror or error}") from error
     finally:
-        if os.path.exists(tmp):
+        try:
             os.unlink(tmp)
+        except FileNotFoundError:
+            pass
     _logger.info("angels_runonweb: downloaded %s (%s bytes)", entry.path, received)
 
 
@@ -78,3 +91,5 @@ def remove(entry):
         os.unlink(local_path(entry))
     except FileNotFoundError:
         pass
+    except OSError as error:
+        raise StorageError(f"cannot delete {entry.path}: {error.strerror or error}") from error

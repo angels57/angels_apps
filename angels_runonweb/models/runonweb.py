@@ -57,12 +57,13 @@ class AngelsRunonweb(models.AbstractModel):
         """What the browser needs to run the tasks: paths, device and which tasks can load."""
         if not self.env.user._is_internal():
             raise AccessError(_("RunOnWeb is only available to internal users."))
+        runtime = f"{BASE_URL}/runtime/{catalog.version('runtime')}"
         return {
             "device": self._device(),
-            "modelPath": f"{BASE_URL}/models/",
+            "modelPath": f"{BASE_URL}/models/{catalog.version('models')}/",
             "wasmPaths": {
-                "mjs": f"{BASE_URL}/runtime/ort-wasm-simd-threaded.asyncify.mjs",
-                "wasm": f"{BASE_URL}/runtime/ort-wasm-simd-threaded.asyncify.wasm",
+                "mjs": f"{runtime}/ort-wasm-simd-threaded.asyncify.mjs",
+                "wasm": f"{runtime}/ort-wasm-simd-threaded.asyncify.wasm",
             },
             "tasks": {task: self._task_state(task) for task in catalog.TASKS},
         }
@@ -104,5 +105,8 @@ class AngelsRunonweb(models.AbstractModel):
         self._check_admin()
         self._check_task(task)
         for entry in catalog.task_files(task):
-            storage.remove(entry)
+            try:
+                storage.remove(entry)
+            except storage.StorageError as error:
+                raise UserError(_("The model could not be removed: %s", error)) from error
         return self.get_status()

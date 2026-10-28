@@ -1,6 +1,8 @@
+import errno
 import hashlib
 import os
 import re
+from unittest.mock import patch
 
 import requests
 
@@ -73,6 +75,24 @@ class TestCatalog(BaseCase):
         ]:
             self.assertIsNone(catalog.find(kind, path), (kind, path))
 
+    def test_version_follows_the_files(self):
+        """H1: the version in the URLs changes whenever a revision or a checksum changes."""
+        models, runtime = catalog.version("models"), catalog.version("runtime")
+        self.assertRegex(models, r"^[0-9a-f]{12}$")
+        self.assertNotEqual(models, runtime)
+        self.assertEqual(models, catalog.version("models"))  # stable between calls
+        files = dict(catalog.TASKS["emoji"]["files"])
+        sha, size, mimetype = files["config.json"]
+        files["config.json"] = ("0" * 64, size, mimetype)
+        with patch.dict(catalog.TASKS["emoji"], {"files": files}):
+            self.assertNotEqual(catalog.version("models"), models)
+            self.assertEqual(catalog.version("runtime"), runtime)
+        with patch.dict(catalog.TASKS["embed"], {"model": "Xenova/other-model"}):
+            self.assertNotEqual(catalog.version("models"), models)
+        with patch.dict(catalog.RUNTIME, {"ort-wasm-simd-threaded.asyncify.wasm": ("1" * 64, 1, "application/wasm")}):
+            self.assertNotEqual(catalog.version("runtime"), runtime)
+        self.assertEqual(catalog.version("models"), models)
+
     def test_sizes(self):
         self.assertEqual(catalog.task_size("emoji"), 4375353)
         self.assertEqual(catalog.task_size("embed"), 68982997)
@@ -144,6 +164,45 @@ class TestStorage(StorageMixin, BaseCase):
             storage.download(entry, session=FakeSession(FakeResponse(b"broken")))
         with open(storage.local_path(entry), "rb") as f:
             self.assertEqual(f.read(), body)
+
+    def test_read_only_folder_is_a_download_error(self):
+        """H2: no permission to write gives a DownloadError, not an OSError."""
+        entry = entry_for(b"abc")
+        os.chmod(self.storage_dir, 0o500)
+        self.addCleanup(os.chmod, self.storage_dir, 0o700)
+        if os.access(self.storage_dir, os.W_OK):
+            self.skipTest("running as root: permissions are not enforced")
+        session = FakeSession(FakeResponse(b"abc"))
+        with self.assertRaisesRegex(storage.DownloadError, "cannot write in"):
+            storage.download(entry, session=session)
+        self.assertEqual(session.urls, [])  # nothing downloaded for nothing
+
+    def test_full_disk_while_writing(self):
+        """H2: a write error mid-download leaves no temporary file behind."""
+        body = b"0123456789"
+        entry = entry_for(body)
+        real_fdopen = os.fdopen
+
+        def full_disk(fd, mode):
+            handle = real_fdopen(fd, mode)
+
+            def write(_data):
+                raise OSError(errno.ENOSPC, "No space left on device")
+            handle.write = write
+            return handle
+
+        with patch.object(storage.os, "fdopen", full_disk):
+            with self.assertRaisesRegex(storage.DownloadError, "No space left on device"):
+                storage.download(entry, session=FakeSession(FakeResponse(body)))
+        self.assertFalse(os.path.exists(storage.local_path(entry)))
+        self.assertEqual(self.leftovers(entry), [])
+
+    def test_remove_reports_permission_errors(self):
+        entry = self.emoji_entry()
+        self.write_entry(entry)
+        with patch.object(storage.os, "unlink", side_effect=PermissionError(errno.EACCES, "Permission denied")):
+            with self.assertRaisesRegex(storage.StorageError, "Permission denied"):
+                storage.remove(entry)
 
     @staticmethod
     def leftovers(entry):

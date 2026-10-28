@@ -1,11 +1,11 @@
 import { describe, expect, test } from "@odoo/hoot";
 
-import { configureRuntime, RunOnWebLoader } from "@angels_runonweb/core/loader";
+import { configureRuntime, pruneStaleCache, RunOnWebLoader } from "@angels_runonweb/core/loader";
 
 const CONFIG = {
     device: "auto",
-    modelPath: "/angels_runonweb/models/",
-    wasmPaths: { mjs: "/angels_runonweb/runtime/a.mjs", wasm: "/angels_runonweb/runtime/a.wasm" },
+    modelPath: "/angels_runonweb/models/m0de15/",
+    wasmPaths: { mjs: "/angels_runonweb/runtime/r0n71e/a.mjs", wasm: "/angels_runonweb/runtime/r0n71e/a.wasm" },
     tasks: { emoji: { model: "midudev/text2emoji-tiny", available: true } },
 };
 
@@ -41,7 +41,7 @@ function fakeLib({ failLoads = 0 } = {}) {
         lib.imports.push(url);
         return lib;
     };
-    return { lib, loader: new RunOnWebLoader({ importModule }) };
+    return { lib, loader: new RunOnWebLoader({ importModule, cacheStorage: null }) };
 }
 
 describe("RunOnWeb loader", () => {
@@ -50,7 +50,7 @@ describe("RunOnWeb loader", () => {
         const instance = await loader.load("emoji", CONFIG);
         expect(lib.imports).toEqual(["/angels_runonweb/static/lib/runonweb/emoji.js"]);
         expect(instance.options.model).toBe("midudev/text2emoji-tiny");
-        expect(instance.options.modelPath).toBe("/angels_runonweb/models/");
+        expect(instance.options.modelPath).toBe("/angels_runonweb/models/m0de15/");
         expect(instance.options.device).toBe("auto");
         expect(lib.env.backends.onnx.wasm.wasmPaths).toEqual(CONFIG.wasmPaths);
         expect(lib.env.useBrowserCache).toBe(true);
@@ -117,7 +117,7 @@ describe("RunOnWeb loader", () => {
     test("configureRuntime points the Hub at Odoo with an absolute URL", () => {
         const env = { remoteHost: "https://huggingface.co/", remotePathTemplate: "{model}/resolve/{revision}/" };
         configureRuntime(env, CONFIG);
-        expect(env.remoteHost).toBe(`${location.origin}/angels_runonweb/models/`);
+        expect(env.remoteHost).toBe(`${location.origin}/angels_runonweb/models/m0de15/`);
         expect(env.remotePathTemplate).toBe("{model}/");
     });
 
@@ -140,7 +140,7 @@ describe("RunOnWeb loader", () => {
                 }
             },
         };
-        const loader = new RunOnWebLoader({ importModule: async () => lib });
+        const loader = new RunOnWebLoader({ importModule: async () => lib, cacheStorage: null });
         const config = { ...CONFIG, tasks: { embed: { model: "Xenova/all-MiniLM-L6-v2", available: true } } };
         const result = await loader.run("embed", config, { query: "unpaid bill", texts: ["dog", "invoice overdue", "meeting"] });
         // One call embeds the query and the texts together.
@@ -149,5 +149,88 @@ describe("RunOnWeb loader", () => {
         expect(result.dimensions).toBe(1);
         expect(result.ranking.map((r) => r.text)).toEqual(["invoice overdue", "meeting", "dog"]);
         expect(result.ranking[0].score).toBeCloseTo(0.9, { digits: 5 });
+    });
+});
+
+// In-memory Cache Storage: { cacheName: [url, ...] }.
+function fakeCaches(content) {
+    const stores = new Map(Object.entries(content).map(([name, urls]) => [name, new Set(urls)]));
+    return {
+        stores,
+        async keys() {
+            return [...stores.keys()];
+        },
+        async open(name) {
+            const urls = stores.get(name);
+            return {
+                async keys() {
+                    return [...urls].map((url) => new Request(url));
+                },
+                async delete(request) {
+                    return urls.delete(request.url);
+                },
+            };
+        },
+    };
+}
+
+describe("RunOnWeb cache of older versions", () => {
+    const at = (path) => `${location.origin}${path}`;
+
+    test("deletes the model and runtime files of other versions only", async () => {
+        const keep = [
+            at("/angels_runonweb/models/m0de15/midudev/text2emoji-tiny/config.json"),
+            at("/angels_runonweb/runtime/r0n71e/a.wasm"),
+            at("/web/static/some/other/file.js"),
+            "https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/config.json",
+        ];
+        const stale = [
+            at("/angels_runonweb/models/01d0ld/midudev/text2emoji-tiny/config.json"),
+            at("/angels_runonweb/runtime/01d0ld/a.wasm"),
+        ];
+        const storage = fakeCaches({
+            "transformers-cache": [...keep, ...stale],
+            "runonweb-ppocrv6": [at("/angels_runonweb/models/01d0ld/x/y.onnx")],
+            // Other caches of the page are never touched, even with matching paths.
+            "odoo-other": [at("/angels_runonweb/models/01d0ld/z.json")],
+        });
+        expect(await pruneStaleCache(CONFIG, storage)).toBe(3);
+        expect([...storage.stores.get("transformers-cache")]).toEqual(keep);
+        expect(storage.stores.get("runonweb-ppocrv6").size).toBe(0);
+        expect(storage.stores.get("odoo-other").size).toBe(1);
+    });
+
+    test("runs once, before the first task loads, and never blocks it", async () => {
+        let opened = 0;
+        const broken = {
+            async keys() {
+                opened++;
+                throw new Error("SecurityError: caches unavailable");
+            },
+        };
+        const order = [];
+        const lib = {
+            env: {},
+            Emojifier: class {
+                async load() {
+                    order.push("load");
+                }
+            },
+        };
+        const loader = new RunOnWebLoader({
+            importModule: async () => {
+                order.push(`import after ${opened} prune`);
+                return lib;
+            },
+            cacheStorage: broken,
+        });
+        await loader.load("emoji", CONFIG);
+        await loader.load("emoji", CONFIG, { maxEmojis: 1 });
+        expect(opened).toBe(1);
+        expect(order).toEqual(["import after 1 prune", "load", "import after 1 prune", "load"]);
+    });
+
+    test("without Cache Storage there is nothing to do", async () => {
+        expect(await pruneStaleCache(CONFIG, null)).toBe(0);
     });
 });

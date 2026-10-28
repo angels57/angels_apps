@@ -1,4 +1,6 @@
-const ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+import { MODEL_CACHE_PREFIXES } from "../core/loader";
+
+const ESCAPES ={ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 
 export function esc(value) {
     return String(value ?? "").replace(/[&<>"']/g, (c) => ESCAPES[c]);
@@ -16,15 +18,13 @@ export function errorMessage(error) {
     return error?.data?.message || error?.message || String(error);
 }
 
-// Size of the model caches of this origin (Transformers.js and runonweb's own buckets).
-const CACHE_PREFIXES = ["transformers-cache", "runonweb-"];
-
+// Model caches of this origin (Transformers.js and runonweb's own buckets).
 async function modelCaches() {
     if (typeof caches === "undefined") {
         return [];
     }
     const names = await caches.keys();
-    return names.filter((name) => CACHE_PREFIXES.some((prefix) => name.startsWith(prefix)));
+    return names.filter((name) => MODEL_CACHE_PREFIXES.some((prefix) => name.startsWith(prefix)));
 }
 
 export async function modelCacheSize() {

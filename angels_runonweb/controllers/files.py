@@ -14,19 +14,24 @@ class RunOnWebFiles(http.Controller):
     Public on purpose: they are open weights and runtime files, and public pages (such as a
     signing page) may run tasks too. Only paths listed in the catalog answer; anything else
     is a 404, so nothing else under the storage folder can be read.
+
+    URLs carry the catalog version: an old version is a 404, never older or newer content
+    under a URL that browsers keep as immutable.
     """
 
-    @http.route("/angels_runonweb/models/<path:path>", type="http", auth="public", methods=["GET"], readonly=True)
-    def model_file(self, path):
-        return self._serve("models", path)
+    @http.route("/angels_runonweb/models/<string:version>/<path:path>", type="http", auth="public",
+                methods=["GET"], readonly=True)
+    def model_file(self, version, path):
+        return self._serve("models", version, path)
 
-    @http.route("/angels_runonweb/runtime/<path:path>", type="http", auth="public", methods=["GET"], readonly=True)
-    def runtime_file(self, path):
-        return self._serve("runtime", path)
+    @http.route("/angels_runonweb/runtime/<string:version>/<path:path>", type="http", auth="public",
+                methods=["GET"], readonly=True)
+    def runtime_file(self, version, path):
+        return self._serve("runtime", version, path)
 
-    def _serve(self, kind, path):
+    def _serve(self, kind, version, path):
         entry = catalog.find(kind, path)
-        if not entry:
+        if not entry or version != catalog.version(kind):
             raise request.not_found()
         if storage.is_present(entry):
             local = storage.local_path(entry)

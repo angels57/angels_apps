@@ -1,6 +1,6 @@
 {
     "name": "Angels RunOnWeb",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.1.1",
     "summary": "On-device AI models in the browser for Odoo, served from your own server",
     "description": """
 Angels RunOnWeb

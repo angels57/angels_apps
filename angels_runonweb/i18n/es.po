@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 23:43+0000\n"
+"POT-Creation-Date: 2026-10-28 23:55+0000\n"
 "PO-Revision-Date: 2026-10-27 00:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -332,6 +332,12 @@ msgstr "La caché de modelos de este navegador está vacía."
 #: code:addons/angels_runonweb/models/runonweb.py:0
 msgid "The model could not be downloaded: %s"
 msgstr "No se pudo descargar el modelo: %s"
+
+#. module: angels_runonweb
+#. odoo-python
+#: code:addons/angels_runonweb/models/runonweb.py:0
+msgid "The model could not be removed: %s"
+msgstr "No se pudo quitar el modelo: %s"
 
 #. module: angels_runonweb
 #. odoo-javascript

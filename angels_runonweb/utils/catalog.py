@@ -1,13 +1,16 @@
 """Every file the browser may ask Odoo for, pinned by version and SHA-256.
 
 The routes only serve paths listed here, so nothing else under the storage folder can be
-read, and the server downloads only these files, from these exact revisions.
+read, and the server downloads only these files, from these exact revisions. Their URLs
+carry the version of the catalog (see `version`).
 """
 
+import hashlib
 from collections import namedtuple
 
 # One file: where the browser asks for it, where it comes from, and what it must be.
 CatalogFile = namedtuple("CatalogFile", "kind path remote_url sha256 size mimetype")
+KINDS = ("models", "runtime")
 
 ORT_VERSION = "1.31.0-dev.20260914-8d85527a0"
 ORT_CDN = f"https://cdn.jsdelivr.net/npm/onnxruntime-web@{ORT_VERSION}/dist/"
@@ -94,7 +97,22 @@ def runtime_size():
     return sum(entry.size for entry in runtime_files())
 
 
+def files(kind):
+    return runtime_files() if kind == "runtime" else [e for task in TASKS for e in task_files(task)]
+
+
+def version(kind):
+    """Short fingerprint of every file of `kind`, part of their URLs.
+
+    The files are served as immutable and browsers keep them in Cache Storage by URL: when
+    a revision or a checksum changes, the URL changes too and nothing old is reused.
+    """
+    digest = hashlib.sha256()
+    for entry in sorted(files(kind)):
+        digest.update(f"{entry.path}\0{entry.sha256}\n".encode())
+    return digest.hexdigest()[:12]
+
+
 def find(kind, path):
-    """Return the catalog entry served at /angels_runonweb/<kind>/<path>, or None."""
-    entries = runtime_files() if kind == "runtime" else [e for task in TASKS for e in task_files(task)]
-    return next((entry for entry in entries if entry.kind == kind and entry.path == path), None)
+    """Return the catalog entry served at /angels_runonweb/<kind>/<version>/<path>, or None."""
+    return next((entry for entry in files(kind) if entry.path == path), None) if kind in KINDS else None

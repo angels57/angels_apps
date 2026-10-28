@@ -38,6 +38,37 @@ export function configureRuntime(env, config) {
     }
 }
 
+// Cache Storage buckets of the models: Transformers.js and runonweb's own ones.
+export const MODEL_CACHE_PREFIXES = ["transformers-cache", "runonweb-"];
+const OWN_FILE = /^\/angels_runonweb\/(models|runtime)\//;
+
+// Deletes the cached files of older catalog versions: their URLs are never asked again, so
+// they would only take space. Returns how many entries went.
+export async function pruneStaleCache(config, cacheStorage = globalThis.caches) {
+    if (!cacheStorage) {
+        return 0;
+    }
+    const base = globalThis.location?.href;
+    const current = [config.modelPath, config.wasmPaths.wasm.replace(/[^/]*$/, "")].map(
+        (path) => new URL(path, base).pathname,
+    );
+    let removed = 0;
+    for (const name of await cacheStorage.keys()) {
+        if (!MODEL_CACHE_PREFIXES.some((prefix) => name.startsWith(prefix))) {
+            continue;
+        }
+        const cache = await cacheStorage.open(name);
+        for (const request of await cache.keys()) {
+            const { pathname } = new URL(request.url, base);
+            if (OWN_FILE.test(pathname) && !current.some((path) => pathname.startsWith(path))) {
+                await cache.delete(request);
+                removed++;
+            }
+        }
+    }
+    return removed;
+}
+
 export async function detectWebGPU() {
     try {
         return Boolean(await globalThis.navigator?.gpu?.requestAdapter());
@@ -47,9 +78,11 @@ export async function detectWebGPU() {
 }
 
 export class RunOnWebLoader {
-    constructor({ importModule = (url) => import(url), baseUrl = LIB_URL } = {}) {
+    constructor({ importModule = (url) => import(url), baseUrl = LIB_URL, cacheStorage = globalThis.caches } = {}) {
         this.importModule = importModule;
         this.baseUrl = baseUrl;
+        this.cacheStorage = cacheStorage;
+        this.pruning = null;
         this.instances = new Map();
         this.libs = new Map();
         this.listeners = new Set();
@@ -87,6 +120,10 @@ export class RunOnWebLoader {
     }
 
     async create(task, spec, state, config, options) {
+        // Once per page, before any model goes into the cache. A cache that cannot be read
+        // (private window) must not stop the task.
+        this.pruning ??= pruneStaleCache(config, this.cacheStorage).catch(() => 0);
+        await this.pruning;
         const lib = await this.importModule(`${this.baseUrl}/${spec.entry}`);
         this.libs.set(task, lib);
         configureRuntime(lib.env, config);

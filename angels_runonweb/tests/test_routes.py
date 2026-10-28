@@ -10,6 +10,10 @@ from .common import StorageMixin
 LIB = "/angels_runonweb/static/lib/runonweb"
 
 
+def url(kind, path, version=None):
+    return f"/angels_runonweb/{kind}/{version or catalog.version(kind)}/{path}"
+
+
 @tagged("post_install", "-at_install")
 class TestRoutes(StorageMixin, HttpCase):
 
@@ -18,19 +22,21 @@ class TestRoutes(StorageMixin, HttpCase):
         return self.url_open(url, allow_redirects=False)
 
     def test_unknown_paths_are_not_found(self):
-        for url in [
-            "/angels_runonweb/models/midudev/text2emoji-tiny/README.md",
-            "/angels_runonweb/models/other/model/config.json",
-            "/angels_runonweb/runtime/ort.min.js",
-            "/angels_runonweb/models/midudev/text2emoji-tiny/..%2F..%2F..%2Fodoo.conf",
-            "/angels_runonweb/runtime/..%2Fmodels%2Fmidudev%2Ftext2emoji-tiny%2Fconfig.json",
+        for address in [
+            url("models", "midudev/text2emoji-tiny/README.md"),
+            url("models", "other/model/config.json"),
+            url("runtime", "ort.min.js"),
+            url("models", "midudev/text2emoji-tiny/..%2F..%2F..%2Fodoo.conf"),
+            url("runtime", "..%2F..%2Fmodels%2Fmidudev%2Ftext2emoji-tiny%2Fconfig.json"),
+            # Without a version, as before 19.0.1.1.1.
+            "/angels_runonweb/models/midudev/text2emoji-tiny/config.json",
         ]:
-            with self.subTest(url=url):
-                self.assertEqual(self.get(url).status_code, 404)
+            with self.subTest(url=address):
+                self.assertEqual(self.get(address).status_code, 404)
 
     def test_missing_file_without_internet_downloads(self):
         self.set_allow_remote(False)
-        self.assertEqual(self.get("/angels_runonweb/models/midudev/text2emoji-tiny/config.json").status_code, 404)
+        self.assertEqual(self.get(url("models", "midudev/text2emoji-tiny/config.json")).status_code, 404)
 
     def test_missing_file_redirects_to_the_pinned_source(self):
         self.set_allow_remote(True)
@@ -40,7 +46,7 @@ class TestRoutes(StorageMixin, HttpCase):
             ("runtime", "ort-wasm-simd-threaded.asyncify.wasm"),
         ]:
             with self.subTest(path=path):
-                response = self.get(f"/angels_runonweb/{kind}/{path}")
+                response = self.get(url(kind, path))
                 self.assertEqual(response.status_code, 302)
                 self.assertEqual(response.headers["Location"], catalog.find(kind, path).remote_url)
 
@@ -48,7 +54,7 @@ class TestRoutes(StorageMixin, HttpCase):
         entry = self.emoji_entry()
         self.write_entry(entry)
         self.set_allow_remote(True)  # a local file always wins over the internet
-        response = self.get("/angels_runonweb/models/midudev/text2emoji-tiny/config.json")
+        response = self.get(url("models", "midudev/text2emoji-tiny/config.json"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"x" * entry.size)
         self.assertEqual(response.headers["Content-Type"].split(";")[0], "application/json")
@@ -62,7 +68,7 @@ class TestRoutes(StorageMixin, HttpCase):
             ("ort-wasm-simd-threaded.asyncify.wasm", "application/wasm"),
         ]:
             self.write_entry(catalog.find("runtime", name))
-            response = self.get(f"/angels_runonweb/runtime/{name}")
+            response = self.get(url("runtime", name))
             with self.subTest(name=name):
                 self.assertEqual(response.status_code, 200)
                 self.assertEqual(response.headers["Content-Type"].split(";")[0], mimetype)
@@ -71,7 +77,30 @@ class TestRoutes(StorageMixin, HttpCase):
         entry = self.emoji_entry("tokenizer.json")
         self.write_entry(entry, size=10)
         self.set_allow_remote(False)
-        self.assertEqual(self.get("/angels_runonweb/models/midudev/text2emoji-tiny/tokenizer.json").status_code, 404)
+        self.assertEqual(self.get(url("models", "midudev/text2emoji-tiny/tokenizer.json")).status_code, 404)
+
+    def test_another_version_is_not_found(self):
+        """A URL of another catalog version never gets the current content (H1)."""
+        entry = self.emoji_entry()
+        self.write_entry(entry)
+        self.write_entry(catalog.find("runtime", "ort-wasm-simd-threaded.asyncify.wasm"))
+        self.set_allow_remote(True)
+        for address in [
+            url("models", "midudev/text2emoji-tiny/config.json", version="000000000000"),
+            url("runtime", "ort-wasm-simd-threaded.asyncify.wasm", version=catalog.version("models")),
+            url("runtime", "ort-wasm-simd-threaded.asyncify.wasm", version=catalog.ORT_VERSION),
+        ]:
+            with self.subTest(url=address):
+                self.assertEqual(self.get(address).status_code, 404)
+        self.assertEqual(self.get(url("models", "midudev/text2emoji-tiny/config.json")).status_code, 200)
+
+    def test_range_requests(self):
+        """Transformers.js asks for parts of the files to check them."""
+        entry = self.emoji_entry("tokenizer.json")
+        self.write_entry(entry)
+        response = self.url_open(url("models", "midudev/text2emoji-tiny/tokenizer.json"), headers={"Range": "bytes=0-9"})
+        self.assertEqual(response.status_code, 206)
+        self.assertEqual(response.content, b"x" * 10)
 
     def test_library_build_is_served(self):
         folder = os.path.dirname(file_path("angels_runonweb/static/lib/runonweb/emoji.js"))

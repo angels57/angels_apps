@@ -25,10 +25,11 @@ class TestRunOnWeb(StorageMixin, TransactionCase):
     def test_config_for_internal_users(self):
         config = self.runonweb.with_user(self.user).get_config()
         self.assertEqual(config["device"], "auto")
-        self.assertEqual(config["modelPath"], "/angels_runonweb/models/")
+        models, runtime = catalog.version("models"), catalog.version("runtime")
+        self.assertEqual(config["modelPath"], f"/angels_runonweb/models/{models}/")
         self.assertEqual(config["wasmPaths"], {
-            "mjs": "/angels_runonweb/runtime/ort-wasm-simd-threaded.asyncify.mjs",
-            "wasm": "/angels_runonweb/runtime/ort-wasm-simd-threaded.asyncify.wasm",
+            "mjs": f"/angels_runonweb/runtime/{runtime}/ort-wasm-simd-threaded.asyncify.mjs",
+            "wasm": f"/angels_runonweb/runtime/{runtime}/ort-wasm-simd-threaded.asyncify.wasm",
         })
         emoji = config["tasks"]["emoji"]
         self.assertEqual((emoji["model"], emoji["license"]), ("midudev/text2emoji-tiny", "MIT"))
@@ -38,8 +39,10 @@ class TestRunOnWeb(StorageMixin, TransactionCase):
 
     def test_wasm_paths_are_served_by_the_runtime_route(self):
         config = self.runonweb.get_config()
+        prefix = f"/angels_runonweb/runtime/{catalog.version('runtime')}/"
         for url in config["wasmPaths"].values():
-            self.assertIsNotNone(catalog.find("runtime", url.removeprefix("/angels_runonweb/runtime/")))
+            self.assertTrue(url.startswith(prefix), url)
+            self.assertIsNotNone(catalog.find("runtime", url.removeprefix(prefix)))
 
     def test_internet_downloads_make_the_task_available(self):
         self.set_allow_remote(True)
@@ -111,6 +114,15 @@ class TestRunOnWeb(StorageMixin, TransactionCase):
         with patch.object(storage, "download", side_effect=storage.DownloadError("offline")):
             with self.assertRaisesRegex(UserError, "offline"):
                 self.runonweb.with_user(self.admin).download_task("emoji")
+
+    def test_disk_errors_are_user_errors(self):
+        """H2: a full or read-only disk gives a clear message, for download and remove."""
+        with patch.object(storage, "download", side_effect=storage.DownloadError("cannot write x: No space left on device")):
+            with self.assertRaisesRegex(UserError, "No space left on device"):
+                self.runonweb.with_user(self.admin).download_task("emoji")
+        with patch.object(storage, "remove", side_effect=storage.StorageError("cannot delete x: Permission denied")):
+            with self.assertRaisesRegex(UserError, "could not be removed: cannot delete x: Permission denied"):
+                self.runonweb.with_user(self.admin).remove_task("emoji")
 
     def test_unknown_task(self):
         for method in ("download_task", "remove_task"):
