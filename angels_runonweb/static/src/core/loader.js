@@ -3,9 +3,21 @@
 // first time it is needed, and its model downloads only then.
 export const LIB_URL = "/angels_runonweb/static/lib/runonweb";
 
-// Task name -> build entry, class and the method that runs it.
+// Ranks `texts` by meaning against `query`, best match first.
+async function semanticSearch(instance, { query, texts }, lib) {
+    const { embeddings, dimensions } = await instance.embed([query, ...texts]);
+    const [target, ...vectors] = embeddings;
+    const ranking = texts
+        .map((text, index) => ({ text, score: lib.cosineSimilarity(target, vectors[index]) }))
+        .sort((a, b) => b.score - a.score);
+    return { ranking, dimensions };
+}
+
+// Task name -> build entry, class and how to run it: the method called with the input, or
+// `run(instance, input, lib)` when the task needs more than one call.
 export const TASKS = {
     emoji: { entry: "emoji.js", className: "Emojifier", method: "emojify" },
+    embed: { entry: "embed.js", className: "TextEmbedder", run: semanticSearch },
 };
 
 export function configureRuntime(env, config) {
@@ -19,6 +31,10 @@ export function configureRuntime(env, config) {
     }
     if (env) {
         env.useBrowserCache = true;
+        // Tasks that take no `modelPath` ask the Hub: point the Hub at Odoo, with the same
+        // <model>/<file> layout. Absolute, so the browser cache accepts the responses.
+        env.remoteHost = new URL(config.modelPath, globalThis.location?.href).href;
+        env.remotePathTemplate = "{model}/";
     }
 }
 
@@ -35,6 +51,7 @@ export class RunOnWebLoader {
         this.importModule = importModule;
         this.baseUrl = baseUrl;
         this.instances = new Map();
+        this.libs = new Map();
         this.listeners = new Set();
     }
 
@@ -71,6 +88,7 @@ export class RunOnWebLoader {
 
     async create(task, spec, state, config, options) {
         const lib = await this.importModule(`${this.baseUrl}/${spec.entry}`);
+        this.libs.set(task, lib);
         configureRuntime(lib.env, config);
         const instance = new lib[spec.className]({
             model: state.model,
@@ -85,7 +103,8 @@ export class RunOnWebLoader {
 
     async run(task, config, input, options = {}) {
         const instance = await this.load(task, config, options);
-        return instance[TASKS[task].method](input);
+        const spec = TASKS[task];
+        return spec.run ? spec.run(instance, input, this.libs.get(task)) : instance[spec.method](input);
     }
 
     async dispose() {

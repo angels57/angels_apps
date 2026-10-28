@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 00:33+0000\n"
+"POT-Creation-Date: 2026-10-28 23:43+0000\n"
 "PO-Revision-Date: 2026-10-27 00:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -111,6 +111,18 @@ msgstr "Descargando"
 #: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
 msgid "Enter a text first."
 msgstr "Escribe un texto primero."
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Enter at least two texts, one per line."
+msgstr "Escribe al menos dos textos, uno por línea."
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Enter what to search for."
+msgstr "Escribe qué buscar."
 
 #. module: angels_runonweb
 #. odoo-javascript
@@ -258,6 +270,18 @@ msgstr "RunOnWeb solo está disponible para usuarios internos."
 #. module: angels_runonweb
 #. odoo-javascript
 #: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Search for (in English)"
+msgstr "Buscar (en inglés)"
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Semantic search"
+msgstr "Búsqueda semántica"
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
 msgid "Several"
 msgstr "Varios"
 
@@ -290,6 +314,12 @@ msgstr "Texto (en inglés)"
 #: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
 msgid "Text to emoji"
 msgstr "Texto a emoji"
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Texts to rank, one per line"
+msgstr "Textos para ordenar, uno por línea"
 
 #. module: angels_runonweb
 #. odoo-javascript

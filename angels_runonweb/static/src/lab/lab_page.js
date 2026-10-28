@@ -1,6 +1,6 @@
 import { detectWebGPU } from "../core/loader";
 import { labLabels } from "./lab_labels";
-import { LAB_TASKS } from "./lab_tasks";
+import { examples, LAB_TASKS } from "./lab_tasks";
 import { clearModelCache, errorMessage, esc, formatBytes, modelCacheSize } from "./lab_utils";
 
 const now = () => performance.now();
@@ -94,9 +94,10 @@ export class LabPage {
 
     renderTasks() {
         const t = this.t;
-        const values = {};
-        for (const el of this.root.querySelectorAll("[data-task] [data-field=input]")) {
-            values[el.closest("[data-task]").dataset.task] = el.value;
+        // Keep what was typed when the panels are drawn again.
+        const typed = {};
+        for (const el of this.root.querySelectorAll("[data-task] [data-field]")) {
+            typed[`${el.closest("[data-task]").dataset.task}:${el.dataset.field}`] = el.value;
         }
         this.$('[data-role="tasks"]').innerHTML = Object.entries(this.status.tasks)
             .filter(([task]) => LAB_TASKS[task])
@@ -113,8 +114,12 @@ export class LabPage {
                     <div class="o-row-actions">${state.local
                         ? `<button type="button" class="o-row-btn" data-act="remove">${esc(t["Remove from the server"])}</button>`
                         : `<button type="button" class="o-row-btn" data-act="download">${esc(t["Download to the server"])}</button>`}</div>
-                    <label class="o-row-label" for="o-row-input-${esc(task)}">${esc(t[ui.inputLabel])}</label>
-                    <textarea class="o-row-input" id="o-row-input-${esc(task)}" data-field="input" rows="2">${esc(values[task] ?? ui.example())}</textarea>
+                    ${ui.fields.map((field) => {
+                        const id = `o-row-${esc(task)}-${esc(field.name)}`;
+                        const value = typed[`${task}:${field.name}`] ?? field.example;
+                        return `<label class="o-row-label" for="${id}">${esc(t[field.label])}</label>
+                            <textarea class="o-row-input" id="${id}" data-field="${esc(field.name)}" rows="${field.rows}">${esc(value)}</textarea>`;
+                    }).join("")}
                     <div class="o-row-error" data-role="error" role="alert"></div>
                     <div class="o-row-actions">
                         <button type="button" class="o-row-btn o-row-primary" data-act="run" ${state.available ? "" : "disabled"}>${esc(t["Run"])}</button>
@@ -158,14 +163,21 @@ export class LabPage {
         return { result, loadMs, runMs: now() - startRun, device: instance.device || "" };
     }
 
+    values(task) {
+        const fields = this.panel(task).querySelectorAll("[data-field]");
+        return Object.fromEntries([...fields].map((el) => [el.dataset.field, el.value]));
+    }
+
     async runTask(task) {
         const panel = this.panel(task);
         const ui = LAB_TASKS[task];
-        const input = panel.querySelector("[data-field=input]").value;
-        if (ui.isEmpty(input)) {
-            this.setError(task, this.t["Enter a text first."]);
+        const values = this.values(task);
+        const problem = ui.validate(values);
+        if (problem) {
+            this.setError(task, this.t[problem]);
             return;
         }
+        const input = ui.toInput(values);
         this.setError(task, "");
         const resultBox = panel.querySelector('[data-role="result"]');
         resultBox.textContent = this.t["Loading the model"];
@@ -202,7 +214,7 @@ export class LabPage {
                 continue;
             }
             try {
-                const out = await this.execute(task, ui.example());
+                const out = await this.execute(task, ui.toInput(examples(ui)));
                 rows.push([task, "ok", `${ui.summary(out.result)} · ${Math.round(out.runMs)} ms`]);
             } catch (error) {
                 rows.push([task, "fail", `${t["Failed"]}: ${errorMessage(error)}`]);
@@ -231,7 +243,9 @@ export class LabPage {
         const task = button.closest("[data-task]")?.dataset.task;
         const act = button.dataset.act;
         if (act === "example") {
-            this.panel(task).querySelector("[data-field=input]").value = LAB_TASKS[task].example();
+            for (const [name, value] of Object.entries(examples(LAB_TASKS[task]))) {
+                this.panel(task).querySelector(`[data-field="${name}"]`).value = value;
+            }
             this.setError(task, "");
             return;
         }

@@ -113,4 +113,41 @@ describe("RunOnWeb loader", () => {
         configureRuntime(env, CONFIG);
         expect(env.useBrowserCache).toBe(true);
     });
+
+    test("configureRuntime points the Hub at Odoo with an absolute URL", () => {
+        const env = { remoteHost: "https://huggingface.co/", remotePathTemplate: "{model}/resolve/{revision}/" };
+        configureRuntime(env, CONFIG);
+        expect(env.remoteHost).toBe(`${location.origin}/angels_runonweb/models/`);
+        expect(env.remotePathTemplate).toBe("{model}/");
+    });
+
+    test("semantic search ranks the texts by similarity to the query", async () => {
+        const created = [];
+        const lib = {
+            env: {},
+            // Vectors are 1-D: the similarity is the product of the two numbers.
+            cosineSimilarity: (a, b) => a[0] * b[0],
+            TextEmbedder: class {
+                constructor(options) {
+                    this.options = options;
+                    created.push(this);
+                }
+                async load() {}
+                async embed(texts) {
+                    this.texts = texts;
+                    const value = { "unpaid bill": 1, "invoice overdue": 0.9, dog: 0.1, meeting: 0.3 };
+                    return { embeddings: texts.map((t) => new Float32Array([value[t]])), dimensions: 1 };
+                }
+            },
+        };
+        const loader = new RunOnWebLoader({ importModule: async () => lib });
+        const config = { ...CONFIG, tasks: { embed: { model: "Xenova/all-MiniLM-L6-v2", available: true } } };
+        const result = await loader.run("embed", config, { query: "unpaid bill", texts: ["dog", "invoice overdue", "meeting"] });
+        // One call embeds the query and the texts together.
+        expect(created[0].texts).toEqual(["unpaid bill", "dog", "invoice overdue", "meeting"]);
+        expect(created[0].options.model).toBe("Xenova/all-MiniLM-L6-v2");
+        expect(result.dimensions).toBe(1);
+        expect(result.ranking.map((r) => r.text)).toEqual(["invoice overdue", "meeting", "dog"]);
+        expect(result.ranking[0].score).toBeCloseTo(0.9, { digits: 5 });
+    });
 });

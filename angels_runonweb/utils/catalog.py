@@ -47,6 +47,26 @@ TASKS = {
             ),
         },
     },
+    "embed": {
+        "name": "Semantic search",
+        "model": "Xenova/all-MiniLM-L6-v2",
+        "revision": "751bff37182d3f1213fa05d7196b954e230abad9",
+        "license": "Apache-2.0",
+        "license_url": "https://huggingface.co/Xenova/all-MiniLM-L6-v2",
+        "files": {
+            "config.json": ("7135149f7cffa1a573466c6e4d8423ed73b62fd2332c575bf738a0d033f70df7", 650, JSON),
+            "special_tokens_map.json": ("b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3", 125, JSON),
+            "tokenizer.json": ("da0e79933b9ed51798a3ae27893d3c5fa4a201126cef75586296df9b4d2c62a0", 711661, JSON),
+            "tokenizer_config.json": ("9261e7d79b44c8195c1cada2b453e55b00aeb81e907a6664974b4d7776172ab3", 366, JSON),
+            # q8 runs on WASM; WebGPU needs fp16 (q8 gives wrong similarities there).
+            "onnx/model_quantized.onnx": (
+                "afdb6f1a0e45b715d0bb9b11772f032c399babd23bfc31fed1c170afc848bdb1", 22972370, ONNX,
+            ),
+            "onnx/model_fp16.onnx": (
+                "2cdb5e58291813b6d6e248ed69010100246821a367fa17b1b81ae9483744533d", 45297825, ONNX,
+            ),
+        },
+    },
 }
 
 

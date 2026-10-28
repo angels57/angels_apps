@@ -18,9 +18,9 @@ class TestRunOnWeb(StorageMixin, TransactionCase):
         cls.portal = new_test_user(cls.env, login="row_portal", groups="base.group_portal")
         cls.runonweb = cls.env["angels.runonweb"]
 
-    def download_all(self):
+    def download_all(self, task="emoji"):
         with patch.object(storage, "download", side_effect=self.fake_download):
-            return self.runonweb.with_user(self.admin).download_task("emoji")
+            return self.runonweb.with_user(self.admin).download_task(task)
 
     def test_config_for_internal_users(self):
         config = self.runonweb.with_user(self.user).get_config()
@@ -75,6 +75,24 @@ class TestRunOnWeb(StorageMixin, TransactionCase):
         # The runtime is shared by every task and stays.
         self.assertTrue(status["runtime"]["local"])
         self.assertFalse(any(storage.is_present(e) for e in catalog.task_files("emoji")))
+
+    def test_semantic_search_task(self):
+        embed = self.runonweb.with_user(self.user).get_config()["tasks"]["embed"]
+        self.assertEqual((embed["model"], embed["license"]), ("Xenova/all-MiniLM-L6-v2", "Apache-2.0"))
+        self.assertEqual(embed["size"], catalog.task_size("embed"))
+        self.assertFalse(embed["available"])
+
+    def test_tasks_are_downloaded_and_removed_separately(self):
+        status = self.download_all("embed")
+        self.assertTrue(status["tasks"]["embed"]["local"])
+        self.assertFalse(status["tasks"]["emoji"]["local"])
+        # Both WebGPU (fp16) and WASM (q8) weights, so any browser can run it.
+        for name in ("onnx/model_fp16.onnx", "onnx/model_quantized.onnx"):
+            self.assertTrue(storage.is_present(catalog.find("models", f"Xenova/all-MiniLM-L6-v2/{name}")))
+
+        self.download_all("emoji")
+        status = self.runonweb.with_user(self.admin).remove_task("emoji")
+        self.assertEqual((status["tasks"]["emoji"]["local"], status["tasks"]["embed"]["local"]), (False, True))
 
     def test_download_skips_files_already_there(self):
         self.download_all()

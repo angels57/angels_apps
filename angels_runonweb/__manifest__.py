@@ -1,6 +1,6 @@
 {
     "name": "Angels RunOnWeb",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "summary": "On-device AI models in the browser for Odoo, served from your own server",
     "description": """
 Angels RunOnWeb
@@ -17,7 +17,8 @@ Runs small open AI models inside the browser of each user with runonweb
 * RunOnWeb Lab (Settings menu): browser diagnostics, server download and a
   panel to try each task.
 
-Tasks: text to emoji (text2emoji-tiny, 4 MB, MIT).
+Tasks: text to emoji (text2emoji-tiny, 4 MB, MIT) and semantic search
+(all-MiniLM-L6-v2, 23 MB on WASM or 45 MB on WebGPU, Apache-2.0).
     """,
     "category": "Hidden/Tools",
     "author": "Angels SAS",

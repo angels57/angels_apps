@@ -36,6 +36,7 @@ class TestRoutes(StorageMixin, HttpCase):
         self.set_allow_remote(True)
         for kind, path in [
             ("models", "midudev/text2emoji-tiny/onnx/encoder_model_quantized.onnx"),
+            ("models", "Xenova/all-MiniLM-L6-v2/onnx/model_fp16.onnx"),
             ("runtime", "ort-wasm-simd-threaded.asyncify.wasm"),
         ]:
             with self.subTest(path=path):
@@ -73,13 +74,14 @@ class TestRoutes(StorageMixin, HttpCase):
         self.assertEqual(self.get("/angels_runonweb/models/midudev/text2emoji-tiny/tokenizer.json").status_code, 404)
 
     def test_library_build_is_served(self):
-        response = self.get(f"{LIB}/emoji.js")
-        self.assertEqual(response.status_code, 200)
-        # Every chunk the entry imports is part of the addon.
         folder = os.path.dirname(file_path("angels_runonweb/static/lib/runonweb/emoji.js"))
-        chunks = re.findall(r'(?:from|import\()\s*"(\./chunks/[^"]+)"', response.text)
-        self.assertGreaterEqual(len(chunks), 2)
-        for chunk in chunks:
-            self.assertTrue(os.path.isfile(os.path.join(folder, chunk)), chunk)
+        for entry in ("emoji.js", "embed.js"):
+            response = self.get(f"{LIB}/{entry}")
+            self.assertEqual(response.status_code, 200)
+            # Every chunk the entry imports is part of the addon.
+            chunks = re.findall(r'(?:from|import\()\s*"(\./chunks/[^"]+)"', response.text)
+            self.assertGreaterEqual(len(chunks), 2, entry)
+            for chunk in chunks:
+                self.assertTrue(os.path.isfile(os.path.join(folder, chunk)), chunk)
         for name in ("runonweb", "transformers", "onnxruntime-web"):
             self.assertTrue(os.path.isfile(os.path.join(folder, "licenses", f"{name}.LICENSE")), name)

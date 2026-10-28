@@ -43,5 +43,11 @@ export function labLabels() {
         // Text to emoji
         "Text (in English)": _t("Text (in English)"),
         "Text to emoji": _t("Text to emoji"),
+        // Semantic search
+        "Enter at least two texts, one per line.": _t("Enter at least two texts, one per line."),
+        "Enter what to search for.": _t("Enter what to search for."),
+        "Search for (in English)": _t("Search for (in English)"),
+        "Semantic search": _t("Semantic search"),
+        "Texts to rank, one per line": _t("Texts to rank, one per line"),
     };
 }

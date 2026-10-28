@@ -43,20 +43,26 @@ def entry_for(body, path="midudev/text2emoji-tiny/test.json"):
 class TestCatalog(BaseCase):
 
     def test_every_file_is_pinned(self):
-        entries = catalog.runtime_files() + catalog.task_files("emoji")
-        self.assertTrue(entries)
+        self.assertEqual(set(catalog.TASKS), {"emoji", "embed"})
+        entries = catalog.runtime_files() + [e for task in catalog.TASKS for e in catalog.task_files(task)]
         for entry in entries:
             self.assertRegex(entry.sha256, SHA256, entry.path)
             self.assertGreater(entry.size, 0, entry.path)
             self.assertTrue(entry.remote_url.startswith("https://"), entry.path)
             self.assertNotIn("/resolve/main/", entry.remote_url)
             self.assertNotIn("..", entry.path)
-        revision = catalog.TASKS["emoji"]["revision"]
-        self.assertTrue(all(revision in e.remote_url for e in catalog.task_files("emoji")))
+        for task, spec in catalog.TASKS.items():
+            for entry in catalog.task_files(task):
+                self.assertTrue(entry.path.startswith(spec["model"] + "/"), entry.path)
+                self.assertIn(f"/resolve/{spec['revision']}/", entry.remote_url)
         self.assertTrue(all(catalog.ORT_VERSION in e.remote_url for e in catalog.runtime_files()))
+        # No two catalog files are served at the same path.
+        self.assertEqual(len({(e.kind, e.path) for e in entries}), len(entries))
 
     def test_find_only_returns_listed_paths(self):
         self.assertEqual(self.emoji_config().path, "midudev/text2emoji-tiny/config.json")
+        self.assertEqual(catalog.find("models", "Xenova/all-MiniLM-L6-v2/onnx/model_quantized.onnx").size, 22972370)
+        self.assertIsNone(catalog.find("models", "Xenova/all-MiniLM-L6-v2/onnx/model.onnx"))
         self.assertEqual(catalog.find("runtime", "ort-wasm-simd-threaded.asyncify.wasm").mimetype, "application/wasm")
         for kind, path in [
             ("models", "midudev/text2emoji-tiny/README.md"),
@@ -69,6 +75,7 @@ class TestCatalog(BaseCase):
 
     def test_sizes(self):
         self.assertEqual(catalog.task_size("emoji"), 4375353)
+        self.assertEqual(catalog.task_size("embed"), 68982997)
         self.assertEqual(catalog.runtime_size(), 26914834)
 
     @staticmethod

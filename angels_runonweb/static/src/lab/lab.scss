@@ -196,6 +196,32 @@
     margin-top: 12px;
 }
 
+.o-row-label + .o-row-input + .o-row-label {
+    margin-top: 12px;
+}
+
+.o-row-ranking {
+    margin: 0 0 8px;
+    padding-left: 24px;
+
+    li {
+        display: grid;
+        grid-template-columns: 40px 80px minmax(0, 1fr);
+        gap: 8px;
+        align-items: center;
+        padding: 4px 0;
+    }
+
+    li:first-child .o-row-ranked {
+        font-weight: 600;
+    }
+}
+
+.o-row-score {
+    font-variant-numeric: tabular-nums;
+    color: var(--o-row-muted);
+}
+
 .o-row-emojis {
     margin-bottom: 8px;
     font-size: 32px;

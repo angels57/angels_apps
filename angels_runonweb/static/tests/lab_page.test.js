@@ -5,21 +5,37 @@ import { LabPage } from "@angels_runonweb/lab/lab_page";
 
 const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
 
-function status({ local = false, allowRemote = false } = {}) {
+function status({ local = false, allowRemote = false, embed = false } = {}) {
+    const tasks = {
+        emoji: {
+            name: "Text to emoji", model: "midudev/text2emoji-tiny", license: "MIT",
+            licenseUrl: "https://huggingface.co/midudev/text2emoji-tiny",
+            size: 4375353, local, available: local || allowRemote,
+        },
+    };
+    if (embed) {
+        tasks.embed = {
+            name: "Semantic search", model: "Xenova/all-MiniLM-L6-v2", license: "Apache-2.0",
+            licenseUrl: "https://huggingface.co/Xenova/all-MiniLM-L6-v2",
+            size: 68982997, local, available: local || allowRemote,
+        };
+    }
     return {
         allowRemote,
         device: "auto",
         storage: "/var/lib/odoo/angels_runonweb",
         runtime: { version: "1.31.0", size: 26914834, local },
-        tasks: {
-            emoji: {
-                name: "Text to emoji", model: "midudev/text2emoji-tiny", license: "MIT",
-                licenseUrl: "https://huggingface.co/midudev/text2emoji-tiny",
-                size: 4375353, local, available: local || allowRemote,
-            },
-        },
+        tasks,
     };
 }
+
+const RANKING = {
+    ranking: [
+        { text: "Reminder: the customer has not paid yet", score: 0.61 },
+        { text: "Our dog loves running in the park", score: 0.05 },
+    ],
+    dimensions: 384,
+};
 
 // A fake angels_runonweb service.
 function fakeRunonweb({ fail = null } = {}) {
@@ -39,7 +55,7 @@ function fakeRunonweb({ fail = null } = {}) {
         },
         async run(task, input) {
             service.runs.push([task, input]);
-            return { text: "🍕❤️🐶", emojis: ["🍕", "❤️", "🐶"] };
+            return task === "embed" ? RANKING : { text: "🍕❤️🐶", emojis: ["🍕", "❤️", "🐶"] };
         },
         async getConfig(refresh) {
             service.configRefreshed += refresh ? 1 : 0;
@@ -228,5 +244,73 @@ describe("RunOnWeb lab", () => {
         page.destroy();
         expect(runonweb.listener).toBe(null);
         expect(root.innerHTML).toBe("");
+    });
+});
+
+describe("RunOnWeb lab: semantic search", () => {
+    const SEARCH = '[data-task="embed"]';
+
+    test("has a query and a list of texts with an example", async () => {
+        const { root } = await mount({ backend: { get_status: status({ embed: true }) } });
+        const panel = q(root, SEARCH);
+        expect(q(panel, "h3").textContent).toBe("Semantic search");
+        expect(q(panel, '[data-field="query"]').value).toBe("unpaid bill");
+        expect(q(panel, '[data-field="texts"]').value.split("\n").length).toBe(5);
+        expect(q(panel, '[data-act="run"]').disabled).toBe(true);
+        expect(panel.textContent).toInclude("Apache-2.0");
+    });
+
+    test("ranks the texts, best match first, with its score", async () => {
+        const { root, runonweb } = await mount({ backend: { get_status: status({ local: true, embed: true }) } });
+        q(root, `${SEARCH} [data-field="query"]`).value = "  money owed  ";
+        q(root, `${SEARCH} [data-field="texts"]`).value = "Our dog loves running in the park\n\n  Reminder: the customer has not paid yet \n";
+        await click(root, `${SEARCH} [data-act="run"]`);
+        // Blank lines are dropped and both fields trimmed.
+        expect(runonweb.runs).toEqual([["embed", {
+            query: "money owed",
+            texts: ["Our dog loves running in the park", "Reminder: the customer has not paid yet"],
+        }]]);
+        const items = [...root.querySelectorAll(`${SEARCH} [data-role="ranking"] li`)];
+        expect(items.length).toBe(2);
+        expect(items[0].textContent).toInclude("Reminder: the customer has not paid yet");
+        expect(q(items[0], '[data-role="score"]').textContent).toBe("0.61");
+        expect(q(items[0], ".o-row-bar span").style.width).toBe("61%");
+        expect(q(root, `${SEARCH} [data-metric="device"]`).textContent).toBe("wasm");
+    });
+
+    test("asks for a query and at least two texts", async () => {
+        const { root, runonweb } = await mount({ backend: { get_status: status({ local: true, embed: true }) } });
+        const error = () => q(root, `${SEARCH} [data-role="error"]`).textContent;
+        q(root, `${SEARCH} [data-field="query"]`).value = " ";
+        await click(root, `${SEARCH} [data-act="run"]`);
+        expect(error()).toBe("Enter what to search for.");
+        q(root, `${SEARCH} [data-field="query"]`).value = "bill";
+        q(root, `${SEARCH} [data-field="texts"]`).value = "only one\n\n";
+        await click(root, `${SEARCH} [data-act="run"]`);
+        expect(error()).toBe("Enter at least two texts, one per line.");
+        expect(runonweb.loads).toEqual([]);
+        await click(root, `${SEARCH} [data-act="example"]`);
+        expect(q(root, `${SEARCH} [data-field="query"]`).value).toBe("unpaid bill");
+        expect(error()).toBe("");
+    });
+
+    test("typed texts survive a server action on another task", async () => {
+        const { root } = await mount({
+            backend: { get_status: status({ embed: true }), download_task: status({ local: true, embed: true }) },
+        });
+        q(root, `${SEARCH} [data-field="query"]`).value = "my query";
+        await click(root, '[data-task="emoji"] [data-act="download"]');
+        expect(q(root, `${SEARCH} [data-field="query"]`).value).toBe("my query");
+        expect(q(root, `${SEARCH} [data-act="run"]`).disabled).toBe(false);
+    });
+
+    test("test all runs both tasks with their examples", async () => {
+        const { root, runonweb } = await mount({ backend: { get_status: status({ local: true, embed: true }) } });
+        await click(root, '[data-act="test-all"]');
+        expect(runonweb.runs.map(([task]) => task)).toEqual(["emoji", "embed"]);
+        expect(runonweb.runs[1][1].texts.length).toBe(5);
+        const row = q(root, '[data-summary="embed"]');
+        expect(row.classList.contains("o-row-summary-ok")).toBe(true);
+        expect(row.textContent).toInclude("Reminder: the customer has not paid yet (0.61)");
     });
 });
