@@ -1,6 +1,6 @@
 {
     "name": "Angels Sign - Electronic Signature",
-    "version": "20.0.2.1.3",
+    "version": "20.0.2.2.0",
     "summary": "Self-hosted electronic signature: place fields on PDFs, collect signatures, get a certificate",
     "description": """
 Angels Sign - Electronic Signature for Odoo 20
@@ -16,13 +16,14 @@ Features:
 * Several documents per request (envelopes) and reusable templates with roles
 * Signing order, automatic reminders, validity date, copy to contacts
 * Signers draw, type or upload their signature, without an Odoo account
-* Optional one-time code by email before signing
+* Optional one-time code by email or SMS before signing (SMS uses Odoo IAP
+  credits)
 * "Request Signature" action on the records of the models you choose
 * Signed PDF with a verification code on every page and a certificate of
   completion (SHA-256 hashes, IP, browser, chained audit events)
 * Public page to verify that a signed PDF has not been modified
-* Bridges: angels_sign_sms (code by SMS), angels_sign_certificate (PDF signed
-  with the company certificate)
+* Signed PDF also signed with the company certificate (.p12/.pfx), so PDF
+  readers show the signature panel
 
 Credits:
 --------
@@ -33,7 +34,7 @@ Adapted to Odoo 20 and maintained by Angels SAS.
     "author": "Angels SAS",
     "maintainer": "Angels SAS",
     "license": "LGPL-3",
-    "depends": ["mail", "web"],
+    "depends": ["mail", "web", "sms", "certificate"],
     "data": [
         "security/groups.xml",
         "security/ir.access.csv",
@@ -48,6 +49,7 @@ Adapted to Odoo 20 and maintained by Angels SAS.
         "views/sign_editor_actions.xml",
         "views/sign_editor_views.xml",
         "views/res_config_settings_views.xml",
+        "views/res_company_views.xml",
         "views/menus.xml",
     ],
     "assets": {

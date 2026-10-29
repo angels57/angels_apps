@@ -1,6 +1,6 @@
 import re
 
-from odoo.addons.angels_sign.tests.common import make_pdf, make_png
+from .common import make_pdf, make_png
 from odoo.addons.sms.tests.common import SMSCase
 from odoo.exceptions import UserError
 from odoo.tests import tagged

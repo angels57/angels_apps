@@ -13,8 +13,7 @@ class ResConfigSettings(models.TransientModel):
     group_manage_template_access = fields.Boolean(
         string="Manage template access", implied_group="angels_sign.group_manage_template_access",
     )
-    module_angels_sign_sms = fields.Boolean(string="Authenticate by SMS")
-    module_angels_sign_certificate = fields.Boolean(string="Cryptographic signature")
+    signing_certificate_id = fields.Many2one(related="company_id.signing_certificate_id", readonly=False)
 
     def _compute_sign_terms_url(self):
         for settings in self:

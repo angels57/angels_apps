@@ -30,14 +30,17 @@
                         </setting>
                         <setting id="sign_sms" string="Authenticate by SMS"
                                  help="Deliver one-time codes by SMS to identify signatories when signing a document">
-                            <field name="module_angels_sign_sms"/>
-                            <div class="text-muted mt8" invisible="not module_angels_sign_sms">
-                                Codes are sent with Odoo SMS, which uses IAP credits.
-                            </div>
+                            <div class="text-muted">Choose "Email link + SMS code" as the signer verification.</div>
+                            <div class="text-muted">Codes are sent with Odoo SMS, which uses IAP credits.</div>
                         </setting>
                         <setting id="sign_certificate" string="Cryptographic signature"
                                  help="Certify your documents using a provided .pfx or .p12 file.">
-                            <field name="module_angels_sign_certificate"/>
+                            <div class="content-group">
+                                <div class="row">
+                                    <label for="signing_certificate_id" string="Signing certificate" class="col-lg-4 o_light_label"/>
+                                    <field name="signing_certificate_id" options="{'no_create': True}"/>
+                                </div>
+                            </div>
                         </setting>
                     </block>
                 </app>

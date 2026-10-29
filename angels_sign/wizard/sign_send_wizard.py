@@ -97,6 +97,7 @@ class SignSendWizard(models.TransientModel):
                     "partner_id": line.partner_id.id,
                     "signer_name": line.partner_id.name,
                     "signer_email": line.partner_id.email,
+                    "signer_phone": line.partner_id.phone,
                 })
         sign_request.action_send()
         if hasattr(record, "message_post"):

@@ -590,7 +590,6 @@ msgid "Audit log entries cannot be modified."
 msgstr "Los registros de auditoría no se pueden modificar."
 
 #. module: angels_sign
-#: model:ir.model.fields,field_description:angels_sign.field_res_config_settings__module_angels_sign_sms
 #: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
 msgid "Authenticate by SMS"
 msgstr "Autenticar por SMS"
@@ -867,7 +866,6 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: angels_sign
-#: model:ir.model.fields,field_description:angels_sign.field_res_config_settings__module_angels_sign_certificate
 #: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
 msgid "Cryptographic signature"
 msgstr "Firma criptográfica"
@@ -3171,3 +3169,52 @@ msgstr "Ubicación"
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__star
 msgid "Star"
 msgstr "Estrella"
+
+#. module: angels_sign
+#. odoo-python
+#: code:addons/angels_sign/models/sign_request_item.py:0
+msgid "%(code)s is your Angels Sign code for %(doc)s. Valid 10 minutes."
+msgstr "%(code)s es tu código de Angels Sign para %(doc)s. Válido por 10 minutos."
+
+#. module: angels_sign
+#: model:ir.model.fields,help:angels_sign.field_res_company__signing_certificate_id
+#: model:ir.model.fields,help:angels_sign.field_res_config_settings__signing_certificate_id
+msgid "Certificate used to sign the documents completed with Angels Sign."
+msgstr "Certificado usado para firmar los documentos completados con Angels Sign."
+
+#. module: angels_sign
+#: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
+msgid "Choose \"Email link + SMS code\" as the signer verification."
+msgstr "Elige \"Enlace por correo + código por SMS\" como verificación del firmante."
+
+#. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_request_item__auth_method__sms_otp
+msgid "Email link + SMS code"
+msgstr "Enlace por correo + código por SMS"
+
+#. module: angels_sign
+#: model:ir.model.fields,field_description:angels_sign.field_sign_request_item__signer_phone
+msgid "Mobile"
+msgstr "Móvil"
+
+#. module: angels_sign
+#. odoo-python
+#: code:addons/angels_sign/models/sign_request_item.py:0
+msgid "No mobile number is set for this signer."
+msgstr "Este firmante no tiene número de móvil."
+
+#. module: angels_sign
+#: model:ir.model.fields,field_description:angels_sign.field_res_company__signing_certificate_id
+#: model:ir.model.fields,field_description:angels_sign.field_res_config_settings__signing_certificate_id
+msgid "PDF Signing Certificate"
+msgstr "Certificado de firma de PDF"
+
+#. module: angels_sign
+#: model:ir.model.fields,field_description:angels_sign.field_sign_request__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Error de entrega del SMS"
+
+#. module: angels_sign
+#: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
+msgid "Signing certificate"
+msgstr "Certificado de firma"

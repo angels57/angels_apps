@@ -28,6 +28,7 @@ class SignRequestItem(models.Model):
     partner_id = fields.Many2one("res.partner", string="Contact")
     signer_name = fields.Char(string="Name", required=True)
     signer_email = fields.Char(string="Email")
+    signer_phone = fields.Char(string="Mobile")
     state = fields.Selection(
         [
             ("pending", "Draft"),
@@ -41,7 +42,7 @@ class SignRequestItem(models.Model):
         string="Status", default="pending", readonly=True,
     )
     auth_method = fields.Selection(
-        [("none", "Email link"), ("email_otp", "Email link + code")],
+        [("none", "Email link"), ("email_otp", "Email link + code"), ("sms_otp", "Email link + SMS code")],
         string="Verification", default="none", required=True,
     )
     can_delegate = fields.Boolean(
@@ -83,6 +84,7 @@ class SignRequestItem(models.Model):
         if self.partner_id:
             self.signer_name = self.partner_id.name
             self.signer_email = self.partner_id.email
+            self.signer_phone = self.partner_id.phone
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -93,7 +95,7 @@ class SignRequestItem(models.Model):
     def write(self, vals):
         forced = self.env.context.get("angels_sign_force")
         replaced = self.browse()
-        if not forced and {"signer_name", "signer_email", "partner_id"} & set(vals):
+        if not forced and {"signer_name", "signer_email", "signer_phone", "partner_id"} & set(vals):
             for item in self:
                 if item.request_id.state == "draft" or item.state == "pending":
                     continue  # not invited yet: free to change
@@ -187,9 +189,18 @@ class SignRequestItem(models.Model):
         })
 
     def _send_otp_code(self, code):
-        """Deliver the code. Bridge modules override this for other channels."""
+        """Deliver the code by SMS or email, depending on the verification method."""
         self.ensure_one()
-        self.request_id._send_otp_mail(self, code)
+        if self.auth_method != "sms_otp":
+            self.request_id._send_otp_mail(self, code)
+            return
+        if not self.signer_phone:
+            raise UserError(_("No mobile number is set for this signer."))
+        self.env["sms.sms"].sudo().create({
+            "number": self.signer_phone,
+            "body": _("%(code)s is your Angels Sign code for %(doc)s. Valid 10 minutes.",
+                      code=code, doc=self.request_id.document_name or self.request_id.name),
+        }).send()
 
     def _check_otp(self, code):
         self.ensure_one()

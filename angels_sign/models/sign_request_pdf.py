@@ -10,7 +10,7 @@ from odoo.exceptions import UserError
 from odoo.tools import format_date
 from odoo.tools.pdf import PdfReader, PdfWriter
 
-from ..utils.compat import binary_value
+from ..utils.compat import binary_value, sign_pdf
 from ..utils.pdf_overlay import PageOverlay
 
 _logger = logging.getLogger(__name__)
@@ -136,8 +136,16 @@ class SignRequest(models.Model):
         return pdf if pdf and pdf.startswith(b"%PDF") else b""
 
     def _angels_sign_post_process_pdf(self, pdf_bytes):
-        """Hook for bridge modules (cryptographic signature). Returns PDF bytes."""
-        return pdf_bytes
+        """Sign the final PDF with the company certificate, when one is set. Returns PDF bytes."""
+        company = self.company_id.sudo()
+        if not company.signing_certificate_id:
+            return pdf_bytes
+        try:
+            signed = sign_pdf(pdf_bytes, company, "Angels Sign")
+        except Exception:  # noqa: BLE001 - keep the unsigned PDF rather than losing the signature
+            _logger.exception("Angels Sign: certificate signature failed for %s", self.name)
+            return pdf_bytes
+        return signed or pdf_bytes
 
     def _finalize_documents(self):
         self.ensure_one()
