@@ -1,9 +1,13 @@
 """Version-specific helpers: the only code that differs between the 19.0 and 20.0 branches.
 
 Odoo 20 keeps binary field values as ``BinaryValue`` objects (base64 bytes in 19)
-and reads system parameters with typed getters (``get_param`` in 19).
+and reads system parameters with typed getters (``get_param`` in 19). Its
+``PdfSigner`` takes and returns bytes (streams in 19).
 """
 import base64
+import io
+
+from odoo.tools.pdf.signature import PdfSigner
 
 
 def binary_bytes(value):
@@ -23,3 +27,9 @@ def get_flag(env, key):
 
 def set_flag(env, key, value):
     env["ir.config_parameter"].sudo().set_param(key, value)
+
+
+def sign_pdf(pdf_bytes, company, field_name):
+    """PDF signed with the company certificate, or None when it has none usable."""
+    signed = PdfSigner(io.BytesIO(pdf_bytes), company=company).sign_pdf(field_name=field_name)
+    return signed.getvalue() if signed else None

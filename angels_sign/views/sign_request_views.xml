@@ -73,6 +73,8 @@
                             <field name="partner_id" readonly="parent.state != 'draft' and not (can_delegate and state in ('waiting', 'sent', 'viewed'))"/>
                             <field name="signer_name" readonly="parent.state != 'draft' and not (can_delegate and state in ('waiting', 'sent', 'viewed'))"/>
                             <field name="signer_email" required="1" readonly="parent.state != 'draft' and not (can_delegate and state in ('waiting', 'sent', 'viewed'))"/>
+                            <field name="signer_phone" optional="show" required="auth_method == 'sms_otp'"
+                                   readonly="parent.state != 'draft' and not (can_delegate and state in ('waiting', 'sent', 'viewed'))"/>
                             <field name="role_id" optional="hide" readonly="parent.state != 'draft'"/>
                             <field name="auth_method" optional="show" readonly="parent.state != 'draft'"/>
                             <field name="can_delegate" optional="hide" readonly="parent.state != 'draft'"/>

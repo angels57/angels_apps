@@ -10,6 +10,7 @@
                     <field name="partner_id"/>
                     <field name="signer_name"/>
                     <field name="signer_email" required="1"/>
+                    <field name="signer_phone" required="auth_method == 'sms_otp'"/>
                     <field name="auth_method"/>
                     <field name="can_delegate"/>
                 </group>

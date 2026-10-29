@@ -6,14 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20261015\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 01:51+0000\n"
-"PO-Revision-Date: 2026-10-17 01:51+0000\n"
+"POT-Creation-Date: 2026-10-29 11:02+0000\n"
+"PO-Revision-Date: 2026-10-29 11:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: angels_sign
+#. odoo-python
+#: code:addons/angels_sign/models/sign_request_item.py:0
+msgid "%(code)s is your Angels Sign code for %(doc)s. Valid 10 minutes."
+msgstr ""
 
 #. module: angels_sign
 #. odoo-python
@@ -554,6 +560,46 @@ msgid ""
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.module.category,name:angels_sign.module_category_angels_sign
+#: model:ir.ui.menu,name:angels_sign.menu_angels_sign_root
+#: model:res.groups.privilege,name:angels_sign.res_groups_privilege_angels_sign
+#: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
+msgid "Angels Sign"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.model,name:angels_sign.model_sign_editor_mixin
+msgid "Angels Sign PDF Editor"
+msgstr ""
+
+#. module: angels_sign
+#: model_terms:ir.ui.view,arch_db:angels_sign.mail_layout
+#: model_terms:ir.ui.view,arch_db:angels_sign.report_certificate
+msgid "Angels Sign ·"
+msgstr ""
+
+#. module: angels_sign
+#. odoo-python
+#: code:addons/angels_sign/models/sign_request_pdf.py:0
+msgid "Angels Sign · %(code)s · %(hash)s"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.actions.server,name:angels_sign.cron_expire_requests_ir_actions_server
+msgid "Angels Sign: expire requests"
+msgstr ""
+
+#. module: angels_sign
+#: model:res.groups,name:angels_sign.group_manage_template_access
+msgid "Angels Sign: manage template access"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.actions.server,name:angels_sign.cron_send_reminders_ir_actions_server
+msgid "Angels Sign: send reminders"
+msgstr ""
+
+#. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.view_sign_item_type_form
 #: model_terms:ir.ui.view,arch_db:angels_sign.view_sign_item_type_search
 #: model_terms:ir.ui.view,arch_db:angels_sign.view_sign_request_search
@@ -589,7 +635,6 @@ msgid "Audit log entries cannot be modified."
 msgstr ""
 
 #. module: angels_sign
-#: model:ir.model.fields,field_description:angels_sign.field_res_config_settings__module_angels_sign_sms
 #: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
 msgid "Authenticate by SMS"
 msgstr ""
@@ -622,6 +667,11 @@ msgid "Browser"
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__company
+msgid "Building"
+msgstr ""
+
+#. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.sign_page
 msgid ""
 "By clicking Sign, I agree that the chosen signature/initials will be a valid"
@@ -633,6 +683,11 @@ msgstr ""
 #. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.mail_invitation
 msgid "By signing you accept our"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__date
+msgid "Calendar"
 msgstr ""
 
 #. module: angels_sign
@@ -694,6 +749,12 @@ msgid "Certificate of Completion"
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.model.fields,help:angels_sign.field_res_company__signing_certificate_id
+#: model:ir.model.fields,help:angels_sign.field_res_config_settings__signing_certificate_id
+msgid "Certificate used to sign the documents completed with Angels Sign."
+msgstr ""
+
+#. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
 msgid "Certify your documents using a provided .pfx or .p12 file."
 msgstr ""
@@ -703,9 +764,14 @@ msgstr ""
 #: code:addons/angels_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item__type__checkbox
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__base_type__checkbox
-#: model:sign.item.type,name:angels_sign.item_type_checkbox
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__checkbox
+#: model:sign.item.type,name:angels_sign.item_type_checkbox
 msgid "Checkbox"
+msgstr ""
+
+#. module: angels_sign
+#: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
+msgid "Choose \"Email link + SMS code\" as the signer verification."
 msgstr ""
 
 #. module: angels_sign
@@ -866,7 +932,6 @@ msgid "Created on"
 msgstr ""
 
 #. module: angels_sign
-#: model:ir.model.fields,field_description:angels_sign.field_res_config_settings__module_angels_sign_certificate
 #: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
 msgid "Cryptographic signature"
 msgstr ""
@@ -1035,48 +1100,13 @@ msgid "Drawn"
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__selection
+msgid "Drop-down"
+msgstr ""
+
+#. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.report_certificate
 msgid "Each event hash chains to the previous one. Check the signed file at"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.module.category,name:angels_sign.module_category_angels_sign
-#: model:ir.ui.menu,name:angels_sign.menu_angels_sign_root
-#: model:res.groups.privilege,name:angels_sign.res_groups_privilege_angels_sign
-#: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
-msgid "Angels Sign"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model,name:angels_sign.model_sign_editor_mixin
-msgid "Angels Sign PDF Editor"
-msgstr ""
-
-#. module: angels_sign
-#: model_terms:ir.ui.view,arch_db:angels_sign.mail_layout
-#: model_terms:ir.ui.view,arch_db:angels_sign.report_certificate
-msgid "Angels Sign ·"
-msgstr ""
-
-#. module: angels_sign
-#. odoo-python
-#: code:addons/angels_sign/models/sign_request_pdf.py:0
-msgid "Angels Sign · %(code)s · %(hash)s"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.actions.server,name:angels_sign.cron_expire_requests_ir_actions_server
-msgid "Angels Sign: expire requests"
-msgstr ""
-
-#. module: angels_sign
-#: model:res.groups,name:angels_sign.group_manage_template_access
-msgid "Angels Sign: manage template access"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.actions.server,name:angels_sign.cron_send_reminders_ir_actions_server
-msgid "Angels Sign: send reminders"
 msgstr ""
 
 #. module: angels_sign
@@ -1139,6 +1169,11 @@ msgid "Email link"
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_request_item__auth_method__sms_otp
+msgid "Email link + SMS code"
+msgstr ""
+
+#. module: angels_sign
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_request_item__auth_method__email_otp
 msgid "Email link + code"
 msgstr ""
@@ -1147,6 +1182,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/angels_sign/controllers/verify.py:0
 msgid "Enter a verification code or choose the signed PDF."
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__email
+msgid "Envelope"
 msgstr ""
 
 #. module: angels_sign
@@ -1264,11 +1304,6 @@ msgid "Font"
 msgstr ""
 
 #. module: angels_sign
-#: model:ir.model.fields,help:angels_sign.field_sign_item_type__icon
-msgid "Icon of the field in the editor palette."
-msgstr ""
-
-#. module: angels_sign
 #: model:ir.model.fields,help:angels_sign.field_sign_request__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
@@ -1319,6 +1354,11 @@ msgid "ID"
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__id_card
+msgid "ID Card"
+msgstr ""
+
+#. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.report_certificate
 msgid "IP"
 msgstr ""
@@ -1336,6 +1376,11 @@ msgid "Icon"
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.model.fields,help:angels_sign.field_sign_item_type__icon
+msgid "Icon of the field in the editor palette."
+msgstr ""
+
+#. module: angels_sign
 #: model:ir.model.fields,help:angels_sign.field_sign_request__activity_exception_icon
 msgid "Icon to indicate an exception activity."
 msgstr ""
@@ -1347,6 +1392,7 @@ msgstr ""
 
 #. module: angels_sign
 #: model:ir.model.fields,help:angels_sign.field_sign_request__message_has_error
+#: model:ir.model.fields,help:angels_sign.field_sign_request__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -1450,6 +1496,11 @@ msgid "Left"
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__multiline
+msgid "Lines"
+msgstr ""
+
+#. module: angels_sign
 #. odoo-python
 #: code:addons/angels_sign/controllers/main.py:0
 msgid "Link Expired"
@@ -1478,6 +1529,11 @@ msgstr ""
 #. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.sign_page
 msgid "Loading document…"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__location
+msgid "Location"
 msgstr ""
 
 #. module: angels_sign
@@ -1515,6 +1571,11 @@ msgstr ""
 #. module: angels_sign
 #: model:ir.model.fields,field_description:angels_sign.field_sign_request__message_ids
 msgid "Messages"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.model.fields,field_description:angels_sign.field_sign_request_item__signer_phone
+msgid "Mobile"
 msgstr ""
 
 #. module: angels_sign
@@ -1609,6 +1670,12 @@ msgstr ""
 
 #. module: angels_sign
 #. odoo-python
+#: code:addons/angels_sign/models/sign_request_item.py:0
+msgid "No mobile number is set for this signer."
+msgstr ""
+
+#. module: angels_sign
+#. odoo-python
 #: code:addons/angels_sign/controllers/main.py:0
 msgid "Not Your Turn Yet"
 msgstr ""
@@ -1616,6 +1683,11 @@ msgstr ""
 #. module: angels_sign
 #: model:ir.model.fields,field_description:angels_sign.field_sign_log__notes
 msgid "Notes"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__number
+msgid "Number"
 msgstr ""
 
 #. module: angels_sign
@@ -1746,6 +1818,12 @@ msgid "PDF"
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.model.fields,field_description:angels_sign.field_res_company__signing_certificate_id
+#: model:ir.model.fields,field_description:angels_sign.field_res_config_settings__signing_certificate_id
+msgid "PDF Signing Certificate"
+msgstr ""
+
+#. module: angels_sign
 #: model:ir.model.fields,field_description:angels_sign.field_sign_item__page
 #: model_terms:ir.ui.view,arch_db:angels_sign.sign_page
 msgid "Page"
@@ -1768,17 +1846,27 @@ msgid "Pages"
 msgstr ""
 
 #. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__initials
+msgid "Pen"
+msgstr ""
+
+#. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.view_sign_request_search
 msgid "Pending"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__user
+msgid "Person"
 msgstr ""
 
 #. module: angels_sign
 #. odoo-javascript
 #: code:addons/angels_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item__linked_field__partner_id_phone
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__phone
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__linked_field__partner_id_phone
 #: model:sign.item.type,name:angels_sign.item_type_phone
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__phone
 msgid "Phone"
 msgstr ""
 
@@ -1855,8 +1943,8 @@ msgstr ""
 #: code:addons/angels_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item__type__radio
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__base_type__radio
-#: model:sign.item.type,name:angels_sign.item_type_radio
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__radio
+#: model:sign.item.type,name:angels_sign.item_type_radio
 msgid "Radio"
 msgstr ""
 
@@ -2024,7 +2112,7 @@ msgstr ""
 
 #. module: angels_sign
 #: model_terms:ir.ui.view,arch_db:angels_sign.mail_invitation
-msgid "Review &amp; Sign"
+msgid "Review & Sign"
 msgstr ""
 
 #. module: angels_sign
@@ -2051,6 +2139,11 @@ msgstr ""
 #. module: angels_sign
 #: model:ir.model.fields,field_description:angels_sign.field_sign_document__file_hash
 msgid "SHA-256"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.model.fields,field_description:angels_sign.field_sign_request__message_has_sms_error
+msgid "SMS Delivery error"
 msgstr ""
 
 #. module: angels_sign
@@ -2156,9 +2249,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:angels_sign.field_sign_request_item__signature
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item__type__signature
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__base_type__signature
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__signature
 #: model:sign.item.type,name:angels_sign.item_type_signature
 #: model_terms:ir.ui.view,arch_db:angels_sign.report_certificate
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__signature
 msgid "Signature"
 msgstr ""
 
@@ -2401,6 +2494,11 @@ msgid "Signing Order"
 msgstr ""
 
 #. module: angels_sign
+#: model_terms:ir.ui.view,arch_db:angels_sign.res_config_settings_view_form
+msgid "Signing certificate"
+msgstr ""
+
+#. module: angels_sign
 #. odoo-python
 #: code:addons/angels_sign/models/sign_request.py:0
 msgid "Some fields are not assigned to a signer of this request."
@@ -2417,9 +2515,14 @@ msgstr ""
 #: code:addons/angels_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item__type__stamp
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__base_type__stamp
-#: model:sign.item.type,name:angels_sign.item_type_stamp
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__stamp
+#: model:sign.item.type,name:angels_sign.item_type_stamp
 msgid "Stamp"
+msgstr ""
+
+#. module: angels_sign
+#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__star
+msgid "Star"
 msgstr ""
 
 #. module: angels_sign
@@ -2451,8 +2554,8 @@ msgstr ""
 #: code:addons/angels_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item__type__strike
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__base_type__strike
-#: model:sign.item.type,name:angels_sign.item_type_strike
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__strike
+#: model:sign.item.type,name:angels_sign.item_type_strike
 msgid "Strikethrough"
 msgstr ""
 
@@ -2535,8 +2638,8 @@ msgstr ""
 #: code:addons/angels_sign/static/src/editor/palette.js:0
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item__type__text
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__base_type__text
-#: model:sign.item.type,name:angels_sign.item_type_text
 #: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__text
+#: model:sign.item.type,name:angels_sign.item_type_text
 msgid "Text"
 msgstr ""
 
@@ -2687,8 +2790,8 @@ msgstr ""
 #. module: angels_sign
 #: model:ir.model.fields,help:angels_sign.field_sign_template__group_ids
 msgid ""
-"These groups can use the template. Empty groups and users: every Angels Sign "
-"user."
+"These groups can use the template. Empty groups and users: every Angels Sign"
+" user."
 msgstr ""
 
 #. module: angels_sign
@@ -3114,59 +3217,4 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:angels_sign.sign_success
 #: model_terms:ir.ui.view,arch_db:angels_sign.verify_page
 msgid "🌐 <span id=\"esLangLabel\">Español</span>"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__initials
-msgid "Pen"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__user
-msgid "Person"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__email
-msgid "Envelope"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__company
-msgid "Building"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__multiline
-msgid "Lines"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__selection
-msgid "Drop-down"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__date
-msgid "Calendar"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__id_card
-msgid "ID Card"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__number
-msgid "Number"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__location
-msgid "Location"
-msgstr ""
-
-#. module: angels_sign
-#: model:ir.model.fields.selection,name:angels_sign.selection__sign_item_type__icon__star
-msgid "Star"
 msgstr ""

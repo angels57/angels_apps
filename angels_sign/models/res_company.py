@@ -9,3 +9,9 @@ class ResCompany(models.Model):
         string="Terms Display", default="plain", required=True,
     )
     sign_terms = fields.Html(string="Sign Terms & Conditions", translate=True, sanitize=True)
+    # Field name expected by odoo.tools.pdf.signature.PdfSigner.
+    signing_certificate_id = fields.Many2one(
+        "certificate.certificate", string="PDF Signing Certificate",
+        domain="[('company_id', '=', id)]",
+        help="Certificate used to sign the documents completed with Angels Sign.",
+    )

@@ -3,3 +3,5 @@ from . import test_public_routes
 from . import test_pdf_positions
 from . import test_editor
 from . import test_settings
+from . import test_sms_otp
+from . import test_certificate

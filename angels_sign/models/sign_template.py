@@ -134,6 +134,7 @@ class SignTemplate(models.Model):
                 "partner_id": partner.id,
                 "signer_name": partner.name or role.name,
                 "signer_email": partner.email or "",
+                "signer_phone": partner.phone or False,
                 "auth_method": role.auth_method,
                 "can_delegate": role.can_delegate,
             })
