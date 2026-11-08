@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.angels.runonweb</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="priority" eval="95"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="RunOnWeb" string="RunOnWeb" name="angels_runonweb" groups="base.group_system">
+                    <block title="AI in the browser" name="angels_runonweb_settings">
+                        <setting id="runonweb_allow_remote" string="Download missing models from the internet"
+                                 help="Browsers fetch a model from Hugging Face and jsDelivr when it is not on this server.">
+                            <field name="runonweb_allow_remote"/>
+                            <div class="text-muted mt8" invisible="runonweb_allow_remote">
+                                Only models already downloaded to this server can run.
+                            </div>
+                        </setting>
+                        <setting id="runonweb_device" string="Inference device"
+                                 help="Automatic uses WebGPU when the browser has it and WASM otherwise.">
+                            <field name="runonweb_device"/>
+                        </setting>
+                        <setting id="runonweb_lab" string="RunOnWeb Lab"
+                                 help="Download the models to this server and try every task.">
+                            <button name="%(angels_runonweb.action_runonweb_lab)d" type="action"
+                                    string="Open the lab" icon="oi-arrow-right" class="btn-link"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

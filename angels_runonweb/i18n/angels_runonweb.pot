@@ -1,0 +1,411 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* angels_runonweb
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20261015\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-28 23:55+0000\n"
+"PO-Revision-Date: 2026-10-28 23:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: angels_runonweb
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid "AI in the browser"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Allowed"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model.fields.selection,name:angels_runonweb.selection__res_config_settings__runonweb_device__auto
+msgid "Automatic"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model.fields,help:angels_runonweb.field_res_config_settings__runonweb_device
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid "Automatic uses WebGPU when the browser has it and WASM otherwise."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Available"
+msgstr ""
+
+#. module: angels_runonweb
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid ""
+"Browsers fetch a model from Hugging Face and jsDelivr when it is not on this"
+" server."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Clear the model cache"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model,name:angels_runonweb.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Device"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model.fields,field_description:angels_runonweb.field_angels_runonweb__display_name
+#: model:ir.model.fields,field_description:angels_runonweb.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Done"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model.fields,field_description:angels_runonweb.field_res_config_settings__runonweb_allow_remote
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid "Download missing models from the internet"
+msgstr ""
+
+#. module: angels_runonweb
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid "Download the models to this server and try every task."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Download to the server"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Downloading"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Enter a text first."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Enter at least two texts, one per line."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Enter what to search for."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Failed"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "From the internet"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model.fields,field_description:angels_runonweb.field_angels_runonweb__id
+#: model:ir.model.fields,field_description:angels_runonweb.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model.fields,field_description:angels_runonweb.field_res_config_settings__runonweb_device
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid "Inference device"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Internet downloads"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Load"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Loading the model"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Model cache"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Not available"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Not available, WASM will be used"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Not downloaded"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Off"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "On the server"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "One (the page is not cross-origin isolated)"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-python
+#: code:addons/angels_runonweb/models/runonweb.py:0
+msgid "Only administrators can manage the RunOnWeb models."
+msgstr ""
+
+#. module: angels_runonweb
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid "Only models already downloaded to this server can run."
+msgstr ""
+
+#. module: angels_runonweb
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid "Open the lab"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Remove from the server"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Run"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Run time"
+msgstr ""
+
+#. module: angels_runonweb
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid "RunOnWeb"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model,name:angels_runonweb.model_angels_runonweb
+msgid "RunOnWeb Browser AI Runtime"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+#: model:ir.actions.client,name:angels_runonweb.action_runonweb_lab
+#: model:ir.ui.menu,name:angels_runonweb.menu_runonweb_lab
+#: model_terms:ir.ui.view,arch_db:angels_runonweb.res_config_settings_view_form
+msgid "RunOnWeb Lab"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-python
+#: code:addons/angels_runonweb/models/runonweb.py:0
+msgid "RunOnWeb is only available to internal users."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Search for (in English)"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Semantic search"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Several"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Storage folder"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Test all"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Testing"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Text (in English)"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Text to emoji"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Texts to rank, one per line"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "The model cache of this browser is empty."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-python
+#: code:addons/angels_runonweb/models/runonweb.py:0
+msgid "The model could not be downloaded: %s"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-python
+#: code:addons/angels_runonweb/models/runonweb.py:0
+msgid "The model could not be removed: %s"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "This browser"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "This server"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Threads"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid ""
+"To run it, download it to the server or allow internet downloads in "
+"Settings."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid ""
+"Try each task in this browser. Texts and images are processed on this "
+"device."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-python
+#: code:addons/angels_runonweb/models/runonweb.py:0
+msgid "Unknown RunOnWeb task: %s"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Use the example"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model.fields.selection,name:angels_runonweb.selection__res_config_settings__runonweb_device__wasm
+msgid "WASM"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model.fields.selection,name:angels_runonweb.selection__res_config_settings__runonweb_device__webgpu
+msgid "WebGPU"
+msgstr ""
+
+#. module: angels_runonweb
+#: model:ir.model.fields,help:angels_runonweb.field_res_config_settings__runonweb_allow_remote
+msgid ""
+"When a model is not on this server, browsers download it from Hugging Face "
+"and jsDelivr. Leave it off to keep every download on this server."
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "Working"
+msgstr ""
+
+#. module: angels_runonweb
+#. odoo-javascript
+#: code:addons/angels_runonweb/static/src/lab/lab_labels.js:0
+msgid "shared by every task"
+msgstr ""

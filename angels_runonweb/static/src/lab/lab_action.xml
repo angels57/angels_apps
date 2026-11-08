@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="angels_runonweb.LabAction">
+        <div class="o_action o-row-host" t-att-id="this.hostId"/>
+    </t>
+</templates>
